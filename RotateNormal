@@ -1,0 +1,388 @@
+#http://www.nukepedia.com/gizmos/3d/rotatenormals/ v1.0 Hakan Blomdahl
+set cut_paste_input [stack 0]
+version 7.0 v9
+push $cut_paste_input
+add_layer {surface_normal surface_normal.x surface_normal.y surface_normal.z}
+Group {
+name RotateNormals
+help "This will rotate Normal-data using rotation matrixes.\nhttp://en.wikipedia.org/wiki/Rotation_matrix\n\nYou enable Normal-data in the ScanlineRender-node, create a new layer for this.\n\nTip 1:\n Link the rotation knob to the Nuke camera, revert the camera order and then either invert the matrixes or negate the angles.\nThis will convert the Normal data from World Space to Camera Space. I guess. I am no expert on the subject.\n\n\nTip 2:\nPut these in your init.tcl to always render out the normals:\n\nadd_layer \{P P.x P.y P.z\}\nknob_default ScanlineRender.P_channel P\nadd_layer \{N N.x N.y N.z\}\nknob_default ScanlineRender.N_channel N\nknob_default ScanlineRender.output_shader_vectors true\n\nNote:\n In Nuke4.6 and earlier, the Normals is multiplied with the Z, so you need to divide them first. Use Channel Merge for this.\n"
+selected true
+xpos 34846
+ypos 4209
+addUserKnob {20 "" l Parameters}
+addUserKnob {26 "" l Rotation}
+addUserKnob {41 negx t "Multiply x-angle with -1.\nGood if you have linked the rotation data to something and want to reverse it.\n" T RotData.negx}
+addUserKnob {41 negy t "Multiply y-angle with -1.\nGood if you have linked the rotation data to something and want to reverse it.\n" T RotData.negy}
+addUserKnob {41 negz t "Multiply z-angle with -1.\nGood if you have linked the rotation data to something and want to reverse it.\n" T RotData.negz}
+addUserKnob {41 rotate T RotData.rotate}
+addUserKnob {26 ""}
+addUserKnob {4 rotationorder M {XYZ XZY YXZ YZX ZXY ZYX}}
+rotationorder ZXY
+addUserKnob {6 revertorder l "Revert Order" t "Quick order reversal." -STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {41 invertxmatrix t "Inverts the X rotation matrix. (Checks the invert knob on the ColorMatrix Node)\n" T RotData.invertxmatrix}
+addUserKnob {41 invertymatrix t "Inverts the Y rotation matrix. (Checks the invert knob on the ColorMatrix Node)\n" T RotData.invertymatrix}
+addUserKnob {41 invertzmatrix t "Inverts the Z rotation matrix. (Checks the invert knob on the ColorMatrix Node)\n" T RotData.invertzmatrix}
+addUserKnob {26 "" l "Source Channels"}
+addUserKnob {41 from0 l "Normal X" T CopyFrom.from0}
+addUserKnob {41 from1 l "Normal Y" T CopyFrom.from1}
+addUserKnob {41 from2 l "Normal Z" T CopyFrom.from2}
+addUserKnob {26 "" l "Destination Channels"}
+addUserKnob {41 to0 l X T CopyBack.to0}
+addUserKnob {41 to1 l Y T CopyBack.to1}
+addUserKnob {41 to2 l Z T CopyBack.to2}
+}
+BackdropNode {
+inputs 0
+name BackdropNode2
+tile_color 0x8e8e3800
+label "Normal Order"
+note_font_size 32
+xpos -581
+ypos 22
+bdwidth 1001
+bdheight 355
+}
+BackdropNode {
+inputs 0
+name BackdropNode1
+tile_color 0x7171c600
+label "Reverted Order"
+note_font_size 32
+xpos 650
+ypos 4
+bdwidth 1030
+bdheight 354
+}
+NoOp {
+inputs 0
+name RotData
+xpos 1170
+ypos -370
+addUserKnob {20 "" l User}
+addUserKnob {6 invertxmatrix -STARTLINE}
+addUserKnob {6 invertymatrix -STARTLINE}
+addUserKnob {6 invertzmatrix -STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {6 negx -STARTLINE}
+addUserKnob {6 negy -STARTLINE}
+addUserKnob {6 negz -STARTLINE}
+addUserKnob {13 rotate}
+rotate {0 180 0}
+addUserKnob {26 ""}
+addUserKnob {1 alphaexpr}
+alphaexpr (negy?-1:1)*rotate.y/360.0*(2*PI)
+addUserKnob {1 betaexpr}
+betaexpr (negz?-1:1)*rotate.z/360.0*(2*PI)
+addUserKnob {1 gammaexpr}
+gammaexpr (negx?-1:1)*rotate.x/360.0*(2*PI)
+addUserKnob {26 ""}
+addUserKnob {7 alpha}
+alpha {{"\[knob alphaexpr]" i}}
+addUserKnob {7 beta}
+beta {{"\[knob betaexpr]" i}}
+addUserKnob {7 gamma}
+gamma {{"\[knob gammaexpr]" i}}
+}
+Input {
+inputs 0
+name Input1
+xpos 1830
+ypos -610
+}
+Dot {
+name Dot2
+xpos 1863
+ypos -487
+}
+set N20bf65c0 [stack 0]
+Dot {
+name Dot3
+xpos 653
+ypos -477
+}
+set N20bf6930 [stack 0]
+Dot {
+name Dot1
+xpos 433
+ypos -477
+}
+push $N20bf6930
+Copy {
+inputs 2
+from0 surface_normal.x
+to0 rgba.red
+from1 surface_normal.y
+to1 rgba.green
+from2 surface_normal.z
+to2 rgba.blue
+name CopyFrom
+xpos 400
+ypos -367
+}
+Dot {
+name Dot4
+xpos 433
+ypos -175
+}
+set N20bf7380 [stack 0]
+ColorMatrix {
+matrix {
+    {1 0 0}
+    {0 {"cos( \[value RotData.gamma] )" i} {"-1 * sin( \[value RotData.gamma] )" i}}
+    {0 {"sin( \[value RotData.gamma] )" i} {"cos( \[value RotData.gamma] )" i}}
+  }
+invert {{"\[value RotData.invertxmatrix]" i}}
+name ColorMatrix10
+label "ROLL  X\ngamma"
+xpos 1500
+ypos 96
+}
+set C20bf76f0 [stack 0]
+ColorMatrix {
+matrix {
+    {{"cos( \[value RotData.alpha] )" i} 0 {"sin( \[value RotData.alpha] )" i}}
+    {0 1 0}
+    {{"-1 * sin( \[value RotData.alpha] )" i} 0 {"cos( \[value RotData.alpha] )" i}}
+  }
+invert {{"\[value RotData.invertymatrix]" i}}
+name ColorMatrix11
+label "Pitch  Y\nalpha"
+xpos 1500
+ypos 150
+}
+set C20cd9e60 [stack 0]
+ColorMatrix {
+matrix {
+    {{"cos( \[value RotData.beta] )" i} {"-1 * sin( \[value RotData.beta] )" i} 0}
+    {{"sin( \[value RotData.beta] )" i} {"cos( \[value RotData.beta] )" i} 0}
+    {0 0 1}
+  }
+invert {{"\[value RotData.invertzmatrix]"}}
+name ColorMatrix12
+label "Yaw  Z\nbeta"
+xpos 1500
+ypos 204
+}
+set C20cda1d0 [stack 0]
+push $N20bf7380
+clone $C20cd9e60 {
+xpos 1360
+ypos 96
+selected false
+}
+clone $C20bf76f0 {
+xpos 1360
+ypos 150
+selected false
+}
+clone $C20cda1d0 {
+xpos 1360
+ypos 204
+selected false
+}
+push $N20bf7380
+clone $C20cda1d0 {
+xpos 1210
+ypos 102
+selected false
+}
+clone $C20bf76f0 {
+xpos 1210
+ypos 156
+selected false
+}
+clone $C20cd9e60 {
+xpos 1210
+ypos 210
+selected false
+}
+push $N20bf7380
+clone $C20bf76f0 {
+xpos 1047
+ypos 108
+selected false
+}
+clone $C20cda1d0 {
+xpos 1047
+ypos 174
+selected false
+}
+clone $C20cd9e60 {
+xpos 1047
+ypos 228
+selected false
+}
+push $N20bf7380
+clone $C20cd9e60 {
+xpos 890
+ypos 108
+selected false
+}
+clone $C20cda1d0 {
+xpos 890
+ypos 167
+selected false
+}
+clone $C20bf76f0 {
+xpos 890
+ypos 228
+selected false
+}
+push $N20bf7380
+clone $C20cda1d0 {
+xpos 730
+ypos 120
+selected false
+}
+clone $C20cd9e60 {
+xpos 730
+ypos 174
+selected false
+}
+clone $C20bf76f0 {
+xpos 730
+ypos 228
+selected false
+}
+Switch {
+inputs 6
+which {{rotationorder}}
+name Switch2
+xpos 950
+ypos 446
+}
+push $N20bf7380
+clone $C20cda1d0 {
+xpos 240
+ypos 102
+selected false
+}
+clone $C20cd9e60 {
+xpos 240
+ypos 156
+selected false
+}
+clone $C20bf76f0 {
+xpos 240
+ypos 210
+selected false
+}
+push $N20bf7380
+clone $C20cda1d0 {
+xpos 100
+ypos 102
+selected false
+}
+clone $C20bf76f0 {
+xpos 100
+ypos 156
+selected false
+}
+clone $C20cd9e60 {
+xpos 100
+ypos 210
+selected false
+}
+push $N20bf7380
+clone $C20cd9e60 {
+xpos -50
+ypos 108
+selected false
+}
+clone $C20bf76f0 {
+xpos -50
+ypos 162
+selected false
+}
+clone $C20cda1d0 {
+xpos -50
+ypos 216
+selected false
+}
+push $N20bf7380
+clone $C20cd9e60 {
+xpos -213
+ypos 114
+selected false
+}
+clone $C20cda1d0 {
+xpos -213
+ypos 180
+selected false
+}
+clone $C20bf76f0 {
+xpos -213
+ypos 234
+selected false
+}
+push $N20bf7380
+clone $C20bf76f0 {
+xpos -370
+ypos 114
+selected false
+}
+clone $C20cda1d0 {
+xpos -370
+ypos 173
+selected false
+}
+clone $C20cd9e60 {
+xpos -370
+ypos 247
+selected false
+}
+push $N20bf7380
+clone $C20bf76f0 {
+xpos -501
+ypos 102
+selected false
+}
+clone $C20cd9e60 {
+xpos -501
+ypos 171
+selected false
+}
+clone $C20cda1d0 {
+xpos -501
+ypos 234
+selected false
+}
+Switch {
+inputs 6
+which {{rotationorder}}
+name Switch1
+xpos -75
+ypos 422
+}
+Switch {
+inputs 2
+which {{revertorder}}
+name Switch3
+xpos 510
+ypos 542
+}
+Dot {
+name Dot5
+xpos 543
+ypos 665
+}
+push $N20bf65c0
+Copy {
+inputs 2
+from0 rgba.red
+to0 surface_normal.x
+from1 rgba.green
+to1 surface_normal.y
+from2 rgba.blue
+to2 surface_normal.z
+name CopyBack
+xpos 1830
+ypos 641
+}
+Output {
+name Output1
+xpos 1830
+ypos 758
+}
+end_group
