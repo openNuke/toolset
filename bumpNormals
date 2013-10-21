@@ -1,0 +1,420 @@
+#http://www.nukepedia.com/gizmos/other/bumpnormals v1.0 Michael Garrett
+#Changes: 'flip x' & 'flip y' check-boxes added
+set cut_paste_input [stack 0]
+version 7.0 v9
+push 0
+push $cut_paste_input
+add_layer {UV UV.u UV.v}
+add_layer {surface_normal surface_normal.x surface_normal.y surface_normal.z}
+Group {
+inputs 2
+name Bump_Normals
+help "Generate bump for a 3D normals pass in world space.  The input bump texture can either be flat or a 3D render."
+selected true
+xpos 35002
+ypos 4293
+addUserKnob {20 BumpNormals l "Bump Normals"}
+addUserKnob {41 from0 l "bump channel" t "Choose the channel that is used to generate the bump texture." T Bump2Vectors.from0}
+addUserKnob {41 size l "blur amount" T Bump2Vectors.size}
+addUserKnob {41 value l strength T Bump2Vectors.value}
+addUserKnob {41 flipx l "flip x" T Bump2Vectors.flipx}
+addUserKnob {41 flipy l "flip y" T Bump2Vectors.flipy}
+addUserKnob {26 ""}
+addUserKnob {4 bumptexturetype l "bump texture type" t "Use \"flat\" if the input bump is a flat texture that will be wrapped onto the surface using  UV coordinates.  Use \"prerendered 3D\" if you are using an existing 3D texture pass to provide the bump detail." M {flat "prerendered 3D" "" "" ""}}
+addUserKnob {41 in_1 l "bump uv channels" t "Choose a prerendered UV channel.  This only has an effect when the bump texture type is set to \"flat\"." T Shuffle1.in}
+addUserKnob {41 in l "normal in" T MakeBump.in}
+addUserKnob {41 out l "normal out" T MakeBump.out}
+addUserKnob {6 normalise -STARTLINE}
+}
+Input {
+inputs 0
+name in
+xpos 21
+ypos -410
+}
+Dot {
+name Dot1
+xpos 55
+ypos -322
+}
+set N20fb9d20 [stack 0]
+Dot {
+name Dot4
+xpos -41
+ypos -322
+}
+Dot {
+name Dot3
+xpos -41
+ypos -58
+}
+set N20fba400 [stack 0]
+push $N20fb9d20
+Expression {
+channel0 {forward.u -forward.v -backward.u -backward.v}
+expr0 x/width
+channel1 {-forward.u forward.v -backward.u -backward.v}
+expr1 y/height
+channel2 none
+expr2 0
+channel3 {none none none -rgba.alpha}
+name Expression1
+xpos 77
+ypos -266
+}
+push $N20fb9d20
+Shuffle {
+in UV
+out forward
+name Shuffle1
+xpos -30
+ypos -266
+}
+Switch {
+inputs 2
+which {{bumptexturetype i}}
+name Switch1
+xpos 28
+ypos -183
+}
+Input {
+inputs 0
+name bump
+xpos 189
+ypos -286
+number 1
+}
+Group {
+name Bump2Vectors
+selected true
+xpos 189
+ypos -232
+addUserKnob {20 User}
+addUserKnob {41 from0 l "bump channel" T Copy1.from0}
+addUserKnob {41 size l "blur amount" T Blur2.size}
+addUserKnob {41 value l strength T Multiply2.value}
+addUserKnob {41 flipx l "flip x" T SwitchXB.flipx}
+addUserKnob {41 flipy l "flip y" T SwitchYB.flipy}
+}
+Input {
+inputs 0
+name bump
+xpos 240
+ypos -309
+}
+set N20fbb1c0 [stack 0]
+push $N20fbb1c0
+Copy {
+inputs 2
+from0 mask.a
+to0 rgba.red
+name Copy1
+xpos 240
+ypos -225
+}
+Shuffle {
+in rgb
+green red
+blue red
+alpha black
+out rgb
+name Shuffle1
+xpos 240
+ypos -171
+}
+Clamp {
+channels rgb
+maskChannelMask -rgba.alpha
+name Clamp1
+xpos 240
+ypos -146
+}
+Blur {
+channels rgb
+name Blur2
+xpos 240
+ypos -121
+}
+Multiply {
+channels rgb
+value 6
+name Multiply2
+xpos 240
+ypos -96
+}
+set N20fbc2f0 [stack 0]
+Shuffle {
+green black
+blue black
+alpha black
+name Shuffle3
+xpos 199
+ypos -48
+}
+set N20fbc660 [stack 0]
+Position {
+translate {1 0}
+name Position2
+xpos 199
+ypos 7
+}
+set N20fbc9d0 [stack 0]
+push $N20fbc660
+Position {
+translate {-1 0}
+name Position1
+xpos 114
+ypos 7
+}
+set N20fbcd40 [stack 0]
+Switch {
+inputs 2
+which {{flipy}}
+name SwitchXB
+selected true
+xpos 93
+ypos 56
+addUserKnob {20 User}
+addUserKnob {6 flipx l "flip x" +STARTLINE}
+flipx true
+}
+push $N20fbcd40
+push $N20fbc9d0
+Switch {
+inputs 2
+which {{parent.SwitchXB.which}}
+name SwitchXA
+xpos 199
+ypos 57
+}
+ChannelMerge {
+inputs 2
+A rgba.red
+operation minus
+B rgba.red
+output rgba.red
+maskChannelMask -rgba.alpha
+name ChannelMerge1
+xpos 152
+ypos 101
+}
+push $N20fbc2f0
+Shuffle {
+red black
+blue black
+alpha black
+name Shuffle4
+xpos 288
+ypos -49
+}
+set N210a3640 [stack 0]
+Position {
+translate {0 1}
+name Position4
+xpos 376
+ypos 4
+}
+set N210a39b0 [stack 0]
+push $N210a3640
+Position {
+translate {0 -1}
+name Position3
+xpos 288
+ypos 5
+}
+set N210a3d20 [stack 0]
+Switch {
+inputs 2
+which {{flipx}}
+name SwitchYB
+xpos 298
+ypos 53
+addUserKnob {20 User}
+addUserKnob {6 flipy l "flip y" +STARTLINE}
+}
+push $N210a3d20
+push $N210a39b0
+Switch {
+inputs 2
+which {{parent.SwitchYB.which}}
+name SwitchYA
+xpos 404
+ypos 54
+}
+ChannelMerge {
+inputs 2
+A rgba.green
+operation minus
+B rgba.green
+output rgba.green
+maskChannelMask -rgba.alpha
+name ChannelMerge2
+xpos 342
+ypos 108
+}
+Copy {
+inputs 2
+from0 rgba.red
+to0 rgba.red
+name Copy2
+xpos 243
+ypos 161
+}
+Output {
+name Output1
+xpos 243
+ypos 228
+}
+end_group
+STMap {
+inputs 2
+channels rgb
+uv forward
+name STMap1
+xpos 189
+ypos -183
+}
+CopyBBox {
+inputs 2
+name CopyBBox1
+xpos 189
+ypos -62
+}
+push $N20fba400
+Dot {
+name Dot2
+xpos -41
+ypos 9
+}
+Group {
+inputs 2
+name MakeBump
+xpos 189
+ypos 5
+addUserKnob {20 User}
+addUserKnob {41 in l "normal in" T ShuffleN.in}
+addUserKnob {41 out l "normal out" T ShuffleCopy1.out}
+}
+Input {
+inputs 0
+name normal
+xpos 115
+ypos -437
+}
+Dot {
+name Dot3
+xpos 149
+ypos -328
+}
+set N210a58a0 [stack 0]
+Dot {
+name Dot2
+xpos 274
+ypos -328
+}
+Shuffle {
+in surface_normal
+alpha black
+name ShuffleN
+xpos 240
+ypos -271
+}
+Input {
+inputs 0
+name bumpvector
+xpos 344
+ypos -439
+number 1
+}
+Dot {
+name Dot1
+xpos 378
+ypos -204
+}
+MergeExpression {
+inputs 2
+expr0 Ar+Br+Bg
+expr1 Ag+Br+Bg
+expr2 Ab+Br+Bg
+maskChannelMask -rgba.alpha
+name MergeExpression1
+xpos 240
+ypos -208
+}
+set N210a69d0 [stack 0]
+Group {
+name Normalise
+xpos 324
+ypos -150
+}
+Input {
+ inputs 0
+ name Input1
+ selected true
+ xpos -187
+ ypos -119
+}
+set N210a6d40 [stack 0]
+push $N210a6d40
+push $N210a6d40
+MergeExpression {
+ inputs 2
+ channel0 rgb
+ expr0 sqrt((Ar*Br)+(Ag*Bg)+(Ab*Bb))
+ channel1 {-rgba.red -rgba.green -rgba.blue}
+ channel2 {-rgba.red -rgba.green -rgba.blue}
+ channel3 {none none none -rgba.alpha}
+ maskChannelMask -rgba.alpha
+ name MergeExpression3
+ xpos -260
+ ypos 49
+}
+MergeExpression {
+ inputs 2
+ expr0 Ar/Br
+ expr1 Ag/Bg
+ expr2 Ab/Bb
+ channel3 {none none none -rgba.alpha}
+ maskChannelMask -rgba.alpha
+ name MergeExpression4
+ xpos -178
+ ypos 165
+}
+Output {
+ name Output1
+ xpos -178
+ ypos 264
+}
+end_group
+push $N210a69d0
+Switch {
+inputs 2
+which {{parent.parent.normalise i}}
+name Switch1
+xpos 240
+ypos -96
+}
+push $N210a58a0
+ShuffleCopy {
+inputs 2
+red red
+green green
+blue blue
+out surface_normal
+name ShuffleCopy1
+selected true
+xpos 115
+ypos -24
+}
+Output {
+name Output1
+xpos 115
+ypos 50
+}
+end_group
+Output {
+name Output1
+xpos 189
+ypos 84
+}
+end_group
