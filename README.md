@@ -1,10 +1,11 @@
 nukeToolkit
 ===========
 This is a repository of collected nuke tools mainly collected from the internet.
-These tools are commonly used but not included in Nuke.
+- These tools are a collection of commonly used but not included in Nuke.
+- Author name and link of tool are in the headder of the code, licence if different from the Nukepedia one is included in the gitHub extended description.
 - Everything has been converted to plain-text group form, so artist can quickly add a tool to a script without having to worry about dependencies when their script is opened in a different enviroment (i.e. on a different machienes or the farm)
 - All code has been checked for bad channels. (lots of nuke code on the web has bad channels and on some render farm software this error out the render)
-- ===========
+===========
 
 By downloading a file from this repository you agree to the general license terms below.
 Copyright (c) 2010 till present
