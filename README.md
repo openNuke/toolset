@@ -1,8 +1,6 @@
 nukeToolkit
 ===========
 
-Commonly used tools in group, text cut &amp; paste form and checked for bad channels.
-
 By downloading a file from this repository you agree to the general license terms below.
 Copyright (c) 2010 till present
 All rights reserved.
