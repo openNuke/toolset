@@ -1,3 +1,4 @@
+#http://www.vfxwiki.org vb0.1 mrafs
 set cut_paste_input [stack 0]
 version 7.0 v9
 push $cut_paste_input
