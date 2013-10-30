@@ -1,12 +1,11 @@
-#www.vfxwiki.org
 set cut_paste_input [stack 0]
 version 7.0 v9
 push $cut_paste_input
 Group {
  name Keychew
  selected true
- xpos 26417
- ypos 3251
+ xpos 26434
+ ypos 3255
  addUserKnob {20 User l "Key Chew"}
  addUserKnob {26 line l "" +STARTLINE}
  addUserKnob {41 from0 l channel T Copy1.from0}
@@ -49,13 +48,51 @@ push $N1145ad70
   channels alpha
   size {{Chew}}
   name Blur1
-  xpos -64
-  ypos -121
+  xpos -51
+  ypos -257
   addUserKnob {20 User}
   addUserKnob {7 Chew R -300 300}
+  Chew 10
  }
 set N1145b0e0 [stack 0]
+ ColorLookup {
+  channels alpha
+  lut {master {}
+    red {}
+    green {}
+    blue {}
+    alpha {curve 0 x0.400000006 1 x0.400000006 1 x1 0}}
+  name ColorLookupEdge1
+  xpos -183
+  ypos -212
+  addUserKnob {20 User}
+  addUserKnob {7 outsideTCL}
+  outsideTCL {{"\[animation lut.alpha x 1 \[value outside]]"}}
+  addUserKnob {7 outside}
+  outside 0.4
+  addUserKnob {7 inside}
+  inside 0.4
+  addUserKnob {7 insideTCL}
+  insideTCL {{"\[animation lut.alpha x 2 \[value inside]]"}}
+ }
 push $N1145b0e0
+ Switch {
+  inputs 2
+  which {{edgeMatte}}
+  name SwitchEdge
+  xpos -36
+  ypos -206
+  addUserKnob {20 User}
+  addUserKnob {6 edgeMatte l "edge matte" +STARTLINE}
+  edgeMatte true
+ }
+ Dot {
+  name Dot3
+  xpos -26
+  ypos -175
+ }
+set Nf854abb0 [stack 0]
+push $Nf854abb0
  Invert {
   channels alpha
   name Invert1
@@ -105,7 +142,7 @@ push $N1145b0e0
   ypos 149
  }
 set N11518890 [stack 0]
-push $N1145b0e0
+push $Nf854abb0
 push $N11518890
  Merge2 {
   inputs 2
@@ -132,42 +169,11 @@ push $N11518890
  }
  Blur {
   channels rgba
+  size 9
   crop false
   name Blur11
-  selected true
-  xpos -45
-  ypos 631
- }
-set Nf8546a60 [stack 0]
- ColorLookup {
-  channels alpha
-  lut {master {}
-    red {}
-    green {}
-    blue {}
-    alpha {curve 0 x0.400000006 1 x0.6000000238 1 x1 0}}
-  name ColorLookupEdge1
-  xpos 84
-  ypos 709
-  addUserKnob {20 User}
-  addUserKnob {7 outsideTCL}
-  outsideTCL {{"\[animation lut.alpha x 1 \[value outside]]"}}
-  addUserKnob {7 outside}
-  outside 0.4
-  addUserKnob {7 inside}
-  inside 0.6
-  addUserKnob {7 insideTCL}
-  insideTCL {{"\[animation lut.alpha x 2 \[value inside]]"}}
- }
-push $Nf8546a60
- Switch {
-  inputs 2
-  which {{edgeMatte}}
-  name SwitchEdge
-  xpos 231
-  ypos 715
-  addUserKnob {20 User}
-  addUserKnob {6 edgeMatte l "edge matte" +STARTLINE}
+  xpos -30
+  ypos 647
  }
 push $Nf853f8f0
  Copy {
