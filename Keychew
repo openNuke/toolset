@@ -1,0 +1,186 @@
+#www.vfxwiki.org
+set cut_paste_input [stack 0]
+version 7.0 v9
+push $cut_paste_input
+Group {
+ name Keychew
+ selected true
+ xpos 26417
+ ypos 3251
+ addUserKnob {20 User l "Key Chew"}
+ addUserKnob {26 line l "" +STARTLINE}
+ addUserKnob {41 from0 l channel T Copy1.from0}
+ addUserKnob {41 Chew T Blur1.Chew}
+ addUserKnob {41 size l blur T Blur11.size}
+ addUserKnob {41 crop l "crop to format" -STARTLINE T Blur11.crop}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 edgeMatte l "edge matte" T SwitchEdge.edgeMatte}
+ addUserKnob {41 outside T ColorLookupEdge1.outside}
+ addUserKnob {41 inside -STARTLINE T ColorLookupEdge1.inside}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -165
+  ypos -352
+ }
+set N1145ad70 [stack 0]
+ Dot {
+  name Dot2
+  xpos -264
+  ypos -340
+ }
+ Dot {
+  name Dot1
+  xpos -274
+  ypos -257
+ }
+set Nf853f8f0 [stack 0]
+push $N1145ad70
+ Copy {
+  inputs 2
+  from0 {{{Copy1.from0}}}
+  to0 rgba.alpha
+  name Copy2
+  xpos -165
+  ypos -273
+ }
+ Blur {
+  channels alpha
+  size {{Chew}}
+  name Blur1
+  xpos -64
+  ypos -121
+  addUserKnob {20 User}
+  addUserKnob {7 Chew R -300 300}
+ }
+set N1145b0e0 [stack 0]
+push $N1145b0e0
+ Invert {
+  channels alpha
+  name Invert1
+  xpos 104
+  ypos -98
+ }
+ Switch {
+  inputs 2
+  which {{step(1,Blur1.size)}}
+  name Switch1
+  xpos 68
+  ypos -32
+ }
+ Multiply {
+  channels alpha
+  value {{max((abs(Blur1.size))*1.5,1)}}
+  name Multiply1
+  xpos 54
+  ypos 11
+ }
+ Add {
+  channels alpha
+  value -1
+  name Add1
+  xpos 141
+  ypos 62
+ }
+ Multiply {
+  channels alpha
+  value 0.065
+  name Multiply2
+  xpos 141
+  ypos 102
+ }
+ Add {
+  channels alpha
+  value 1
+  name Add2
+  xpos 141
+  ypos 149
+ }
+ Gamma {
+  channels alpha
+  value {{Blur1.size/10000}}
+  name Gamma1
+  xpos -6
+  ypos 149
+ }
+set N11518890 [stack 0]
+push $N1145b0e0
+push $N11518890
+ Merge2 {
+  inputs 2
+  operation minus
+  Achannels alpha
+  Bchannels alpha
+  output alpha
+  name Min
+  xpos 58
+  ypos 358
+ }
+ Switch {
+  inputs 2
+  which {{step(1,Blur1.size) i}}
+  name Switch2
+  xpos -45
+  ypos 571
+ }
+ Clamp {
+  channels alpha
+  name Clamp5
+  xpos -45
+  ypos 595
+ }
+ Blur {
+  channels rgba
+  crop false
+  name Blur11
+  selected true
+  xpos -45
+  ypos 631
+ }
+set Nf8546a60 [stack 0]
+ ColorLookup {
+  channels alpha
+  lut {master {}
+    red {}
+    green {}
+    blue {}
+    alpha {curve 0 x0.400000006 1 x0.6000000238 1 x1 0}}
+  name ColorLookupEdge1
+  xpos 84
+  ypos 709
+  addUserKnob {20 User}
+  addUserKnob {7 outsideTCL}
+  outsideTCL {{"\[animation lut.alpha x 1 \[value outside]]"}}
+  addUserKnob {7 outside}
+  outside 0.4
+  addUserKnob {7 inside}
+  inside 0.6
+  addUserKnob {7 insideTCL}
+  insideTCL {{"\[animation lut.alpha x 2 \[value inside]]"}}
+ }
+push $Nf8546a60
+ Switch {
+  inputs 2
+  which {{edgeMatte}}
+  name SwitchEdge
+  xpos 231
+  ypos 715
+  addUserKnob {20 User}
+  addUserKnob {6 edgeMatte l "edge matte" +STARTLINE}
+ }
+push $Nf853f8f0
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -345
+  ypos 602
+ }
+ Output {
+  name Output1
+  xpos -47
+  ypos 837
+ }
+end_group
