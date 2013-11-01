@@ -1,4 +1,5 @@
 #http://www.nukepedia.com/gizmos/3d/rotatenormals/ v1.0 Hakan Blomdahl
+#licence: https://github.com/vfxwiki/nukeArtistToolkit/blob/master/README.md
 set cut_paste_input [stack 0]
 version 7.0 v9
 push $cut_paste_input
