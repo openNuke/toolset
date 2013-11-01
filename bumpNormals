@@ -1,4 +1,5 @@
 #http://www.nukepedia.com/gizmos/other/bumpnormals v1.0 Michael Garrett
+#licence: https://github.com/vfxwiki/nukeArtistToolkit/blob/master/README.md
 #Changes(www.vfxwiki.org): 'flip x' & 'flip y' check-boxes added
 set cut_paste_input [stack 0]
 version 7.0 v9
