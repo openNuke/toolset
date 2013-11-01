@@ -1,4 +1,4 @@
-#www.vfxwiki.org
+#http://www.vfxwiki.org vb0.1 mrafs
 #licence: https://github.com/vfxwiki/nukeArtistToolkit/blob/master/README.md
 set cut_paste_input [stack 0]
 version 7.0 v9
