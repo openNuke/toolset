@@ -6,15 +6,15 @@ push $cut_paste_input
 Group {
  name Keychew
  selected true
- xpos 26434
- ypos 3255
+ xpos 48267
+ ypos 1287
  addUserKnob {20 User l "Key Chew"}
  addUserKnob {26 line l "" +STARTLINE}
  addUserKnob {41 from0 l channel T Copy1.from0}
  addUserKnob {41 Chew T Blur1.Chew}
  addUserKnob {41 size l blur T Blur11.size}
  addUserKnob {41 crop l "crop to format" -STARTLINE T Blur11.crop}
- addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 ""}
  addUserKnob {41 edgeMatte l "edge matte" T SwitchEdge.edgeMatte}
  addUserKnob {41 outside T ColorLookupEdge1.outside}
  addUserKnob {41 inside -STARTLINE T ColorLookupEdge1.inside}
@@ -25,7 +25,7 @@ Group {
   xpos -165
   ypos -352
  }
-set N1145ad70 [stack 0]
+set N26ff3330 [stack 0]
  Dot {
   name Dot2
   xpos -264
@@ -36,11 +36,11 @@ set N1145ad70 [stack 0]
   xpos -274
   ypos -257
  }
-set Nf853f8f0 [stack 0]
-push $N1145ad70
+set N26ff3a10 [stack 0]
+push $N26ff3330
  Copy {
   inputs 2
-  from0 {{{Copy1.from0}}}
+  from0 {{{Copy1.to0}}}
   to0 rgba.alpha
   name Copy2
   xpos -165
@@ -50,51 +50,49 @@ push $N1145ad70
   channels alpha
   size {{Chew}}
   name Blur1
-  xpos -51
-  ypos -257
+  xpos -40
+  ypos -283
   addUserKnob {20 User}
-  addUserKnob {7 Chew R -300 300}
-  Chew 10
+  addUserKnob {14 Chew R -300 300}
  }
-set N1145b0e0 [stack 0]
+set N26ff40f0 [stack 0]
  ColorLookup {
   channels alpha
   lut {master {}
     red {}
     green {}
     blue {}
-    alpha {curve 0 x0.400000006 1 x0.400000006 1 x1 0}}
+    alpha {curve 0 x0.400000006 1 x0.6000000238 1 x1 0}}
   name ColorLookupEdge1
-  xpos -183
-  ypos -212
+  xpos -164
+  ypos -188
   addUserKnob {20 User}
   addUserKnob {7 outsideTCL}
   outsideTCL {{"\[animation lut.alpha x 1 \[value outside]]"}}
   addUserKnob {7 outside}
   outside 0.4
   addUserKnob {7 inside}
-  inside 0.4
+  inside 0.6
   addUserKnob {7 insideTCL}
   insideTCL {{"\[animation lut.alpha x 2 \[value inside]]"}}
  }
-push $N1145b0e0
+push $N26ff40f0
  Switch {
   inputs 2
   which {{edgeMatte}}
   name SwitchEdge
-  xpos -36
-  ypos -206
+  xpos -54
+  ypos -182
   addUserKnob {20 User}
   addUserKnob {6 edgeMatte l "edge matte" +STARTLINE}
-  edgeMatte true
  }
  Dot {
   name Dot3
-  xpos -26
-  ypos -175
+  xpos -20
+  ypos -149
  }
-set Nf854abb0 [stack 0]
-push $Nf854abb0
+set N26ff47d0 [stack 0]
+push $N26ff47d0
  Invert {
   channels alpha
   name Invert1
@@ -143,9 +141,9 @@ push $Nf854abb0
   xpos -6
   ypos 149
  }
-set N11518890 [stack 0]
-push $Nf854abb0
-push $N11518890
+set N43eb4840 [stack 0]
+push $N26ff47d0
+push $N43eb4840
  Merge2 {
   inputs 2
   operation minus
@@ -171,24 +169,26 @@ push $N11518890
  }
  Blur {
   channels rgba
-  size 9
+  size 25
   crop false
   name Blur11
-  xpos -30
+  xpos -45
   ypos 647
  }
-push $Nf853f8f0
+push $N26ff3a10
+add_layer {grapes grapes.red grapes.green grapes.blue grapes.alpha}
  Copy {
   inputs 2
-  from0 rgba.alpha
-  to0 rgba.alpha
+  to0 grapes.alpha
+  channels rgba
   name Copy1
-  xpos -345
-  ypos 602
+  selected true
+  xpos -343
+  ypos 641
  }
  Output {
   name Output1
-  xpos -47
-  ypos 837
+  xpos -328
+  ypos 831
  }
 end_group
