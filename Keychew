@@ -4,10 +4,10 @@ set cut_paste_input [stack 0]
 version 7.0 v9
 push $cut_paste_input
 Group {
- name Keychew1
+ name Keychew
  selected true
- xpos -1334
- ypos 2960
+ xpos -1142
+ ypos 2892
  addUserKnob {20 User l "Key Chew"}
  addUserKnob {26 line l "" +STARTLINE}
  addUserKnob {41 from0 l channel T Copy1.from0}
@@ -25,7 +25,7 @@ Group {
   xpos -165
   ypos -352
  }
-set Nf911d80 [stack 0]
+set N34f32720 [stack 0]
  Dot {
   name Dot2
   xpos -264
@@ -36,8 +36,8 @@ set Nf911d80 [stack 0]
   xpos -274
   ypos -257
  }
-set N111d0ff0 [stack 0]
-push $Nf911d80
+set N34f32e00 [stack 0]
+push $N34f32720
  Copy {
   inputs 2
   from0 {{{Copy1.from0}}}
@@ -55,7 +55,7 @@ push $Nf911d80
   addUserKnob {20 User}
   addUserKnob {7 Chew R -300 300}
  }
-set N111d16d0 [stack 0]
+set N34f334e0 [stack 0]
  ColorLookup {
   channels alpha
   lut {master {}
@@ -76,7 +76,7 @@ set N111d16d0 [stack 0]
   addUserKnob {7 insideTCL}
   insideTCL {{"\[animation lut.alpha x 2 \[value inside]]+0"}}
  }
-push $N111d16d0
+push $N34f334e0
  Switch {
   inputs 2
   which {{edgeMatte}}
@@ -85,14 +85,15 @@ push $N111d16d0
   ypos -206
   addUserKnob {20 User}
   addUserKnob {6 edgeMatte l "edge matte" +STARTLINE}
+  edgeMatte true
  }
  Dot {
   name Dot3
   xpos -26
   ypos -175
  }
-set N111d1db0 [stack 0]
-push $N111d1db0
+set N34f33bc0 [stack 0]
+push $N34f33bc0
  Invert {
   channels alpha
   name Invert1
@@ -136,14 +137,15 @@ push $N111d1db0
  }
  Gamma {
   channels alpha
-  value {{Blur1.size/10000}}
+  value {{Blur1.size/100000}}
   name Gamma1
-  xpos -6
+  selected true
+  xpos -5
   ypos 149
  }
-set Nfc2e370 [stack 0]
-push $N111d1db0
-push $Nfc2e370
+set N34f35060 [stack 0]
+push $N34f33bc0
+push $N34f35060
  Merge2 {
   inputs 2
   operation minus
@@ -151,7 +153,7 @@ push $Nfc2e370
   Bchannels alpha
   output alpha
   name Min
-  xpos 58
+  xpos 59
   ypos 358
  }
  Switch {
@@ -164,7 +166,6 @@ push $Nfc2e370
  Clamp {
   channels alpha
   name Clamp5
-  selected true
   xpos -45
   ypos 595
  }
@@ -175,7 +176,7 @@ push $Nfc2e370
   xpos -45
   ypos 644
  }
-push $N111d0ff0
+push $N34f32e00
  Copy {
   inputs 2
   to0 rgba.alpha
@@ -187,5 +188,12 @@ push $N111d0ff0
   name Output1
   xpos -47
   ypos 837
+ }
+push $N34f35060
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos -165
+  ypos -253
  }
 end_group
