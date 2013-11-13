@@ -1,0 +1,89 @@
+#http://www.vfxwiki.org vb0.1 mrafs
+#licence: https://github.com/vfxwiki/nukeArtistToolkit
+set cut_paste_input [stack 0]
+version 7.0 v1
+Group {
+ inputs 0
+ name UV_map
+ help "Makes UV map to check the UVs on any geo. Only output to Square formats i.e. 1:1 aspect ratio"
+ selected true
+ xpos 206
+ ypos -132
+ addUserKnob {20 uvMap}
+ addUserKnob {3 checkerboard}
+ checkerboard 1
+ addUserKnob {3 rows l Rows}
+ rows 20
+ addUserKnob {41 format l Resolution T Reformat2.format}
+}
+ Constant {
+  inputs 0
+  channels {rgba.red rgba.green rgba.blue rgba.alpha}
+  format "1 1 0 0 1 1 1 singlePixel"
+  name Constant1
+  xpos -230
+  ypos -177
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.rows}}
+  filter Impulse
+  name Reformat1
+  xpos -230
+  ypos -105
+ }
+ Crop {
+  box {{0} {0} {rows} {rows}}
+  name Crop1
+  xpos -230
+  ypos -81
+ }
+ Expression {
+  expr0 x/width+(1/width)
+  expr1 y/height+(1/height)
+  expr2 min(((x)*0.5==int((x)*0.5)||(y)*0.5==int((y)*0.5)),((x+1)*0.5==int((x+1)*0.5)||(y+1)*0.5==int((y+1)*0.5)))
+  channel3 {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  name Expression1
+  xpos -230
+  ypos -36
+ }
+set N153b44d0 [stack 0]
+ Transform {
+  scale {{parent.checkerboard}}
+  center {{height/2} {width/2}}
+  filter Impulse
+  name Transform1
+  xpos -117
+  ypos -9
+ }
+push $N153b44d0
+ Copy {
+  inputs 2
+  from0 rgba.blue
+  to0 rgba.blue
+  name Copy1
+  xpos -209
+  ypos 25
+ }
+ Reformat {
+  format "512 512 0 0 512 512 1 square_512"
+  resize fit
+  filter Impulse
+  name Reformat2
+  xpos -209
+  ypos 78
+ }
+ Grid {
+  number {{parent.rows}}
+  size {{number>20?(1+(1/number)):1}}
+  name Grid1
+  selected true
+  xpos -230
+  ypos 121
+ }
+ Output {
+  name Output1
+  xpos -230
+  ypos 165
+ }
+end_group
