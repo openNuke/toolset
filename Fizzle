@@ -1,14 +1,14 @@
-#http://www.vfxwiki.org unknown author originaly was called Fizzle
+#http://www.nukepedia.com/gizmos/filter/fizzle/ v2.0 julian van mil
 #licence: https://github.com/vfxwiki/nukeArtistToolkit
 set cut_paste_input [stack 0]
 version 7.0 v1
 push $cut_paste_input
 Group {
- name TvDistortion
+ name Fizzle
  selected true
- xpos -243
- ypos -4
- addUserKnob {20 User l "TV Distortion"}
+ xpos -67
+ ypos -91
+ addUserKnob {20 User l Fizzle}
  addUserKnob {6 distortioncheck l distortion +STARTLINE}
  distortioncheck true
  addUserKnob {6 scanlineenable l scanlines -STARTLINE}
@@ -18,32 +18,33 @@ Group {
  addUserKnob {6 scrollenable l scroll -STARTLINE}
  scrollenable true
  addUserKnob {4 linealign l lines M {Vertical Horizontal Grid None "" "" "" "" "" "" "" "" ""}}
- linealign None
+ linealign Horizontal
  addUserKnob {7 dotsize l "line width" R 0 10}
  dotsize 2
  addUserKnob {41 saturation l "pre saturation" T Saturation1.saturation}
  addUserKnob {41 multiply_1 l tint T Grade1.multiply}
  addUserKnob {7 dotexp l "dot exposure" R -1 1}
- dotexp 0.94
+ dotexp -0.2
  addUserKnob {41 white l "scanline gain" T Grade_scanline.white}
  addUserKnob {41 minimum_enable l enable -STARTLINE T Clamp1.minimum_enable}
- addUserKnob {20 redgroup l "red tube" t "multiply red channel and shit \nit's axis for weakened / missaligned tube gun effect" n 1}
+ addUserKnob {20 redgroup l "red tube" t "multiply red channel and shit it's axis for weakened / missaligned tube gun effect" n 1}
  redgroup 0
  addUserKnob {41 redvalue l "red multiply" T mult_red.value}
  addUserKnob {41 translate l shift T Position_red.translate}
  addUserKnob {20 endGroup n -1}
- addUserKnob {20 greengroup l "green tube" t "multiply green channel \nand shit it's axis for weakened / missaligned tube gun effect" n 1}
+ addUserKnob {20 greengroup l "green tube" t "multiply green channel and shit it's axis for weakened / missaligned tube gun effect" n 1}
  greengroup 0
  addUserKnob {41 greenvalue l "green multiply" T mult_green.value}
  addUserKnob {41 translate_1 l shift T Position_green.translate}
  addUserKnob {20 endGroup_1 l endGroup n -1}
- addUserKnob {20 bluegroup l "blue tube" t "multiply blue channel and \nshit it's axis for weakened / missaligned tube gun effect" n 1}
+ addUserKnob {20 bluegroup l "blue tube" t "multiply blue channel and shit it's axis for weakened / missaligned tube gun effect" n 1}
  bluegroup 0
  addUserKnob {41 bluevalue l "blue multiply" T mult_blues.value}
  addUserKnob {41 translate_2 l shift T Position_blue.translate}
  addUserKnob {20 endGroup_2 l endGroup n -1}
  addUserKnob {41 minimum l "black lift" T Clamp1.minimum}
  addUserKnob {41 mix T final_mix.mix}
+ addUserKnob {26 info l "" +STARTLINE T "\nFizzle v2.0 | by Julian van Mil 2011\nuse fizzle to simulate physical monitor\ndisply patterns and colour corrections"}
  addUserKnob {20 distortion}
  addUserKnob {41 channels T PerspDistort1.channels}
  addUserKnob {41 fov l "Field of View" T PerspDistort1.fov}
@@ -52,18 +53,14 @@ Group {
  addUserKnob {41 filter T PerspDistort1.filter}
  addUserKnob {20 scanlines}
  addUserKnob {4 scanlinedirection l "scanline alignment" M {Horizontal Vertical ""}}
- addUserKnob {4 scanline_behavior l "scanline behavior" M {Sliding Running}}
- scanline_behavior Running
  addUserKnob {41 multiply_2 l multiply T Grade_scanline.multiply}
  addUserKnob {41 black l lift T Grade_scanline.black}
  addUserKnob {7 scanlinesize l "scanline size" R 0 35}
- scanlinesize 430
+ scanlinesize 60
  addUserKnob {41 size l "scanline blur" T Blur1.size}
  addUserKnob {26 scanlineanimationlitile l "scanline animation"}
  addUserKnob {7 scanlineamp l amplitude R 0 300}
- scanlineamp 80
- addUserKnob {7 runningPosition R 0 300}
- runningPosition 236
+ scanlineamp 200
  addUserKnob {7 scanlinefeq l frequency}
  scanlinefeq 0.05
  addUserKnob {41 rotation T CameraShake_sacnline.rotation}
@@ -137,10 +134,10 @@ Group {
   tile_color 0x7171c600
   label "SCANLINE\n"
   note_font_size 42
-  xpos -561
-  ypos 354
-  bdwidth 1469
-  bdheight 854
+  xpos -569
+  ypos 312
+  bdwidth 626
+  bdheight 606
  }
  StickyNote {
   inputs 0
@@ -148,7 +145,27 @@ Group {
   label DISTORTION
   note_font_size 24
   xpos -418
-  ypos 1411
+  ypos 1114
+ }
+ NoOp {
+  inputs 0
+  name flickr_controls
+  xpos -628
+  ypos 155
+  addUserKnob {20 User}
+  addUserKnob {7 scale}
+  scale 0.5
+  addUserKnob {7 speed R 0 2}
+  speed 1
+  addUserKnob {7 seed R 0 100}
+  seed 7.5
+  addUserKnob {7 offset R 0 20}
+  offset 0.8
+  addUserKnob {26 ""}
+  addUserKnob {7 float}
+  float {{"this.scale * (random(frame * this.speed + this.seed)+this.offset)"}}
+  addUserKnob {7 percent}
+  percent {{floor(this.float*100) i}}
  }
  Input {
   inputs 0
@@ -156,7 +173,7 @@ Group {
   xpos -579
   ypos -964
  }
-set N5175d9e0 [stack 0]
+set N644740d0 [stack 0]
  Dot {
   name Dot3
   xpos -771
@@ -165,109 +182,11 @@ set N5175d9e0 [stack 0]
  Dot {
   name Dot4
   xpos -771
-  ypos 1338
+  ypos 1041
  }
-set N51761d90 [stack 0]
- Constant {
-  inputs 0
-  color {{(random(x*0.7)*0.2)+0.8 i}}
-  name Constant2
-  xpos 290
-  ypos 480
-  disable {{!parent.scanlineenable i}}
- }
- Reformat {
-  type "to box"
-  box_width {{Input1.width i}}
-  box_height {{Input1.height i}}
-  box_fixed true
-  scale {1 1}
-  resize fill
-  filter Impulse
-  name Reformat6
-  xpos 290
-  ypos 600
-  disable {{!parent.scanlineenable i}}
- }
- Crop {
-  box {{curve i} {curve i} {Input1.width i} {scanlinesize i}}
-  softness {{0 i} {Blur1.size i}}
-  reformat true
-  crop false
-  name Crop1
-  xpos 290
-  ypos 695
-  disable {{!parent.scanlineenable i}}
- }
-set N51774ec0 [stack 0]
- Transform {
-  translate {{curve i} {slideTime i}}
-  center {{Crop1.width/2 i} {Crop1.height/2 i}}
-  black_outside false
-  name Transform2
-  xpos 510
-  ypos 748
-  disable {{!parent.scanlineenable i}}
-  addUserKnob {20 Parameters l parameters}
-  addUserKnob {7 waveLength}
-  waveLength {{Input1.height+Crop1.height i}}
-  addUserKnob {7 scanlinePosition R 0 200}
-  scanlinePosition {{runningPosition i}}
-  addUserKnob {12 slideTime}
-  slideTime {0 {sawTooth(frame+(scanlinePosition+(scanlineamp*0.5))) i}}
-  addUserKnob {7 sawTooth}
-  sawTooth {{((1-((frame/scanlineamp)-(floor((frame/scanlineamp)))))*waveLength)-Crop1.height i}}
- }
-push 0
-push $N51774ec0
- Transform {
-  translate {{curve i} {slideTime i}}
-  center {{Crop1.width/2 i} {Crop1.height/2 i}}
-  name Transform5
-  xpos 290
-  ypos 782
-  disable {{!parent.scanlineenable i}}
-  addUserKnob {20 Parameters l parameters}
-  addUserKnob {7 waveLength}
-  waveLength {{Input1.height+Crop1.height i}}
-  addUserKnob {7 scanlinePosition R 0 200}
-  scanlinePosition {{runningPosition i}}
-  addUserKnob {12 slideTime}
-  slideTime {0 {sawTooth(frame+scanlinePosition) i}}
-  addUserKnob {7 sawTooth}
-  sawTooth {{((1-((frame/scanlineamp)-(floor((frame/scanlineamp)))))*waveLength)-Crop1.height i}}
- }
- Constant {
-  inputs 0
-  name Constant3
-  xpos 620
-  ypos 807
-  disable {{!parent.scanlineenable i}}
- }
- Reformat {
-  type "to box"
-  box_width {{Input1.width i}}
-  box_height {{Input1.height i}}
-  box_fixed true
-  scale {1 1}
-  resize fill
-  filter Impulse
-  name Reformat7
-  xpos 620
-  ypos 911
-  disable {{!parent.scanlineenable i}}
- }
- Merge2 {
-  inputs 3+1
-  name Merge7
-  xpos 290
-  ypos 905
-  disable {{!parent.scanlineenable i}}
- }
-set N5179f360 [stack 0]
+set N645a6860 [stack 0]
  CheckerBoard2 {
   inputs 0
-  format "1540 1080 0 0 1540 1080 1 Insert01"
   boxsize {{parent.scanlinesize i} {Input1.height i}}
   color0 0
   color1 1
@@ -275,13 +194,12 @@ set N5179f360 [stack 0]
   color3 0
   centerlinewidth 0
   name CheckerBoard5
-  xpos -80
-  ypos 419
+  xpos -78
+  ypos 347
   disable {{!parent.scanlineenable i}}
  }
  CheckerBoard2 {
   inputs 0
-  format "1540 1080 0 0 1540 1080 1 Insert01"
   boxsize {{Input1.width+200 i} {parent.scanlinesize i}}
   color0 {1 1 1 1}
   color1 {1 1 1 1}
@@ -289,16 +207,16 @@ set N5179f360 [stack 0]
   color3 {0 0 0 0}
   centerlinewidth 0
   name CheckerBoard3
-  xpos -200
-  ypos 423
+  xpos -184
+  ypos 347
   disable {{!parent.scanlineenable i}}
  }
  Switch {
   inputs 2
   which {{parent.scanlinedirection i}}
   name scanlineswitch
-  xpos -134
-  ypos 494
+  xpos -132
+  ypos 443
  }
  Reformat {
   type "to box"
@@ -309,96 +227,67 @@ set N5179f360 [stack 0]
   resize fill
   filter Impulse
   name Reformat4
-  xpos -134
-  ypos 542
+  xpos -132
+  ypos 467
  }
  Blur {
-  size 100
+  size 30
   name Blur1
-  xpos -134
-  ypos 578
-  disable {{!parent.scanlineenable i x117 1}}
+  xpos -132
+  ypos 501
+  disable {{!parent.scanlineenable i}}
  }
  Gamma {
   value 0.4
   name Gamma1
-  xpos -134
-  ypos 632
+  xpos -132
+  ypos 530
   disable {{!parent.scanlineenable i}}
  }
-set N3c3d6a60 [stack 0]
+set N64530590 [stack 0]
  CameraShake {
   name CameraShake_sacnline1
-  xpos -56
-  ypos 758
+  xpos -72
+  ypos 600
   disable {{!parent.scanlineenable i}}
   amplitude {{parent.scanlineamp i} 0}
   rotation 3
   frequency {{parent.scanlinefeq i}}
  }
-push $N3c3d6a60
+push $N64530590
  CameraShake {
   name CameraShake_sacnline
   xpos -193
-  ypos 758
+  ypos 598
   disable {{!parent.scanlineenable i}}
   amplitude {0 {parent.scanlineamp i}}
   rotation 3
   frequency {{parent.scanlinefeq i}}
  }
-set N56007600 [stack 0]
+set N6448d370 [stack 0]
  Switch {
   inputs 2
   which {{parent.scanlinedirection i}}
   name scanlineswitch1
   xpos -132
-  ypos 878
+  ypos 708
  }
  Transform {
   center {300 225}
   name Transform_scanlinescale
   xpos -132
-  ypos 974
-  disable {{!parent.scanlinedistortionenable i x416 1}}
+  ypos 778
+  disable {{!parent.scanlinedistortionenable x416 1}}
  }
- Switch {
-  inputs 2
-  which {{scanline_behavior i}}
-  name Switch2
-  xpos -132
-  ypos 1079
-  disable {{!parent.scanlineenable i}}
- }
-push $N5179f360
-push $N56007600
- Switch {
-  inputs 2
-  which {{scanline_behavior i}}
-  name Switch1
-  xpos -260
-  ypos 911
-  disable {{!parent.scanlineenable i}}
- }
+push $N6448d370
 add_layer {rgb rgb.r rgb.g rgb.b rgb.a}
  Constant {
   inputs 0
   channels {rgba.red rgba.green rgba.blue rgba.alpha}
   color {1 1 1 1}
   name Constant1
-  xpos 233
-  ypos -737
- }
- Reformat {
-  type "to box"
-  box_width {{Input1.width i}}
-  box_height {{Input1.height i}}
-  box_fixed true
-  scale {1 1}
-  resize fill
-  filter Impulse
-  name Reformat5
-  xpos 233
-  ypos -601
+  xpos 236
+  ypos -717
  }
  CheckerBoard2 {
   inputs 0
@@ -413,19 +302,7 @@ add_layer {rgb rgb.r rgb.g rgb.b rgb.a}
   xpos -83
   ypos -743
  }
- Reformat {
-  type "to box"
-  box_width {{Input1.width i}}
-  box_height {{Input1.height i}}
-  box_fixed true
-  scale {1 1}
-  resize fill
-  filter Impulse
-  name Reformat1
-  xpos -83
-  ypos -667
- }
-set N56069fa0 [stack 0]
+set N517f59a0 [stack 0]
  CheckerBoard2 {
   inputs 0
   boxsize {{Input1.width i x14 2} {parent.dotsize i}}
@@ -437,8 +314,17 @@ set N56069fa0 [stack 0]
   centerlinewidth 0
   name CheckerBoard4
   xpos 31
-  ypos -753
+  ypos -736
  }
+set N517f7790 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge3
+  xpos 137
+  ypos -665
+ }
+push $N517f7790
  Reformat {
   type "to box"
   box_width {{Input1.width i}}
@@ -451,24 +337,27 @@ set N56069fa0 [stack 0]
   xpos 31
   ypos -664
  }
-set N5607c460 [stack 0]
- Merge2 {
-  inputs 2
-  operation multiply
-  name Merge3
-  xpos 107
-  ypos -520
+push $N517f59a0
+ Reformat {
+  type "to box"
+  box_width {{Input1.width i}}
+  box_height {{Input1.height i}}
+  box_fixed true
+  scale {1 1}
+  resize fill
+  filter Impulse
+  name Reformat1
+  xpos -83
+  ypos -667
  }
-push $N5607c460
-push $N56069fa0
  Switch {
   inputs 4
-  which {{parent.linealign i}}
+  which {{parent.linealign}}
   name alignmentswitch
   xpos -83
   ypos -490
  }
-set N56091ac0 [stack 0]
+set N64540c20 [stack 0]
  Dot {
   name Dot6
   xpos -49
@@ -476,7 +365,6 @@ set N56091ac0 [stack 0]
  }
  CheckerBoard2 {
   inputs 0
-  format "1540 1080 0 0 1540 1080 1 Insert01"
   boxsize {{parent.dotsize i}}
   color0 0
   color1 1
@@ -505,7 +393,7 @@ set N56091ac0 [stack 0]
   xpos 61
   ypos -371
  }
-set N560acc50 [stack 0]
+set N645386e0 [stack 0]
  Transform {
   translate {0 {-parent.dotsize/2 i}}
   center {960 540}
@@ -513,7 +401,7 @@ set N560acc50 [stack 0]
   xpos 61
   ypos -318
  }
-push $N560acc50
+push $N645386e0
  Dot {
   name Dot1
   xpos 233
@@ -526,7 +414,7 @@ push $N560acc50
   xpos 199
   ypos -318
  }
-set N560c0340 [stack 0]
+set N645547b0 [stack 0]
  Transform {
   translate {{parent.dotsize i} {parent.dotsize i}}
   center {960 540}
@@ -534,7 +422,7 @@ set N560c0340 [stack 0]
   xpos 59
   ypos -253
  }
-push $N560c0340
+push $N645547b0
  Merge2 {
   inputs 2
   name Merge6
@@ -546,14 +434,14 @@ push $N560c0340
   xpos 233
   ypos 107
  }
-push $N56091ac0
+push $N64540c20
  Dot {
   name Dot5
   xpos -419
   ypos -487
  }
-set N560e5f30 [stack 0]
-push $N5175d9e0
+set N64504650 [stack 0]
+push $N644740d0
  CameraShake {
   name SCROLL
   xpos -579
@@ -562,18 +450,19 @@ push $N5175d9e0
   amplitude {0 20}
   frequency 0.07
  }
+set N64507fc0 [stack 0]
  Transform {
   center {960 540}
   name Transform1
   xpos -579
-  ypos -731
+  ypos -733
  }
  Dot {
   name Dot7
   xpos -545
   ypos -488
  }
-set N64329e20 [stack 0]
+set N645802c0 [stack 0]
  ShuffleCopy {
   inputs 2
   green black
@@ -584,13 +473,13 @@ set N64329e20 [stack 0]
   postage_stamp true
  }
  Multiply {
-  channels {rgba.red rgba.green rgba.blue none}
-  value 0.05
+  channels rgb
   name mult_red
   xpos -625
   ypos -325
  }
  Position {
+  translate {5 1}
   name Position_red
   xpos -625
   ypos -301
@@ -600,8 +489,8 @@ set N64329e20 [stack 0]
   xpos -625
   ypos -277
  }
-push $N560e5f30
-push $N64329e20
+push $N64504650
+push $N645802c0
  ShuffleCopy {
   inputs 2
   red black
@@ -612,13 +501,13 @@ push $N64329e20
   postage_stamp true
  }
  Multiply {
-  channels {rgba.red rgba.green rgba.blue none}
-  value 0.05
+  channels rgb
   name mult_green
   xpos -511
   ypos -327
  }
  Position {
+  translate {-5 0}
   name Position_green
   xpos -511
   ypos -303
@@ -635,8 +524,8 @@ push $N64329e20
   xpos -511
   ypos -217
  }
-push $N560e5f30
-push $N64329e20
+push $N64504650
+push $N645802c0
  ShuffleCopy {
   inputs 2
   red black
@@ -647,13 +536,13 @@ push $N64329e20
   postage_stamp true
  }
  Multiply {
-  channels {rgba.red rgba.green rgba.blue none}
-  value 0.05
+  channels rgb
   name mult_blues
   xpos -402
   ypos -326
  }
  Position {
+  translate {3 0}
   name Position_blue
   xpos -402
   ypos -302
@@ -671,12 +560,13 @@ push $N64329e20
   ypos -193
  }
  Saturation {
-  saturation 0.3
+  saturation 0.5
   name Saturation1
   xpos -511
   ypos 43
  }
  Grade {
+  multiply {0.45 0.75 1 1}
   name Grade1
   xpos -511
   ypos 67
@@ -691,8 +581,7 @@ push $N64329e20
   ypos 104
  }
  Grade {
-  white 1.1
-  multiply 6
+  multiply 2
   mix {{flickr_controls.float.main}}
   name Grade_flicker
   xpos -511
@@ -701,18 +590,18 @@ push $N64329e20
  }
  Grade {
   inputs 1+1
-  multiply 1.1
+  multiply 2
   name Grade_scanline
   xpos -511
-  ypos 905
-  disable {{!parent.scanlineenable i x75 1 x117 1}}
+  ypos 598
+  disable {{!parent.scanlineenable x75 1}}
  }
 add_layer {scanlinedistort scanlinedistort.u scanlinedistort.v}
  Remove {
   channels scanlinedistort
   name Remove1
   xpos -511
-  ypos 1001
+  ypos 690
   disable {{!parent.scanlinedistortionenable i x416 1}}
  }
  ShuffleCopy {
@@ -723,7 +612,7 @@ add_layer {scanlinedistort scanlinedistort.u scanlinedistort.v}
   out2 scanlinedistort
   name ShuffleCopy5
   xpos -511
-  ypos 1061
+  ypos 778
   disable {{!parent.scanlinedistortionenable i}}
  }
  IDistort {
@@ -731,44 +620,42 @@ add_layer {scanlinedistort scanlinedistort.u scanlinedistort.v}
   uv_scale 3
   name IDistort1
   xpos -511
-  ypos 1145
-  disable {{!parent.scanlinedistortionenable i x117 1}}
+  ypos 821
+  disable {{!parent.scanlinedistortionenable}}
  }
  Clamp {
+  minimum 0.01
   maximum_enable false
   name Clamp1
   xpos -511
-  ypos 1250
+  ypos 953
  }
  ShuffleCopy {
   inputs 2
   name ShuffleCopy4
   xpos -511
-  ypos 1319
+  ypos 1022
  }
-push $N51761d90
+push $N645a6860
  Merge2 {
   inputs 2
   operation plus
   Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
   name final_mix
   xpos -511
-  ypos 1371
+  ypos 1074
  }
  PerspDistort {
-  channels rgba
-  fov 40
   reverse true
-  filter Mitchell
   name PerspDistort1
   xpos -511
-  ypos 1409
+  ypos 1115
   disable {{!parent.distortioncheck x49 1}}
  }
  Output {
   name Output1
   xpos -511
-  ypos 1584
+  ypos 1287
  }
  StickyNote {
   inputs 0
@@ -776,38 +663,14 @@ push $N51761d90
   label "BLACK LIFT"
   note_font_size 24
   xpos -418
-  ypos 1249
+  ypos 952
  }
- NoOp {
-  inputs 0
-  name flickr_controls
-  xpos -628
-  ypos 155
-  addUserKnob {20 User}
-  addUserKnob {7 scale}
-  scale 0.7
-  addUserKnob {7 speed R 0 2}
-  speed 2
-  addUserKnob {7 seed R 0 100}
-  seed 7.5
-  addUserKnob {7 offset R 0 20}
-  offset 0.8
-  addUserKnob {26 ""}
-  addUserKnob {7 float}
-  float {{"this.scale * (random(frame * this.speed + \nthis.seed)+this.offset)"}}
-  addUserKnob {7 percent}
-  percent {{floor(this.float*100) i}}
- }
-push $N51774ec0
-push $N5179f360
+push $N64507fc0
  Viewer {
-  inputs 2
-  frame_range 9-513
-  frame_range_lock true
-  center_fstop 0
   input_process false
   name Viewer1
-  xpos 180
-  ypos 1655
+  xpos -1126
+  ypos -193
  }
 end_group
+
