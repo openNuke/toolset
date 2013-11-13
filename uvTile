@@ -5,85 +5,568 @@ version 7.0 v1
 Group {
  inputs 0
  name UV_map
- help "Makes UV map to check the UVs on any geo. Only output to Square formats i.e. 1:1 aspect ratio"
+ help "Creates a proceedural UV map that can be used to check the UVs on any object. It is normalised in U and V so using a colour sample with allow you to\ncheck the UV location of any point on the model. it is STRONGLY recommended that you only output to Square formats (1:1 aspect ratio)"
  selected true
- xpos 206
- ypos -132
+ xpos 204
+ ypos -134
  addUserKnob {20 uvMap}
- addUserKnob {3 checkerboard}
- checkerboard 1
+ addUserKnob {41 format l Resolution T Reformat.format}
  addUserKnob {3 rows l Rows}
- rows 20
- addUserKnob {41 format l Resolution T Reformat2.format}
+ rows 15
+ addUserKnob {4 blueChannel M {CheckerBoard Alphabet}}
+ addUserKnob {3 checkerboard}
+ checkerboard 3
 }
  Constant {
   inputs 0
-  channels {rgba.red rgba.green rgba.blue rgba.alpha}
+  channels {rgba.red rgba.green rgba.blue -rgba.alpha}
   format "1 1 0 0 1 1 1 singlePixel"
   name Constant1
-  xpos -230
-  ypos -177
+  xpos 126
+  ypos -270
  }
  Reformat {
   type "to box"
   box_width {{parent.rows}}
   filter Impulse
   name Reformat1
-  xpos -230
-  ypos -105
+  xpos 126
+  ypos -198
  }
  Crop {
   box {{0} {0} {rows} {rows}}
   name Crop1
-  xpos -230
-  ypos -81
+  xpos 126
+  ypos -174
  }
  Expression {
   expr0 x/width+(1/width)
   expr1 y/height+(1/height)
   expr2 min(((x)*0.5==int((x)*0.5)||(y)*0.5==int((y)*0.5)),((x+1)*0.5==int((x+1)*0.5)||(y+1)*0.5==int((y+1)*0.5)))
-  channel3 {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  channel3 {-rgba.red -rgba.green -rgba.blue -rgba.alpha}
   name Expression1
-  xpos -230
-  ypos -36
+  xpos 126
+  ypos -141
  }
 set N153b44d0 [stack 0]
+ Dot {
+  name Dot1
+  xpos 36
+  ypos -126
+ }
+ OFXuk.co.thefoundry.furnace.f_rigremoval_v403 {
+  rigRegion Box
+  framesSearched "Forward and Backward"
+  frameRange 4
+  framesUsed "Half of Frames"
+  maxRigMove 30
+  "Rig Region Box" 0
+  regionBL {7 7}
+  regionTR {13 13}
+  Advanced 0
+  filtering Medium
+  lumCorrect false
+  perspCorrect false
+  overlapCorrect 1
+  failOpacity 0.5
+  preserveAlpha false
+  cacheBreaker true
+  name F_RigRemoval1
+  xpos 2
+  ypos -108
+ }
  Transform {
-  scale {{parent.checkerboard}}
-  center {{height/2} {width/2}}
+  translate {-0.1000000015 0.1000000015}
+  scale {{parent.checkerboard x1 0}}
+  center {{height/2 x1 0} {width/2 x1 0}}
   filter Impulse
+  clamp true
   name Transform1
-  xpos -117
-  ypos -9
+  xpos 2
+  ypos -85
  }
 push $N153b44d0
+ Shuffle {
+  blue black
+  alpha black
+  name Shuffle1
+  xpos 126
+  ypos -117
+ }
  Copy {
   inputs 2
   from0 rgba.blue
   to0 rgba.blue
   name Copy1
-  xpos -209
-  ypos 25
+  xpos 126
+  ypos -90
+  disable {{!parent.blueChannel==0}}
  }
  Reformat {
   format "512 512 0 0 512 512 1 square_512"
   resize fit
   filter Impulse
-  name Reformat2
-  xpos -209
-  ypos 78
+  name Reformat
+  xpos 126
+  ypos -56
+ }
+set N153be3b0 [stack 0]
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message U
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{0} {0 x1 0}}
+  center {1024 778}
+  color {1 1 1 1}
+  name Text4
+  xpos -482
+  ypos -56
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message V
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5 x1 512} {height/5}}
+  translate {{width/5} {0}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text2
+  xpos -482
+  ypos -9
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message W
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*2} {0}}
+  center {1024 778}
+  name Text3
+  xpos -482
+  ypos 40
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message X
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*3} {0}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text5
+  xpos -482
+  ypos 84
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message Y
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*4} {0 x1 102.4}}
+  center {1024 778}
+  name Text6
+  xpos -482
+  ypos 130
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message P
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {0 {height/5 x1 0}}
+  scale {1 1}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text7
+  xpos -482
+  ypos 221
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message Q
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5 x1 512} {height/5}}
+  translate {{width/5} {height/5}}
+  center {1024 778}
+  name Text8
+  xpos -482
+  ypos 266
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message R
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*2} {height/5}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text9
+  xpos -482
+  ypos 315
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message S
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*3} {height/5}}
+  center {1024 778}
+  name Text10
+  xpos -482
+  ypos 359
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message T
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*4} {height/5 x1 102.4}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text11
+  xpos -482
+  ypos 407
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message K
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {0 {height/5*2}}
+  center {1024 778}
+  name Text12
+  xpos -482
+  ypos 503
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message L
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5 x1 512} {height/5}}
+  translate {{width/5} {height/5*2}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text13
+  xpos -482
+  ypos 549
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message M
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*2} {height/5*2}}
+  center {1024 778}
+  name Text14
+  xpos -482
+  ypos 598
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message S
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*3} {height/5*2}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text15
+  xpos -482
+  ypos 642
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message O
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*4} {height/5*2 x1 102.4}}
+  center {1024 778}
+  name Text16
+  xpos -482
+  ypos 676
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message F
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {0 {height/5*3}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text17
+  xpos -482
+  ypos 821
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message G
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5 x1 512} {height/5}}
+  translate {{width/5} {height/5*3}}
+  center {1024 778}
+  name Text18
+  xpos -482
+  ypos 855
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message H
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*2} {height/5*3}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text19
+  xpos -482
+  ypos 916
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message I
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*3} {height/5*3}}
+  center {1024 778}
+  name Text20
+  xpos -482
+  ypos 960
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message J
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*4} {height/5*3 x1 102.4}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text21
+  xpos -482
+  ypos 994
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message A
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {0 {height/5*4}}
+  center {1024 778}
+  name Text22
+  xpos -482
+  ypos 1133
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message B
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5 x1 512} {height/5}}
+  translate {{width/5} {height/5*4}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text23
+  xpos -482
+  ypos 1167
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message C
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*2} {height/5*4 x1 307.2}}
+  center {1024 778}
+  name Text24
+  xpos -482
+  ypos 1228
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message D
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*3} {height/5*4}}
+  center {1024 778}
+  color {1 1 0 1}
+  name Text25
+  xpos -482
+  ypos 1272
+ }
+ Text {
+  output {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  message E
+  font /Library/Fonts/Arial.ttf
+  size {{width/8}}
+  xjustify center
+  yjustify center
+  Transform 1
+  box {0 0 {width/5} {height/5}}
+  translate {{width/5*4} {height/5*4 x1 102.4}}
+  center {1024 778}
+  name Text26
+  xpos -482
+  ypos 1306
+ }
+ CheckerBoard2 {
+  inputs 0
+  format "512 512 0 0 512 512 1 square_512"
+  boxsize 105
+  linecolor 0
+  centerlinecolor {0 0 0 0}
+  centerlinewidth 0
+  name CheckerBoard2
+  xpos -180
+  ypos 892
+ }
+ Transform {
+  translate {-50 -50}
+  center {256 256}
+  black_outside false
+  name Transform2
+  xpos -180
+  ypos 964
+ }
+ Crop {
+  box {0 0 512 512}
+  name Crop2
+  xpos -180
+  ypos 988
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -180
+  ypos 1320
+ }
+push $N153be3b0
+ Copy {
+  inputs 2
+  from0 rgba.blue
+  to0 rgba.blue
+  name Copy2
+  selected true
+  xpos 159
+  ypos 1324
+  disable {{parent.blueChannel==0}}
  }
  Grid {
   number {{parent.rows}}
   size {{number>20?(1+(1/number)):1}}
   name Grid1
-  selected true
-  xpos -230
-  ypos 121
+  xpos 159
+  ypos 1496
  }
+set N153c9110 [stack 0]
  Output {
   name Output1
-  xpos -230
-  ypos 165
+  xpos 159
+  ypos 1548
+ }
+ Viewer {
+  inputs 0
+  input_process false
+  name Viewer2
+  xpos 371
+  ypos 1492
+ }
+push $N153c9110
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos -328
+  ypos 1444
  }
 end_group
