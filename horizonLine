@@ -1,6 +1,6 @@
 #http://www.nukepedia.com/gizmos/other/perspective-guide-110 Peter Farkas - Baseblack (London) Ltd.
 #PerspectiveGuide. Nuke gizmo and python script written by Peter Farkas. Original Shake macro written by Adrian Banton and Matt Twyford. Special thanks to Gabor L. Toth and Howard Jones.
-#licence: https://github.com/vfxwiki/nukeArtistToolkit
+#licence: www.nukepedia.com/gizmos/other/perspective-guide-110/start-download
 #Changes(www.vfxwiki.org): Horizon Line added with rotation and reset button. Renamed to HorizonLine
 set cut_paste_input [stack 0]
 version 7.0 v1
