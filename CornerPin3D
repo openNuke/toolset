@@ -1,13 +1,17 @@
+#http://www.vfxwiki.org vb0.1 mrafs
+#licence: https://github.com/vfxwiki/nukeArtistToolkit
 set cut_paste_input [stack 0]
 version 7.0 v1
 push $cut_paste_input
 Group {
-name CornerPin3D1
+name CornerPin3D
 label "\[value method]"
 selected true
-xpos 4883
-ypos 258
+xpos 578
+ypos -1084
 addUserKnob {20 User l CornerPin3D}
+addUserKnob {22 resetCallbacks l INVISIBLE +INVISIBLE T "tnode=nuke.thisNode()\ntnode.begin()\nnuke.toNode('Reconcile3D_1').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_1').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_1').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_2').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_2').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_2').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_3').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_3').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_3').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_4').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_4').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_4').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_1P').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_1P').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_1P').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_2P').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_2P').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_2P').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_3P').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_3P').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_3P').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_4P').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_4P').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_4P').knob('autolabel').setValue(' ')\n\n\ntnode.end()" +STARTLINE}
+addUserKnob {26 ""}
 addUserKnob {41 method T CardMaster.method}
 addUserKnob {41 frameHold l "ref frame" T CardMaster.frameHold}
 addUserKnob {26 ""}
@@ -63,7 +67,7 @@ name Dot7
 xpos 361
 ypos -120
 }
-set Na769b2c0 [stack 0]
+set N1d1da6e0 [stack 0]
 Dot {
 name Dot5
 xpos -1003
@@ -74,13 +78,13 @@ name Dot4
 xpos -1200
 ypos 773
 }
-push $Na769b2c0
+push $N1d1da6e0
 Dot {
 name Dot2
 xpos 351
 ypos 226
 }
-set Na769f170 [stack 0]
+set N459e2a80 [stack 0]
 CornerPin2D {
 to1 {{CardMaster.method==5?Reconcile3D_1.output(CardMaster.frameHold):CardMaster.method==4?Reconcile3D_1P.output:0} {CardMaster.method==5?Reconcile3D_1.output(CardMaster.frameHold):CardMaster.method==4?Reconcile3D_1P.output:0}}
 to2 {{CardMaster.method==5?Reconcile3D_2.output(CardMaster.frameHold):CardMaster.method==4?Reconcile3D_2P.output:0} {CardMaster.method==5?Reconcile3D_2.output(CardMaster.frameHold):CardMaster.method==4?Reconcile3D_2P.output:0}}
@@ -95,7 +99,6 @@ from3 {0 {height}}
 from4 {{width} {height}}
 name CornerPin2DP1
 label Projection
-selected true
 xpos 317
 ypos 427
 disable {{CardMaster.method>3?0:1 x382 1}}
@@ -125,8 +128,9 @@ from2 {{CardMaster.method==3?to2(CardMaster.frameHold):CardMaster.method==1?to2(
 from3 {{CardMaster.method==3?to3(CardMaster.frameHold):CardMaster.method==1?to3(CardMaster.frameHold):0} {CardMaster.method==3?to3(CardMaster.frameHold):CardMaster.method==1?to3(CardMaster.frameHold):height}}
 from4 {{CardMaster.method==3?to4(CardMaster.frameHold):CardMaster.method==1?to4(CardMaster.frameHold):width} {CardMaster.method==3?to4(CardMaster.frameHold):CardMaster.method==1?to4(CardMaster.frameHold):height}}
 name CornerPin2D3
+selected true
 xpos 317
-ypos 526
+ypos 525
 }
 Crop {
 box {{-CardMaster.overscan.w*10 x10 0} {-CardMaster.overscan.h*10 x10 62} {input.width+(CardMaster.overscan.w*10) x10 2048} {input.height+(CardMaster.overscan.h*10) x10 1152}}
@@ -165,7 +169,7 @@ xpos -173
 ypos 155
 addUserKnob {20 User}
 }
-set Na76cd070 [stack 0]
+set N4580dad0 [stack 0]
 Input {
 inputs 0
 name projCam
@@ -173,20 +177,20 @@ xpos -609
 ypos -249
 number 2
 }
-set Na76d69e0 [stack 0]
-push $Na769f170
+set N45819b60 [stack 0]
+push $N459e2a80
 Dot {
 name Dot1
 xpos 308
 ypos 306
 }
-set Na76d9af0 [stack 0]
+set N4581d110 [stack 0]
 Dot {
 name Dot3
 xpos -488
 ypos 210
 }
-set Na76dd420 [stack 0]
+set N458208d0 [stack 0]
 Reconcile3D {
 inputs 3
 calc_output true
@@ -194,6 +198,9 @@ output {{curve x1 1771.456055 1768.721436 1765.975342 1763.218018 1760.450195} {
 outputxyz {{curve x1 -0.4794332385 -0.4727022946 -0.4659468532 -0.4591671228 -0.4523636699} {curve x1 -0.2027650774 -0.2193825543 -0.2360756099 -0.2528433204 -0.269684732} {curve x1 5.351199627 5.354219437 5.357171535 5.360054016 5.362866402}}
 motionblur 1
 name Reconcile3D_2P
+knobChanged " "
+updateUI " "
+autolabel " "
 xpos -710
 ypos 340
 }
@@ -213,15 +220,18 @@ xpos -56
 ypos 156
 addUserKnob {20 User}
 }
-set Na76ebc20 [stack 0]
-push $Na76d69e0
-push $Na76dd420
+set N45a7a590 [stack 0]
+push $N45819b60
+push $N458208d0
 Reconcile3D {
 inputs 3
 calc_output true
 output {{curve x1 1857.993408 1857.000366 1855.998413 1854.987061 1853.966431} {curve x1 1149.431763 1146.837524 1144.243286 1141.647949 1139.050903}}
 outputxyz {{curve x1 -0.5191962719 -0.5154219866 -0.5116576552 -0.5079024434 -0.5041559339} {curve x1 0.1765970886 0.1710013151 0.1654267907 0.15987207 0.1543357521} {curve x1 4.694124699 4.69468689 4.695355892 4.696131706 4.697015762}}
 name Reconcile3D_3P
+knobChanged " "
+updateUI " "
+autolabel " "
 xpos -599
 ypos 336
 }
@@ -241,15 +251,18 @@ xpos 45
 ypos 155
 addUserKnob {20 User}
 }
-set Na8e06de0 [stack 0]
-push $Na76d69e0
-push $Na76dd420
+set N45a564b0 [stack 0]
+push $N45819b60
+push $N458208d0
 Reconcile3D {
 inputs 3
 calc_output true
 output {{curve x1 1311.492188 1304.320923 1297.13501 1289.93457 1282.719604} {curve x1 1166.114868 1164.592407 1163.103027 1161.64624 1160.22168}}
 outputxyz {{curve x1 0.4794332385 0.4933208227 0.507183969 0.521022737 0.5348379016} {curve x1 0.2027650774 0.1987639964 0.194838509 0.1909876615 0.1872104853} {curve x1 4.648800373 4.645780563 4.642828465 4.639945984 4.637133598}}
 name Reconcile3D_4P
+knobChanged " "
+updateUI " "
+autolabel " "
 xpos -490
 ypos 340
 }
@@ -269,27 +282,26 @@ xpos -299
 ypos 161
 addUserKnob {20 User}
 }
-set Na8e1df80 [stack 0]
-push $Na76d69e0
-push $Na76dd420
+set N45aa6510 [stack 0]
+push $N45819b60
+push $N458208d0
 Reconcile3D {
 inputs 3
 calc_output true
 output {{curve x1 1268.259277 1260.017334 1251.751099 1243.460571 1235.145996} {curve x1 942.2962646 934.8740234 927.4228516 919.9431763 912.4355469}}
 outputxyz {{curve x1 0.5191962719 0.5360405445 0.5528947711 0.5697581172 0.5866301656} {curve x1 -0.1765970886 -0.191619873 -0.2066638917 -0.2217277139 -0.2368099838} {curve x1 5.305875301 5.30531311 5.304644108 5.303868294 5.302984238}}
 name Reconcile3D_1P
+knobChanged " "
+updateUI " "
+autolabel " "
 xpos -825
 ypos 336
 }
-push $Na769f170
+push $N459e2a80
 Card2 {
 display textured+lines
 rows 1
 columns 1
-translate {{parent.parent.Card3.translate} {parent.parent.Card3.translate} {parent.parent.Card3.translate}}
-rotate {{parent.parent.Card3.rotate x75 -90} {parent.parent.Card3.rotate x75 94.4} {parent.parent.Card3.rotate x75 0}}
-scaling {{parent.parent.Card3.scaling x75 1} {parent.parent.Card3.scaling x75 1.3} {parent.parent.Card3.scaling x75 1}}
-uniform_scale {{parent.parent.Card3.uniform_scale x75 1}}
 control_points {3 3 3 6 
 
 1 {-0.5 -0.5 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 
@@ -308,7 +320,7 @@ addUserKnob {20 User}
 addUserKnob {4 method M {matchmove "matchmove(ref frame)" stabilize "stabilize(ref frame)" "project(projCam Input)" "project(ref frame)" "" "" "" "" "" "" "" ""}}
 method stabilize
 addUserKnob {3 frameHold l frame -STARTLINE}
-frameHold 382
+frameHold 1
 addUserKnob {7 aspect}
 aspect {{height/width x62 0.93}}
 addUserKnob {13 scaleTotal}
@@ -319,7 +331,7 @@ addUserKnob {6 intersect +STARTLINE}
 intersect true
 addUserKnob {14 overscan -STARTLINE R 0 100}
 }
-push $Na8e1df80
+push $N4580dad0
 Input {
 inputs 0
 name cam
@@ -327,20 +339,8 @@ xpos -132
 ypos -271
 number 1
 }
-set Na8e633e0 [stack 0]
-push $Na76d9af0
-Reconcile3D {
-inputs 3
-calc_output true
-output {{curve x1 1268.259277 1260.017334 1251.751099 1243.460571 1235.145996} {curve x1 942.2962646 934.8740234 927.4228516 919.9431763 912.4355469}}
-outputxyz {{curve x1 0.5191962719 0.5360405445 0.5528947711 0.5697581172 0.5866301656} {curve x1 -0.1765970886 -0.191619873 -0.2066638917 -0.2217277139 -0.2368099838} {curve x1 5.305875301 5.30531311 5.304644108 5.303868294 5.302984238}}
-name Reconcile3D_1
-xpos -338
-ypos 339
-}
-push $Na76cd070
-push $Na8e633e0
-push $Na76d9af0
+set N2321b980 [stack 0]
+push $N4581d110
 Reconcile3D {
 inputs 3
 calc_output true
@@ -348,34 +348,43 @@ output {{curve x1 1771.456055 1768.721436 1765.975342 1763.218018 1760.450195} {
 outputxyz {{curve x1 -0.4794332385 -0.4727022946 -0.4659468532 -0.4591671228 -0.4523636699} {curve x1 -0.2027650774 -0.2193825543 -0.2360756099 -0.2528433204 -0.269684732} {curve x1 5.351199627 5.354219437 5.357171535 5.360054016 5.362866402}}
 motionblur 1
 name Reconcile3D_2
+knobChanged " "
+updateUI " "
+autolabel " "
 xpos -221
 ypos 346
 }
-push $Na76ebc20
-push $Na8e633e0
-push $Na76d9af0
+push $N45a7a590
+push $N2321b980
+push $N4581d110
 Reconcile3D {
 inputs 3
 calc_output true
 output {{curve x1 1857.993408 1857.000366 1855.998413 1854.987061 1853.966431} {curve x1 1149.431763 1146.837524 1144.243286 1141.647949 1139.050903}}
 outputxyz {{curve x1 -0.5191962719 -0.5154219866 -0.5116576552 -0.5079024434 -0.5041559339} {curve x1 0.1765970886 0.1710013151 0.1654267907 0.15987207 0.1543357521} {curve x1 4.694124699 4.69468689 4.695355892 4.696131706 4.697015762}}
 name Reconcile3D_3
+knobChanged " "
+updateUI " "
+autolabel " "
 xpos -112
 ypos 341
 }
-push $Na8e06de0
-push $Na8e633e0
-push $Na76d9af0
+push $N45a564b0
+push $N2321b980
+push $N4581d110
 Reconcile3D {
 inputs 3
 calc_output true
 output {{curve x1 1311.492188 1304.320923 1297.13501 1289.93457 1282.719604} {curve x1 1166.114868 1164.592407 1163.103027 1161.64624 1160.22168}}
 outputxyz {{curve x1 0.4794332385 0.4933208227 0.507183969 0.521022737 0.5348379016} {curve x1 0.2027650774 0.1987639964 0.194838509 0.1909876615 0.1872104853} {curve x1 4.648800373 4.645780563 4.642828465 4.639945984 4.637133598}}
 name Reconcile3D_4
+knobChanged " "
+updateUI " "
+autolabel " "
 xpos -3
 ypos 344
 }
-push $Na769f170
+push $N459e2a80
 CornerPin2D {
 to1 {0 0}
 to2 {2048 0}
@@ -390,5 +399,22 @@ from4 {0 1556}
 name CornerPin2DMaster
 xpos 241
 ypos 245
+}
+push $N45aa6510
+push $N2321b980
+push $N4581d110
+Reconcile3D {
+inputs 3
+calc_output true
+output {{curve x1 1268.259277 1260.017334 1251.751099 1243.460571 1235.145996} {curve x1 942.2962646 934.8740234 927.4228516 919.9431763 912.4355469}}
+outputxyz {{curve x1 0.5191962719 0.5360405445 0.5528947711 0.5697581172 0.5866301656} {curve x1 -0.1765970886 -0.191619873 -0.2066638917 -0.2217277139 -0.2368099838} {curve x1 5.305875301 5.30531311 5.304644108 5.303868294 5.302984238}}
+name Reconcile3D_1
+knobChanged " "
+updateUI " "
+autolabel " "
+xpos -338
+ypos 339
+addUserKnob {20 User}
+addUserKnob {22 testt T "nuke.thisNode().knob('knobChanged').setValue('') " +STARTLINE}
 }
 end_group
