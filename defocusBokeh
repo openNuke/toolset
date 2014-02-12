@@ -1,0 +1,1336 @@
+set cut_paste_input [stack 0]
+version 7.0 v1
+push 0
+push $cut_paste_input
+Group {
+ inputs 2
+ name ConvolveVignette
+ selected true
+ xpos -123
+ ypos 530
+ addUserKnob {20 User l ConvolveVignette}
+ addUserKnob {41 previewMode T CONTROL.previewMode}
+ addUserKnob {20 group l settings n 1}
+ group 0
+ addUserKnob {41 rows T CONTROL.rows}
+ addUserKnob {41 colums T CONTROL.colums}
+ addUserKnob {22 pyBuild l " build rows/colums" -STARTLINE T "import nuke\n\nthisGroup=nuke.thisNode()\nthisGroup.begin()\n    \ndef fillZdefocusKnobs(node):\n    node\['useGPUIfAvailable'].setExpression('ZDefocusCONTROL.useGPUIfAvailable')\n    node\['channels'].setExpression('ZDefocusCONTROL.channels')\n    node\['z_channel'].setExpression('ZDefocusCONTROL.z_channel')\n    node\['math'].setExpression('ZDefocusCONTROL.math')\n    node\['output'].setExpression('ZDefocusCONTROL.output')\n    node\['show_image'].setExpression('ZDefocusCONTROL.show_image')\n    node\['center'].setExpression('ZDefocusCONTROL.center')\n    node\['focal_point'].setExpression('ZDefocusCONTROL.focal_point')\n    node\['dof'].setExpression('ZDefocusCONTROL.dof')\n    node\['blur_dof'].setExpression('ZDefocusCONTROL.blur_dof')\n    node\['size'].setExpression('ZDefocusCONTROL.size')\n    node\['max_size'].setExpression('ZDefocusCONTROL.max_size')\n    node\['autoLayerSpacing'].setExpression('ZDefocusCONTROL.autoLayerSpacing')\n    node\['layers'].setExpression('ZDefocusCONTROL.layers')\n    node\['layerCurve'].setExpression('ZDefocusCONTROL.layerCurve')\n    node\['filter_type'].setExpression('ZDefocusCONTROL.filter_type')\n    node\['filter_channel'].setExpression('ZDefocusCONTROL.filter_channel')\n    node\['use_input_channels'].setExpression('ZDefocusCONTROL.use_input_channels')\n    #node\['use_input_channels'].setValue('rgba.alpha')\n    node\['filter_bounds'].setExpression('ZDefocusCONTROL.filter_bounds')\n    node\['shape'].setExpression('ZDefocusCONTROL.shape')\n    node\['aspect'].setExpression('ZDefocusCONTROL.aspect')\n    node\['blades'].setExpression('ZDefocusCONTROL.blades')\n    node\['roundness'].setExpression('ZDefocusCONTROL.roundness')\n    node\['rotation'].setExpression('ZDefocusCONTROL.rotation')\n    node\['inner_size'].setExpression('ZDefocusCONTROL.inner_size')\n    node\['inner_feather'].setExpression('ZDefocusCONTROL.inner_feather')\n    node\['inner_brightness'].setExpression('ZDefocusCONTROL.inner_brightness')\n    node\['catadioptric_size'].setExpression('ZDefocusCONTROL.catadioptric_size')\n    node\['catadioptric'].setExpression('ZDefocusCONTROL.catadioptric')\n    node\['bloom_gamma'].setExpression('ZDefocusCONTROL.bloom_gamma')\n    node\['bloom'].setExpression('ZDefocusCONTROL.bloom')\n    node\['bloom_threshold'].setExpression('ZDefocusCONTROL.bloom_threshold')\n    node\['bloom_gain'].setExpression('ZDefocusCONTROL.bloom_gain')\n    node\['maskChannelMask'].setExpression('ZDefocusCONTROL.maskChannelMask')\n    node\['maskChannelInput'].setExpression('ZDefocusCONTROL.maskChannelInput')\n    node\['invert_mask'].setExpression('ZDefocusCONTROL.invert_mask')\n    node\['mix'].setExpression('ZDefocusCONTROL.mix')\n    node\['dope_sheet'].setExpression('ZDefocusCONTROL.dope_sheet x1 1')\n\ndef deleteAutoNodes():\n    nuke.selectAll()\n    nuke.invertSelection()    \n    n = nuke.allNodes()\n    for i in n:\n        if i.name()\[0:10] == \"__AUTOpy__\":\n            i.knob(\"selected\").setValue(True)\n    nuke.nodeDelete()\n\ndef copyNode(nodeToCopy) :      \n    nuke.selectAll()\n    nuke.invertSelection()    \n    nukescripts.node_copypaste()\n    \ndef makeNodes():\n    lastMatt=nuke.toNode('NUL_MATT')\n    lastFilter=nuke.toNode('NUL_FILTER')\n    lastImage=nuke.toNode('NUL_IMAGE')\n    lastPreview=nuke.toNode('NUL_PREVIEW')\n    nulControl=nuke.toNode('CONTROL')\n    zDefocusControl=nuke.toNode('ZDefocusCONTROL')\n    gOutput=nuke.toNode('OUTPUT')\n    matrixRows=nulControl\['rows'].value()\n    matrixColums=nulControl\['colums'].value()\n    #position\n    lastMattXPos=lastMatt.xpos()+33\n    lastMattYPos=lastMatt.ypos()\n    lastImageXPos=lastImage.xpos()+33\n    lastImageYPos=lastImage.ypos()\n    lastFilterXPos=lastFilter.xpos()+33\n    lastFilterYPos=lastFilter.ypos()\n    lastPreviewXPos=lastPreview.xpos()+33\n    lastPreviewYPos=lastPreview.ypos()\n    \n    mergeGroup=nuke.nodes.Merge2(name=\"__AUTOpy__Merge_OUT\")\n    mergeGroup\['operation'].setValue('max')\n    \n    for colum in range(0,matrixColums):\n        mergeSubGroup=nuke.nodes.Merge2(name=\"__AUTOpy__MergeSub_\"+str(colum))\n        mergeSubGroup\['operation'].setValue('max')\n        \n        for row in range(0,matrixRows):\n            mattDot=nuke.nodes.Dot(name=\"__AUTOpy__DotMat_\"+str(colum)+'_'+str(row))\n            mattDot.setInput(0, lastMatt)\n            mattDot.setXpos(lastMattXPos)\n            mattDot.setYpos(lastMattYPos+250)\n            #29\n            mattTx=nuke.nodes.Transform(name=\"__AUTOpy__TransformMatt_\"+str(colum)+'_'+str(row))\n            mattTx.setInput(0, mattDot)\n            mattTx.setXpos(mattDot.xpos()+250)\n            mattTx.setYpos(mattDot.ypos())\n            mattTxUserPos = nuke.WH_Knob(\"position\", \"position\")\n            mattTx.addKnob(mattTxUserPos)\n            mattTx\['position'].setValue(\[row,colum]) \n            mattTx\['label'].setValue('\[value position]')\n            mattTx\['translate'].setExpression('(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.vignetteSpread)+1)',0)\n            mattTx\['translate'].setExpression('(-((position.h/CONTROL.colums)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.vignetteSpread)+1)',1)\n            #40\n            filterDot=nuke.nodes.Dot(name=\"__AUTOpy__DotFilter_\"+str(colum)+'_'+str(row))\n            filterDot.setInput(0, lastFilter)\n            filterDot.setXpos(lastFilterXPos)\n            filterDot.setYpos(lastFilterYPos+150)\n            #45\n            filterCrop=nuke.nodes.Crop(name=\"__AUTOpy__CropFilter_\"+str(colum)+'_'+str(row))\n            filterCrop.setInput(0, filterDot)\n            filterCrop.setXpos(filterDot.xpos()+250)\n            filterCrop.setYpos(filterDot.ypos()-3)\n            filterCropUserPos = nuke.WH_Knob(\"position\", \"position\")\n            filterCrop.addKnob(filterCropUserPos)\n            filterCrop\['position'].setValue(\[row,colum])\n            filterCrop\['label'].setValue('\[value position]')\n            filterCrop\['box'].setExpression('(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.doorLeft+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)',0)\n            filterCrop\['box'].setExpression('(-(((position.h+0.5)/CONTROL.colums)-0.5)*(CONTROL.doorBottom+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)',1)\n            filterCrop\['box'].setExpression('(input.width)-(((position.w/CONTROL.rows)-0.5)*(CONTROL.doorRight+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)',2)\n            filterCrop\['box'].setExpression('input.height-(((position.h/CONTROL.colums)-0.5)*(CONTROL.doorTop+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)',3)\n            filterCrop\['softness'].setExpression('CONTROL.doorSoftness')\n            #59\n            imageDot=nuke.nodes.Dot(name=\"__AUTOpy__DotImage_\"+str(colum)+'_'+str(row))\n            imageDot.setInput(0, lastImage)\n            imageDot.setXpos(lastImageXPos)\n            imageDot.setYpos(lastImageYPos+150)\n            #64\n            imageCrop=nuke.nodes.Crop(name=\"__AUTOpy__CropImage_\"+str(colum)+'_'+str(row))\n            imageCrop.setInput(0, imageDot)\n            imageCrop.setXpos(imageDot.xpos()+50)\n            imageCrop.setYpos(imageDot.ypos()-3)\n            imageCrop\['softness'].setExpression('CONTROL.cropSoftnessPixels')\n            imageCropUserPos = nuke.WH_Knob(\"position\", \"position\")\n            imageCrop.addKnob(imageCropUserPos)\n            imageCrop\['position'].setValue(\[row,colum]) \n            imageCrop\['label'].setValue('\[value position]')\n            imageCrop\['box'].setExpression('((position.w)*CONTROL.cropSize.w)-CONTROL.cropSoftnessPixels.w',0)\n            imageCrop\['box'].setExpression('((position.h)*CONTROL.cropSize.h)-CONTROL.cropSoftnessPixels.h',1)\n            imageCrop\['box'].setExpression('((position.w)*CONTROL.cropSize.w)+CONTROL.cropSize.w+CONTROL.cropSoftnessPixels.w',2)\n            imageCrop\['box'].setExpression('(position.h)*CONTROL.cropSize.h+CONTROL.cropSize.h+CONTROL.cropSoftnessPixels.h',3)\n            #78\n            mergeFilter=nuke.nodes.Merge(name=\"__AUTOpy__MergeFilter_\"+str(colum)+'_'+str(row))\n            mergeFilter.setInput(0, mattTx)\n            mergeFilter.setInput(1, filterCrop)\n            mergeFilter\['operation'].setValue('mask')\n            mergeFilter.setXpos(filterCrop.xpos())\n            mergeFilter.setYpos(mattTx.ypos())\n            #84\n            previewReformat=nuke.nodes.Reformat(name=\"__AUTOpy__previewReformat_\"+str(colum)+'_'+str(row))\n            previewReformat.setInput(0, mergeFilter)\n            previewReformat.setXpos(mergeFilter.xpos())\n            previewReformat.setYpos(mergeFilter.ypos()+40)\n            previewReformat\['type'].setValue(1)\n            previewReformat\['box_width'].setExpression('CONTROL.cropSize.w')\n            previewReformat\['box_height'].setExpression('CONTROL.cropSize.h')\n            previewReformat\['box_fixed'].setValue('true')\n            previewReformat\['resize'].setValue('fit')\n            previewReformat\['black_outside'].setValue('true')\n            #84\n            previewTx=nuke.nodes.Transform(name=\"__AUTOpy__PreviewTx_\"+str(colum)+'_'+str(row))\n            previewTx.setInput(0, previewReformat)\n            previewTx.setXpos(previewReformat.xpos())\n            previewTx.setYpos(previewReformat.ypos()+40)\n            previewTxUserPos = nuke.WH_Knob(\"position\", \"position\")\n            previewTx.addKnob(previewTxUserPos)\n            previewTx\['position'].setValue(\[row,colum]) \n            previewTx\['label'].setValue('\[value position]')\n            previewTx\['translate'].setExpression('((position.w)*CONTROL.cropSize.w)',0)\n            previewTx\['translate'].setExpression('((position.h)*CONTROL.cropSize.h)',1)\n            #78\n            previewMerge=nuke.nodes.Merge(name=\"__AUTOpy__previewMerge_\"+str(colum)+'_'+str(row))\n            previewMerge.setInput(1, previewTx)\n            previewMerge.setInput(0, lastPreview)\n            previewMerge.setXpos(lastPreview.xpos())\n            previewMerge.setYpos(previewTx.ypos())\n            previewMerge\['operation'].setValue('max')\n            #84\n            zDefocus=nuke.nodes.ZDefocus2(name=\"__AUTOpy__ZDefocus_\"+str(colum)+'_'+str(row))\n            fillZdefocusKnobs(zDefocus)\n            zDefocus.setInput(0, imageCrop)\n            zDefocus.setInput(1, mergeFilter)\n            zDefocus.setXpos(imageCrop.xpos())\n            zDefocus.setYpos(mergeFilter.ypos())\n            #90\n    \n            #93\n            lastMatt=mattDot\n            lastFilter=filterDot\n            lastImage=imageDot\n            lastPreview=previewMerge\n            lastMattXPos=mattDot.xpos()\n            lastMattYPos=mattDot.ypos()\n            lastImageXPos=imageDot.xpos()\n            lastImageYPos=imageDot.ypos()+100\n            lastFilterXPos=filterDot.xpos()\n            lastFilterYPos=filterDot.ypos()+100\n            lastPreviewXPos=lastPreview.xpos()\n            lastPreviewYPos=lastPreview.ypos()+100\n            #       \n            if row >1:\n                rowInput=row+1\n            else:\n             rowInput=row\n            mergeSubGroup.setInput(rowInput, zDefocus)\n        mergeSubGroup.setXpos(imageCrop.xpos()+700)\n        mergeSubGroup.setYpos(mergeFilter.ypos())\n        if colum >1:\n         columInput=colum+1\n        else:\n         columInput=colum\n        mergeGroup.setInput(columInput, mergeSubGroup)\n    \n        lastMattYPos=lastMattYPos+300\n        lastImageYPos=lastImageYPos+300\n        lastFilterYPos=lastFilterYPos+300\n        \n    mergeGroup.setXpos(mergeSubGroup.xpos()+700)\n    mergeGroup.setYpos(mergeSubGroup.ypos())\n    previewCopy=nuke.nodes.Copy(name=\"__AUTOpy__PreviewCopy_\")\n    previewCopy.setInput(0, lastPreview)\n    previewCopy.setInput(1, lastPreview)\n    previewCopy\['from0'].setExpression('ZDefocusCONTROL.filter_channel')\n    previewCopy\['from1'].setExpression('ZDefocusCONTROL.filter_channel')\n    previewCopy\['from2'].setExpression('ZDefocusCONTROL.filter_channel')\n    previewCopy\['to0'].setValue('rgba.red')\n    previewCopy\['to1'].setValue('rgba.green')\n    previewCopy\['to2'].setValue('rgba.blue')\n    previewCopy.setXpos(lastPreview.xpos())\n    previewCopy.setYpos(lastPreview.ypos()+30)\n    \n    previewSwitch=nuke.nodes.Switch(name=\"__AUTOpy__PreviewSwitch_\")\n    previewSwitch.setInput(0, mergeGroup)\n    previewSwitch.setInput(1, previewCopy)\n    previewSwitch\['which'].setExpression('CONTROL.previewMode')\n    \n    gOutput.setInput(0, previewSwitch)\n    gOutput.setXpos(previewSwitch.xpos())\n    gOutput.setYpos(previewSwitch.ypos()+100)\n\ndeleteAutoNodes()\nmakeNodes()\n\nnuke.message('end')\n"}
+ addUserKnob {41 cropSoftnessPercent_1 l "overlap blend percent" T CONTROL.cropSoftnessPercent}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {41 convolve l INVISIBLE +INVISIBLE T CONTROL.convolve}
+ addUserKnob {26 ""}
+ addUserKnob {41 vignetteSoftness T CONTROL.vignetteSoftness}
+ addUserKnob {41 vignetteSize T CONTROL.vignetteSize}
+ addUserKnob {41 vignetteSpread T CONTROL.vignetteSpread}
+ addUserKnob {26 ""}
+ addUserKnob {26 text l "barn doors" T ""}
+ addUserKnob {41 doorSoftness T CONTROL.doorSoftness}
+ addUserKnob {41 doorSpread T CONTROL.doorSpread}
+ addUserKnob {41 doorTop T CONTROL.doorTop}
+ addUserKnob {41 doorBottom T CONTROL.doorBottom}
+ addUserKnob {41 doorLeft T CONTROL.doorLeft}
+ addUserKnob {41 doorRight T CONTROL.doorRight}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x8e8e3800
+  label CONTROLS
+  note_font_size 42
+  xpos 890
+  ypos 99
+  bdwidth 269
+  bdheight 118
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x388e8e00
+  note_font_size 42
+  xpos -407
+  ypos -265
+  bdwidth 850
+  bdheight 590
+ }
+ Reformat {
+  inputs 0
+  name Reformat1
+  xpos -625
+  ypos 2135
+ }
+ Input {
+  inputs 0
+  name filter
+  xpos -391
+  ypos -64
+  number 1
+ }
+ NoOp {
+  name INPUT_SAMPLE
+  xpos -391
+  ypos 62
+  addUserKnob {20 User}
+  addUserKnob {14 inputSize R 0 100}
+  inputSize {{input.width} {input.height}}
+ }
+set N29b53970 [stack 0]
+ Dot {
+  name Dot3
+  xpos -224
+  ypos 160
+ }
+ NoOp {
+  name NUL_FILTER
+  xpos -258
+  ypos 297
+ }
+ Dot {
+  name __AUTOpy__DotFilter_0_0
+  xpos -225
+  ypos 447
+ }
+set N29b5e8e0 [stack 0]
+ Dot {
+  name __AUTOpy__DotFilter_0_1
+  xpos -225
+  ypos 697
+ }
+set N29b620d0 [stack 0]
+ Dot {
+  name __AUTOpy__DotFilter_0_2
+  xpos -225
+  ypos 947
+ }
+set N29b658c0 [stack 0]
+ Dot {
+  name __AUTOpy__DotFilter_1_0
+  xpos -225
+  ypos 1497
+ }
+set N29b690f0 [stack 0]
+ Dot {
+  name __AUTOpy__DotFilter_1_1
+  xpos -225
+  ypos 1747
+ }
+set N29b6c8e0 [stack 0]
+ Dot {
+  name __AUTOpy__DotFilter_1_2
+  xpos -225
+  ypos 1997
+ }
+set N29b700d0 [stack 0]
+ Dot {
+  name __AUTOpy__DotFilter_2_0
+  xpos -225
+  ypos 2547
+ }
+set N29b738c0 [stack 0]
+ Dot {
+  name __AUTOpy__DotFilter_2_1
+  xpos -225
+  ypos 2797
+ }
+set N29b770b0 [stack 0]
+ Dot {
+  name __AUTOpy__DotFilter_2_2
+  xpos -225
+  ypos 3047
+ }
+ Crop {
+  box {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.doorLeft+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {(-(((position.h+0.5)/CONTROL.colums)-0.5)*(CONTROL.doorBottom+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)} {(input.width)-(((position.w/CONTROL.rows)-0.5)*(CONTROL.doorRight+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {input.height-(((position.h/CONTROL.colums)-0.5)*(CONTROL.doorTop+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)}}
+  softness {{CONTROL.doorSoftness}}
+  name __AUTOpy__CropFilter_2_2
+  label "\[value position]"
+  xpos 25
+  ypos 3044
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 2}
+ }
+push $N29b53970
+ Dot {
+  name Dot5
+  xpos -448
+  ypos 65
+ }
+ Dot {
+  name Dot4
+  xpos -448
+  ypos 160
+ }
+push $N29b53970
+ Remove {
+  name Remove1
+  xpos -391
+  ypos 98
+ }
+ Copy {
+  inputs 2
+  from0 {{{ZDefocusCONTROL.filter_channel}}}
+  to0 rgba.alpha
+  bbox B
+  name Copy1
+  xpos -391
+  ypos 152
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle1
+  xpos -391
+  ypos 200
+ }
+ Radial {
+  output {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  area {0 0 {input.width} {input.height}}
+  softness {{CONTROL.vignetteSoftness x1 0.845}}
+  name Radial3
+  xpos -391
+  ypos 239
+ }
+ NoOp {
+  name NUL_MATT
+  xpos -391
+  ypos 297
+ }
+ Dot {
+  name __AUTOpy__DotMat_0_0
+  xpos -358
+  ypos 547
+ }
+set N29bb49c0 [stack 0]
+ Dot {
+  name __AUTOpy__DotMat_0_1
+  xpos -358
+  ypos 797
+ }
+set N29bb81e0 [stack 0]
+ Dot {
+  name __AUTOpy__DotMat_0_2
+  xpos -358
+  ypos 1047
+ }
+set N29bbb9d0 [stack 0]
+ Dot {
+  name __AUTOpy__DotMat_1_0
+  xpos -358
+  ypos 1597
+ }
+set N29bbf1c0 [stack 0]
+ Dot {
+  name __AUTOpy__DotMat_1_1
+  xpos -358
+  ypos 1847
+ }
+set N29bc29e0 [stack 0]
+ Dot {
+  name __AUTOpy__DotMat_1_2
+  xpos -358
+  ypos 2097
+ }
+set N29bc61d0 [stack 0]
+ Dot {
+  name __AUTOpy__DotMat_2_0
+  xpos -358
+  ypos 2647
+ }
+set N29bc99c0 [stack 0]
+ Dot {
+  name __AUTOpy__DotMat_2_1
+  xpos -358
+  ypos 2897
+ }
+set N29bcd1c0 [stack 0]
+ Dot {
+  name __AUTOpy__DotMat_2_2
+  xpos -358
+  ypos 3147
+ }
+ Transform {
+  translate {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.vignetteSpread)+1)} {(-((position.h/CONTROL.colums)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.vignetteSpread)+1)}}
+  name __AUTOpy__TransformMatt_2_2
+  label "\[value position]"
+  xpos -108
+  ypos 3147
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 2}
+ }
+ Merge {
+  inputs 2
+  operation mask
+  name __AUTOpy__MergeFilter_2_2
+  xpos 25
+  ypos 3147
+ }
+set N29bddce0 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{CONTROL.cropSize.w}}
+  box_height {{CONTROL.cropSize.h}}
+  box_fixed true
+  resize fit
+  black_outside true
+  name __AUTOpy__previewReformat_2_2
+  xpos 25
+  ypos 3187
+ }
+ Transform {
+  translate {{((position.w)*CONTROL.cropSize.w)} {((position.h)*CONTROL.cropSize.h)}}
+  name __AUTOpy__PreviewTx_2_2
+  label "\[value position]"
+  xpos 25
+  ypos 3227
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 2}
+ }
+push $N29b770b0
+ Crop {
+  box {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.doorLeft+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {(-(((position.h+0.5)/CONTROL.colums)-0.5)*(CONTROL.doorBottom+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)} {(input.width)-(((position.w/CONTROL.rows)-0.5)*(CONTROL.doorRight+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {input.height-(((position.h/CONTROL.colums)-0.5)*(CONTROL.doorTop+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)}}
+  softness {{CONTROL.doorSoftness}}
+  name __AUTOpy__CropFilter_2_1
+  label "\[value position]"
+  xpos 25
+  ypos 2794
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 2}
+ }
+push $N29bcd1c0
+ Transform {
+  translate {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.vignetteSpread)+1)} {(-((position.h/CONTROL.colums)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.vignetteSpread)+1)}}
+  name __AUTOpy__TransformMatt_2_1
+  label "\[value position]"
+  xpos -108
+  ypos 2897
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 2}
+ }
+ Merge {
+  inputs 2
+  operation mask
+  name __AUTOpy__MergeFilter_2_1
+  xpos 25
+  ypos 2897
+ }
+set N2ba10ee0 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{CONTROL.cropSize.w}}
+  box_height {{CONTROL.cropSize.h}}
+  box_fixed true
+  resize fit
+  black_outside true
+  name __AUTOpy__previewReformat_2_1
+  xpos 25
+  ypos 2937
+ }
+ Transform {
+  translate {{((position.w)*CONTROL.cropSize.w)} {((position.h)*CONTROL.cropSize.h)}}
+  name __AUTOpy__PreviewTx_2_1
+  label "\[value position]"
+  xpos 25
+  ypos 2977
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 2}
+ }
+push $N29b738c0
+ Crop {
+  box {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.doorLeft+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {(-(((position.h+0.5)/CONTROL.colums)-0.5)*(CONTROL.doorBottom+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)} {(input.width)-(((position.w/CONTROL.rows)-0.5)*(CONTROL.doorRight+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {input.height-(((position.h/CONTROL.colums)-0.5)*(CONTROL.doorTop+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)}}
+  softness {{CONTROL.doorSoftness}}
+  name __AUTOpy__CropFilter_2_0
+  label "\[value position]"
+  xpos 25
+  ypos 2544
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 2}
+ }
+push $N29bc99c0
+ Transform {
+  translate {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.vignetteSpread)+1)} {(-((position.h/CONTROL.colums)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.vignetteSpread)+1)}}
+  name __AUTOpy__TransformMatt_2_0
+  label "\[value position]"
+  xpos -108
+  ypos 2647
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 2}
+ }
+ Merge {
+  inputs 2
+  operation mask
+  name __AUTOpy__MergeFilter_2_0
+  xpos 25
+  ypos 2647
+ }
+set N2ba40150 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{CONTROL.cropSize.w}}
+  box_height {{CONTROL.cropSize.h}}
+  box_fixed true
+  resize fit
+  black_outside true
+  name __AUTOpy__previewReformat_2_0
+  xpos 25
+  ypos 2687
+ }
+ Transform {
+  translate {{((position.w)*CONTROL.cropSize.w)} {((position.h)*CONTROL.cropSize.h)}}
+  name __AUTOpy__PreviewTx_2_0
+  label "\[value position]"
+  xpos 25
+  ypos 2727
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 2}
+ }
+push $N29b700d0
+ Crop {
+  box {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.doorLeft+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {(-(((position.h+0.5)/CONTROL.colums)-0.5)*(CONTROL.doorBottom+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)} {(input.width)-(((position.w/CONTROL.rows)-0.5)*(CONTROL.doorRight+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {input.height-(((position.h/CONTROL.colums)-0.5)*(CONTROL.doorTop+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)}}
+  softness {{CONTROL.doorSoftness}}
+  name __AUTOpy__CropFilter_1_2
+  label "\[value position]"
+  xpos 25
+  ypos 1994
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 1}
+ }
+push $N29bc61d0
+ Transform {
+  translate {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.vignetteSpread)+1)} {(-((position.h/CONTROL.colums)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.vignetteSpread)+1)}}
+  name __AUTOpy__TransformMatt_1_2
+  label "\[value position]"
+  xpos -108
+  ypos 2097
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 1}
+ }
+ Merge {
+  inputs 2
+  operation mask
+  name __AUTOpy__MergeFilter_1_2
+  xpos 25
+  ypos 2097
+ }
+set N2ba6f3b0 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{CONTROL.cropSize.w}}
+  box_height {{CONTROL.cropSize.h}}
+  box_fixed true
+  resize fit
+  black_outside true
+  name __AUTOpy__previewReformat_1_2
+  xpos 25
+  ypos 2137
+ }
+ Transform {
+  translate {{((position.w)*CONTROL.cropSize.w)} {((position.h)*CONTROL.cropSize.h)}}
+  name __AUTOpy__PreviewTx_1_2
+  label "\[value position]"
+  xpos 25
+  ypos 2177
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 1}
+ }
+push $N29b6c8e0
+ Crop {
+  box {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.doorLeft+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {(-(((position.h+0.5)/CONTROL.colums)-0.5)*(CONTROL.doorBottom+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)} {(input.width)-(((position.w/CONTROL.rows)-0.5)*(CONTROL.doorRight+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {input.height-(((position.h/CONTROL.colums)-0.5)*(CONTROL.doorTop+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)}}
+  softness {{CONTROL.doorSoftness}}
+  name __AUTOpy__CropFilter_1_1
+  label "\[value position]"
+  xpos 25
+  ypos 1744
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 1}
+ }
+push $N29bc29e0
+ Transform {
+  translate {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.vignetteSpread)+1)} {(-((position.h/CONTROL.colums)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.vignetteSpread)+1)}}
+  name __AUTOpy__TransformMatt_1_1
+  label "\[value position]"
+  xpos -108
+  ypos 1847
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 1}
+ }
+ Merge {
+  inputs 2
+  operation mask
+  name __AUTOpy__MergeFilter_1_1
+  xpos 25
+  ypos 1847
+ }
+set N2ba94990 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{CONTROL.cropSize.w}}
+  box_height {{CONTROL.cropSize.h}}
+  box_fixed true
+  resize fit
+  black_outside true
+  name __AUTOpy__previewReformat_1_1
+  xpos 25
+  ypos 1887
+ }
+ Transform {
+  translate {{((position.w)*CONTROL.cropSize.w)} {((position.h)*CONTROL.cropSize.h)}}
+  name __AUTOpy__PreviewTx_1_1
+  label "\[value position]"
+  xpos 25
+  ypos 1927
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 1}
+ }
+push $N29b690f0
+ Crop {
+  box {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.doorLeft+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {(-(((position.h+0.5)/CONTROL.colums)-0.5)*(CONTROL.doorBottom+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)} {(input.width)-(((position.w/CONTROL.rows)-0.5)*(CONTROL.doorRight+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {input.height-(((position.h/CONTROL.colums)-0.5)*(CONTROL.doorTop+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)}}
+  softness {{CONTROL.doorSoftness}}
+  name __AUTOpy__CropFilter_1_0
+  label "\[value position]"
+  xpos 25
+  ypos 1494
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 1}
+ }
+push $N29bbf1c0
+ Transform {
+  translate {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.vignetteSpread)+1)} {(-((position.h/CONTROL.colums)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.vignetteSpread)+1)}}
+  name __AUTOpy__TransformMatt_1_0
+  label "\[value position]"
+  xpos -108
+  ypos 1597
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 1}
+ }
+ Merge {
+  inputs 2
+  operation mask
+  name __AUTOpy__MergeFilter_1_0
+  xpos 25
+  ypos 1597
+ }
+set N2bacd4e0 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{CONTROL.cropSize.w}}
+  box_height {{CONTROL.cropSize.h}}
+  box_fixed true
+  resize fit
+  black_outside true
+  name __AUTOpy__previewReformat_1_0
+  xpos 25
+  ypos 1637
+ }
+ Transform {
+  translate {{((position.w)*CONTROL.cropSize.w)} {((position.h)*CONTROL.cropSize.h)}}
+  name __AUTOpy__PreviewTx_1_0
+  label "\[value position]"
+  xpos 25
+  ypos 1677
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 1}
+ }
+push $N29b658c0
+ Crop {
+  box {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.doorLeft+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {(-(((position.h+0.5)/CONTROL.colums)-0.5)*(CONTROL.doorBottom+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)} {(input.width)-(((position.w/CONTROL.rows)-0.5)*(CONTROL.doorRight+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {input.height-(((position.h/CONTROL.colums)-0.5)*(CONTROL.doorTop+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)}}
+  softness {{CONTROL.doorSoftness}}
+  name __AUTOpy__CropFilter_0_2
+  label "\[value position]"
+  xpos 25
+  ypos 944
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 0}
+ }
+push $N29bbb9d0
+ Transform {
+  translate {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.vignetteSpread)+1)} {(-((position.h/CONTROL.colums)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.vignetteSpread)+1)}}
+  name __AUTOpy__TransformMatt_0_2
+  label "\[value position]"
+  xpos -108
+  ypos 1047
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 0}
+ }
+ Merge {
+  inputs 2
+  operation mask
+  name __AUTOpy__MergeFilter_0_2
+  xpos 25
+  ypos 1047
+ }
+set N2bb00690 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{CONTROL.cropSize.w}}
+  box_height {{CONTROL.cropSize.h}}
+  box_fixed true
+  resize fit
+  black_outside true
+  name __AUTOpy__previewReformat_0_2
+  xpos 25
+  ypos 1087
+ }
+ Transform {
+  translate {{((position.w)*CONTROL.cropSize.w)} {((position.h)*CONTROL.cropSize.h)}}
+  name __AUTOpy__PreviewTx_0_2
+  label "\[value position]"
+  xpos 25
+  ypos 1127
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 0}
+ }
+push $N29b620d0
+ Crop {
+  box {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.doorLeft+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {(-(((position.h+0.5)/CONTROL.colums)-0.5)*(CONTROL.doorBottom+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)} {(input.width)-(((position.w/CONTROL.rows)-0.5)*(CONTROL.doorRight+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {input.height-(((position.h/CONTROL.colums)-0.5)*(CONTROL.doorTop+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)}}
+  softness {{CONTROL.doorSoftness}}
+  name __AUTOpy__CropFilter_0_1
+  label "\[value position]"
+  xpos 25
+  ypos 694
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 0}
+ }
+push $N29bb81e0
+ Transform {
+  translate {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.vignetteSpread)+1)} {(-((position.h/CONTROL.colums)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.vignetteSpread)+1)}}
+  name __AUTOpy__TransformMatt_0_1
+  label "\[value position]"
+  xpos -108
+  ypos 797
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 0}
+ }
+ Merge {
+  inputs 2
+  operation mask
+  name __AUTOpy__MergeFilter_0_1
+  xpos 25
+  ypos 797
+ }
+set N2bb2f6a0 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{CONTROL.cropSize.w}}
+  box_height {{CONTROL.cropSize.h}}
+  box_fixed true
+  resize fit
+  black_outside true
+  name __AUTOpy__previewReformat_0_1
+  xpos 25
+  ypos 837
+ }
+ Transform {
+  translate {{((position.w)*CONTROL.cropSize.w)} {((position.h)*CONTROL.cropSize.h)}}
+  name __AUTOpy__PreviewTx_0_1
+  label "\[value position]"
+  xpos 25
+  ypos 877
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 0}
+ }
+push $N29b5e8e0
+ Crop {
+  box {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.doorLeft+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {(-(((position.h+0.5)/CONTROL.colums)-0.5)*(CONTROL.doorBottom+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)} {(input.width)-(((position.w/CONTROL.rows)-0.5)*(CONTROL.doorRight+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.doorSpread)+1)} {input.height-(((position.h/CONTROL.colums)-0.5)*(CONTROL.doorTop+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.doorSpread)+1)}}
+  softness {{CONTROL.doorSoftness}}
+  name __AUTOpy__CropFilter_0_0
+  label "\[value position]"
+  xpos 25
+  ypos 444
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 0}
+ }
+push $N29bb49c0
+ Transform {
+  translate {{(-(((position.w+0.5)/CONTROL.rows)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.w-(CONTROL.rows*0.5))/(CONTROL.rows*0.5))*(CONTROL.vignetteSpread)+1)} {(-((position.h/CONTROL.colums)-0.5)*(CONTROL.vignetteSize+1)*2)*((fabs(position.h-(CONTROL.colums*0.5))/(CONTROL.colums*0.5))*(CONTROL.vignetteSpread)+1)}}
+  name __AUTOpy__TransformMatt_0_0
+  label "\[value position]"
+  xpos -108
+  ypos 547
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 0}
+ }
+ Merge {
+  inputs 2
+  operation mask
+  name __AUTOpy__MergeFilter_0_0
+  xpos 25
+  ypos 547
+ }
+set N2bb5e8c0 [stack 0]
+ Reformat {
+  type "to box"
+  box_width {{CONTROL.cropSize.w}}
+  box_height {{CONTROL.cropSize.h}}
+  box_fixed true
+  resize fit
+  black_outside true
+  name __AUTOpy__previewReformat_0_0
+  xpos 25
+  ypos 587
+ }
+ Transform {
+  translate {{((position.w)*CONTROL.cropSize.w)} {((position.h)*CONTROL.cropSize.h)}}
+  name __AUTOpy__PreviewTx_0_0
+  label "\[value position]"
+  xpos 25
+  ypos 627
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 0}
+ }
+ Input {
+  inputs 0
+  name image
+  xpos 104
+  ypos -147
+ }
+ NoOp {
+  name INPUT_IMAGE
+  xpos 104
+  ypos -60
+  addUserKnob {20 User}
+  addUserKnob {14 inputSize R 0 100}
+  inputSize {{input.width i} {input.height i}}
+ }
+set N2bb80050 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle3
+  xpos -36
+  ypos -46
+ }
+ Radial {
+  area {0 0 {CONTROL.inputSize.w} {CONTROL.inputSize.h}}
+  name Radial1
+  xpos -36
+  ypos -14
+ }
+set N2bb8f070 [stack 0]
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+push $N2bb8f070
+ ContactSheet {
+  inputs 108
+  width {{CONTROL.inputSize.w}}
+  height {{CONTROL.inputSize.h x86 2048}}
+  rows 9
+  columns 12
+  gap 10
+  center true
+  name ContactSheet
+  xpos -36
+  ypos 21
+ }
+add_layer {ZVDefocusPreview ZVDefocusPreview.red ZVDefocusPreview.green ZVDefocusPreview.blue ZVDefocusPreview.alpha}
+ Shuffle {
+  in2 rgba
+  black black
+  white black
+  red2 black
+  green2 black
+  out ZVDefocusPreview
+  out2 rgba
+  name Shuffle2
+  xpos -36
+  ypos 45
+ }
+push $N2bb80050
+ Merge2 {
+  inputs 2
+  also_merge all
+  name Merge1
+  xpos 104
+  ypos 45
+ }
+ Dot {
+  name Dot1
+  xpos 356
+  ypos 186
+ }
+set N2bbb8650 [stack 0]
+ Dot {
+  name Dot2
+  xpos 202
+  ypos 186
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle4
+  xpos 168
+  ypos 256
+ }
+ NoOp {
+  name NUL_PREVIEW
+  xpos 168
+  ypos 299
+ }
+ Merge {
+  inputs 2
+  operation max
+  name __AUTOpy__previewMerge_0_0
+  xpos 168
+  ypos 627
+ }
+ Merge {
+  inputs 2
+  operation max
+  name __AUTOpy__previewMerge_0_1
+  xpos 168
+  ypos 877
+ }
+ Merge {
+  inputs 2
+  operation max
+  name __AUTOpy__previewMerge_0_2
+  xpos 168
+  ypos 1127
+ }
+ Merge {
+  inputs 2
+  operation max
+  name __AUTOpy__previewMerge_1_0
+  xpos 168
+  ypos 1682
+ }
+ Merge {
+  inputs 2
+  operation max
+  name __AUTOpy__previewMerge_1_1
+  xpos 168
+  ypos 1932
+ }
+ Merge {
+  inputs 2
+  operation max
+  name __AUTOpy__previewMerge_1_2
+  xpos 168
+  ypos 2177
+ }
+ Merge {
+  inputs 2
+  operation max
+  name __AUTOpy__previewMerge_2_0
+  xpos 168
+  ypos 2727
+ }
+ Merge {
+  inputs 2
+  operation max
+  name __AUTOpy__previewMerge_2_1
+  xpos 168
+  ypos 2977
+ }
+ Merge {
+  inputs 2
+  operation max
+  name __AUTOpy__previewMerge_2_2
+  xpos 168
+  ypos 3227
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle5
+  selected true
+  xpos 168
+  ypos 3251
+ }
+push $N29bddce0
+push $N2bbb8650
+ NoOp {
+  name NUL_IMAGE
+  xpos 321
+  ypos 293
+ }
+set N2bc37520 [stack 0]
+ Dot {
+  name __AUTOpy__DotImage_0_0
+  xpos 354
+  ypos 443
+ }
+set N2bc3ac40 [stack 0]
+ Dot {
+  name __AUTOpy__DotImage_0_1
+  xpos 354
+  ypos 693
+ }
+set N2bc3e430 [stack 0]
+ Dot {
+  name __AUTOpy__DotImage_0_2
+  xpos 354
+  ypos 943
+ }
+set N2bc41c20 [stack 0]
+ Dot {
+  name __AUTOpy__DotImage_1_0
+  xpos 354
+  ypos 1493
+ }
+set N2bc45410 [stack 0]
+ Dot {
+  name __AUTOpy__DotImage_1_1
+  xpos 354
+  ypos 1743
+ }
+set N2bc48c00 [stack 0]
+ Dot {
+  name __AUTOpy__DotImage_1_2
+  xpos 354
+  ypos 1993
+ }
+set N2bc4c3f0 [stack 0]
+ Dot {
+  name __AUTOpy__DotImage_2_0
+  xpos 354
+  ypos 2543
+ }
+set N2bc4fbe0 [stack 0]
+ Dot {
+  name __AUTOpy__DotImage_2_1
+  xpos 354
+  ypos 2793
+ }
+set N2bc533d0 [stack 0]
+ Dot {
+  name __AUTOpy__DotImage_2_2
+  xpos 354
+  ypos 3043
+ }
+ Crop {
+  box {{((position.w)*CONTROL.cropSize.w)-CONTROL.cropSoftnessPixels.w} {((position.h)*CONTROL.cropSize.h)-CONTROL.cropSoftnessPixels.h} {((position.w)*CONTROL.cropSize.w)+CONTROL.cropSize.w+CONTROL.cropSoftnessPixels.w} {(position.h)*CONTROL.cropSize.h+CONTROL.cropSize.h+CONTROL.cropSoftnessPixels.h}}
+  softness {{CONTROL.cropSoftnessPixels}}
+  name __AUTOpy__CropImage_2_2
+  label "\[value position]"
+  xpos 404
+  ypos 3040
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 2}
+ }
+ Convolve2 {
+  inputs 2
+  serializeKnob ""
+  name __AUTOpy__ZConvolve_2_2
+  xpos 404
+  ypos 3147
+ }
+push 0
+push $N2ba10ee0
+push $N2bc533d0
+ Crop {
+  box {{((position.w)*CONTROL.cropSize.w)-CONTROL.cropSoftnessPixels.w} {((position.h)*CONTROL.cropSize.h)-CONTROL.cropSoftnessPixels.h} {((position.w)*CONTROL.cropSize.w)+CONTROL.cropSize.w+CONTROL.cropSoftnessPixels.w} {(position.h)*CONTROL.cropSize.h+CONTROL.cropSize.h+CONTROL.cropSoftnessPixels.h}}
+  softness {{CONTROL.cropSoftnessPixels}}
+  name __AUTOpy__CropImage_2_1
+  label "\[value position]"
+  xpos 404
+  ypos 2790
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 2}
+ }
+ Convolve2 {
+  inputs 2
+  serializeKnob ""
+  name __AUTOpy__ZConvolve_2_1
+  xpos 404
+  ypos 2897
+ }
+push $N2ba40150
+push $N2bc4fbe0
+ Crop {
+  box {{((position.w)*CONTROL.cropSize.w)-CONTROL.cropSoftnessPixels.w} {((position.h)*CONTROL.cropSize.h)-CONTROL.cropSoftnessPixels.h} {((position.w)*CONTROL.cropSize.w)+CONTROL.cropSize.w+CONTROL.cropSoftnessPixels.w} {(position.h)*CONTROL.cropSize.h+CONTROL.cropSize.h+CONTROL.cropSoftnessPixels.h}}
+  softness {{CONTROL.cropSoftnessPixels}}
+  name __AUTOpy__CropImage_2_0
+  label "\[value position]"
+  xpos 404
+  ypos 2540
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 2}
+ }
+ Convolve2 {
+  inputs 2
+  serializeKnob ""
+  name __AUTOpy__ZConvolve_2_0
+  xpos 404
+  ypos 2647
+ }
+ Merge2 {
+  inputs 3+1
+  operation max
+  name __AUTOpy__MergeSub_2
+  xpos 1104
+  ypos 3147
+ }
+push 0
+push $N2ba6f3b0
+push $N2bc4c3f0
+ Crop {
+  box {{((position.w)*CONTROL.cropSize.w)-CONTROL.cropSoftnessPixels.w} {((position.h)*CONTROL.cropSize.h)-CONTROL.cropSoftnessPixels.h} {((position.w)*CONTROL.cropSize.w)+CONTROL.cropSize.w+CONTROL.cropSoftnessPixels.w} {(position.h)*CONTROL.cropSize.h+CONTROL.cropSize.h+CONTROL.cropSoftnessPixels.h}}
+  softness {{CONTROL.cropSoftnessPixels}}
+  name __AUTOpy__CropImage_1_2
+  label "\[value position]"
+  xpos 404
+  ypos 1990
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 1}
+ }
+ Convolve2 {
+  inputs 2
+  serializeKnob ""
+  name __AUTOpy__ZConvolve_1_2
+  xpos 404
+  ypos 2097
+ }
+push 0
+push $N2ba94990
+push $N2bc48c00
+ Crop {
+  box {{((position.w)*CONTROL.cropSize.w)-CONTROL.cropSoftnessPixels.w} {((position.h)*CONTROL.cropSize.h)-CONTROL.cropSoftnessPixels.h} {((position.w)*CONTROL.cropSize.w)+CONTROL.cropSize.w+CONTROL.cropSoftnessPixels.w} {(position.h)*CONTROL.cropSize.h+CONTROL.cropSize.h+CONTROL.cropSoftnessPixels.h}}
+  softness {{CONTROL.cropSoftnessPixels}}
+  name __AUTOpy__CropImage_1_1
+  label "\[value position]"
+  xpos 404
+  ypos 1740
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 1}
+ }
+ Convolve2 {
+  inputs 2
+  serializeKnob ""
+  name __AUTOpy__ZConvolve_1_1
+  xpos 404
+  ypos 1847
+ }
+push $N2bacd4e0
+push $N2bc45410
+ Crop {
+  box {{((position.w)*CONTROL.cropSize.w)-CONTROL.cropSoftnessPixels.w} {((position.h)*CONTROL.cropSize.h)-CONTROL.cropSoftnessPixels.h} {((position.w)*CONTROL.cropSize.w)+CONTROL.cropSize.w+CONTROL.cropSoftnessPixels.w} {(position.h)*CONTROL.cropSize.h+CONTROL.cropSize.h+CONTROL.cropSoftnessPixels.h}}
+  softness {{CONTROL.cropSoftnessPixels}}
+  name __AUTOpy__CropImage_1_0
+  label "\[value position]"
+  xpos 404
+  ypos 1490
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 1}
+ }
+ Convolve2 {
+  inputs 2
+  serializeKnob ""
+  name __AUTOpy__ZConvolve_1_0
+  xpos 404
+  ypos 1597
+ }
+ Merge2 {
+  inputs 3+1
+  operation max
+  name __AUTOpy__MergeSub_1
+  xpos 1104
+  ypos 2095
+ }
+push $N2bb00690
+push $N2bc41c20
+ Crop {
+  box {{((position.w)*CONTROL.cropSize.w)-CONTROL.cropSoftnessPixels.w} {((position.h)*CONTROL.cropSize.h)-CONTROL.cropSoftnessPixels.h} {((position.w)*CONTROL.cropSize.w)+CONTROL.cropSize.w+CONTROL.cropSoftnessPixels.w} {(position.h)*CONTROL.cropSize.h+CONTROL.cropSize.h+CONTROL.cropSoftnessPixels.h}}
+  softness {{CONTROL.cropSoftnessPixels}}
+  name __AUTOpy__CropImage_0_2
+  label "\[value position]"
+  xpos 404
+  ypos 940
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {2 0}
+ }
+ Convolve2 {
+  inputs 2
+  serializeKnob ""
+  name __AUTOpy__ZConvolve_0_2
+  xpos 404
+  ypos 1047
+ }
+push 0
+push $N2bb2f6a0
+push $N2bc3e430
+ Crop {
+  box {{((position.w)*CONTROL.cropSize.w)-CONTROL.cropSoftnessPixels.w} {((position.h)*CONTROL.cropSize.h)-CONTROL.cropSoftnessPixels.h} {((position.w)*CONTROL.cropSize.w)+CONTROL.cropSize.w+CONTROL.cropSoftnessPixels.w} {(position.h)*CONTROL.cropSize.h+CONTROL.cropSize.h+CONTROL.cropSoftnessPixels.h}}
+  softness {{CONTROL.cropSoftnessPixels}}
+  name __AUTOpy__CropImage_0_1
+  label "\[value position]"
+  xpos 404
+  ypos 690
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {1 0}
+ }
+ Convolve2 {
+  inputs 2
+  serializeKnob ""
+  name __AUTOpy__ZConvolve_0_1
+  xpos 404
+  ypos 797
+ }
+push $N2bb5e8c0
+push $N2bc3ac40
+ Crop {
+  box {{((position.w)*CONTROL.cropSize.w)-CONTROL.cropSoftnessPixels.w} {((position.h)*CONTROL.cropSize.h)-CONTROL.cropSoftnessPixels.h} {((position.w)*CONTROL.cropSize.w)+CONTROL.cropSize.w+CONTROL.cropSoftnessPixels.w} {(position.h)*CONTROL.cropSize.h+CONTROL.cropSize.h+CONTROL.cropSoftnessPixels.h}}
+  softness {{CONTROL.cropSoftnessPixels}}
+  name __AUTOpy__CropImage_0_0
+  label "\[value position]"
+  xpos 404
+  ypos 435
+  addUserKnob {20 User}
+  addUserKnob {14 position R 0 100}
+  position {0 0}
+ }
+ Convolve2 {
+  inputs 2
+  serializeKnob ""
+  name __AUTOpy__ZConvolve_0_0
+  xpos 404
+  ypos 542
+ }
+ Merge2 {
+  inputs 3+1
+  operation max
+  name __AUTOpy__MergeSub_0
+  xpos 1104
+  ypos 1047
+ }
+ Merge2 {
+  inputs 3+1
+  operation max
+  name __AUTOpy__Merge_OUT
+  xpos 1804
+  ypos 3147
+ }
+ Switch {
+  inputs 2
+  which {{CONTROL.previewMode}}
+  name __AUTOpy__PreviewSwitch_
+  xpos 1804
+  ypos 3257
+ }
+set N29a9d690 [stack 0]
+ Output {
+  name OUTPUT
+  xpos 1804
+  ypos 3357
+ }
+push $N2bc37520
+push $N2bc37520
+ ZDefocus2 {
+  inputs 2
+  serializeKnob ""
+  math far=1
+  size 25
+  max_size 25
+  layers 10
+  filter_type image
+  filter_bounds format
+  blades 4
+  bloom_gamma true
+  bloom true
+  bloom_threshold 0.72
+  bloom_gain 3.82
+  maskChannelMask -rgba.alpha
+  name ZDefocusCONTROL
+  xpos 1066
+  ypos 171
+  addUserKnob {20 User}
+  addUserKnob {6 maskChannelMask_ref +STARTLINE}
+  maskChannelMask_ref {{maskChannelMask x1 0}}
+ }
+push $N2bbb8650
+ NoOp {
+  name CONTROL
+  xpos 899
+  ypos 183
+  addUserKnob {20 User}
+  addUserKnob {26 ""}
+  addUserKnob {6 previewMode +STARTLINE}
+  previewMode true
+  addUserKnob {3 rows}
+  rows 3
+  addUserKnob {3 colums -STARTLINE}
+  colums 3
+  addUserKnob {26 ""}
+  addUserKnob {14 inputSize R 0 100}
+  inputSize {{input.width} {input.height}}
+  addUserKnob {14 resolution R 0 100}
+  resolution {{inputSize} {inputSize}}
+  addUserKnob {7 cropSoftnessPercent}
+  cropSoftnessPercent 14
+  addUserKnob {14 cropSoftnessPixels -STARTLINE R 0 100}
+  cropSoftnessPixels {{(((resolution/rows)+(resolution/colums)*0.5)+cropSoftnessPixels)*(cropSoftnessPercent*0.01)}}
+  addUserKnob {14 cropSize R 0 100}
+  cropSize {{(inputSize.w/rows)} {(inputSize.h/colums)}}
+  addUserKnob {14 cropTransformOffset R 0 100}
+  cropTransformOffset {{(inputSize.w/rows)} {(inputSize.h/colums)}}
+  addUserKnob {26 ""}
+  addUserKnob {7 convolve}
+  addUserKnob {26 ""}
+  addUserKnob {7 vignetteSoftness}
+  addUserKnob {7 vignetteSize R 0 300}
+  vignetteSize 22
+  addUserKnob {7 vignetteSizePercent}
+  addUserKnob {7 vignetteSpread R -1 1}
+  addUserKnob {7 vignetteCenterHoldout}
+  vignetteCenterHoldout 1
+  addUserKnob {26 ""}
+  addUserKnob {7 doorSoftness R 0 100}
+  addUserKnob {7 doorSpread R -1 5}
+  addUserKnob {7 doorTop R -25 300}
+  addUserKnob {7 doorBottom R -25 300}
+  addUserKnob {7 doorLeft R -25 300}
+  addUserKnob {7 doorRight R -25 300}
+  addUserKnob {26 ""}
+ }
+push $N29a9d690
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos 370
+  ypos -14
+ }
+end_group
