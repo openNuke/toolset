@@ -1,4 +1,5 @@
-#licence: www.nukepedia.com
+# licence https://github.com/vfxwiki/nukeArtistToolkit/blob/master/
+#credit for the inverseOver maths  (1/(-1*InOv))*(BG-InOv) ) and idea of using it for keying goes to Thomas Dyn
 set cut_paste_input [stack 0]
 version 7.0 v8
 push 0
