@@ -1,16 +1,14 @@
 # licence https://github.com/vfxwiki/nukeArtistToolkit/blob/master/
-#credit for the inverseOver maths  (1/(-1*InOv))*(BG-InOv) ) and idea of using it for keying goes to Thomas Dyn
+#credit for the inverseOver maths  (1/(-1*InOv))*(BG-InOv) ) and idea of using it for keying goes to Thomas Dyn (credit retained in node)
 set cut_paste_input [stack 0]
 version 7.0 v8
-push 0
 push $cut_paste_input
 Group {
- inputs 2
  name InverseOKeyer
  label "\n"
  selected true
- xpos 1057
- ypos 101
+ xpos 238
+ ypos 94
  addUserKnob {20 InverseOverKeyer l "Inverse Over Keyer"}
  addUserKnob {41 screenColour l "screen " T MASTER.screenColour}
  addUserKnob {26 textArea l "1) select screen area  "}
@@ -96,7 +94,7 @@ Group {
   xpos -300
   ypos -636
  }
-set N86aa430 [stack 0]
+set N9261d30 [stack 0]
  Dot {
   name Dot22
   xpos -272
@@ -107,7 +105,7 @@ set N86aa430 [stack 0]
   xpos -272
   ypos -248
  }
-set N86b9e90 [stack 0]
+set N9269a70 [stack 0]
  OFXuk.co.thefoundry.keylight.keylight_v201 {
   show "Final Result"
   unPreMultiply false
@@ -170,13 +168,13 @@ set N86b9e90 [stack 0]
   xpos -252
   ypos 323
  }
-set N8806c10 [stack 0]
+set N93b0d50 [stack 0]
  Dot {
   name Dot9
   xpos 8
   ypos 383
  }
-set N88131d0 [stack 0]
+set N93bd4d0 [stack 0]
  Dot {
   name Dot12
   xpos 8
@@ -206,13 +204,13 @@ set N88131d0 [stack 0]
   xpos 389
   ypos -110
  }
-set N88308c0 [stack 0]
+set N93dac60 [stack 0]
  Dot {
   name Dot10
   xpos 265
   ypos -110
  }
-set N8834a00 [stack 0]
+set N93ded80 [stack 0]
  FrameHold {
   first_frame {{FrameHold.first_frame}}
   name FrameHold2
@@ -243,13 +241,13 @@ set N8834a00 [stack 0]
   xpos 243
   ypos 405
  }
-push $N88308c0
+push $N93dac60
  Dot {
   name Dot20
   xpos 381
   ypos 206
  }
-set N885bb90 [stack 0]
+set N94057c0 [stack 0]
  Shuffle {
   red black
   green black
@@ -277,14 +275,14 @@ set N885bb90 [stack 0]
   xpos 353
   ypos 543
  }
-set N8879ed0 [stack 0]
+set N9423b70 [stack 0]
  Dot {
   name Dot28
   xpos 710
   ypos 1045
  }
 push 0
-push $N86b9e90
+push $N9269a70
  Dot {
   name Dot6
   xpos -382
@@ -312,7 +310,7 @@ push $N86b9e90
   xpos -402
   ypos 947
  }
-push $N8806c10
+push $N93b0d50
  Dot {
   name Dot13
   xpos -224
@@ -334,7 +332,7 @@ push $N8806c10
   xpos -272
   ypos 941
  }
-push $N88131d0
+push $N93bd4d0
  Dot {
   name Dot4
   xpos 1057
@@ -345,9 +343,9 @@ push $N88131d0
   xpos 1029
   ypos 796
  }
-set N88cd430 [stack 0]
-push $N88cd430
-push $N86aa430
+set N94771b0 [stack 0]
+push $N94771b0
+push $N9261d30
  FrameHold {
   first_frame {{FrameHold.first_frame}}
   name FrameHold1
@@ -378,7 +376,7 @@ push $N86aa430
   xpos -116
   ypos -27
  }
-push $N86aa430
+push $N9261d30
  Dot {
   name Dot8
   xpos 22
@@ -419,7 +417,7 @@ push $N86aa430
   xpos 1823
   ypos 42
  }
-push $N86aa430
+push $N9261d30
  Dot {
   name Dot24
   xpos 1926
@@ -433,7 +431,7 @@ push $N86aa430
   xpos 1894
   ypos -144
  }
-set N892e250 [stack 0]
+set N94d81f0 [stack 0]
  Merge2 {
   inputs 2
   operation from
@@ -446,7 +444,7 @@ set N892e250 [stack 0]
   xpos 1926
   ypos 209
  }
-set N8944ad0 [stack 0]
+set N94eeb10 [stack 0]
  Clamp {
   maximum 10000
   MinClampTo_enable true
@@ -475,7 +473,7 @@ set N8944ad0 [stack 0]
   xpos 1524
   ypos 424
  }
-set N896bb60 [stack 0]
+set N9516570 [stack 0]
  Dot {
   name Dot21
   xpos 1558
@@ -486,7 +484,7 @@ set N896bb60 [stack 0]
   xpos 1558
   ypos 863
  }
-push $N8944ad0
+push $N94eeb10
  Clamp {
   minimum -1000
   maximum 0
@@ -505,7 +503,7 @@ push $N8944ad0
   xpos 1908
   ypos 393
  }
-set N8995220 [stack 0]
+set N953fd50 [stack 0]
  Saturation {
   saturation 0
   mode Maximum
@@ -528,7 +526,7 @@ set N8995220 [stack 0]
   xpos 1908
   ypos 518
  }
-set N897b160 [stack 0]
+set N9525bd0 [stack 0]
  Dot {
   name Dot2
   xpos 1936
@@ -544,7 +542,7 @@ set N897b160 [stack 0]
   xpos 1669
   ypos 755
  }
-push $N885bb90
+push $N94057c0
  Dot {
   name Dot26
   xpos 1316
@@ -575,7 +573,7 @@ push $N885bb90
   xpos 1020
   ypos 881
  }
-push $N8806c10
+push $N93b0d50
  FrameHold {
   first_frame {{MASTER.frameHold}}
   name FrameHold
@@ -610,7 +608,7 @@ push $N8806c10
   xpos -93
   ypos 739
  }
-push $N8834a00
+push $N93ded80
  Dot {
   name Dot14
   xpos 165
@@ -633,7 +631,7 @@ push $N8834a00
   xpos 118
   ypos 753
  }
-push $N8879ed0
+push $N9423b70
  Grade {
   blackpoint {{parent.GradeInO.blackpoint}}
   whitepoint {{parent.GradeInO.whitepoint}}
@@ -702,7 +700,7 @@ add_layer {inverseOver inverseOver.red inverseOver.green inverseOver.blue invers
   xpos 271
   ypos 1348
  }
-set N8a95ec0 [stack 0]
+set N9641440 [stack 0]
  Shuffle {
   in inverseOver
   name Shuffle11
@@ -715,7 +713,7 @@ set N8a95ec0 [stack 0]
   xpos 185
   ypos 1851
  }
-push $N8a95ec0
+push $N9641440
  Keymix {
   inputs 3
   channels rgba
@@ -730,8 +728,8 @@ push $N8a95ec0
   xpos 294
   ypos 2204
  }
-push $N8995220
-push $N892e250
+push $N953fd50
+push $N94d81f0
  Merge2 {
   inputs 2
   operation from
@@ -739,8 +737,8 @@ push $N892e250
   xpos 1994
   ypos 378
  }
-push $N897b160
-push $N896bb60
+push $N9525bd0
+push $N9516570
  Merge2 {
   inputs 2
   name Merge5
@@ -769,7 +767,6 @@ push $N896bb60
   addUserKnob {15 cropScreen l "crop screen"}
   cropScreen {539 451 1618 1354}
   addUserKnob {3 frameHold l "frame hold"}
-  frameHold 1001
   addUserKnob {26 ""}
   addUserKnob {4 setupMode l "setup mode" M {off "key density" ""}}
   addUserKnob {7 KeyDensity l "key density" R 0.01 1}
@@ -791,136 +788,132 @@ push $N896bb60
   bgMultiply {1 1 1}
  }
 end_group
-push 0
 Group {
- inputs 2
  name InverseOver
  selected true
- xpos 1238
- ypos 101
- addUserKnob {20 InverseOver l "Inverse Over"}
- addUserKnob {41 in l "invOver input" T Shuffle3.in}
- addUserKnob {26 credit l "Thomas Dyn in London" +INVISIBLE}
+ xpos 437
+ ypos 94
+ addUserKnob {20 inverseOver l "Inverse Over"}
+ addUserKnob {41 in l "invOver input" T Shuffle1.in}
 }
  Input {
   inputs 0
-  name InvOver
-  xpos -610
-  ypos -164
-  number 1
+  name invOver
+  xpos 262
+  ypos -73
  }
  Shuffle {
   in inverseOver
-  name Shuffle3
+  name Shuffle1
   label "\[value in]-->\[value out]"
-  xpos -610
-  ypos -18
+  xpos 262
+  ypos -3
  }
  Premult {
   name Premult1
-  xpos -610
-  ypos 97
+  xpos 262
+  ypos 73
  }
-set N8b1b6d0 [stack 0]
+set N9032f70 [stack 0]
  Invert {
-  channels rgba
   name Invert1
-  xpos -610
-  ypos 153
+  xpos 262
+  ypos 99
  }
-set N8b22020 [stack 0]
+set N9039870 [stack 0]
  Shuffle {
   red white
   green white
   blue white
   alpha white
   name Shuffle2
-  label white
-  xpos -721
-  ypos 147
+  label "\[value in]-->\[value out]"
+  xpos 152
+  ypos 99
  }
  Dot {
-  name Dot2
-  xpos -693
-  ypos 254
+  name Dot1
+  xpos 197
+  ypos 199
  }
-push $N8b22020
+push $N9039870
  Merge2 {
   inputs 2
   operation divide
-  name Merge45
-  xpos -610
-  ypos 256
+  name Merge1
+  xpos 255
+  ypos 201
  }
  Shuffle {
   red alpha
   green alpha
   blue alpha
-  name Shuffle1
-  xpos -610
-  ypos 355
+  name Shuffle3
+  label "\[value in]-->\[value out]"
+  xpos 255
+  ypos 320
  }
  Input {
   inputs 0
   name bg
-  xpos -469
-  ypos -160
+  xpos 392
+  ypos -70
+  number 1
  }
-set N8b57070 [stack 0]
+set N906eca0 [stack 0]
  Dot {
-  name Dot8
-  xpos -441
-  ypos 201
+  name Dot3
+  xpos 420
+  ypos 186
  }
-push $N8b1b6d0
+push $N9032f70
  Dot {
-  name Dot5
-  xpos -353
-  ypos 95
+  name Dot2
+  xpos 521
+  ypos 71
  }
  Merge2 {
   inputs 2
   operation minus
   bbox A
-  name Merge1
-  xpos -381
-  ypos 203
+  name Merge2
+  xpos 493
+  ypos 188
  }
-set N8b63340 [stack 0]
+ Dot {
+  name Dot5
+  xpos 521
+  ypos 276
+ }
  Dot {
   name Dot6
-  xpos -353
-  ypos 306
+  xpos 118
+  ypos 276
  }
  Dot {
   name Dot7
-  xpos -760
-  ypos 315
- }
- Dot {
-  name Dot1
-  xpos -760
-  ypos 425
+  xpos 121
+  ypos 433
  }
  Merge2 {
   inputs 2
   operation multiply
   bbox B
-  name Merge51
-  xpos -610
-  ypos 427
+  name Merge3
+  xpos 255
+  ypos 435
  }
  Remove {
   channels inverseOver
   name Remove1
-  xpos -610
-  ypos 467
+  xpos 255
+  ypos 487
  }
-push $N8b57070
+push $N906eca0
  Dot {
-  name Dot3
-  xpos -137
-  ypos -162
+  name Dot4
+  xpos 691
+  ypos -72
  }
  Copy {
   inputs 2
@@ -933,21 +926,18 @@ push $N8b57070
   channels all
   bbox B
   name Copy1
-  xpos -161
-  ypos 449
+  xpos 649
+  ypos 461
  }
  Output {
   name Output1
-  xpos -161
-  ypos 654
+  xpos 649
+  ypos 661
  }
-push $N8b63340
- Viewer {
-  viewerProcess None
-  input_process false
-  name Viewer1
-  selected true
-  xpos 53
-  ypos 373
+ Output {
+  name Output1
+  xpos 649
+  ypos 761
  }
 end_group
+
