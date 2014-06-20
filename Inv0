@@ -1,5 +1,5 @@
 # licence https://github.com/vfxwiki/nukeArtistToolkit/blob/master/
-#credit for the inverseOver maths  (1/(-1*InOv))*(BG-InOv) ) and idea of using it for keying goes to Thomas Dyn (credit retained in node)/ Although since discovering this someone else have also shown me this same technique from thier toolbox used on a show over before 2000AD - they called it the 'holy matte' trick.
+#credit for the inverseOver maths  (1/(-1*InOv))*(BG-InOv) ) and idea of using it for keying goes to Thomas Dyn (credit retained in node)/ Although since discovering this someone else have also shown me this same technique from thier shake toolbox - they called it the 'holy matte' trick.
 set cut_paste_input [stack 0]
 version 7.0 v6
 push $cut_paste_input
