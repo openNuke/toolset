@@ -70,7 +70,6 @@ push $N1bdbde90
   xpos 1516
   ypos -313
  }
-add_layer {rgb rgb.r rgb.g rgb.b rgb.a}
  FilterErode {
   channels {rgba.red rgba.green rgba.blue rgba.alpha}
   size {{"(-\[value FractalBlur_UserDilate])/2" i x1 0}}
