@@ -1,0 +1,127 @@
+set cut_paste_input [stack 0]
+version 7.0 v6
+DeepRead {
+inputs 0
+format "2746 2059 0 0 2746 2059 1 "
+first 1025
+last 1113
+origfirst 1025
+origlast 1113
+origset true
+version 8
+name DeepRead5
+selected true
+xpos 4266
+ypos -805
+}
+set N7779d710 [stack 0]
+add_layer {id_object id_object.R id_object.G id_object.B}
+DeepExpression {
+chans0 {id_object.R id_object.G id_object.B rgba.alpha}
+chans1 deep
+id_object.R "(id_object.B == 10 )*rgba.alpha"
+id_object.G R
+id_object.B R
+name DeepExpression8
+selected true
+xpos 4266
+ypos -675
+}
+DeepToImage {
+name DeepToImage6
+selected true
+xpos 4266
+ypos -628
+}
+Shuffle {
+in id_object
+in2 rgb
+green red
+blue red
+alpha red
+name Shuffle29
+selected true
+xpos 4266
+ypos -588
+}
+Reformat {
+format "2746 2059 0 0 2746 2059 2 "
+resize distort
+name Reformat11
+selected true
+xpos 4266
+ypos -548
+}
+DeepRead {
+inputs 0
+format "2746 2059 0 0 2746 2059 1 "
+first 1025
+last 1113
+origfirst 1025
+origlast 1113
+origset true
+version 8
+name DeepRead7
+selected true
+xpos 4489
+ypos -802
+}
+set N82bc5200 [stack 0]
+DeepExpression {
+temp_name0 sampleVal
+temp_expr0 1.01302e-11
+temp_name1 tolerance
+temp_expr1 .00001
+chans0 {id_object.R id_object.G id_object.B rgba.alpha}
+chans1 deep
+id_object.R "(id_object.R <= sampleVal -  (sampleVal * tolerance)) * rgba.alpha - (id_object.R <= (sampleVal + (sampleVal * tolerance)))* rgba.alpha"
+id_object.G R
+id_object.B R
+name DeepExpression3
+selected true
+xpos 4489
+ypos -677
+}
+DeepToImage {
+name DeepToImage5
+selected true
+xpos 4489
+ypos -637
+}
+Shuffle {
+in id_object
+in2 rgb
+green red
+blue red
+alpha red
+name Shuffle30
+selected true
+xpos 4489
+ypos -597
+}
+Reformat {
+format "2746 2059 0 0 2746 2059 2 "
+resize distort
+name Reformat12
+selected true
+xpos 4489
+ypos -557
+}
+push $N7779d710
+DeepSample {
+pos {2510 1852}
+channels id_object
+name DeepSample3
+selected true
+xpos 4319
+ypos -740
+}
+push $N82bc5200
+DeepSample {
+pos {1490 696}
+channels id_object
+name DeepSample5
+selected true
+xpos 4574
+ypos -729
+}
