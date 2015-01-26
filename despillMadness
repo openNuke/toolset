@@ -1,0 +1,399 @@
+#http://www.nukepedia.com/gizmos/keyer/despillmadness v3.0 Andreas Frickinger
+#licence: https://github.com/vfxwiki/nukeArtistToolkit
+set cut_paste_input [stack 0]
+version 9.0 v2
+push $cut_paste_input
+Group {
+ name DespillMadness
+ note_font "Bitstream Vera Sans"
+ selected true
+ xpos 498
+ ypos 5874
+ mapsize {0.15 0.15}
+ addUserKnob {20 DespillMadness l "Despill Settings"}
+ addUserKnob {41 screenType l "screen type" T GizmoControl.screenType}
+ addUserKnob {41 algorithm l "despill algorithm" T GizmoControl.algorithm}
+ addUserKnob {41 LimitPercentage l "fine tune" T RedLimitsGreen.LimitPercentage}
+ addUserKnob {26 ""}
+ addUserKnob {26 text_2 l "" +STARTLINE T "spill area correction"}
+ addUserKnob {26 spacer l " " T " "}
+ addUserKnob {6 sourceLuma l "restore source luminance" t "Restores luminance of original image." +STARTLINE}
+ sourceLuma true
+ addUserKnob {41 saturation T CC_SpillMap.saturation}
+ addUserKnob {41 gamma T CC_SpillMap.gamma}
+ addUserKnob {41 offset T CC_SpillMap.offset}
+ addUserKnob {26 ""}
+ addUserKnob {41 spillMatteOut l "output spill matte in alpha" T GizmoControl.spillMatteOut}
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannel l mask T KeymixMask.maskChannel}
+ addUserKnob {6 invmsk l invert -STARTLINE}
+ addUserKnob {41 which l mix T mix.which}
+ addUserKnob {26 ""}
+ addUserKnob {26 text l v. T "3 - nukepedia"}
+ addUserKnob {20 Info}
+ addUserKnob {22 HELP l " HELP " T "import webbrowser\nwebbrowser.open(\"http://www.vfxwiki.org/tiki-index.php?page=DespillMadness\") \n\n\n" +STARTLINE}
+ addUserKnob {26 text01 l version: T 3.0}
+ addUserKnob {26 text02 l "date created:" T 19/02/2013}
+ addUserKnob {26 text03 l "last modified:" T n/a}
+ addUserKnob {26 creator l creator: T "Andreas Frickinger"}
+ addUserKnob {26 modifiedby l "modified by:" T na}
+ addUserKnob {26 source l source: T http://www.nukepedia.com/gizmos/keyer/despillmadness}
+ addUserKnob {20 licenceGroup l licence n 1}
+ licenceGroup 0
+ addUserKnob {26 licence l licence: T "By downloading this nuke group from github.com you agree to the general license terms below.\n Copyright (c) 2015 till present All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted\n provided that the following conditions are met: Redistributions of source code must retain the\n above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary\n form must reproduce the above copyright notice, this list of conditions and the following disclaimer\n in the documentation and/or other materials provided with the distribution. Neither the name of\n Nukepedia nor the names of its contributors may be used to endorse or promote products derived\n from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE\n COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES,\n INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS\n FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR\n CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR\n CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE\n GOO/ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."}
+
+}
+ Input {
+  inputs 0
+  name img
+  xpos 262
+  ypos -342
+ }
+ Dot {
+  name Dot6
+  xpos 296
+  ypos -186
+ }
+set N1b3fade0 [stack 0]
+ Dot {
+  name Dot2
+  xpos 296
+  ypos -71
+ }
+set N36cd2f00 [stack 0]
+ Dot {
+  name Dot3
+  xpos 626
+  ypos -71
+ }
+set N36cd4b00 [stack 0]
+ Expression {
+  expr2 b>g*LimitPercentage?g*LimitPercentage:b
+  expr3 b-g*LimitPercentage
+  name GreenLimitsBlue1
+  xpos 728
+  ypos 44
+  addUserKnob {20 User}
+  addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
+  LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
+ }
+push $N36cd4b00
+ Expression {
+  expr2 b>r*LimitPercentage?r*LimitPercentage:b
+  expr3 b-r*LimitPercentage
+  name RedLimitsBlue
+  xpos 592
+  ypos 44
+  addUserKnob {20 User}
+  addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
+  LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
+ }
+push $N36cd4b00
+ Expression {
+  expr2 b>(g+2*r)/2*LimitPercentage?(g+2*r)/2*LimitPercentage:b
+  expr3 b-(2*r+g)*LimitPercentage/2
+  name DoubleRedAve2
+  xpos 1125
+  ypos 43
+  addUserKnob {20 User}
+  addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
+  LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
+ }
+push $N36cd4b00
+ Expression {
+  expr2 b>(2*g+r)/2*LimitPercentage?(2*g+r)/2*LimitPercentage:b
+  expr3 b-(r+2*g)*LimitPercentage/2
+  name DoubleGreenAve
+  xpos 998
+  ypos 44
+  addUserKnob {20 User}
+  addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
+  LimitPercentage {{RedLimitsGreen.LimitPercentage}}
+ }
+push $N36cd4b00
+ Expression {
+  expr2 b>(g+r)/2*LimitPercentage?(g+r)/2*LimitPercentage:b
+  expr3 b-(r+g)*LimitPercentage/2
+  name RedAndGreenLimitBlue
+  xpos 862
+  ypos 44
+  addUserKnob {20 User}
+  addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
+  LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
+ }
+ Switch {
+  inputs 5
+  which {{GizmoControl.algorithm i}}
+  name SwitchBlue
+  xpos 728
+  ypos 190
+ }
+ Dot {
+  name Dot5
+  xpos 762
+  ypos 370
+ }
+push $N36cd2f00
+ Dot {
+  name Dot1
+  xpos 164
+  ypos -71
+ }
+set N37704740 [stack 0]
+ Expression {
+  expr1 g>b*LimitPercentage?b*LimitPercentage:g
+  expr3 g-b*LimitPercentage
+  name BlueLimitsGreen
+  xpos -15
+  ypos 44
+  addUserKnob {20 User}
+  addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
+  LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
+ }
+push $N37704740
+ Expression {
+  expr1 g>r*LimitPercentage?r*LimitPercentage:g
+  expr3 g-r*LimitPercentage
+  name RedLimitsGreen
+  xpos -160
+  ypos 44
+  addUserKnob {20 User}
+  addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
+  LimitPercentage 0.94
+ }
+push $N37704740
+ Expression {
+  expr1 g>(b+2*r)/3*LimitPercentage?(b+2*r)/3*LimitPercentage:g
+  expr3 g-(r+b)*LimitPercentage/2
+  name DoubleRedAve
+  xpos 370
+  ypos 42
+  addUserKnob {20 User}
+  addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
+  LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
+ }
+push $N37704740
+ Expression {
+  expr1 g>(2*b+r)/3*LimitPercentage?(2*b+r)/3*LimitPercentage:g
+  expr3 g-(r+b)*LimitPercentage/2
+  name DoubleBlueAve
+  xpos 257
+  ypos 42
+  addUserKnob {20 User}
+  addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
+  LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
+ }
+push $N37704740
+ Expression {
+  expr1 g>(b+r)/2*LimitPercentage?(b+r)/2*LimitPercentage:g
+  expr3 g-(r+b)*LimitPercentage/2
+  name RedAveBlueLimitsGreen
+  xpos 130
+  ypos 44
+  addUserKnob {20 User}
+  addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
+  LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
+ }
+ Switch {
+  inputs 5
+  which {{GizmoControl.algorithm i}}
+  name SwitchGreen
+  xpos -15
+  ypos 199
+ }
+ Dot {
+  name Dot4
+  xpos 19
+  ypos 370
+ }
+ Switch {
+  inputs 2
+  which {{GizmoControl.screenType i}}
+  name SwitchMain
+  xpos 257
+  ypos 366
+ }
+ Clamp {
+  channels alpha
+  name Clamp1
+  xpos 257
+  ypos 408
+ }
+ ColorCorrect {
+  maskChannelInput rgba.alpha
+  name CC_SpillMap
+  note_font Verdana
+  xpos 257
+  ypos 468
+ }
+set N377566c0 [stack 0]
+ Dot {
+  name Dot9
+  xpos 440
+  ypos 478
+ }
+ Dot {
+  name Dot10
+  xpos 440
+  ypos 1389
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos -696
+  ypos -348
+  number 1
+ }
+ Expression {
+  channel0 {-rgba.red -rgba.green -rgba.blue none}
+  expr0 0
+  channel1 {-rgba.red -rgba.green -rgba.blue none}
+  expr1 0
+  channel2 {-rgba.red -rgba.green -rgba.blue none}
+  expr2 0
+  channel3 {rgba.alpha none none rgba.alpha}
+  expr3 a==0?0:a
+  name AlphaFix1
+  label "To avid Gizmo being in state of\nerror without something plugged in input."
+  xpos -696
+  ypos 861
+ }
+set N3649d830 [stack 0]
+push $N3649d830
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name CopyMask
+  xpos -296
+  ypos 867
+ }
+ Invert {
+  name Invert1
+  xpos -296
+  ypos 943
+  disable {{parent.invmsk i}}
+ }
+push $N1b3fade0
+ Dot {
+  name Dot7
+  xpos -345
+  ypos -186
+ }
+ Dot {
+  name Dot8
+  xpos -345
+  ypos 551
+ }
+ Expression {
+  channel0 {-rgba.red -rgba.green -rgba.blue none}
+  expr0 0
+  channel1 {-rgba.red -rgba.green -rgba.blue none}
+  expr1 0
+  channel2 {-rgba.red -rgba.green -rgba.blue none}
+  expr2 0
+  channel3 {rgba.alpha none none rgba.alpha}
+  expr3 a==0?0:a
+  name AlphaFix
+  label "To avid Gizmo being in state of\nerror without something plugged in input."
+  xpos -27
+  ypos 534
+ }
+set N364c9780 [stack 0]
+ Dot {
+  name Dot11
+  xpos -113
+  ypos 614
+ }
+ Dot {
+  name Dot12
+  xpos -113
+  ypos 818
+ }
+set N364da1c0 [stack 0]
+push $N364c9780
+push $N364c9780
+push $N377566c0
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  from3 rgba.alpha
+  to3 rgba.alpha
+  name CopyAlpha
+  xpos 257
+  ypos 534
+ }
+set N364de650 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge3
+  xpos -27
+  ypos 672
+ }
+ Clamp {
+  name Clamp2
+  xpos -27
+  ypos 698
+ }
+ Saturation {
+  saturation 0
+  name Saturation2
+  xpos -27
+  ypos 736
+ }
+push $N364de650
+ Merge2 {
+  inputs 2
+  operation plus
+  name RestoreLuma
+  xpos 257
+  ypos 736
+  disable {{!parent.sourceLuma i}}
+ }
+ Keymix {
+  inputs 3
+  maskChannel -rgba.alpha
+  name KeymixMask
+  xpos 257
+  ypos 943
+ }
+push $N364da1c0
+ Dot {
+  name Dot13
+  xpos -113
+  ypos 1087
+ }
+ Dissolve {
+  inputs 2
+  which 1
+  name mix
+  xpos 257
+  ypos 1077
+ }
+ Switch {
+  inputs 2
+  which {{GizmoControl.spillMatteOut i}}
+  name SwitchSpillMap
+  xpos 257
+  ypos 1385
+ }
+ Output {
+  name Output1
+  xpos 257
+  ypos 1485
+ }
+ NoOp {
+  inputs 0
+  name GizmoControl
+  selected true
+  xpos 875
+  ypos 414
+  addUserKnob {20 User}
+  addUserKnob {26 version l v1.0}
+  addUserKnob {4 screenType l "screen type" M {green blue}}
+  addUserKnob {4 algorithm l "despill algorithm" M {average "double green/blue average" "double red average" "red limit" "green/blue limit" ""}}
+  addUserKnob {6 spillMatteOut l "output spill matte in alpha" +STARTLINE}
+ }
+end_group
