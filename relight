@@ -1,0 +1,773 @@
+#http://www.nukepedia.com/gizmos/other/relight v1.4 Michael Garrett
+#licence: https://github.com/vfxwiki/nukeArtistToolkit
+set cut_paste_input [stack 0]
+version 9.0 v2
+push $cut_paste_input
+add_layer {N N.X N.Y N.Z}
+add_layer {P P.X P.Y P.Z}
+Group {
+ name Relight
+ help "Relight is driven by a Light (Light2 class) node and relights a 2D image based on rendered point positions and normal vectors in the vec input.  It also uses a camera to calculate specular.\n\nCurrently the cone in the spotlight light type matches the Nuke spotlight closely but not exactly, and the cone falloff knob is unsupported.\n\nAdditional features are diffuse wrap for simulating fill light, and energy conserving normalized specular, meaning that the specular intensity increases and decreases proportional to shininess."
+ selected true
+ xpos -2827
+ ypos 853
+ addUserKnob {20 Relight}
+ addUserKnob {6 use_alpha l "use alpha" +STARTLINE}
+ addUserKnob {41 normal l "normal vectors" T Shuffle2.in}
+ addUserKnob {41 point l "point positions" T Shuffle1.in}
+ addUserKnob {4 camera t "The camera position is used to calculate the specular reflection.  Choose either a Nuke 3D camera (cam input) or, if available, derive the camera position from RenderMan OpenEXR metadata (vec input)." M {"nuke camera" "renderman openexr metadata" "" "" "" "" "" ""}}
+ addUserKnob {26 material l "Phong material"}
+ addUserKnob {18 mcolor l color}
+ mcolor {1 1 1}
+ addUserKnob {6 mcolor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {7 diffuse R 0 4}
+ diffuse 0.18
+ addUserKnob {7 wrap l "diffuse wrap" R 90 360}
+ wrap 90
+ addUserKnob {7 specular R 0 4}
+ specular 0.8
+ addUserKnob {6 energy_conserving l "energy conserving" t "This isn't a full blown \"energy conserving shader\" solution, but more of a test implementation of normalizing the specular so that the phong lobe area remains constant regardless of the shininess.  This can be visualized with a slice tool.  \n\nFor large specular sizes, this will diminish the overall spec intensity and for small tight spec sizes it will greatly increase the spec intensity, so watch out for massive overbrights and adjust accordingly. \n" +STARTLINE}
+ energy_conserving true
+ addUserKnob {7 shininess R 2 100}
+ shininess 10
+ addUserKnob {20 Info}
+ addUserKnob {22 HELP l " HELP " T "import webbrowser\nwebbrowser.open(\"http://www.vfxwiki.org/tiki-index.php?page=Relight\") \n\n\n" +STARTLINE}
+ addUserKnob {26 text01 l version: T 1.4}
+ addUserKnob {26 text02 l "date created:" T 23/10/2010}
+ addUserKnob {26 text03 l "last modified:" T n/a}
+ addUserKnob {26 creator l creator: T "Michael Garrett"}
+ addUserKnob {26 modifiedby l "modified by:" T na}
+ addUserKnob {26 source l source: T http://www.nukepedia.com/gizmos/other/relight}
+ addUserKnob {20 licenceGroup l licence n 1}
+ licenceGroup 0
+ addUserKnob {26 licence l licence: T "By downloading this nuke group from github.com you agree to the general license terms below.\n Copyright (c) 2015 till present All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted\n provided that the following conditions are met: Redistributions of source code must retain the\n above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary\n form must reproduce the above copyright notice, this list of conditions and the following disclaimer\n in the documentation and/or other materials provided with the distribution. Neither the name of\n Nukepedia nor the names of its contributors may be used to endorse or promote products derived\n from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE\n COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES,\n INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS\n FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR\n CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR\n CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE\n GOO/ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."}
+
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x7171c600
+  label "reflection vector"
+  note_font_size 42
+  xpos -438
+  ypos -184
+  bdwidth 482
+  bdheight 608
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x8e8e3800
+  label directional
+  note_font_size 42
+  xpos -5
+  ypos 601
+  bdwidth 492
+  bdheight 558
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x8e8e3800
+  label point
+  note_font_size 42
+  xpos 734
+  ypos 532
+  bdwidth 670
+  bdheight 657
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  tile_color 0x7171c600
+  label "spotlight cone maths"
+  note_font_size 12
+  xpos 1474
+  ypos 620
+  bdwidth 154
+  bdheight 356
+ }
+ Input {
+  inputs 0
+  name vec
+  xpos 217
+  ypos -611
+ }
+ Dot {
+  name Dot4
+  xpos 251
+  ypos -480
+ }
+set N36bd5930 [stack 0]
+ Dot {
+  name Dot1
+  xpos -458
+  ypos -480
+ }
+ Dot {
+  name Dot2
+  xpos -475
+  ypos 1269
+ }
+set N36bddea0 [stack 0]
+push $N36bddea0
+push $N36bd5930
+ Shuffle {
+  in P
+  out rgb
+  name Shuffle1
+  label "point to rgb"
+  xpos 336
+  ypos -338
+ }
+set N36be2130 [stack 0]
+ Expression {
+  expr0 translate.x-r
+  expr1 translate.y-g
+  expr2 translate.z-b
+  name VectorL
+  xpos 1028
+  ypos 547
+  addUserKnob {20 User}
+  addUserKnob {13 translate}
+  translate {{"\[lindex \[lindex \[value Axis1.world_matrix] 0] 3]" i} {"\[lindex \[lindex \[value Axis1.world_matrix] 1] 3]" i} {"\[lindex \[lindex \[value Axis1.world_matrix] 2] 3]" i}}
+ }
+set N36beef90 [stack 0]
+ Expression {
+  temp_name0 length
+  temp_expr0 sqrt((r*r)+(g*g)+(b*b))
+  expr0 r/length
+  expr1 g/length
+  expr2 b/length
+  name Normalize4
+  xpos 1028
+  ypos 573
+ }
+set N37600000 [stack 0]
+push $N36bd5930
+ Shuffle {
+  red black
+  green black
+  blue white
+  name Shuffle6
+  label "Make +z vector"
+  xpos 228
+  ypos 412
+ }
+ ColorMatrix {
+  matrix {
+      {{Axis1.world_matrix.0 i} {Axis1.world_matrix.1 i} {Axis1.world_matrix.2 i}}
+      {{Axis1.world_matrix.4 i} {Axis1.world_matrix.5 i} {Axis1.world_matrix.6 i}}
+      {{Axis1.world_matrix.8 i} {Axis1.world_matrix.9 i} {Axis1.world_matrix.10 i}}
+    }
+  name ColorMatrix3
+  label rotation
+  xpos 228
+  ypos 488
+ }
+set N376199b0 [stack 0]
+ Dot {
+  name Dot9
+  xpos 1538
+  ypos 474
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 DotProduct
+  temp_expr0 (Ar*Br)+(Ag*Bg)+(Ab*Bb)
+  channel0 rgb
+  expr0 max(0,DotProduct)
+  name MergeExpression9
+  label "Dot product (L.A)"
+  xpos 1504
+  ypos 670
+ }
+ Expression {
+  temp_name0 radConeAngle
+  temp_expr0 radians(LightKnobs.coneAngle/2)
+  temp_name1 radInnerConeAngle
+  temp_expr1 radians(LightKnobs.innerConeAngle/2)
+  temp_name2 LdotA
+  temp_expr2 r
+  expr0 LdotA-cos(radConeAngle)
+  expr1 cos(radInnerConeAngle)-cos(radConeAngle)
+  expr2 0
+  channel3 {none none none -rgba.alpha}
+  maskChannelMask -rgba.alpha
+  name Expression3
+  label "Compare cosines of coneangles with L.A"
+  xpos 1504
+  ypos 770
+ }
+ Expression {
+  expr0 clamp(r/g)
+  name Expression1
+  label "Divide and clamp from 0-1"
+  xpos 1504
+  ypos 844
+ }
+ Expression {
+  channel0 rgb
+  expr0 pow(r,2)
+  channel1 {-rgba.red -rgba.green -rgba.blue none}
+  channel2 {-rgba.red -rgba.green -rgba.blue none}
+  name BasicConeFalloff
+  xpos 1504
+  ypos 929
+ }
+ Dot {
+  name Dot19
+  xpos 1538
+  ypos 1261
+ }
+push $N36beef90
+ Dot {
+  name Dot8
+  xpos 772
+  ypos 678
+ }
+ Dot {
+  name Dot6
+  xpos 772
+  ypos 1165
+ }
+push $N37600000
+push $N36be2130
+push $N36bd5930
+push 0
+ Switch {
+  inputs 2
+  which {{parent.camera i}}
+  name Switch3
+  selected true
+  xpos 8
+  ypos -394
+ }
+ Matrix {
+  channels none
+  matrix {
+      {1 0 0 0}
+      {0 1 0 0}
+      {0 0 -1 0}
+      {0 0 0 1}
+    }
+  name Matrix1
+  label "working with callback in init.py"
+  xpos -97
+  ypos -360
+  addUserKnob {20 User}
+  addUserKnob {3 frameHold}
+  frameHold {{frame i}}
+  addUserKnob {3 doThis}
+  doThis {{"\[python exrCam()]" i}}
+ }
+ Expression {
+  temp_name0 R
+  temp_expr0 Matrix1.matrix.3
+  temp_name1 G
+  temp_expr1 Matrix1.matrix.7
+  temp_name2 B
+  temp_expr2 Matrix1.matrix.11
+  expr0 R
+  expr1 G
+  expr2 B
+  name Expression5
+  label "Get \"point world\" value \nof camera position"
+  xpos -97
+  ypos -281
+ }
+push $N36bd5930
+ Expression {
+  temp_name0 R
+  temp_expr0 Axis2.world_matrix.3
+  temp_name1 G
+  temp_expr1 Axis2.world_matrix.7
+  temp_name2 B
+  temp_expr2 Axis2.world_matrix.11
+  expr0 R
+  expr1 G
+  expr2 B
+  name Expression4
+  label "Get \"point world\" value \nof camera position"
+  xpos -305
+  ypos -384
+ }
+ Switch {
+  inputs 2
+  which {{camera i}}
+  name Switch2
+  label "select method for getting camera position"
+  xpos -305
+  ypos -260
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  Achannels rgb
+  Bchannels rgb
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  maskChannelMask -rgba.alpha
+  name Merge3
+  label "Cam to surface \nlight ray direction"
+  xpos -305
+  ypos -52
+ }
+ Expression {
+  temp_name0 length
+  temp_expr0 sqrt((r*r)+(g*g)+(b*b))
+  expr0 r/length
+  expr1 g/length
+  expr2 b/length
+  name Normalize2
+  xpos -305
+  ypos 20
+ }
+set N361cbd30 [stack 0]
+ Dot {
+  name Dot13
+  xpos -387
+  ypos 23
+ }
+ Dot {
+  name Dot14
+  xpos -387
+  ypos 318
+ }
+push $N36bd5930
+ Shuffle {
+  in N
+  out rgb
+  name Shuffle2
+  label "normals to rgb"
+  xpos 94
+  ypos -337
+ }
+ Expression {
+  temp_name0 length
+  temp_expr0 sqrt((r*r)+(g*g)+(b*b))
+  expr0 r/length
+  expr1 g/length
+  expr2 b/length
+  name Normalize6
+  xpos 94
+  ypos -297
+ }
+set N361ed9e0 [stack 0]
+ Dot {
+  name Dot15
+  xpos -36
+  ypos 116
+ }
+set N361fa0d0 [stack 0]
+push $N361cbd30
+ MergeExpression {
+  inputs 2
+  channel0 rgb
+  expr0 (Ar*Br)+(Ag*Bg)+(Ab*Bb)
+  channel1 {-rgba.red -rgba.green -rgba.blue none}
+  channel2 {-rgba.red -rgba.green -rgba.blue none}
+  channel3 {none none none -rgba.alpha}
+  maskChannelMask -rgba.alpha
+  name DotP1
+  label I.N
+  xpos -305
+  ypos 106
+ }
+ Multiply {
+  channels rgb
+  value 2
+  name Multiply5
+  label *2
+  xpos -305
+  ypos 146
+ }
+ Dot {
+  name Dot16
+  xpos -271
+  ypos 262
+ }
+push $N361fa0d0
+ MergeExpression {
+  inputs 2
+  expr0 Ar*Br
+  expr1 Ag*Bg
+  expr2 Ab*Bb
+  name MergeExpression5
+  label *N
+  xpos -70
+  ypos 251
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge6
+  xpos -70
+  ypos 314
+ }
+ Expression {
+  temp_name0 length
+  temp_expr0 sqrt((r*r)+(g*g)+(b*b))
+  expr0 r/length
+  expr1 g/length
+  expr2 b/length
+  name Normalize3
+  xpos -70
+  ypos 365
+ }
+ Dot {
+  name Dot12
+  xpos 557
+  ypos 397
+ }
+set N377424d0 [stack 0]
+ MergeExpression {
+  inputs 2
+  temp_name0 DotProduct
+  temp_expr0 (Ar*Br)+(Ag*Bg)+(Ab*Bb)
+  channel0 rgb
+  expr0 max(0,DotProduct)
+  name MergeExpression7
+  label "Dot product (N.L)"
+  xpos 877
+  ypos 748
+ }
+ Expression {
+  channel0 rgb
+  expr0 "pow(r, shininess)"
+  channel1 {-rgba.red -rgba.green -rgba.blue none}
+  channel2 {-rgba.red -rgba.green -rgba.blue none}
+  name shinyness1
+  xpos 877
+  ypos 837
+  addUserKnob {20 User}
+  addUserKnob {7 shininess R 0 10}
+  shininess {{parent.shininess i}}
+ }
+ set C37752610 [stack 0]
+ Expression {
+  temp_name0 nfactor
+  temp_expr0 (phexp+2)/(2*pi)
+  channel0 rgb
+  expr0 r*nfactor
+  channel1 {-rgba.red -rgba.green -rgba.blue none}
+  channel2 {-rgba.red -rgba.green -rgba.blue none}
+  channel3 {none none none -rgba.alpha}
+  name PhongNfactor
+  xpos 877
+  ypos 906
+  disable {{!energy_conserving}}
+  addUserKnob {20 User}
+  addUserKnob {7 phexp}
+  phexp {{parent.shininess}}
+ }
+ set C3775f0f0 [stack 0]
+ Multiply {
+  channels rgb
+  value {{parent.specular i}}
+  name Multiply1
+  label "Spec white point"
+  xpos 877
+  ypos 1032
+ }
+ set C3776be50 [stack 0]
+push $N37600000
+push $N361ed9e0
+ Dot {
+  name Dot5
+  xpos 1241
+  ypos 340
+ }
+ Dot {
+  name Dot7
+  xpos 1241
+  ypos 583
+ }
+set N3777a460 [stack 0]
+ MergeExpression {
+  inputs 2
+  temp_name0 DotProduct
+  temp_expr0 (Ar*Br)+(Ag*Bg)+(Ab*Bb)
+  channel0 rgb
+  expr0 max(0,DotProduct)
+  name MergeExpression2
+  label "Dot product (N.L)"
+  xpos 1128
+  ypos 742
+ }
+push $N37600000
+push $N3777a460
+ MergeExpression {
+  inputs 2
+  temp_name0 DotProduct
+  temp_expr0 (Ar*Br)+(Ag*Bg)+(Ab*Bb)
+  channel0 {rgba.red rgba.green rgba.blue -rgba.alpha}
+  expr0 "max(0, (1-acos(DotProduct)/radians(wrap)))"
+  channel1 none
+  channel2 none
+  channel3 none
+  unpremult -rgba.alpha
+  name MergeExpression6
+  label DotProduct_LightWrap
+  xpos 1287
+  ypos 741
+  addUserKnob {20 User}
+  addUserKnob {7 wrap R 90 360}
+  wrap {{parent.wrap.main i}}
+ }
+ Merge2 {
+  inputs 2
+  operation max
+  name Max1
+  xpos 1206
+  ypos 816
+ }
+ Multiply {
+  channels rgb
+  value {{parent.diffuse i}}
+  name Multiply4
+  label "Diffuse white point"
+  xpos 1206
+  ypos 1004
+ }
+ set C377a3c20 [stack 0]
+ Multiply {
+  channels rgb
+  value {{mcolor i} {mcolor i} {mcolor i} 1}
+  name Multiply2
+  label "Material colour"
+  xpos 1206
+  ypos 1044
+ }
+ set C377adf60 [stack 0]
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge2
+  xpos 1048
+  ypos 1123
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 length
+  temp_expr0 sqrt((Ar*Ar)+(Ag*Ag)+(Ab*Ab))
+  channel0 rgb
+  expr0 Br/pow(length,falloffval)
+  channel1 {-rgba.red -rgba.green -rgba.blue none}
+  channel2 {-rgba.red -rgba.green -rgba.blue none}
+  name OverallFalloff1
+  xpos 1048
+  ypos 1161
+  addUserKnob {20 User}
+  addUserKnob {7 falloffval R 0 3}
+  falloffval {{parent.LightKnobs.falloff_type i}}
+ }
+set N377c5af0 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge5
+  xpos 1048
+  ypos 1257
+ }
+push $N377424d0
+push $N376199b0
+ MergeExpression {
+  inputs 2
+  temp_name0 DotProduct
+  temp_expr0 (Ar*Br)+(Ag*Bg)+(Ab*Bb)
+  channel0 rgb
+  expr0 max(0,DotProduct)
+  name MergeExpression1
+  label "Dot product"
+  xpos 315
+  ypos 732
+ }
+clone $C37752610 {
+  xpos 315
+  ypos 845
+  selected false
+ }
+clone $C3775f0f0 {
+  xpos 316
+  ypos 912
+  selected false
+ }
+clone $C3776be50 {
+  xpos 315
+  ypos 996
+  selected false
+ }
+push $N361ed9e0
+ Dot {
+  name Dot3
+  xpos 77
+  ypos 551
+ }
+set N37811bf0 [stack 0]
+push $N376199b0
+ MergeExpression {
+  inputs 2
+  temp_name0 DotProduct
+  temp_expr0 (Ar*Br)+(Ag*Bg)+(Ab*Bb)
+  channel0 rgb
+  expr0 max(0,DotProduct)
+  name MergeExpression3
+  label "Dot product (N.L)"
+  xpos 43
+  ypos 734
+ }
+push $N37811bf0
+push $N376199b0
+ MergeExpression {
+  inputs 2
+  temp_name0 DotProduct
+  temp_expr0 (Ar*Br)+(Ag*Bg)+(Ab*Bb)
+  channel0 {rgba.red rgba.green rgba.blue -rgba.alpha}
+  expr0 "max(0, (1-acos(DotProduct)/radians(wrap)))"
+  channel1 none
+  channel2 none
+  channel3 none
+  unpremult -rgba.alpha
+  name MergeExpression4
+  label DotProduct_LightWrap
+  xpos 177
+  ypos 736
+  addUserKnob {20 User}
+  addUserKnob {7 wrap R 90 360}
+  wrap {{parent.wrap i}}
+ }
+ Merge2 {
+  inputs 2
+  operation max
+  name Max
+  xpos 113
+  ypos 852
+ }
+clone $C377a3c20 {
+  xpos 113
+  ypos 953
+  selected false
+ }
+clone $C377adf60 {
+  xpos 113
+  ypos 1012
+  selected false
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge1
+  xpos 231
+  ypos 1123
+ }
+push $N377c5af0
+ Switch {
+  inputs 3
+  which {{parent.LightKnobs.light_type i}}
+  name Switch1
+  label "Light type"
+  xpos 601
+  ypos 1337
+ }
+ Multiply {
+  channels rgb
+  value {{parent.LightKnobs.intensity i}}
+  name Multiply6
+  label "Light intensity"
+  xpos 601
+  ypos 1401
+ }
+ Multiply {
+  channels rgb
+  value {{parent.LightKnobs.lcolor i} {parent.LightKnobs.lcolor i} {parent.LightKnobs.lcolor i} 1}
+  name Multiply3
+  label "Light colour"
+  xpos 601
+  ypos 1465
+  disable {{"!\[exists parent.input1]" i}}
+ }
+ Expression {
+  expr0 isnan(r)?0:r
+  expr1 isnan(g)?0:g
+  expr2 isnan(b)?0:b
+  name Expression2
+  label isnan
+  xpos 601
+  ypos 1515
+ }
+ Keymix {
+  inputs 3
+  channels rgb
+  invertMask true
+  name Keymix1
+  xpos 601
+  ypos 1595
+  disable {{!use_alpha i}}
+ }
+ Output {
+  name Output1
+  xpos 601
+  ypos 1681
+ }
+ Input {
+  inputs 0
+  name light
+  xpos 657
+  ypos -613
+  number 1
+ }
+set N37869940 [stack 0]
+ Axis2 {
+  selectable false
+  name Axis1
+  xpos 667
+  ypos -524
+ }
+ Input {
+  inputs 0
+  name cam
+  xpos -302
+  ypos -609
+  number 2
+ }
+ Axis2 {
+  name Axis2
+  xpos -292
+  ypos -541
+ }
+push $N37869940
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name LightKnobs
+  xpos 895
+  ypos -323
+  disable {{"!\[exists parent.input1]" i}}
+  addUserKnob {20 User}
+  addUserKnob {3 light_type l "light type"}
+  light_type {{"\[input \[node this.parent] 1].light_type" i}}
+  addUserKnob {18 lcolor l color}
+  lcolor {{"\[input \[node this.parent] 1].color" i} {"\[input \[node this.parent] 1].color" i} {"\[input \[node this.parent] 1].color" i}}
+  addUserKnob {6 lcolor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {7 intensity R 0 50}
+  intensity {{"\[input \[node this.parent] 1].intensity" i}}
+  addUserKnob {7 cone_angle l "cone angle" R 0 180}
+  cone_angle {{"\[input \[node this.parent] 1].cone_angle" i}}
+  addUserKnob {7 cone_penumbra_angle l "cone penumbra angle" R -60 60}
+  cone_penumbra_angle {{"\[input \[node this.parent] 1].cone_penumbra_angle" i}}
+  addUserKnob {7 cone_falloff l "cone falloff" R 0 1000}
+  cone_falloff {{"\[input \[node this.parent] 1].cone_falloff" i}}
+  addUserKnob {3 falloff_type l "falloff type"}
+  falloff_type {{"\[input \[node this.parent] 1].falloff_type" i}}
+  addUserKnob {26 modified}
+  addUserKnob {7 coneAngle R 0 180}
+  coneAngle {{cone_penumbra_angle<=0?cone_angle:cone_angle+cone_penumbra_angle i}}
+  addUserKnob {7 innerConeAngle R 0 180}
+  innerConeAngle {{cone_penumbra_angle>0?cone_angle:cone_angle+cone_penumbra_angle i}}
+ }
+end_group
