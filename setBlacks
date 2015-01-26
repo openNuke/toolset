@@ -1,0 +1,109 @@
+#https://github.com/vfxwiki/nukeArtistToolkit/blob/master/setBlacks b0.1 Rafal Kaniewski
+#licence: https://github.com/vfxwiki/nukeArtistToolkit
+set cut_paste_input [stack 0]
+version 9.0 v2
+push $cut_paste_input
+Group {
+ name setBlacks
+ selected true
+ xpos 2145
+ ypos 335
+ addUserKnob {20 User}
+ addUserKnob {41 source T Add1.source}
+ addUserKnob {41 destination T Add1.destination}
+ addUserKnob {41 rollOffMax T Add1.rollOffMax}
+ addUserKnob {20 Info}
+ addUserKnob {22 HELP l " HELP " T "import webbrowser\nwebbrowser.open(\"http://www.vfxwiki.org/tiki-index.php?page=setBlacks\") \n\n\n" +STARTLINE}
+ addUserKnob {26 text01 l version: T b0.1}
+ addUserKnob {26 text02 l "date created:" T 1/1/2015}
+ addUserKnob {26 text03 l "last modified:" T n/a}
+ addUserKnob {26 creator l creator: T "Rafal Kaniewski"}
+ addUserKnob {26 modifiedby l "modified by:" T na}
+ addUserKnob {26 source l source: T https://github.com/vfxwiki/nukeArtistToolkit/blob/master/setBlacks}
+ addUserKnob {20 licenceGroup l licence n 1}
+ licenceGroup 0
+ addUserKnob {26 licence l licence: T "By downloading this nuke group from github.com you agree to the general license terms below.\n Copyright (c) 2015 till present All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted\n provided that the following conditions are met: Redistributions of source code must retain the\n above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary\n form must reproduce the above copyright notice, this list of conditions and the following disclaimer\n in the documentation and/or other materials provided with the distribution. Neither the name of\n Nukepedia nor the names of its contributors may be used to endorse or promote products derived\n from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE\n COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES,\n INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS\n FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR\n CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR\n CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE\n GOO/ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."}
+
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 430
+  ypos 439
+ }
+ Dot {
+  name Dot11
+  selected true
+  xpos 506
+  ypos 481
+ }
+set N363562c0 [stack 0]
+ Grade {
+  blackpoint {{Add1.rollOffMax}}
+  whitepoint {{Add1.source}}
+  white_clamp true
+  name makeMatte
+  selected true
+  xpos 335
+  ypos 604
+ }
+push $N363562c0
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle1
+  selected true
+  xpos 493
+  ypos 558
+ }
+ Add {
+  channels rgb
+  value {{destination-source} {destination-source} {destination-source} {destination-source}}
+  maskChannelMask rgba.red
+  invert_mask true
+  name Add1
+  label "match blacks of plate"
+  selected true
+  xpos 473
+  ypos 589
+  addUserKnob {20 User}
+  addUserKnob {18 source R 0 20}
+  source {0 0 0}
+  addUserKnob {6 source_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {18 destination R 0.006 15.203}
+  destination {0 0 0}
+  addUserKnob {6 destination_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {18 rollOffMax R 0 0.1}
+  rollOffMax {{pow(Add1.destination,0.85)} {pow(Add1.destination,0.85)} {pow(Add1.destination,0.85)}}
+  addUserKnob {6 rollOffMax_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge12
+  selected true
+  xpos 473
+  ypos 661
+ }
+push $N363562c0
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge13
+  selected true
+  xpos 626
+  ypos 661
+ }
+ Dot {
+  name Dot12
+  xpos 551
+  ypos 725
+ }
+ Output {
+  name Output1
+  xpos 507
+  ypos 771
+ }
+end_group
