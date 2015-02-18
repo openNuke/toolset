@@ -1,26 +1,4 @@
 {
-    "nodes": {
-        "2D": [
-            {
-                "status": "released", 
-                "wiki": "xx", 
-                "shortcut": "", 
-                "label": "xx", 
-                "value": "xx", 
-                "tooltip": "xx"
-            }, 
-             ], 
-        "Other": [
-            {
-                "status": "beta", 
-                "wikiurl": "xxx", 
-                "shortcut": "", 
-                "label": "xxx", 
-                "value": "xxx", 
-                "tooltip": "xxx"
-            }, 
-        ], 
-    }, 
     "scripts": {
         "FX": [
             {
@@ -31,16 +9,6 @@
                 "label": "xxxx", 
                 "shortcut": "", 
             }
-        ],
-		"Layout": [
-            {
-                "status": "released", 
-                "wiki": "xxxxx", 
-                "shortcut": "", 
-                "label": "xxxxx", 
-                "value": "xxxxx", 
-                "tooltip": "xxxxx"
-            }, 
-			]
+        ]
     }
 }
