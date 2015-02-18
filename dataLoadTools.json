@@ -4,8 +4,7 @@
             {
                 "label": "Camera Shake (Vector Blur)",
                 "value": "https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/CameraShakeVetr",
-                "tooltip": "Another 2D Camera Shake Tool for Nuke Features:\neither vector Blur or 2d transform motion blur\ncombine vectors from an input with camera shake vectors for motion blur\npresets\ntiling
-\npre-transform paramaters (i.e. to scale the image)\ncombining two noise patterns together i.e. a small vibration shake with a hand-held shake.\nbeing able to view the output curves with time offsets to place the big 'bumps' at the right moment in time\nseperate amplitude and frequency for Transform, scale and rotation\ntodo: automatic scale feature for pre-transform paramaters\ntodo: add the option of different noise generators\ntodo: export/load json presets"
+                "tooltip": "Another 2D Camera Shake Tool for Nuke Features:\neither vector Blur or 2d transform motion blur\ncombine vectors from an input with camera shake vectors for motion blur\npresets\ntiling\npre-transform paramaters (i.e. to scale the image)\ncombining two noise patterns together i.e. a small vibration shake with a hand-held shake.\nbeing able to view the output curves with time offsets to place the big 'bumps' at the right moment in time\nseperate amplitude and frequency for Transform, scale and rotation\ntodo: automatic scale feature for pre-transform paramaters\ntodo: add the option of different noise generators\ntodo: export/load json presets"
             }
         ],
         "Filter": [
@@ -22,11 +21,13 @@
                 "value": "xxxx",
                 "tooltip": "xxxx",
                 "label": "Align Vertical",
+                
             },
             {
                 "value": "xxxx",
                 "tooltip": "xxxx",
                 "label": "Align Horizontal",
+                
             }
         ],
         "Layout": [
