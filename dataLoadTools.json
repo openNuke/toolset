@@ -22,11 +22,11 @@
         ]
     },
     "scripts": {
-        "FX": [
+        "Node Graph Layout": [
             {
                 "status": "released",
                 "value": "xxxx",
-                "name": "xxxx",
+                "name": "Align Vertical",
                 "tooltip": "xxxx",
                 "label": "xxxx",
                 "shortcut": "sxxx"
@@ -34,7 +34,7 @@
             {
                 "status": "released",
                 "value": "1xxx",
-                "name": "1xxx",
+                "name": "Align Horizontal",
                 "tooltip": "1xxx",
                 "label": "1xxx",
                 "shortcut": "1xxx"
