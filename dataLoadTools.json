@@ -30,6 +30,14 @@
                 "tooltip": "xxxx",
                 "label": "xxxx",
                 "shortcut": "sxxx"
+            },
+            {
+                "status": "released",
+                "value": "1xxx",
+                "name": "1xxx",
+                "tooltip": "1xxx",
+                "label": "1xxx",
+                "shortcut": "1xxx"
             }
         ],
         "Layout": [
