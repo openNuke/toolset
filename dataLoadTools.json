@@ -26,17 +26,17 @@
             {
                 "status": "released",
                 "value": "xxxx",
-                "name": "Align Vertical",
+                "name": "hhh",
                 "tooltip": "xxxx",
-                "label": "xxxx",
+                "label": "Align Vertical",
                 "shortcut": "sxxx"
             },
             {
                 "status": "released",
                 "value": "1xxx",
-                "name": "Align Horizontal",
+                "name": "ccccc",
                 "tooltip": "1xxx",
-                "label": "1xxx",
+                "label": "Align Horizontal",
                 "shortcut": "1xxx"
             }
         ],
