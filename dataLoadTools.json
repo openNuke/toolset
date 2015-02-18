@@ -21,7 +21,7 @@
             }, 
         ], 
     }, 
-    "script": {
+    "scripts": {
         "FX": [
             {
                 "status": "released", 
@@ -41,6 +41,6 @@
                 "value": "xxxxx", 
                 "tooltip": "xxxxx"
             }, 
-
+			]
     }
 }
