@@ -1,0 +1,12 @@
+[
+    {
+        "label": "Latest: github.com/vfxwiki/nukeArtistToolkit",
+        "value": "https://github.com/vfxwiki/nukeArtistToolkit/edit/master/_loadTools.json",
+        "tooltip": ""
+    },
+    {
+        "label": "Beta: github.com/vfxwiki/nukeArtistToolkit",
+        "value": "https://github.com/vfxwiki/nukeArtistToolkit/edit/master/_loadToolsBeta.json",
+        "tooltip": ""
+    }
+]
