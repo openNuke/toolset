@@ -1,0 +1,39 @@
+{
+    "nodes": {
+        "Transform": [
+            {
+                "label": "Camera Shake (Vector Motion Blur)",
+                "value": "https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/CameraShakeVetr",
+                "tooltip": "Combines vectors from an input with camera shake vectors for motion blur;\n\n* presets\n* tiling\n* pre-transform paramaters\n* combining two noise patterns together i.e. handheld & vibration)\n* being able to view the output curves with time offsets to place 'bumps' at the right moment in time\n* seperate amplitude and frequency for Transform, scale and rotation"
+            }
+        ],
+        "Filter": [
+            {
+                "label": "Fizzle",
+                "value": "https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/Fizzle",
+                "tooltip": "TV Simulation"
+            }
+        ]
+    },
+    "scripts": {
+        "Node Graph Layout": [
+            {
+                "value": "xxxx",
+                "tooltip": "xxxx",
+                "label": "Align Vertical"
+            },
+            {
+                "value": "xxxx",
+                "tooltip": "xxxx",
+                "label": "Align Horizontal"
+            }
+        ],
+        "Layout": [
+            {
+                "label": "xxxxx",
+                "value": "xxxxx",
+                "tooltip": "xxxxx"
+            }
+        ]
+    }
+}
