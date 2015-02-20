@@ -6,7 +6,7 @@
                 "file": "horizon_line.nk",
                 "tooltip": "Perspective tool, to calculate the position of the horizon-line and vanishing point."
             }
-        ], 
+        ],
         "Keying": [
             {
                 "label": "Inverse 0ver",
@@ -22,8 +22,8 @@
                 "label": "KeyChew",
                 "file": "keychew.nk",
                 "tooltip": ""
-            }            
-        ], 
+            }
+        ],
         "2.5D": [
             {
                 "label": "Relight",
@@ -33,21 +33,21 @@
             {
                 "label": "Rotate Normal",
                 "file": "RotateNormal.nk",
-                "tooltip": "This will rotate Normal-data using rotation matrixes.\nhttp://en.wikipedia.org/wiki/Rotation_matrix\n\nYou enable Normal-data in the ScanlineRender-node, create a new layer for this.\n\nTip 1:\n Link the rotation knob to the Nuke camera, revert the camera order and then either invert the matrixes or negate the angles.\nThis will convert the Normal data from World Space to Camera Space. I guess. I am no expert on the subject.\n\n\nTip 2:\nPut these in your init.tcl to always render out the normals:\n\nadd_layer \{P P.x P.y P.z\}\nknob_default ScanlineRender.P_channel P\nadd_layer \{N N.x N.y N.z\}\nknob_default ScanlineRender.N_channel N\nknob_default ScanlineRender.output_shader_vectors true\n\nNote:\n In Nuke4.6 and earlier, the Normals is multiplied with the Z, so you need to divide them first. Use Channel Merge for this.\n"
-            },            
+                "tooltip": "This will rotate Normal-data using rotation matrixes.\nYou enable Normal-data in the ScanlineRender-node, create a new layer for this.\n\nTip 1:\n Link the rotation knob to the Nuke camera, revert the camera order and then either invert the matrixes or negate the angles.\nThis will convert the Normal data from World Space to Camera Space. "
+            },
             {
                 "label": "Bump Normals",
                 "file": "bumpNormals.nk",
                 "tooltip": "Generate bump for a 3D normals pass in world space.  The input bump texture can either be flat or a 3D render."
             }
-        ],         
+        ],
         "Colour": [
             {
                 "label": "Set Blacks",
                 "file": "setBlacks.nk",
                 "tooltip": "Sets Black"
             }
-        ],        
+        ],
         "Image": [
             {
                 "label": "UV Tile",
@@ -58,7 +58,8 @@
                 "label": "File Path Write",
                 "file": "filePathWrite.nk",
                 "tooltip": ""
-            },            
+            },
+            
         ],
         "Deep": [
             {
@@ -77,7 +78,7 @@
                 "label": "CornerPin3D",
                 "file": "CornerPin3D.nk",
                 "tooltip": ""
-            },   
+            },
             {
                 "label": "CornerPin3D Example",
                 "file": "CornerPin3dExample.nk",
@@ -90,16 +91,16 @@
                 "file": "Fizzle.nk",
                 "tooltip": "TV Simulation"
             },
-           {
+            {
                 "label": "Fractal Blur",
                 "file": "fractalBlur.nk",
                 "tooltip": "Organic distortion an rgba using a mask. Example use: break up an edge or create a stylistic effect"
             },
-           {
+            {
                 "label": "Defocus Bokeh",
                 "file": "defocusBokeh.nk",
                 "tooltip": ""
-            }            
+            }
         ]
     },
     "scripts": {
