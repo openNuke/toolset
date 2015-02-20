@@ -57,7 +57,12 @@
                 "label": "Fractal Blur",
                 "file": "fractalBlur.nk",
                 "tooltip": "Organic distortion an rgba using a mask. Example use: break up an edge or create a stylistic effect"
-            }
+            },
+           {
+                "label": "Defocus Bokeh",
+                "file": "defocusBokeh.nk",
+                "tooltip": ""
+            }            
         ]
     },
     "scripts": {
