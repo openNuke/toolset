@@ -1,8 +1,16 @@
 {
     "nodes": {
+        
+        "Colour": [
+            {
+                "label": "Set Blacks",
+                "file": "setBlacks.nk",
+                "tooltip": "Sets Black"
+            }
+        ],        
         "Image": [
             {
-                "label": "uvTile",
+                "label": "UV Tile",
                 "file": "uvTile.nk",
                 "tooltip": "Creates a proceedural UV map that can be used to check the UVs on any object. It is normalised in U and V so using a colour sample with allow you to\ncheck the UV location of any point on the model. it is STRONGLY recommended that you only output to Square formats (1:1 aspect ratio)"
             }
@@ -16,7 +24,7 @@
         ],
         "Filter": [
             {
-                "label": "Fizzle",
+                "label": "TV Fizzle",
                 "file": "https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/Fizzle",
                 "tooltip": "TV Simulation"
             }
