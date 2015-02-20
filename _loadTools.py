@@ -64,7 +64,7 @@ class ToolSetWidget(QtGui.QWidget):
         
     def runTool(self, toolPath, toolName):
 		toolPath = os.path.join(rootPath, os.path.split(toolPath)[1])
-    	self.toolData = getData(toolPath).gotData
+    		self.toolData = getData(toolPath).gotData
     	
 		clipboard = QtGui.QApplication.clipboard()
 		clipboard.setText(self.toolData)
