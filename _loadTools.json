@@ -3,7 +3,7 @@
         "Transform": [
             {
                 "label": "Camera Shake (Vector Motion Blur)",
-                "file": "https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/CameraShakeVetr",
+                "file": "https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/CameraShakeVetr.nk",
                 "tooltip": "Combines vectors from an input with camera shake vectors for motion blur;\n\n* presets\n* tiling\n* pre-transform paramaters\n* combining two noise patterns together i.e. handheld & vibration)\n* being able to view the output curves with time offsets to place 'bumps' at the right moment in time\n* seperate amplitude and frequency for Transform, scale and rotation"
             }
         ],
