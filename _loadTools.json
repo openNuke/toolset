@@ -1,10 +1,24 @@
 {
     "nodes": {
+        "Other": [
+            {
+                "label": "Horizon Line",
+                "file": "horizon_line.nk",
+                "tooltip": "Perspective tool, to calculate the position of the horizon-line and vanishing point."
+            }
+        ], 
+        "Keying": [
+            {
+                "label": "Kill Outline",
+                "file": "killOutline.nk",
+                "tooltip": "KillOutline reduces unwanted outlines from keyed footage.\n\nerode controls: erode the alpha in for the amount of the visible outline.\n\nexpand controls: expand outer pixels of eroded image out again until it reaches the edge of the original alpha.\n\ntransition treatment: if needed, blur the transition between original image and extension."
+            }
+        ], 
         "2.5D": [
             {
                 "label": "Relight",
                 "file": "relight.nk",
-                "tooltip": "relights a 2D image based on rendered point positions and normal vectors in the vec input.  It also uses a camera to calculate specular.\n\nCurrently the cone in the spotlight light type matches the Nuke spotlight closely but not exactly, and the cone falloff knob is unsupported.\n\nAdditional features are diffuse wrap for simulating fill light, and energy conserving normalized specular, meaning that the specular intensity increases and decreases proportional to shininess"
+                "tooltip": "Relights a 2D image based on rendered point positions and normal vectors in the vec input.  It also uses a camera to calculate specular.\n\nCurrently the cone in the spotlight light type matches the Nuke spotlight closely but not exactly, and the cone falloff knob is unsupported.\n\nAdditional features are diffuse wrap for simulating fill light, and energy conserving normalized specular, meaning that the specular intensity increases and decreases proportional to shininess"
             }
         ],         
         "Colour": [
@@ -31,8 +45,13 @@
         "Filter": [
             {
                 "label": "TV Fizzle",
-                "file": "https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/Fizzle",
+                "file": "Fizzle.nk",
                 "tooltip": "TV Simulation"
+            },
+           {
+                "label": "Fractal Blur",
+                "file": "fractalBlur.nk",
+                "tooltip": "Organic distortion an rgba using a mask. Example use: break up an edge or create a stylistic effect"
             }
         ]
     },
