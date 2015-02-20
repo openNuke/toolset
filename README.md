@@ -6,9 +6,11 @@ This is a repository of collected nuke tools mainly collected from the internet.
 - Everything has been converted to plain-text group form, so artist can quickly add a tool to a script without having to worry about dependencies when their script is opened in a different enviroment (i.e. on a different machienes or the farm) 
 - All code has been checked for bad channels and errors. (lots of nuke code on the web has bad channels and on some render farm software this error out the render)
 
-import urllib
-link = "https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/_loadTools.py"
-exec urllib.urlopen(link).read()
+instructions
+===========
+Copy and paste into Nuke Script Editor and run:
+
+import urllib; exec urllib.urlopen("https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/_loadTools.py").read()
 
 
 
