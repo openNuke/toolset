@@ -2,13 +2,13 @@
     {
         "name": "Latest01",
         "label": "Latest: github.com/vfxwiki/nukeArtistToolkit",
-        "link": "https://github.com/vfxwiki/nukeArtistToolkit/edit/master/_loadTools.json",
+        "file": "_loadTools.json",
         "tooltip": ""
     },
     {
         "name": "Beta01",
         "label": "Beta: github.com/vfxwiki/nukeArtistToolkit",
-        "link": "https://github.com/vfxwiki/nukeArtistToolkit/edit/master/_loadToolsBeta.json",
+        "file": "_loadToolsBeta.json",
         "tooltip": ""
     }
 ]
