@@ -45,7 +45,7 @@ Group {
  addUserKnob {41 mixBlend l mix T Blend1.mixBlend}
  addUserKnob {20 Info}
  addUserKnob {26 text01 l version: -STARTLINE T "0.2b   |   "}
- addUserKnob {22 documentation l " Documentation " -STARTLINE T "import webbrowser\nwebbrowser.open('http://www.vfxwiki.org/tiki-index.php?page=GradeAOV')"}
+ addUserKnob {22 documentation l " Documentation / Report Bug " -STARTLINE T "import webbrowser\nwebbrowser.open('http://www.vfxwiki.org/tiki-index.php?page=GradeAOV')"}
  addUserKnob {26 "" +STARTLINE}
  addUserKnob {26 text02 l created: T "1/1/2015 by <a href=\"www.vfxwiki.org\"> VFX WIKI from Github</a> "}
  addUserKnob {26 text03 l modified: T "1/2/2015 by <a href=\"www.vfxwiki.org\"> VFX WIKI from Github</a>  "}
