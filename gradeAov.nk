@@ -1,14 +1,14 @@
-
 set cut_paste_input [stack 0]
 version 9.0 v1
 push $cut_paste_input
 Group {
  name AOVGrade
+ help "Colour correct the CG beauty using the secondary(aov) passes.with a subtractive process.\nto be used when:\n * the CG is good and only a few passes need adjusting\n * the secondaries don't add up to the beauty\n * rgb saturation (luminance mix on)\n * rgb contrast (with pivot)\n * matting with external mask input or main channel input or both with an operation.\n The order of correction is: Grade Node>Contrast Node>Saturation."
  label "\[value in]\n"
  selected true
- xpos 2136
- ypos 173
- addUserKnob {20 User}
+ xpos 2135
+ ypos 171
+ addUserKnob {20 User l AOVGrade}
  addUserKnob {41 in l "Channel to use" T Shuffle.in}
  addUserKnob {41 AlsoGradeChannel l "Also Grade Channel" t "as well as grading the beauty bake the grade into the selected channel" T ShuffleCopy1.AlsoGradeChannel}
  addUserKnob {26 ""}
@@ -35,22 +35,22 @@ Group {
  addUserKnob {41 enable_mix_luminance_1 l "" -STARTLINE T ColorCorrect6.enable_mix_luminance}
  addUserKnob {41 mix_luminance_1 l "" -STARTLINE T ColorCorrect6.mix_luminance}
  addUserKnob {26 ""}
- addUserKnob {41 B l mask T ChannelMerge.B}
+ addUserKnob {41 A_1 l mask T Group1.A}
  addUserKnob {41 mask_1 l invert -STARTLINE T InverMask.mask_1}
- addUserKnob {41 operation T ChannelMerge.operation}
- addUserKnob {41 A l "channel mask" t "use 'B' input channel as mask" T ChannelMerge.A}
+ addUserKnob {41 operation_1 l operation T Group1.operation}
+ addUserKnob {41 B_1 l channel T Group1.B}
  addUserKnob {41 mask_1_1 l invert -STARTLINE T InvertChannel.mask_1}
  addUserKnob {26 ""}
  addUserKnob {41 alpha l "(un)premult by" T Unpremult1.alpha}
  addUserKnob {41 mixBlend l mix T Blend1.mixBlend}
  addUserKnob {20 Info}
- addUserKnob {26 text01 l version: -STARTLINE T "0.1b   |   "}
+ addUserKnob {26 text01 l version: -STARTLINE T "0.2b   |   "}
  addUserKnob {22 documentation l " Documentation " -STARTLINE T "import webbrowser\nwebbrowser.open('http://www.vfxwiki.org/tiki-index.php?page=GradeAOV')"}
  addUserKnob {26 "" +STARTLINE}
  addUserKnob {26 text02 l created: T "1/1/2015 by <a href=\"www.vfxwiki.org\"> VFX WIKI from Github</a> "}
- addUserKnob {26 text03 l "last modified:" T "1/2/2015 by <a href=\"www.vfxwiki.org\"> VFX WIKI from Github</a> "}
+ addUserKnob {26 text03 l modified: T "1/2/2015 by <a href=\"www.vfxwiki.org\"> VFX WIKI from Github</a>  "}
  addUserKnob {26 source l source: T "<a href=\"https://github.com/vfxwiki/nukeArtistToolkit/blob/master/gradeAov.nk \">github.com/vfxwiki/nukeArtistToolkit/</a> "}
- addUserKnob {26 licence l licence: T "<a href=\"https://github.com/vfxwiki/nukeArtistToolkit/blob/master/gradeAov.nk \">READ ME</a> \n"}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/vfxwiki/nukeArtistToolkit/blob/master/README.md\">READ ME</a>"}
 }
  Input {
   inputs 0
@@ -103,12 +103,14 @@ set N38a4f6a0 [stack 0]
   expr1 "pow(g/grey, value+1)*grey"
   expr2 "pow(b/grey, value+1)*grey"
   name contrast
+  selected true
   xpos -680
   ypos -319
   addUserKnob {20 User}
   addUserKnob {7 grey}
   grey 0.18
-  addUserKnob {7 value R -4 4}
+  addUserKnob {18 value R -1 1}
+  addUserKnob {6 value_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  }
  ColorCorrect {
   channels all
@@ -214,9 +216,12 @@ push $N38a3b480
  Group {
   inputs 2
   name Group1
-  selected true
   xpos -20
   ypos -373
+  addUserKnob {20 User}
+  addUserKnob {41 A l "A channel" T ChannelMerge.A}
+  addUserKnob {41 operation T ChannelMerge.operation}
+  addUserKnob {41 B l "B channel" T ChannelMerge.B}
  }
   Input {
    inputs 0
@@ -236,6 +241,7 @@ push $N38a3b480
    A none
    B none
    name ChannelMerge
+   selected true
    xpos -5
    ypos -155
    addUserKnob {20 User}
