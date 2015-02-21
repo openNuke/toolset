@@ -1,1 +1,321 @@
 
+set cut_paste_input [stack 0]
+version 9.0 v1
+push $cut_paste_input
+Group {
+ name AOVGrade
+ label "\[value in]\n"
+ selected true
+ xpos 2136
+ ypos 173
+ addUserKnob {20 User}
+ addUserKnob {41 in l "Channel to use" T Shuffle.in}
+ addUserKnob {41 AlsoGradeChannel l "Also Grade Channel" t "as well as grading the beauty bake the grade into the selected channel" T ShuffleCopy1.AlsoGradeChannel}
+ addUserKnob {26 ""}
+ addUserKnob {41 blackpoint T Grade27.blackpoint}
+ addUserKnob {41 whitepoint T Grade27.whitepoint}
+ addUserKnob {41 black l lift T Grade27.black}
+ addUserKnob {41 white l gain T Grade27.white}
+ addUserKnob {41 multiply T Grade27.multiply}
+ addUserKnob {41 add l offset T Grade27.add}
+ addUserKnob {41 gamma T Grade27.gamma}
+ addUserKnob {26 "" l "  "}
+ addUserKnob {41 reverse T Grade27.reverse}
+ addUserKnob {41 black_clamp l "black clamp" -STARTLINE T Grade27.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" -STARTLINE T Grade27.white_clamp}
+ addUserKnob {26 text2 l "mix luminance" T " "}
+ addUserKnob {41 enable_mix_luminance l "" -STARTLINE T Grade27.enable_mix_luminance}
+ addUserKnob {41 mix_luminance l "" -STARTLINE T Grade27.mix_luminance}
+ addUserKnob {26 ""}
+ addUserKnob {41 value l Contrast T contrast.value}
+ addUserKnob {41 grey T contrast.grey}
+ addUserKnob {26 ""}
+ addUserKnob {41 saturation T ColorCorrect6.saturation}
+ addUserKnob {26 text3 l "mix luminance" T " "}
+ addUserKnob {41 enable_mix_luminance_1 l "" -STARTLINE T ColorCorrect6.enable_mix_luminance}
+ addUserKnob {41 mix_luminance_1 l "" -STARTLINE T ColorCorrect6.mix_luminance}
+ addUserKnob {26 ""}
+ addUserKnob {41 B l mask T ChannelMerge.B}
+ addUserKnob {41 mask_1 l invert -STARTLINE T InverMask.mask_1}
+ addUserKnob {41 operation T ChannelMerge.operation}
+ addUserKnob {41 A l "channel mask" t "use 'B' input channel as mask" T ChannelMerge.A}
+ addUserKnob {41 mask_1_1 l invert -STARTLINE T InvertChannel.mask_1}
+ addUserKnob {26 ""}
+ addUserKnob {41 alpha l "(un)premult by" T Unpremult1.alpha}
+ addUserKnob {41 mixBlend l mix T Blend1.mixBlend}
+ addUserKnob {20 Info}
+ addUserKnob {26 text01 l version: -STARTLINE T "0.1b   |   "}
+ addUserKnob {22 documentation l " Documentation " -STARTLINE T "import webbrowser\nwebbrowser.open('http://www.vfxwiki.org/tiki-index.php?page=GradeAOV')"}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 text02 l created: T "1/1/2015 by <a href=\"www.vfxwiki.org\"> VFX WIKI from Github</a> "}
+ addUserKnob {26 text03 l "last modified:" T "1/2/2015 by <a href=\"www.vfxwiki.org\"> VFX WIKI from Github</a> "}
+ addUserKnob {26 source l source: T "<a href=\"https://github.com/vfxwiki/nukeArtistToolkit/blob/master/gradeAov.nk \">github.com/vfxwiki/nukeArtistToolkit/</a> "}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/vfxwiki/nukeArtistToolkit/blob/master/gradeAov.nk \">READ ME</a> \n"}
+}
+ Input {
+  inputs 0
+  name In
+  xpos -217
+  ypos -639
+ }
+ Dot {
+  name Dot1
+  xpos -186
+  ypos -550
+ }
+set N38a3b480 [stack 0]
+ Unpremult {
+  alpha -rgba.alpha
+  name Unpremult1
+  xpos -488
+  ypos -550
+  disable {{!alpha x9 0}}
+  addUserKnob {20 User}
+ }
+ Dot {
+  name Dot27
+  xpos -457
+  ypos -473
+ }
+set N38a47280 [stack 0]
+ Dot {
+  name Dot26
+  xpos -649
+  ypos -473
+ }
+ Shuffle {
+  in none
+  out rgb
+  name Shuffle
+  xpos -680
+  ypos -419
+ }
+set N38a4f6a0 [stack 0]
+ Grade {
+  channels all
+  enable_mix_luminance false
+  name Grade27
+  xpos -680
+  ypos -377
+ }
+ Expression {
+  expr0 "pow(r/grey, value+1)*grey"
+  expr1 "pow(g/grey, value+1)*grey"
+  expr2 "pow(b/grey, value+1)*grey"
+  name contrast
+  xpos -680
+  ypos -319
+  addUserKnob {20 User}
+  addUserKnob {7 grey}
+  grey 0.18
+  addUserKnob {7 value R -4 4}
+ }
+ ColorCorrect {
+  channels all
+  mix_luminance 1
+  name ColorCorrect6
+  xpos -680
+  ypos -273
+ }
+set N38a76120 [stack 0]
+ Dot {
+  name Dot6
+  xpos -649
+  ypos 89
+ }
+push $N38a3b480
+ Dot {
+  name Dot2
+  xpos -189
+  ypos -321
+ }
+set N38a8aa10 [stack 0]
+ Dot {
+  name Dot3
+  xpos -319
+  ypos -321
+ }
+push $N38a76120
+push $N38a4f6a0
+push $N38a47280
+ Merge2 {
+  inputs 2
+  operation from
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name From
+  xpos -491
+  ypos -419
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge34
+  xpos -491
+  ypos -269
+ }
+ Dot {
+  name Dot29
+  xpos -457
+  ypos -231
+ }
+ Premult {
+  alpha {{{parent.Unpremult1.alpha}}}
+  name Premult4
+  xpos -488
+  ypos -195
+  disable {{parent.Unpremult1.disable x9 0}}
+ }
+ Blend {
+  inputs 2
+  weight0 {{mixBlend}}
+  weight1 {{1-weight0}}
+  name Blend1
+  xpos -350
+  ypos -199
+  addUserKnob {20 User}
+  addUserKnob {7 mixBlend}
+  mixBlend 1
+ }
+set N38ab8f30 [stack 0]
+push $N38a3b480
+ Dot {
+  name Dot5
+  xpos -135
+  ypos -550
+ }
+ Invert {
+  name InvertChannel
+  xpos -166
+  ypos -377
+  disable {{!mask_1}}
+  addUserKnob {20 User}
+  addUserKnob {6 mask_1 l mask +STARTLINE}
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos -20
+  ypos -641
+  number 1
+ }
+ Invert {
+  name InverMask
+  xpos -20
+  ypos -441
+  disable {{!mask_1}}
+  addUserKnob {20 User}
+  addUserKnob {6 mask_1 l mask +STARTLINE}
+ }
+ Group {
+  inputs 2
+  name Group1
+  selected true
+  xpos -20
+  ypos -373
+ }
+  Input {
+   inputs 0
+   name Input2
+   xpos -5
+   ypos -195
+   number 1
+  }
+  Input {
+   inputs 0
+   name Input1
+   xpos -5
+   ypos -195
+  }
+  ChannelMerge {
+   inputs 2
+   A none
+   B none
+   name ChannelMerge
+   xpos -5
+   ypos -155
+   addUserKnob {20 User}
+   addUserKnob {6 off +STARTLINE}
+   off {{"\[python nuke.thisNode()\\\['A'\\].value()\\ ==\\ 'none'\\ and\\ nuke.thisNode()\\\['B'\\].value()\\ ==\\ 'none']"}}
+  }
+  Output {
+   name Output1
+   xpos -5
+   ypos -55
+  }
+ end_group
+ Dot {
+  name Dot4
+  xpos 14
+  ypos -340
+ }
+set N39404d00 [stack 0]
+ Shuffle {
+  red white
+  out alpha
+  name Shuffle1
+  xpos -20
+  ypos -289
+  disable {{!ChannelMerge.off K x22 1}}
+ }
+push $N38ab8f30
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -20
+  ypos -199
+ }
+ Premult {
+  name Premult1
+  xpos -20
+  ypos -88
+ }
+push $N38a8aa10
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos -220
+  ypos -88
+ }
+ Switch {
+  inputs 2
+  name Switch1
+  xpos -275
+  ypos -3
+ }
+ ShuffleCopy {
+  inputs 2
+  in {{{Shuffle.in}}}
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  out2 {{{Shuffle.in}}}
+  name ShuffleCopy1
+  xpos -220
+  ypos 97
+  disable {{!AlsoGradeChannel}}
+  addUserKnob {20 User}
+  addUserKnob {6 AlsoGradeChannel l "Also Grade Channel" +STARTLINE}
+ }
+ Output {
+  name Output1
+  xpos -220
+  ypos 208
+ }
+push $N39404d00
+ Viewer {
+  frame_range 1-115
+  fps 25
+  channels alpha
+  name Viewer1
+  xpos 207
+  ypos 152
+ }
+end_group
