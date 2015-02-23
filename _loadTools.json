@@ -110,9 +110,22 @@
     "scripts": {
         "Node Graph Layout": [
             {
-                "file": "xxxx",
-                "tooltip": "xxxx",
-                "label": "Align Vertical"
+                "label": "Align x",
+                "file": "alignNodes.py",
+                "load": "alignNodes('alignNodes.alignNodes( nuke.selectedNodes(), direction="x" ),
+                "tooltip": "Align a bunch of Nodes either horizontally in the Node Graph",
+                "author": "Frank Rueter",
+                "dateCreated": "16/04/2012",
+                "status": "stable"
+            },
+            {
+                "label": "Align y",
+                "file": "alignNodes.py",
+                "load": "alignNodes('alignNodes.alignNodes( nuke.selectedNodes(), direction="y" ),
+                "tooltip": "Align a bunch of Nodes either vertically in the Node Graph",
+                "author": "Frank Rueter",
+                "dateCreated": "16/04/2012",
+                "status": "stable"
             },
             {
                 "label": "Scale",
@@ -120,7 +133,8 @@
                 "load": "scaleNodes(3)",
                 "tooltip": "Contract and expand node connections, including backdrops.",
                 "author": "Frank Rueter",
-                "dateCreated": "06/02/2012"
+                "dateCreated": "06/02/2012",
+                "status": "stable"
             },
             {
                 "label": "Scale x",
@@ -128,7 +142,8 @@
                 "load": "scaleNodes(3,0)",
                 "tooltip": "Contract and expand node connections, including backdrops.",
                 "author": "Frank Rueter",
-                "dateCreated": "06/02/2012"
+                "dateCreated": "06/02/2012",
+                "status": "stable"
             },
             {
                 "label": "Scale y",
@@ -136,7 +151,17 @@
                 "load": "scaleNodes(0,3)",
                 "tooltip": "Contract and expand node connections, including backdrops.",
                 "author": "Frank Rueter",
-                "dateCreated": "06/02/2012"
+                "dateCreated": "06/02/2012",
+                "status": "stable"
+            },
+            {
+                "label": "Pate2selected",
+                "file": "scaleNodes.py",
+                "load": "pasteToSelected.pasteToSelected()",
+                "tooltip": "Paste nodes in the clipboard to all selected nodes as multiple copies",
+                "author": "Frank Rueter",
+                "dateCreated": "19/02/2012",
+                "status": "stable"
             }
         ],
         "Default Node Presets": [
@@ -146,17 +171,19 @@
                 "load": "nodePresetCamera()",
                 "tooltip": "Film back presets for Camera and CameraTracker nodes.",
                 "author": "Deke Kincaid",
-                "dateCreated": "17/10/2012"
+                "dateCreated": "17/10/2012",
+                "status": "stable"
             }
         ],
-        "Other": [
+        "Panel UI": [
             {
                 "label": "Search and Replace",
                 "file": "SearchReplacePanel.py",
                 "load": "",
                 "tooltip": "Search and replace values in all or selected nodes",
                 "author": "Deke Kincaid",
-                "dateCreated": "17/10/2012"
+                "dateCreated": "17/10/2012",
+                "status": "stable"
             }
         ]
     }
