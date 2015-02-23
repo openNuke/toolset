@@ -1,6 +1,6 @@
 #author: Frank Rueter
 #dateCreated: 06/02/2012
-#source: http://www.nukepedia.com/python/nodegraph/scalenodes/
+#source: http://www.nukepedia.com/python/nodegraph/scalenodes/ v1.3
 #licence: https://github.com/vfxwiki/nukeArtistToolkit/blob/master/README.md
 
 import nuke
