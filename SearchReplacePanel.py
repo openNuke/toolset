@@ -1,6 +1,6 @@
 #author: Frank Rueter
 #dateCreated: 14/03/2012
-#source: http://www.nukepedia.com/python/ui/searchreplacepanel
+#source: http://www.nukepedia.com/python/ui/searchreplacepanel v1.2
 #licence: https://github.com/vfxwiki/nukeArtistToolkit/blob/master/README.md
 
 from xml.etree import ElementTree
