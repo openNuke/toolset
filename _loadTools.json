@@ -115,16 +115,48 @@
                 "label": "Align Vertical"
             },
             {
-                "file": "xxxx",
-                "tooltip": "xxxx",
-                "label": "Align Horizontal"
+                "label": "Scale",
+                "file": "scaleNodes.py",
+                "load": "scaleNodes(3)",
+                "tooltip": "Contract and expand node connections, including backdrops.",
+                "author": "Frank Rueter",
+                "dateCreated": "06/02/2012"
+            },
+            {
+                "label": "Scale x",
+                "file": "scaleNodes.py",
+                "load": "scaleNodes(3,0)",
+                "tooltip": "Contract and expand node connections, including backdrops.",
+                "author": "Frank Rueter",
+                "dateCreated": "06/02/2012"
+            },
+            {
+                "label": "Scale y",
+                "file": "scaleNodes.py",
+                "load": "scaleNodes(0,3)",
+                "tooltip": "Contract and expand node connections, including backdrops.",
+                "author": "Frank Rueter",
+                "dateCreated": "06/02/2012"
             }
         ],
-        "Layout": [
+        "Default Node Presets": [
             {
-                "label": "xxxxx",
-                "file": "xxxxx",
-                "tooltip": "xxxxx"
+                "label": "FilmBack Cams",
+                "file": "cam_presets.py",
+                "load": "nodePresetCamera()",
+                "tooltip": "Film back presets for Camera and CameraTracker nodes.",
+                "author": "Deke Kincaid",
+                "dateCreated": "17/10/2012"
+            }
+        ],
+        "Other": [
+            {
+                "label": "Search and Replace",
+                "file": "SearchReplacePanel.py",
+                "load": "",
+                "tooltip": "Search and replace values in all or selected nodes",
+                "author": "Deke Kincaid",
+                "dateCreated": "17/10/2012"
             }
         ]
     }
