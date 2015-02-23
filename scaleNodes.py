@@ -1,3 +1,8 @@
+#author: Frank Rueter
+#dateCreated: 06/02/2012
+#source: http://www.nukepedia.com/python/nodegraph/scalenodes/
+#Licence: https://github.com/vfxwiki/nukeArtistToolkit/blob/master/README.md
+
 import nuke
 
 def scaleNodes( xScale, yScale=None ):
