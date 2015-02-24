@@ -63,7 +63,6 @@ class ToolSetWidget(QtGui.QWidget):
 			self.tabs.addTab(self.nodesTab, " Nodes ")
 		
 	def runTool(self, toolPath, pycall):
-		pycall = call
 		toolPath = os.path.join(rootPath, os.path.split(toolPath)[1])
 		self.toolData = getData(toolPath).gotData
 		print os.path.splitext(os.path.split(toolPath)[1])[1]
@@ -82,7 +81,7 @@ class ToolSetWidget(QtGui.QWidget):
 		elif os.path.splitext(os.path.split(toolPath)[1])[1]==".py":
 			myfile = f.read()
 			exec self.toolData
-			exec call
+			exec pycall
 			
 ########################				
 	
