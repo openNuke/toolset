@@ -65,8 +65,8 @@ class ToolSetWidget(QtGui.QWidget):
 	def runTool(self, toolPath, toolName):
 		toolPath = os.path.join(rootPath, os.path.split(toolPath)[1])
 		self.toolData = getData(toolPath).gotData
-		print os.path.splitext(os.path.split(toolpath)[1])[1]
-		if os.path.splitext(os.path.split(toolpath)[1])[1]==".nk":
+		print os.path.splitext(os.path.split(toolPath)[1])[1]
+		if os.path.splitext(os.path.split(toolPath)[1])[1]==".nk":
 			clipboard = QtGui.QApplication.clipboard()
 			clipboard.setText(self.toolData)
 			if len(nuke.selectedNodes()):	
