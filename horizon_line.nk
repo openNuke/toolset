@@ -1,16 +1,13 @@
-#http://www.nukepedia.com/gizmos/other/perspective-guide-110 Peter Farkas - Baseblack (London) Ltd.
-#PerspectiveGuide. Nuke gizmo and python script written by Peter Farkas. Original Shake macro written by Adrian Banton and Matt Twyford. Special thanks to Gabor L. Toth and Howard Jones.
-#licence: www.nukepedia.com/gizmos/other/perspective-guide-110/start-download
-#Changes(www.vfxwiki.org): Horizon Line added with rotation and reset button. Renamed to HorizonLine
 set cut_paste_input [stack 0]
-version 7.0 v1
+version 9.0 v1
 push $cut_paste_input
 Group {
  name HorizonLine
+ help "Perspective tool, to calculate the position of the horizon-line and vanishing point."
  tile_color 0x566d6dff
  selected true
- xpos 112
- ypos -9
+ xpos 65
+ ypos -48
  addUserKnob {20 options l Options}
  addUserKnob {4 overlay l Overlay t "Choose layer operation." M {add over ""}}
  overlay over
@@ -21,8 +18,9 @@ Group {
  linesThickness 2
  addUserKnob {18 lineColour}
  lineColour {1 1 1}
+ addUserKnob {6 lineColour_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  addUserKnob {26 text01 l "Reset Points" T ""}
- addUserKnob {22 pyButton l GO! -STARTLINE T "def setPerspectivePointValues():\n    w = int (nuke.root().knob('format').value().width())\n    h = int (nuke.root().knob('format').value().height())\n    wHalf = int (w/2)\n    hHalf = int (h/2)\n\n    persp = nuke.thisNode()\n    persp\[ 'origin' ].setValue( \[wHalf, hHalf] )\n    persp\[ 'point1' ].setValue( \[0, h] )\n    persp\[ 'point2' ].setValue( \[wHalf+1, h] )\n    persp\[ 'point3' ].setValue( \[w, h] )\n    persp\[ 'point4' ].setValue( \[0, hHalf+1] )\n    persp\[ 'point5' ].setValue( \[w, hHalf+1] )\n    persp\[ 'point6' ].setValue( \[0, 0] )\n    persp\[ 'point7' ].setValue( \[wHalf+1, 0] )\n    persp\[ 'point8' ].setValue( \[w, 0] )\n    persp\[ 'rotate' ].setValue( 0 )\n\nsetPerspectivePointValues()"}
+ addUserKnob {22 pyButton l GO! t "resets lines to the root format of the script" -STARTLINE T "def setPerspectivePointValues():\n    w = int (nuke.root().knob('format').value().width())\n    h = int (nuke.root().knob('format').value().height())\n    wHalf = int (w/2)\n    hHalf = int (h/2)\n\n    persp = nuke.thisNode()\n    persp\[ 'origin' ].setValue( \[wHalf, hHalf] )\n    persp\[ 'point1' ].setValue( \[0, h] )\n    persp\[ 'point2' ].setValue( \[wHalf+1, h] )\n    persp\[ 'point3' ].setValue( \[w, h] )\n    persp\[ 'point4' ].setValue( \[0, hHalf+1] )\n    persp\[ 'point5' ].setValue( \[w, hHalf+1] )\n    persp\[ 'point6' ].setValue( \[0, 0] )\n    persp\[ 'point7' ].setValue( \[wHalf+1, 0] )\n    persp\[ 'point8' ].setValue( \[w, 0] )\n    persp\[ 'rotate' ].setValue( 0 )\n\nsetPerspectivePointValues()"}
  addUserKnob {20 horizonGrp l horizon n 1}
  horizonGrp 0
  addUserKnob {6 horizon +STARTLINE}
@@ -30,6 +28,7 @@ Group {
  addUserKnob {41 rotate T Transform1.rotate}
  addUserKnob {18 horizonColour}
  horizonColour {1 0 0}
+ addUserKnob {6 horizonColour_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  addUserKnob {7 lineOpacity}
  lineOpacity 1
  addUserKnob {20 endGroup n -1}
@@ -50,10 +49,17 @@ Group {
  point7 {1025 0}
  addUserKnob {12 point8 l Point8}
  point8 {2048 0}
+ addUserKnob {20 Info}
+ addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLKIT +++"}
+ addUserKnob {22 documentation l "  Documentation / Feedback  " T "import webbrowser\nwebbrowser.open(/'http://www.nukepedia.com/gizmos/other/perspective-guide-110/')" +STARTLINE}
  addUserKnob {26 ""}
- addUserKnob {26 version l "" t "Horizon Line added with rotation and reset button" +STARTLINE T "version 1.1 branch(vfxwiki.org) 0.1 "}
- addUserKnob {26 Copyright l "" +STARTLINE T "Copyright 2010 Baseblack (London) Ltd. & L Alberti"}
- addUserKnob {26 LICENCE l "" -STARTLINE +INVISIBLE T "Copyright 2010 Baseblack (London) Ltd. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification,\nare permitted provided that the following conditions are met:\n\n   1. Redistributions of source code must retain the above copyright notice,\n      this list of conditions and the following disclaimer.\n\n   2. Redistributions in binary form must reproduce the above copyright notice,\n      this list of conditions and the following disclaimer in the documentation\n      and/or other materials provided with the distribution.\n\nTHIS SOFTWARE IS PROVIDED BY BASEBLACK (LONDON) LTD ``AS IS'' AND ANY EXPRESS\nOR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF\nMERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO\nEVENT SHALL BASEBLACK (LONDON) LTD OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,\nINDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,\nBUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\nDATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF\nLIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE\nOR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF\nADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\nThe views and conclusions contained in the software and documentation are those\nof the authors and should not be interpreted as representing official policies,\neither expressed or implied, of Baseblack (London) Ltd."}
+ addUserKnob {26 version l version: T 0.2}
+ addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://www.nukepedia.com/gizmos/other/perspective-guide-110'> Peter Farkas - Baseblack (London) Ltd. Original Shake macro written by Adrian Banton and Matt Twyford. Special thanks to Gabor L. Toth and Howard Jones.</a>"}
+ addUserKnob {26 modified l "modified: " T "1/2/2015 by <a href=\\/'www.movingimagearts.com\\/'> Moving Image Arts</a> "}
+ addUserKnob {26 source l source: T "v1.0 <a href='http://www.nukepedia.com/gizmos/other/perspective-guide-110'> Nukepedia</a>"}
+ addUserKnob {26 github l github: T "<a href=\"https://github.com/openNuke/toolkit/blob/master/horizon_line.nk\">github.com/openNuke/toolkit/blob/master/horizon_line.nk</a>"}
+ addUserKnob {26 status l status: T stable}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolkit/blob/master/LICENCE\">READ ME</a>"}
 }
  RotoPaint {
   inputs 0
@@ -149,7 +155,6 @@ Group {
   motionblur_shutter_offset_type centred
   source_translate_round false
   source_black_outside true
-  createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
   name RotoPaint102
   selected true
   xpos -810
@@ -158,9 +163,9 @@ Group {
   addUserKnob {20 User}
   addUserKnob {7 rotateHorizon R -180 180}
  }
-set N12fbc980 [stack 0]
+set N3a5320d0 [stack 0]
  Grade {
-  channels {rgba.red rgba.green rgba.blue rgba.alpha}
+  channels rgba
   whitepoint 0
   white_clamp true
   name Grade3
@@ -173,7 +178,7 @@ set N12fbc980 [stack 0]
   xpos -810
   ypos -86
  }
-set N14faffc0 [stack 0]
+set N3a556b90 [stack 0]
  Grade {
   channels {rgba.red rgba.green rgba.blue -rgba.alpha}
   whitepoint 0
@@ -259,7 +264,6 @@ set N14faffc0 [stack 0]
   motionblur_shutter_offset_type centred
   source_translate_round false
   source_black_outside true
-  createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
   name RotoPaint1
   xpos -590
   ypos -561
@@ -333,7 +337,6 @@ set N14faffc0 [stack 0]
   motionblur_on true
   motionblur_shutter_offset_type centred
   source_black_outside true
-  createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
   name RotoPaint2
   xpos -590
   ypos -513
@@ -408,7 +411,6 @@ set N14faffc0 [stack 0]
   motionblur_shutter_offset_type centred
   source_translate_round false
   source_black_outside true
-  createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
   name RotoPaint3
   xpos -590
   ypos -465
@@ -483,7 +485,6 @@ set N14faffc0 [stack 0]
   motionblur_shutter_offset_type centred
   source_translate_round false
   source_black_outside true
-  createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
   name RotoPaint4
   xpos -590
   ypos -417
@@ -558,7 +559,6 @@ set N14faffc0 [stack 0]
   motionblur_shutter_offset_type centred
   source_translate_round false
   source_black_outside true
-  createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
   name RotoPaint5
   xpos -590
   ypos -369
@@ -632,7 +632,6 @@ set N14faffc0 [stack 0]
   motionblur_on true
   motionblur_shutter_offset_type centred
   source_black_outside true
-  createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
   name RotoPaint6
   xpos -590
   ypos -321
@@ -706,7 +705,6 @@ set N14faffc0 [stack 0]
   motionblur_on true
   motionblur_shutter_offset_type centred
   source_black_outside true
-  createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
   name RotoPaint7
   xpos -590
   ypos -273
@@ -781,14 +779,13 @@ set N14faffc0 [stack 0]
   motionblur_shutter_offset_type centred
   source_translate_round false
   source_black_outside true
-  createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
   name RotoPaint8
   xpos -590
   ypos -225
   disable {{"linesVisible < 8"}}
  }
  Grade {
-  channels {rgba.red rgba.green rgba.blue rgba.alpha}
+  channels rgba
   whitepoint 0
   white_clamp true
   name Grade1
@@ -801,7 +798,7 @@ set N14faffc0 [stack 0]
   xpos -590
   ypos -134
  }
-set N17a00b50 [stack 0]
+set N3e04d940 [stack 0]
  Grade {
   multiply {{lineColour.r i} {lineColour.g i} {lineColour.b i} {1 i}}
   white_clamp true
@@ -827,7 +824,7 @@ set N17a00b50 [stack 0]
   xpos -590
   ypos 58
  }
-set N12fc48c0 [stack 0]
+set N3e07c770 [stack 0]
  Dot {
   name Dot3
   xpos -556
@@ -840,8 +837,8 @@ set N12fc48c0 [stack 0]
   ypos 111
   disable true
  }
-push $N14faffc0
-push $N17a00b50
+push $N3a556b90
+push $N3e04d940
  Merge2 {
   inputs 2
   operation max
@@ -857,13 +854,13 @@ push $N17a00b50
   xpos -370
   ypos -609
  }
-set N18117c00 [stack 0]
+set N3e0a5040 [stack 0]
  Dot {
   name Dot2
   xpos -226
   ypos -606
  }
-set N1811b400 [stack 0]
+set N3e0a9280 [stack 0]
  Dot {
   name Dot1
   xpos -6
@@ -892,7 +889,7 @@ set N1811b400 [stack 0]
   xpos -40
   ypos 63
  }
-push $N1811b400
+push $N3e0a9280
  Merge2 {
   inputs 2
   name Merge3
@@ -912,8 +909,8 @@ push $N1811b400
   xpos -226
   ypos 186
  }
-push $N12fc48c0
-push $N18117c00
+push $N3e07c770
+push $N3e0a5040
  Merge2 {
   inputs 2
   operation plus
@@ -933,7 +930,7 @@ push $N18117c00
   xpos -370
   ypos 255
  }
-push $N12fbc980
+push $N3a5320d0
  Viewer {
   show_overscan true
   input_process false
