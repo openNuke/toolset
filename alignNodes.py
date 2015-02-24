@@ -1,7 +1,9 @@
 #author: Frank Rueter
 #dateCreated: 16/04/2012
-#source: http://www.nukepedia.com/python/nodegraph/alignnodes/ v1.1
-#licence: https://github.com/vfxwiki/nukeArtistToolkit/blob/master/README.md
+#source: http://www.nukepedia.com/python/nodegraph/alignnodes/
+#licence: https://github.com/openNuke/toolkit/blob/master/LICENCE
+#version: 1.1
+#Documentation: http://www.nukepedia.com/python/nodegraph/alignnodes/
 
 def alignNodes( nodes, direction = 'x' ):
     '''
