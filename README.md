@@ -11,7 +11,7 @@ instructions
 ===========
 Copy and paste into Nuke Script Editor and run:
 
-import urllib; exec urllib.urlopen("https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/_loadTools.py").read()
+import urllib; exec urllib.urlopen("https://raw.githubusercontent.com/openNuke/toolkit/master/_loadTools.py").read()
 
 
 
