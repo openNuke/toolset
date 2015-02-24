@@ -1,1 +1,0 @@
-nuke.ask('hello')
