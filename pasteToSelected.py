@@ -1,7 +1,9 @@
 #author: Frank Rueter
 #dateCreated: 19/02/2012
-#source: http://www.nukepedia.com/python/nodegraph/pasteToSelected/ v1.1
-#licence: https://github.com/vfxwiki/nukeArtistToolkit/blob/master/README.md
+#source: http://www.nukepedia.com/python/nodegraph/pasteToSelected/ 
+#licence:https://github.com/openNuke/toolkit/blob/master/LICENCE
+#version:1.1
+#Documentation:http://www.nukepedia.com/python/pasteToSelected
 
 import nuke
 
