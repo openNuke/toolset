@@ -79,7 +79,7 @@ class ToolSetWidget(QtGui.QWidget):
 				g.setYpos(sn.ypos()+ 60)
 			else:
 				nuke.nodePaste("%clipboard%")
-		else if os.path.splitext(os.path.split(toolPath)[1])[1]==".py":
+		elif os.path.splitext(os.path.split(toolPath)[1])[1]==".py":
 			myfile = f.read()
 			exec self.toolData
 			exec call
