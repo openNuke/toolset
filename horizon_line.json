@@ -59,6 +59,7 @@ Group {
  addUserKnob {26 source l source: T "v1.0 <a href='http://www.nukepedia.com/gizmos/other/perspective-guide-110'> Nukepedia</a>"}
  addUserKnob {26 github l github: T "<a href=\"https://github.com/openNuke/toolkit/blob/master/horizon_line.nk\">github.com/openNuke/toolkit/blob/master/horizon_line.nk</a>"}
  addUserKnob {26 status l status: T stable}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolkit/blob/master/LICENCE\">READ ME</a>"}
 }
  RotoPaint {
   inputs 0
