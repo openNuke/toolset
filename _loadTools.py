@@ -7,7 +7,7 @@ import json
 import urllib2
 
 global rootPath 
-rootPath = "https://raw.githubusercontent.com/vfxwiki/nukeArtistToolkit/master/" #path must start with http
+rootPath = "https://raw.githubusercontent.com/opennuke/toolkit/master/" #path must start with http
 
 ########################
 
