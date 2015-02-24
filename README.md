@@ -1,15 +1,14 @@
 nukeToolkit
 ===========
-This is a repository of collected nuke tools mainly collected from the internet.
-- These tools are a collection of commonly used but not included in Nuke.
-- Author name and link of tool are in the headder of the code, licence if different from the Nukepedia one below is included in the gitHub extended description.
-- Everything here has no dependencies. So when a script is opened in a different enviroment (i.e. on a different machienes or the farm), it still works.
+- This is a repository of nuke tools collected from the internet that have an open commercial licence. (many from Nukepedia)
+- Code must include : author name; dateCreated; source link; licence link.
+- All nodes/code has no dependencies outside the toolkit folder. So when a script is opened in a different enviroment (i.e. on a different machienes or the farm), it will still works.
 - All code has been checked for bad channels and errors. (lots of nuke code on the web has bad channels and on some render farm software this error out the render)
-- There is a loader UI that loads all the tools inside nuke from this web repository or from local disk. Use the instructions.
+- There is a loader UI that loads all the tools inside nuke from this web repository or from local disk.
 
-instructions
+instructions for loading inside nuke
 ===========
-Copy and paste into Nuke Script Editor and run:
+Copy and paste into Nuke Script Editor and click run:
 
 import urllib; exec urllib.urlopen("https://raw.githubusercontent.com/openNuke/toolkit/master/_loadTools.py").read()
 
