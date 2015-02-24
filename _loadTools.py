@@ -41,7 +41,7 @@ class ToolSetWidget(QtGui.QWidget):
 							button = QtGui.QPushButton(tool['label'])
 							button.setToolTip(tool['tooltip'])
 							grid.addWidget(button, rowCount, columnCount)					  
-							buttonRunner = lambda toolPath = tool['file'], toolName = tool['label']: self.runTool( toolPath, toolName )
+							buttonRunner = lambda toolPath = tool['file'], pycall = tool['label']: self.runTool( toolPath, pycall )
 							self.connect( button, QtCore.SIGNAL( 'clicked()' ), buttonRunner )						 
 							self.widgetDict[type][tool['label']] = button												 
 							if columnCount == 2:
@@ -62,7 +62,8 @@ class ToolSetWidget(QtGui.QWidget):
 			self.tabs.addTab(self.scriptsTab, " Scripts ")
 			self.tabs.addTab(self.nodesTab, " Nodes ")
 		
-	def runTool(self, toolPath, toolName):
+	def runTool(self, toolPath, pycall):
+		pycall = call
 		toolPath = os.path.join(rootPath, os.path.split(toolPath)[1])
 		self.toolData = getData(toolPath).gotData
 		print os.path.splitext(os.path.split(toolPath)[1])[1]
@@ -78,6 +79,10 @@ class ToolSetWidget(QtGui.QWidget):
 				g.setYpos(sn.ypos()+ 60)
 			else:
 				nuke.nodePaste("%clipboard%")
+		else if os.path.splitext(os.path.split(toolPath)[1])[1]==".py":
+			myfile = f.read()
+			exec self.toolData
+			exec call
 			
 ########################				
 	
