@@ -112,7 +112,7 @@
             {
                 "label": "Align x",
                 "file": "alignNodes.py",
-                "load": "alignNodes('alignNodes.alignNodes( nuke.selectedNodes(), direction="x" ),
+                "load": "alignNodes.alignNodes( nuke.selectedNodes(), direction='x' )",
                 "tooltip": "Align a bunch of Nodes either horizontally in the Node Graph",
                 "author": "Frank Rueter",
                 "dateCreated": "16/04/2012",
@@ -121,7 +121,7 @@
             {
                 "label": "Align y",
                 "file": "alignNodes.py",
-                "load": "alignNodes('alignNodes.alignNodes( nuke.selectedNodes(), direction="y" ),
+                "load": "alignNodes.alignNodes( nuke.selectedNodes(), direction='y' )",
                 "tooltip": "Align a bunch of Nodes either vertically in the Node Graph",
                 "author": "Frank Rueter",
                 "dateCreated": "16/04/2012",
