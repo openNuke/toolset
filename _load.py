@@ -80,10 +80,10 @@ class ToolSetWidget(QtGui.QWidget):
 				nuke.nodePaste("%clipboard%")
 		elif os.path.splitext(os.path.split(toolPath)[1])[1]==".py":
 			print self.toolData
-			exec self.toolData
+			#exec self.toolData
 			print "================"
 			print pycall
-			exec pycall
+			#exec pycall
 			
 ########################				
 	
