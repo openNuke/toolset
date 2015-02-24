@@ -41,7 +41,7 @@ class ToolSetWidget(QtGui.QWidget):
 							button = QtGui.QPushButton(tool['label'])
 							button.setToolTip(tool['tooltip'])
 							grid.addWidget(button, rowCount, columnCount)					  
-							buttonRunner = lambda toolPath = tool['file'], pycall = tool['label']: self.runTool( toolPath, pycall )
+							buttonRunner = lambda toolPath = tool['file'], pycall = tool['pycall']: self.runTool( toolPath, pycall )
 							self.connect( button, QtCore.SIGNAL( 'clicked()' ), buttonRunner )						 
 							self.widgetDict[type][tool['label']] = button												 
 							if columnCount == 2:
