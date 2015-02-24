@@ -2,8 +2,8 @@ nukeToolkit
 ===========
 - This is a repository of nuke tools collected from the internet that have an open commercial licence. (many from Nukepedia)
 - Code must include : author name; dateCreated; source link; licence link.
-- All nodes/code has no dependencies outside the toolkit folder. So when a script is opened in a different enviroment (i.e. on a different machienes or the farm), it will still works.
-- All code has been checked for bad channels and errors. (lots of nuke code on the web has bad channels and on some render farm software this error out the render)
+- All nodes/code has no dependencies outside this toolkit folder. So when a script is opened in nuke in a different enviroment it will still work. (i.e. on a different machienes or the farm)
+- All code has been checked for bad channels, malicious intent and privacy invasion. (lots of nuke code on the web has bad channels and on some render farm software this error out the render)
 - There is a loader UI that loads all the tools inside nuke from this web repository or from local disk.
 
 instructions for loading inside nuke
