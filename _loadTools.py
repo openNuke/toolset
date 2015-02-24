@@ -65,18 +65,19 @@ class ToolSetWidget(QtGui.QWidget):
 	def runTool(self, toolPath, toolName):
 		toolPath = os.path.join(rootPath, os.path.split(toolPath)[1])
 		self.toolData = getData(toolPath).gotData
-		
-		clipboard = QtGui.QApplication.clipboard()
-		clipboard.setText(self.toolData)
-		if len(nuke.selectedNodes()):	
-			sn = nuke.selectedNode()
-			np=nuke.nodePaste("%clipboard%")
-			g=nuke.selectedNode()
-			g.setInput(0, sn)
-			g.setXpos(sn.xpos())
-			g.setYpos(sn.ypos()+ 60)
-		else:
-			nuke.nodePaste("%clipboard%")
+		print os.path.splitext(os.path.split(toolpath)[1])[1]
+		if os.path.splitext(os.path.split(toolpath)[1])[1]==".nk":
+			clipboard = QtGui.QApplication.clipboard()
+			clipboard.setText(self.toolData)
+			if len(nuke.selectedNodes()):	
+				sn = nuke.selectedNode()
+				np=nuke.nodePaste("%clipboard%")
+				g=nuke.selectedNode()
+				g.setInput(0, sn)
+				g.setXpos(sn.xpos())
+				g.setYpos(sn.ypos()+ 60)
+			else:
+				nuke.nodePaste("%clipboard%")
 			
 ########################				
 	
