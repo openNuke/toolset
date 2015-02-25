@@ -1,7 +1,6 @@
 #http://www.nukepedia.com/gizmos/other/relight v1.4 Michael Garrett
-#licence: https://github.com/vfxwiki/nukeArtistToolkit
 set cut_paste_input [stack 0]
-version 9.0 v2
+version 9.0 v1
 push $cut_paste_input
 add_layer {N N.X N.Y N.Z}
 add_layer {P P.X P.Y P.Z}
@@ -9,13 +8,14 @@ Group {
  name Relight
  help "Relight is driven by a Light (Light2 class) node and relights a 2D image based on rendered point positions and normal vectors in the vec input.  It also uses a camera to calculate specular.\n\nCurrently the cone in the spotlight light type matches the Nuke spotlight closely but not exactly, and the cone falloff knob is unsupported.\n\nAdditional features are diffuse wrap for simulating fill light, and energy conserving normalized specular, meaning that the specular intensity increases and decreases proportional to shininess."
  selected true
- xpos -2827
- ypos 853
+ xpos -138
+ ypos -39
  addUserKnob {20 Relight}
  addUserKnob {6 use_alpha l "use alpha" +STARTLINE}
  addUserKnob {41 normal l "normal vectors" T Shuffle2.in}
  addUserKnob {41 point l "point positions" T Shuffle1.in}
  addUserKnob {4 camera t "The camera position is used to calculate the specular reflection.  Choose either a Nuke 3D camera (cam input) or, if available, derive the camera position from RenderMan OpenEXR metadata (vec input)." M {"nuke camera" "renderman openexr metadata" "" "" "" "" "" ""}}
+ addUserKnob {22 loadExrReader l "load Exr reader" -STARTLINE T "def exrCam():  \n\tdef getMetadataMatrix(meta_list):\n\t  m = nuke.math.Matrix4()\n\t  try: \n\t\t  for i in range(0,16):\n\t\t\t  m\[i] = meta_list\[i]   \n\t  except:\n\t\t  m.makeIdentity()\n\t  return m\n \n\tn=nuke.thisNode()\n \n\thold=int(n\['frameHold'].value())\n \n\tcamMatrix = getMetadataMatrix(n.metadata('exr/worldToCamera',hold))\n \n\tflipZ=nuke.math.Matrix4()\n\tflipZ.makeIdentity()\n\tflipZ.scale(1,1,-1)\n \n\ttransposedMatrix = nuke.math.Matrix4(camMatrix)\n\ttransposedMatrix.transpose()\n\ttransposedMatrix=transposedMatrix*flipZ\n\tinvMatrix=transposedMatrix.inverse()\t\n \n\tn\['matrix'].setValue(invMatrix\[0],0)\n\tn\['matrix'].setValue(invMatrix\[1],1)\n\tn\['matrix'].setValue(invMatrix\[2],2)\n\tn\['matrix'].setValue(invMatrix\[3],3)\n\tn\['matrix'].setValue(invMatrix\[4],4)\n\tn\['matrix'].setValue(invMatrix\[5],5)\n\tn\['matrix'].setValue(invMatrix\[6],6)\n\tn\['matrix'].setValue(invMatrix\[7],7)\n\tn\['matrix'].setValue(invMatrix\[8],8)\n\tn\['matrix'].setValue(invMatrix\[9],9)\n\tn\['matrix'].setValue(invMatrix\[10],10)\n\tn\['matrix'].setValue(invMatrix\[11],11)\n\tn\['matrix'].setValue(invMatrix\[12],12)\n\tn\['matrix'].setValue(invMatrix\[13],13)\n\tn\['matrix'].setValue(invMatrix\[14],14)\n\tn\['matrix'].setValue(invMatrix\[15],15)\n\treturn"}
  addUserKnob {26 material l "Phong material"}
  addUserKnob {18 mcolor l color}
  mcolor {1 1 1}
@@ -30,18 +30,15 @@ Group {
  energy_conserving true
  addUserKnob {7 shininess R 2 100}
  shininess 10
- addUserKnob {20 Info}
- addUserKnob {22 HELP l " HELP " T "import webbrowser\nwebbrowser.open(\"http://www.vfxwiki.org/tiki-index.php?page=Relight\") \n\n\n" +STARTLINE}
- addUserKnob {26 text01 l version: T 1.4}
- addUserKnob {26 text02 l "date created:" T 23/10/2010}
- addUserKnob {26 text03 l "last modified:" T n/a}
- addUserKnob {26 creator l creator: T "Michael Garrett"}
- addUserKnob {26 modifiedby l "modified by:" T na}
- addUserKnob {26 source l source: T http://www.nukepedia.com/gizmos/other/relight}
- addUserKnob {20 licenceGroup l licence n 1}
- licenceGroup 0
- addUserKnob {26 licence l licence: T "By downloading this nuke group from github.com you agree to the general license terms below.\n Copyright (c) 2015 till present All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted\n provided that the following conditions are met: Redistributions of source code must retain the\n above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary\n form must reproduce the above copyright notice, this list of conditions and the following disclaimer\n in the documentation and/or other materials provided with the distribution. Neither the name of\n Nukepedia nor the names of its contributors may be used to endorse or promote products derived\n from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE\n COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES,\n INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS\n FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR\n CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR\n CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE\n GOO/ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."}
-
+addUserKnob {20 Info}
+addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLKIT +++"}
+addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(/'http://www.nukepedia.com/gizmos/other/relight/')" +STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {26 version l version: T 1.4}
+addUserKnob {26 created l created: T "23/10/2010 by <a href=\\'http://www.nukepedia.com/gizmos/other/relight'> Michael Garrett.</a>"}
+addUserKnob {26 modified l "modified: " T " "}
+addUserKnob {26 source l source: T "v1.4 <a href='http://www.nukepedia.com/gizmos/other/perspective-guide-110'> Nukepedia</a>"}
+addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  BackdropNode {
   inputs 0
@@ -98,7 +95,7 @@ Group {
   xpos 251
   ypos -480
  }
-set N36bd5930 [stack 0]
+set N4d8443b0 [stack 0]
  Dot {
   name Dot1
   xpos -458
@@ -109,9 +106,9 @@ set N36bd5930 [stack 0]
   xpos -475
   ypos 1269
  }
-set N36bddea0 [stack 0]
-push $N36bddea0
-push $N36bd5930
+set N4d84c940 [stack 0]
+push $N4d84c940
+push $N4d8443b0
  Shuffle {
   in P
   out rgb
@@ -120,7 +117,7 @@ push $N36bd5930
   xpos 336
   ypos -338
  }
-set N36be2130 [stack 0]
+set N4d850c30 [stack 0]
  Expression {
   expr0 translate.x-r
   expr1 translate.y-g
@@ -132,7 +129,7 @@ set N36be2130 [stack 0]
   addUserKnob {13 translate}
   translate {{"\[lindex \[lindex \[value Axis1.world_matrix] 0] 3]" i} {"\[lindex \[lindex \[value Axis1.world_matrix] 1] 3]" i} {"\[lindex \[lindex \[value Axis1.world_matrix] 2] 3]" i}}
  }
-set N36beef90 [stack 0]
+set N4d85da90 [stack 0]
  Expression {
   temp_name0 length
   temp_expr0 sqrt((r*r)+(g*g)+(b*b))
@@ -143,8 +140,8 @@ set N36beef90 [stack 0]
   xpos 1028
   ypos 573
  }
-set N37600000 [stack 0]
-push $N36bd5930
+set N4d86ab30 [stack 0]
+push $N4d8443b0
  Shuffle {
   red black
   green black
@@ -165,7 +162,7 @@ push $N36bd5930
   xpos 228
   ypos 488
  }
-set N376199b0 [stack 0]
+set N4d884600 [stack 0]
  Dot {
   name Dot9
   xpos 1538
@@ -220,7 +217,7 @@ set N376199b0 [stack 0]
   xpos 1538
   ypos 1261
  }
-push $N36beef90
+push $N4d85da90
  Dot {
   name Dot8
   xpos 772
@@ -231,9 +228,9 @@ push $N36beef90
   xpos 772
   ypos 1165
  }
-push $N37600000
-push $N36be2130
-push $N36bd5930
+push $N4d86ab30
+push $N4d850c30
+push $N4d8443b0
 push 0
  Switch {
   inputs 2
@@ -276,7 +273,7 @@ push 0
   xpos -97
   ypos -281
  }
-push $N36bd5930
+push $N4d8443b0
  Expression {
   temp_name0 R
   temp_expr0 Axis2.world_matrix.3
@@ -322,7 +319,7 @@ push $N36bd5930
   xpos -305
   ypos 20
  }
-set N361cbd30 [stack 0]
+set N3ba2e280 [stack 0]
  Dot {
   name Dot13
   xpos -387
@@ -333,7 +330,7 @@ set N361cbd30 [stack 0]
   xpos -387
   ypos 318
  }
-push $N36bd5930
+push $N4d8443b0
  Shuffle {
   in N
   out rgb
@@ -352,14 +349,14 @@ push $N36bd5930
   xpos 94
   ypos -297
  }
-set N361ed9e0 [stack 0]
+set N3ba4fdf0 [stack 0]
  Dot {
   name Dot15
   xpos -36
   ypos 116
  }
-set N361fa0d0 [stack 0]
-push $N361cbd30
+set N3ba5c510 [stack 0]
+push $N3ba2e280
  MergeExpression {
   inputs 2
   channel0 rgb
@@ -386,7 +383,7 @@ push $N361cbd30
   xpos -271
   ypos 262
  }
-push $N361fa0d0
+push $N3ba5c510
  MergeExpression {
   inputs 2
   expr0 Ar*Br
@@ -419,7 +416,7 @@ push $N361fa0d0
   xpos 557
   ypos 397
  }
-set N377424d0 [stack 0]
+set N3baa05d0 [stack 0]
  MergeExpression {
   inputs 2
   temp_name0 DotProduct
@@ -443,7 +440,7 @@ set N377424d0 [stack 0]
   addUserKnob {7 shininess R 0 10}
   shininess {{parent.shininess i}}
  }
- set C37752610 [stack 0]
+ set C3bab0710 [stack 0]
  Expression {
   temp_name0 nfactor
   temp_expr0 (phexp+2)/(2*pi)
@@ -460,7 +457,7 @@ set N377424d0 [stack 0]
   addUserKnob {7 phexp}
   phexp {{parent.shininess}}
  }
- set C3775f0f0 [stack 0]
+ set C3babd250 [stack 0]
  Multiply {
   channels rgb
   value {{parent.specular i}}
@@ -469,9 +466,9 @@ set N377424d0 [stack 0]
   xpos 877
   ypos 1032
  }
- set C3776be50 [stack 0]
-push $N37600000
-push $N361ed9e0
+ set C3bac9fe0 [stack 0]
+push $N4d86ab30
+push $N3ba4fdf0
  Dot {
   name Dot5
   xpos 1241
@@ -482,7 +479,7 @@ push $N361ed9e0
   xpos 1241
   ypos 583
  }
-set N3777a460 [stack 0]
+set N3bad8680 [stack 0]
  MergeExpression {
   inputs 2
   temp_name0 DotProduct
@@ -494,8 +491,8 @@ set N3777a460 [stack 0]
   xpos 1128
   ypos 742
  }
-push $N37600000
-push $N3777a460
+push $N4d86ab30
+push $N3bad8680
  MergeExpression {
   inputs 2
   temp_name0 DotProduct
@@ -529,7 +526,7 @@ push $N3777a460
   xpos 1206
   ypos 1004
  }
- set C377a3c20 [stack 0]
+ set C3e505e80 [stack 0]
  Multiply {
   channels rgb
   value {{mcolor i} {mcolor i} {mcolor i} 1}
@@ -538,7 +535,7 @@ push $N3777a460
   xpos 1206
   ypos 1044
  }
- set C377adf60 [stack 0]
+ set C3e510240 [stack 0]
  Merge2 {
   inputs 2
   operation plus
@@ -561,7 +558,7 @@ push $N3777a460
   addUserKnob {7 falloffval R 0 3}
   falloffval {{parent.LightKnobs.falloff_type i}}
  }
-set N377c5af0 [stack 0]
+set N3e527de0 [stack 0]
  Merge2 {
   inputs 2
   operation multiply
@@ -572,8 +569,8 @@ set N377c5af0 [stack 0]
   xpos 1048
   ypos 1257
  }
-push $N377424d0
-push $N376199b0
+push $N3baa05d0
+push $N4d884600
  MergeExpression {
   inputs 2
   temp_name0 DotProduct
@@ -585,29 +582,29 @@ push $N376199b0
   xpos 315
   ypos 732
  }
-clone $C37752610 {
+clone $C3bab0710 {
   xpos 315
   ypos 845
   selected false
  }
-clone $C3775f0f0 {
+clone $C3babd250 {
   xpos 316
   ypos 912
   selected false
  }
-clone $C3776be50 {
+clone $C3bac9fe0 {
   xpos 315
   ypos 996
   selected false
  }
-push $N361ed9e0
+push $N3ba4fdf0
  Dot {
   name Dot3
   xpos 77
   ypos 551
  }
-set N37811bf0 [stack 0]
-push $N376199b0
+set N3e570080 [stack 0]
+push $N4d884600
  MergeExpression {
   inputs 2
   temp_name0 DotProduct
@@ -619,8 +616,8 @@ push $N376199b0
   xpos 43
   ypos 734
  }
-push $N37811bf0
-push $N376199b0
+push $N3e570080
+push $N4d884600
  MergeExpression {
   inputs 2
   temp_name0 DotProduct
@@ -646,12 +643,12 @@ push $N376199b0
   xpos 113
   ypos 852
  }
-clone $C377a3c20 {
+clone $C3e505e80 {
   xpos 113
   ypos 953
   selected false
  }
-clone $C377adf60 {
+clone $C3e510240 {
   xpos 113
   ypos 1012
   selected false
@@ -663,7 +660,7 @@ clone $C377adf60 {
   xpos 231
   ypos 1123
  }
-push $N377c5af0
+push $N3e527de0
  Switch {
   inputs 3
   which {{parent.LightKnobs.light_type i}}
@@ -719,7 +716,7 @@ push $N377c5af0
   ypos -613
   number 1
  }
-set N37869940 [stack 0]
+set N3e5efc60 [stack 0]
  Axis2 {
   selectable false
   name Axis1
@@ -738,7 +735,7 @@ set N37869940 [stack 0]
   xpos -292
   ypos -541
  }
-push $N37869940
+push $N3e5efc60
  Shuffle {
   red black
   green black
