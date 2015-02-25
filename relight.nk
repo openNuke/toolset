@@ -37,7 +37,6 @@ addUserKnob {26 ""}
 addUserKnob {26 version l version: T 1.4}
 addUserKnob {26 created l created: T "23/10/2010 by <a href=\\'http://www.nukepedia.com/gizmos/other/relight'> Michael Garrett.</a>"}
 addUserKnob {26 modified l "modified: " T " "}
-addUserKnob {26 source l source: T "v1.4 <a href='http://www.nukepedia.com/gizmos/other/perspective-guide-110'> Nukepedia</a>"}
 addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  BackdropNode {
