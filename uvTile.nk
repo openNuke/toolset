@@ -16,7 +16,7 @@ Group {
  checkerboard 3
  addUserKnob {20 Info}
  addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
- addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"https://github.com/openNuke/toolset/wiki/\")" +STARTLINE}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/uvTile_nk\")" +STARTLINE}
  addUserKnob {26 ""}
  addUserKnob {26 version l version: T "0.2 Stable"}
  addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
