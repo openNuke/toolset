@@ -3,7 +3,7 @@
 #source: http://www.nukepedia.com/python/nodegraph/scalenodes/
 #licence:https://github.com/openNuke/toolset/blob/master/LICENCE
 #version:1.1
-#Documentation:http://www.nukepedia.com/python/nodegraph/scalenodes/
+#Documentation:https://github.com/openNuke/toolset/blob/master/LICENCE
 
 import nuke
 
