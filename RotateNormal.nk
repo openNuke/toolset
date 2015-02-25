@@ -32,6 +32,15 @@ addUserKnob {26 "" l "Destination Channels"}
 addUserKnob {41 to0 l X T CopyBack.to0}
 addUserKnob {41 to1 l Y T CopyBack.to1}
 addUserKnob {41 to2 l Z T CopyBack.to2}
+addUserKnob {20 Info}
+addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLKIT +++"}
+addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(/'http://www.nukepedia.com/gizmos/3d/rotatenormals/')" +STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {26 version l version: T 1.1}
+addUserKnob {26 created l created: T "21/06/2010 by <a href=\\'http://www.nukepedia.com/gizmos/3d/rotatenormals/'> Hakan Blomdahl</a>"}
+addUserKnob {26 modified l "modified: " T "v1.1 01/01/2015 by <a href='https://github.com/openNuke/toolset/blob/master/RotateNormal.nk/'> open nuke</a>"}
+addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
+
 }
 BackdropNode {
 inputs 0
