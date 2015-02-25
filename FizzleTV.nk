@@ -1,4 +1,4 @@
-#http://www.nukepedia.com/gizmos/filter/fizzle/ v2.0 julian van mil
+#http://www.nukepedia.com/gizmos/filter/fizzle/ v2.0 julian van mil 
 #licence: https://github.com/vfxwiki/nukeArtistToolkit
 set cut_paste_input [stack 0]
 version 7.0 v1
