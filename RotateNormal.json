@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "2.5D",
+"label": "RotateNormal",
+"file": "RotateNormal.nk",
+"tooltip": "Rotates Normal",
+"originalAuthor": "Hakan Blomdahl",
+"dateCreated": "21/06/2010",
+"status": "stable",
+"documentation": "http://www.nukepedia.com/gizmos/3d/rotatenormals/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "http://www.nukepedia.com/gizmos/3d/rotatenormals/",
+"call": ""
+}
