@@ -10,7 +10,7 @@ instructions for loading inside nuke
 ===========
 Copy and paste into Nuke Script Editor and click run:
 
-import urllib; exec urllib.urlopen("https://raw.githubusercontent.com/openNuke/toolkit/master/_loadTools.py").read()
+import urllib; exec urllib.urlopen("https://raw.githubusercontent.com/openNuke/toolset/master/_loadTools.py").read()
 
 
 
