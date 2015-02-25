@@ -32,7 +32,7 @@ Group {
  shininess 10
 addUserKnob {20 Info}
 addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLKIT +++"}
-addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(/'http://www.nukepedia.com/gizmos/other/relight/')" +STARTLINE}
+addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(/'http://opennuke.github.io/relight_nk/')" +STARTLINE}
 addUserKnob {26 ""}
 addUserKnob {26 version l version: T 1.4}
 addUserKnob {26 created l created: T "23/10/2010 by <a href=\\'http://www.nukepedia.com/gizmos/other/relight'> Michael Garrett.</a>"}
