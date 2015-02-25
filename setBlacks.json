@@ -1,0 +1,15 @@
+{
+"type": "nodes",
+"category": "Image",
+"label": "Set Blacks",
+"file": "setBlacks.nk",
+"tooltip": "Sets base black wih roll off. Use the colour picker of darkest area of source and destination images",
+"originalAuthor": "http://movingimagearts.com",
+"dateCreated": "01/01/2015",
+"status": "stable",
+"documentation": "https://github.com/openNuke/toolkit/wiki",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "https://github.com/openNuke/toolkit/blob/master/uvTile.nk",
+"call": ""
+}
+
