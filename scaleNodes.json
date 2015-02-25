@@ -8,7 +8,7 @@
 "author": "Frank Rueter",
 "dateCreated": "06/02/2012",
 "status": "stable",
-"documentation": "http://www.nukepedia.com/python/nodegraph/scalenodes/",
+"documentation": "http://opennuke.github.io/scaleNodes_py/",
 "licence": "https://github.com/openNuke/toolset/blob/master/LICENCE",
 "source": "http://www.nukepedia.com/python/nodegraph/scalenodes/"
 }
