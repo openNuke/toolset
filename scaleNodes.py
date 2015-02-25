@@ -1,7 +1,7 @@
 #author: Frank Rueter
 #dateCreated: 06/02/2012
 #source: http://www.nukepedia.com/python/nodegraph/scalenodes/
-#licence:https://github.com/openNuke/toolkit/blob/master/LICENCE
+#licence:https://github.com/openNuke/toolset/blob/master/LICENCE
 #version:1.1
 #Documentation:http://www.nukepedia.com/python/nodegraph/scalenodes/
 
