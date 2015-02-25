@@ -1,9 +1,9 @@
 {
 "type": "nodes",
 "category": "2.5D",
- "label": "Bump Normals",
-"file": "bumpNormals.nk",
-"tooltip": "Generate bump for a 3D normals pass in world space. The input bump texture can either be flat or a 3D render."
+"label": "Relight",
+"file": "relight.nk",
+"tooltip": "Relights a 2D image based on rendered point positions and normal vectors in the vec input. It also uses a camera to calculate specular.\n\nCurrently the cone in the spotlight light type matches the Nuke spotlight closely but not exactly, and the cone falloff knob is unsupported.\n\nAdditional features are diffuse wrap for simulating fill light, and energy conserving normalized specular, meaning that the specular intensity increases and decreases proportional to shininess",
 "originalAuthor": "Michael Garrett",
 "dateCreated": "23/10/2010",
 "status": "stable",
