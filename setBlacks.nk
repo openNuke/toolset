@@ -1,5 +1,3 @@
-#https://github.com/vfxwiki/nukeArtistToolkit/blob/master/setBlacks b0.1 Rafal Kaniewski
-#licence: https://github.com/vfxwiki/nukeArtistToolkit
 set cut_paste_input [stack 0]
 version 9.0 v2
 push $cut_paste_input
@@ -14,13 +12,13 @@ Group {
  addUserKnob {41 rollOffMax T Add1.rollOffMax}
 addUserKnob {20 Info}
 addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
-addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"https://github.com/openNuke/toolkit/wiki/setBlacks.nk/\")" +STARTLINE}
+addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"https://github.com/openNuke/toolset/wiki/setBlacks.nk/\")" +STARTLINE}
 addUserKnob {26 ""}
 addUserKnob {26 version l version: T "0.1 Stable"}
-addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Moving Image Arts</a>"}
+addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
 addUserKnob {26 modified l "modified: " T " "}
-addUserKnob {26 source l source: T "<a href='https://github.com/openNuke/toolkit/blob/master/setBlacks.nk'> Github.com</a>"}
-addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolkit/blob/master/LICENCE\">READ ME</a>"}
+addUserKnob {26 source l source: T "<a href='https://github.com/openNuke/toolset/blob/master/setBlacks.nk'> Github.com</a>"}
+addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  Input {
   inputs 0
