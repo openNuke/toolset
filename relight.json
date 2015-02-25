@@ -1,14 +1,14 @@
 {
 "type": "nodes",
-"category": "Other",
-"label": "Horizon Line",
-"file": "horizon_line.nk",
-"tooltip": "Perspective tool, to calculate the position of the horizon-line and vanishing point.",
+"category": "2.5D",
+ "label": "Relight",
+"file": "relight.nk",
+"tooltip": "Relights a 2D image based on rendered point positions and normal vectors in the vec input. It also uses a camera to calculate specular.\n\nCurrently the cone in the spotlight light type matches the Nuke spotlight closely but not exactly, and the cone falloff knob is unsupported.\n\nAdditional features are diffuse wrap for simulating fill light, and energy conserving normalized specular, meaning that the specular intensity increases and decreases proportional to shininess",
 "originalAuthor": "Michael Garrett",
-"dateCreated": "7/10/2010",
+"dateCreated": "23/10/2010",
 "status": "stable",
-"documentation": "http://www.nukepedia.com/gizmos/other/perspective-guide-110",
+"documentation": "www.nukepedia.com/gizmos/other/relight",
 "licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
-"source": "http://www.nukepedia.com/gizmos/other/relight v1.4 Michael Garrett",
+"source": "http://www.nukepedia.com/gizmos/other/relight",
 "call": ""
 }
