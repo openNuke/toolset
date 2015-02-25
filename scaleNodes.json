@@ -1,0 +1,16 @@
+{
+"type": "scripts",
+"category": "Node Graph Layout",
+"label": "Scale",
+"file": "scaleNodes.py",
+"pycall": "scaleNodes(3)",
+"tooltip": "Contract and expand node connections, including backdrops.",
+"author": "Frank Rueter",
+"dateCreated": "06/02/2012",
+"status": "stable",
+"documentation": "http://www.nukepedia.com/python/nodegraph/scalenodes/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "http://www.nukepedia.com/python/nodegraph/scalenodes/"
+}
+
+
