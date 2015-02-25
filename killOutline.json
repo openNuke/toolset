@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "keying",
+"label": "RotateNormal",
+"file": "killOutline.nk",
+"tooltip": "",
+"originalAuthor": "Andreas Frickinger",
+"dateCreated": "1/8/2010",
+"status": "stable",
+"documentation": "http://opennuke.github.io/killOutline_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "v1.0 http://www.nukepedia.com/gizmos/keyer/killoutline",
+"call": ""
+}
