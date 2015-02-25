@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "keying",
+"label": "keychew",
+"file": "keychew.nk",
+"tooltip": "Dilates and erodes a matte",
+"originalAuthor": "",
+"dateCreated": "",
+"status": "stable",
+"documentation": "http://opennuke.github.io/keychew_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "http://opennuke.github.io/keychew_nk/",
+"call": ""
+}
