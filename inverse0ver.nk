@@ -694,7 +694,17 @@ Group {
  ypos -7001
  addUserKnob {20 inverseOver l "Inverse Over"}
  addUserKnob {41 in l "invOver input channel" T Shuffle1.in}
+ addUserKnob {20 Info}
  addUserKnob {26 credit l "" +STARTLINE +INVISIBLE T "The idea of using this for keying and the name goes to Thomas Dyn (credit retained in node please)\n\nAlthough since discovering this technique someone else have also shown me this same technique from thier toolbox used in shake(pre-nuke) - they called it the 'holy matte' trick."}
+addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
+addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/inverse0ver_nk/\")" +STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {26 version l version: T "0.1 Stable"}
+addUserKnob {26 created l created: T "24/06/14 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
+addUserKnob {26 modified l "modified: " T " "}
+addUserKnob {26 source l source: T "<a href='https://github.com/vfxwiki/Inverse0ver.nk'> github.com/vfxwiki/Inverse0ver.nk</a>"}
+addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
+
 }
  Input {
   inputs 0
