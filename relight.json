@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "Other",
+"label": "Horizon Line",
+"file": "horizon_line.nk",
+"tooltip": "Perspective tool, to calculate the position of the horizon-line and vanishing point.",
+"originalAuthor": "Michael Garrett",
+"dateCreated": "7/10/2010",
+"status": "stable",
+"documentation": "http://www.nukepedia.com/gizmos/other/perspective-guide-110",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "http://www.nukepedia.com/gizmos/other/relight v1.4 Michael Garrett",
+"call": ""
+}
