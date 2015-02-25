@@ -1,14 +1,12 @@
-#http://www.vfxwiki.org vb0.1 mrafs. credits to Tahl for the idea
-#licence: https://github.com/vfxwiki/nukeArtistToolkit
 set cut_paste_input [stack 0]
-version 7.0 v1
+version 9.0 v1
 Group {
  inputs 0
- name UV_map
+ name uvMap
  help "Creates a proceedural UV map that can be used to check the UVs on any object. It is normalised in U and V so using a colour sample with allow you to\ncheck the UV location of any point on the model. it is STRONGLY recommended that you only output to Square formats (1:1 aspect ratio)"
  selected true
- xpos 204
- ypos -134
+ xpos 110
+ ypos 27
  addUserKnob {20 uvMap}
  addUserKnob {41 format l Resolution T Reformat.format}
  addUserKnob {3 rows l Rows}
@@ -16,6 +14,15 @@ Group {
  addUserKnob {4 blueChannel M {CheckerBoard Alphabet}}
  addUserKnob {3 checkerboard}
  checkerboard 3
+ addUserKnob {20 Info}
+ addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"https://github.com/openNuke/toolkit/wiki/\")" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 version l version: T "0.2 Stable"}
+ addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Moving Image Arts</a>"}
+ addUserKnob {26 modified l "modified: " T " "}
+ addUserKnob {26 source l source: T "<a href='https://github.com/openNuke/toolkit/blob/master/uvTile.nk'> Github.com</a>"}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolkit/blob/master/LICENCE\">READ ME</a>"}
 }
  Constant {
   inputs 0
@@ -34,7 +41,7 @@ Group {
   ypos -198
  }
  Crop {
-  box {{0} {0} {rows} {rows}}
+  box {0 0 {rows} {rows}}
   name Crop1
   xpos 126
   ypos -174
@@ -48,32 +55,12 @@ Group {
   xpos 126
   ypos -141
  }
-set N153b44d0 [stack 0]
+set N4dc8ee20 [stack 0]
  Dot {
   name Dot1
+  selected true
   xpos 36
   ypos -126
- }
- OFXuk.co.thefoundry.furnace.f_rigremoval_v403 {
-  rigRegion Box
-  framesSearched "Forward and Backward"
-  frameRange 4
-  framesUsed "Half of Frames"
-  maxRigMove 30
-  "Rig Region Box" 0
-  regionBL {7 7}
-  regionTR {13 13}
-  Advanced 0
-  filtering Medium
-  lumCorrect false
-  perspCorrect false
-  overlapCorrect 1
-  failOpacity 0.5
-  preserveAlpha false
-  cacheBreaker true
-  name F_RigRemoval1
-  xpos 2
-  ypos -108
  }
  Transform {
   translate {-0.1000000015 0.1000000015}
@@ -85,7 +72,7 @@ set N153b44d0 [stack 0]
   xpos 2
   ypos -85
  }
-push $N153b44d0
+push $N4dc8ee20
  Shuffle {
   blue black
   alpha black
@@ -110,7 +97,7 @@ push $N153b44d0
   xpos 126
   ypos -56
  }
-set N153be3b0 [stack 0]
+set N4dcd0b00 [stack 0]
  Text {
   output {-rgba.red -rgba.green rgba.blue rgba.alpha}
   message U
@@ -120,7 +107,7 @@ set N153be3b0 [stack 0]
   yjustify center
   Transform 1
   box {0 0 {width/5} {height/5}}
-  translate {{0} {0 x1 0}}
+  translate {0 {0 x1 0}}
   center {1024 778}
   color {1 1 1 1}
   name Text4
@@ -136,7 +123,7 @@ set N153be3b0 [stack 0]
   yjustify center
   Transform 1
   box {0 0 {width/5 x1 512} {height/5}}
-  translate {{width/5} {0}}
+  translate {{width/5} 0}
   center {1024 778}
   color {1 1 0 1}
   name Text2
@@ -152,7 +139,7 @@ set N153be3b0 [stack 0]
   yjustify center
   Transform 1
   box {0 0 {width/5} {height/5}}
-  translate {{width/5*2} {0}}
+  translate {{width/5*2} 0}
   center {1024 778}
   name Text3
   xpos -482
@@ -167,7 +154,7 @@ set N153be3b0 [stack 0]
   yjustify center
   Transform 1
   box {0 0 {width/5} {height/5}}
-  translate {{width/5*3} {0}}
+  translate {{width/5*3} 0}
   center {1024 778}
   color {1 1 0 1}
   name Text5
@@ -531,13 +518,12 @@ set N153be3b0 [stack 0]
   xpos -180
   ypos 1320
  }
-push $N153be3b0
+push $N4dcd0b00
  Copy {
   inputs 2
   from0 rgba.blue
   to0 rgba.blue
   name Copy2
-  selected true
   xpos 159
   ypos 1324
   disable {{parent.blueChannel==0}}
@@ -549,7 +535,7 @@ push $N153be3b0
   xpos 159
   ypos 1496
  }
-set N153c9110 [stack 0]
+set N4ef6b510 [stack 0]
  Output {
   name Output1
   xpos 159
@@ -562,7 +548,7 @@ set N153c9110 [stack 0]
   xpos 371
   ypos 1492
  }
-push $N153c9110
+push $N4ef6b510
  Viewer {
   input_process false
   name Viewer1
