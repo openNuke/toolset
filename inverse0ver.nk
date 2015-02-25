@@ -25,10 +25,15 @@ Group {
  addUserKnob {41 maskChannel l mask T Keymix2.maskChannel}
  addUserKnob {41 invertMask l invert -STARTLINE T Keymix2.invertMask}
  addUserKnob {41 mix T MASTER.mix}
- addUserKnob {20 notes}
- addUserKnob {26 text04_1 l notes: T "beta v0.6b 24/06/14 vfxwiki.org\n\nInstructions: \n\nThis is not a keyer, its is a a different way of using an over \nand the reverse of an over (the InverseOver) together to\nmaintain fine transparent detail from a key(matte).\n\n1) plug in plate despill.\n2) plug in a very thin matte i.e. an unscale'd color difference or keylight matte. \n3) plug in the bg into the InverseOver.\n4) split the out of the InverseOKeyer into the inverseOver and a premult node.\n5) over the premult and the InverseOver.\n6) follow the instructions on the main tab."}
- addUserKnob {22 HELP l " HELP " T "nukescripts.start('href=\"http://vfxwiki.org/tiki-index.php?page=Inverse+Over')" +STARTLINE}
- addUserKnob {26 credit l "" +STARTLINE +INVISIBLE T "The idea of using this for keying and the name goes to Thomas Dyn (credit retained in node please)\n\nAlthough since discovering this technique someone else have also shown me this same technique from thier toolbox used in shake(pre-nuke) - they called it the 'holy matte' trick."}
+ addUserKnob {20 Info}
+addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
+addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/inverse0ver_nk/\")" +STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {26 version l version: T "0.1 Stable"}
+addUserKnob {26 created l created: T "24/06/14 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
+addUserKnob {26 modified l "modified: " T " "}
+addUserKnob {26 source l source: T "<a href='https://github.com/vfxwiki/Inverse0ver.nk'> github.com/vfxwiki/Inverse0ver.nk</a>"}
+addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  BackdropNode {
   inputs 0
