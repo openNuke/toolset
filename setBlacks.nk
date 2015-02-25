@@ -12,18 +12,15 @@ Group {
  addUserKnob {41 source T Add1.source}
  addUserKnob {41 destination T Add1.destination}
  addUserKnob {41 rollOffMax T Add1.rollOffMax}
- addUserKnob {20 Info}
- addUserKnob {22 HELP l " HELP " T "import webbrowser\nwebbrowser.open(\"http://www.vfxwiki.org/tiki-index.php?page=setBlacks\") \n\n\n" +STARTLINE}
- addUserKnob {26 text01 l version: T b0.1}
- addUserKnob {26 text02 l "date created:" T 1/1/2015}
- addUserKnob {26 text03 l "last modified:" T n/a}
- addUserKnob {26 creator l creator: T "Rafal Kaniewski"}
- addUserKnob {26 modifiedby l "modified by:" T na}
- addUserKnob {26 source l source: T https://github.com/vfxwiki/nukeArtistToolkit/blob/master/setBlacks}
- addUserKnob {20 licenceGroup l licence n 1}
- licenceGroup 0
- addUserKnob {26 licence l licence: T "By downloading this nuke group from github.com you agree to the general license terms below.\n Copyright (c) 2015 till present All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted\n provided that the following conditions are met: Redistributions of source code must retain the\n above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary\n form must reproduce the above copyright notice, this list of conditions and the following disclaimer\n in the documentation and/or other materials provided with the distribution. Neither the name of\n Nukepedia nor the names of its contributors may be used to endorse or promote products derived\n from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE\n COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES,\n INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS\n FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR\n CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR\n CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE\n GOO/ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."}
-
+addUserKnob {20 Info}
+addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
+addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"https://github.com/openNuke/toolkit/wiki/setBlacks.nk/\")" +STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {26 version l version: T "0.1 Stable"}
+addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Moving Image Arts</a>"}
+addUserKnob {26 modified l "modified: " T " "}
+addUserKnob {26 source l source: T "<a href='https://github.com/openNuke/toolkit/blob/master/setBlacks.nk'> Github.com</a>"}
+addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolkit/blob/master/LICENCE\">READ ME</a>"}
 }
  Input {
   inputs 0
