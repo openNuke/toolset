@@ -7,7 +7,7 @@
 "originalAuthor": "Rafal Kaniewski credits to Tahl for the idea",
 "dateCreated": "01/01/2015",
 "status": "stable",
-"documentation": "",
+"documentation": "http://opennuke.github.io/uvTile_nk",
 "licence": "https://github.com/openNuke/toolset/blob/master/LICENCE",
 "source": "https://github.com/openNuke/toolset/blob/master/uvTile.nk",
 "call": ""
