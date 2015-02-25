@@ -1,0 +1,13 @@
+"type": "nodes",
+"category": "2.5D",
+"label": "Bump Normals",
+"file": "bumpNormals.nk",
+"tooltip": "Generate bump for a 3D normals pass in world space. The input bump texture can either be flat or a 3D render."
+"originalAuthor": "Michael Garrett",
+"dateCreated": "15/06/2010",
+"status": "stable",
+"documentation": "http://www.nukepedia.com/gizmos/other/bumpnormals",
+"licence": "https://github.com/openNuke/toolset/blob/master/LICENCE",
+"source": "http://www.nukepedia.com/gizmos/other/bumpnormals",
+"call": ""
+}
