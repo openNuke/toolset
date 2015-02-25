@@ -12,7 +12,7 @@ Group {
  addUserKnob {41 rollOffMax T Add1.rollOffMax}
 addUserKnob {20 Info}
 addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
-addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"https://github.com/openNuke/toolset/wiki/setBlacks.nk/\")" +STARTLINE}
+addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/setBlacks_nk/\")" +STARTLINE}
 addUserKnob {26 ""}
 addUserKnob {26 version l version: T "0.1 Stable"}
 addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
