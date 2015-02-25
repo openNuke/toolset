@@ -4,11 +4,11 @@
 "label": "UV Tile",
 "file": "uvTile.nk",
 "tooltip": Creates a proceedural UV map that can be used to check the UVs on any object. It is normalised in U and V so using a colour sample with allow you to\ncheck the UV location of any point on the model. it is STRONGLY recommended that you only output to Square formats (1:1 aspect ratio)",
-"originalAuthor": "http://movingimagearts.com credits to Tahl for the idea",
+"originalAuthor": "Rafal Kaniewski credits to Tahl for the idea",
 "dateCreated": "01/01/2015",
 "status": "stable",
 "documentation": "",
-"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
-"source": "https://github.com/openNuke/toolkit/blob/master/uvTile.nk",
+"licence": "https://github.com/openNuke/toolset/blob/master/LICENCE",
+"source": "https://github.com/openNuke/toolset/blob/master/uvTile.nk",
 "call": ""
 }
