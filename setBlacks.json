@@ -4,12 +4,12 @@
 "label": "Set Blacks",
 "file": "setBlacks.nk",
 "tooltip": "Sets base black wih roll off. Use the colour picker of darkest area of source and destination images",
-"originalAuthor": "http://movingimagearts.com",
+"originalAuthor": "Rafal Kaniewski",
 "dateCreated": "01/01/2015",
 "status": "stable",
 "documentation": "https://github.com/openNuke/toolkit/wiki/setBlacks.nk",
-"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
-"source": "https://github.com/openNuke/toolkit/blob/master/uvTile.nk",
+"licence": "https://github.com/openNuke/toolset/blob/master/LICENCE",
+"source": "https://github.com/openNuke/toolset/blob/master/uvTile.nk",
 "call": ""
 }
 
