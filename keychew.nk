@@ -3,6 +3,7 @@ version 7.0 v8
 push $cut_paste_input
 Group {
 name Keychew
+help "Cheaply dilates and erodes a matte"
 selected true
 xpos -995
 ypos 3836
