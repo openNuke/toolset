@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "example",
+"label": "deepId_example",
+"file": "deepId_example.nk",
+"tooltip": "Using an expression node to create a mask from a deepID mask pass.",
+"originalAuthor": "Rafal Kaniewski",
+"dateCreated": "21/06/2010",
+"status": "stable",
+"documentation": "http://opennuke.github.io/deepId_example_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "https://github.com/openNuke/",
+"call": ""
+}
