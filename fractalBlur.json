@@ -1,0 +1,15 @@
+{
+"type": "nodes",
+"category": "2.5D",
+"label": "Fractal Blur",
+"file": "fractalBlur.nk",
+"tooltip": "Organic distortion an rgba using a mask. Example use: break up an edge or create a stylistic effect"
+"originalAuthor": "Richard Frazer",
+"dateCreated": "01/05/2012",
+"status": "stable",
+"documentation": "http://opennuke.github.io/fractalBlur_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "https://github.com/RichFrazer/fractal-blur",
+"call": ""
+}
+
