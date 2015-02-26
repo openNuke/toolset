@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "image",
+"label": "File Path Write",
+"file": "filePathWrite.nk",
+"tooltip": "a Write node with extras: path creation, proxy creation, read from write",
+"originalAuthor": "Rafal Kaniewski",
+"dateCreated": "01/01/2015",
+"status": "beta",
+"documentation": "http://opennuke.github.io/filePathWrite_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "",
+"call": ""
+}
