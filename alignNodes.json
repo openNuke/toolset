@@ -1,6 +1,6 @@
 {
 "type": "python",
-"category": "node graph",
+"category": "nodeGraph",
 "label": "['Align Nodes x','Align Nodes y'],
 "file": "alignNodes.py",
 "tooltip": "Align a bunch of Nodes either horizontally in the Node Graph",
