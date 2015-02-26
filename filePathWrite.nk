@@ -1,17 +1,15 @@
-#http://www.vfxwiki.org vb0.1 mrafs
-#licence: https://github.com/vfxwiki/nukeArtistToolkit
 set cut_paste_input [stack 0]
-version 7.0 v9
+version 9.0 v1
 push $cut_paste_input
 Write {
  channels rgba
  file_type exr
  autocrop true
  version 27
- name Write
+ name WritePath
  selected true
- xpos -684
- ypos 2956
+ xpos 125
+ ypos -70
  addUserKnob {20 FilePathWriter l "File Path Writer"}
  addUserKnob {22 makepath l " Make File Path " -STARTLINE T "def PFW_buildPath():\n tnode=nuke.thisNode()\n newpath=tnode\['expFile'].value() \n if tnode\['pyLinkControl'].label() == \" Turn Link Control ON \":\n  print \" Turn Link Control ON \"\n  newpath=str.replace(newpath,'\{rootPath\}',tnode\['rootPath'].value())\n  newpath=str.replace(newpath,'\{shot\}',tnode\['shot'].value())\n  newpath=str.replace(newpath,'\{folder\}',tnode\['folder'].value())\n  newpath=str.replace(newpath,'\{description\}',tnode\['description'].value())\n  newpath=str.replace(newpath,'\{size.w\}',str(int(tnode\['size'].value()\[0])))\n  newpath=str.replace(newpath,'\{size.h\}',str(int(tnode\['size'].value()\[1])))\n  newpath=str.replace(newpath,'\{type\}',tnode\['type'].value())\n  newpath=str.replace(newpath,'\{file_type\}',tnode\['file_type'].value())\n  newpath=str.replace(newpath,'\{ver\}',tnode\['ver'].value())\n  PFW_makePath(newpath)\n else:\n  print \" Turn Link Control OFF \"\n  if nuke.exists(tnode\['link'].value()):\n   lNode=nuke.toNode(tnode\['link'].value())\n   print lNode\['ver'].value()\n   newpath=str.replace(newpath,'\{rootPath\}',lNode\['rootPath'].value())\n   newpath=str.replace(newpath,'\{shot\}',lNode\['shot'].value())\n   newpath=str.replace(newpath,'\{folder\}',lNode\['folder'].value())\n   newpath=str.replace(newpath,'\{description\}',tnode\['description'].value())\n   newpath=str.replace(newpath,'\{ver\}',lNode\['ver'].value())\n   newpath=str.replace(newpath,'\{size.w\}',str(int(lNode\['size'].value()\[0])))\n   newpath=str.replace(newpath,'\{size.h\}',str(int(lNode\['size'].value()\[1])))\n   newpath=str.replace(newpath,'\{type\}',lNode\['type'].value())\n   newpath=str.replace(newpath,'\{file_type\}',lNode\['file_type'].value())\n   PFW_makePath(newpath)\n  else:\n   nuke.message('errr. link node does not Exist: '+tnode\['link'].value())\n\n\ndef PFW_makePath(newpath):\n tnode=nuke.thisNode()\n writePath=os.path.split(newpath)\n if nuke.ask('Do you want to make this path on disk? '+writePath\[0]+\"/\"+'\\n\\n'+'Do you want to make this file? '+'\\n'+writePath\[1]):\n   if not os.path.exists(writePath\[0]):\n     os.makedirs(writePath\[0])\n     tnode\['file'].setValue(newpath)\n   else:\n     if nuke.ask('errr. Directory already exists:\\n%s' % (writePath\[0])+'\\n\\n'+\"Do you want to set the file path in this node\"):\n      tnode\['file'].setValue(newpath)\n\n\nPFW_buildPath()"}
  addUserKnob {22 makeProxyPath l " Make Proxy Path " -STARTLINE T "def PFW_buildPath():\n tnode=nuke.thisNode()\n newpath=tnode\['expFile'].value() \n if tnode\['pyLinkControl'].label() == \" Turn Link Control ON \":\n  print \" Turn Link Control ON \"\n  newpath=str.replace(newpath,'\{rootPath\}',tnode\['rootPath'].value())\n  newpath=str.replace(newpath,'\{shot\}',tnode\['shot'].value())\n  newpath=str.replace(newpath,'\{folder\}',tnode\['folder'].value())\n  newpath=str.replace(newpath,'\{description\}',tnode\['description'].value())\n  newpath=str.replace(newpath,'\{size.w\}',str(int(tnode\['size'].value()\[0]/2)))\n  newpath=str.replace(newpath,'\{size.h\}',str(int(tnode\['size'].value()\[1]/2)))\n  newpath=str.replace(newpath,'\{type\}',tnode\['type'].value())\n  newpath=str.replace(newpath,'\{file_type\}',tnode\['file_type'].value())\n  newpath=str.replace(newpath,'\{ver\}',tnode\['ver'].value())\n  PFW_makePath(newpath)\n else:\n  print \" Turn Link Control OFF \"\n  if nuke.exists(tnode\['link'].value()):\n   lNode=nuke.toNode(tnode\['link'].value())\n   print lNode\['ver'].value()\n   newpath=str.replace(newpath,'\{rootPath\}',lNode\['rootPath'].value())\n   newpath=str.replace(newpath,'\{shot\}',lNode\['shot'].value())\n   newpath=str.replace(newpath,'\{folder\}',lNode\['folder'].value())\n   newpath=str.replace(newpath,'\{description\}',tnode\['description'].value())\n   newpath=str.replace(newpath,'\{ver\}',lNode\['ver'].value())\n   newpath=str.replace(newpath,'\{size.w\}',str(int(lNode\['size'].value()\[0]/2)))\n   newpath=str.replace(newpath,'\{size.h\}',str(int(lNode\['size'].value()\[1]/2)))\n   newpath=str.replace(newpath,'\{type\}',lNode\['type'].value())\n   newpath=str.replace(newpath,'\{file_type\}',lNode\['file_type'].value())\n   PFW_makePath(newpath)\n  else:\n   nuke.message('errr. link node does not Exist: '+tnode\['link'].value())\n\n\ndef PFW_makePath(newpath):\n tnode=nuke.thisNode()\n writePath=os.path.split(newpath)\n if nuke.ask('Do you want to make this path on disk? '+writePath\[0]+\"/\"+'\\n\\n'+'Do you want to make this file? '+'\\n'+writePath\[1]):\n   if not os.path.exists(writePath\[0]):\n     os.makedirs(writePath\[0])\n     tnode\['proxy'].setValue(newpath)\n   else:\n     if nuke.ask('errr. Directory already exists:\\n%s' % (writePath\[0])+'\\n\\n'+\"Do you want to set the file path in this node\"):\n      tnode\['file'].setValue(newpath)\n\n\nPFW_buildPath()"}
@@ -22,7 +20,6 @@ Write {
  addUserKnob {1 link l "  link" t "this is the name of the node that is the parent" -STARTLINE +HIDDEN}
  link Write1
  addUserKnob {1 rootPath}
- rootPath Z:/ifs/fieldtrip/STUDIO/STUDIO_JOBS/MCDONALDS/MCDONALDS_ZINC/comp/nuke
  addUserKnob {4 shot M {shot00Generic shot01 shot02 shot03 shot04 shot05 shot06 shot07 shot08 shot09 shot010}}
  addUserKnob {4 folder l subfolder M {renders_out renders_test renders_elements "" ""}}
  folder renders_elements
@@ -38,8 +35,17 @@ Write {
  addUserKnob {26 text2 l "file type" T ":defined on 'Write' tab dropdown"}
  addUserKnob {26 ""}
  addUserKnob {20 settings n 1}
+ settings 0
  addUserKnob {1 expFile l "file expression"}
  expFile "\{rootPath\}/\{shot\}/\{folder\}/\{type\}_\{description\}_\{ver\}/\{size.w\}x\{size.h\}/\{shot\}_\{type\}_\{description\}_v\{ver\}.%04d.\{file_type\}"
  addUserKnob {20 endGroup n -1}
  addUserKnob {26 todo l "" -STARTLINE T "TODO:\n-do proxy from root (at the moment it is half)\n-auto name from script name option version/name control\n-render proxy from main button\n-fix make read when proxy missing\n-add viewable link for link control\n"}
+ addUserKnob {20 Info}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/filePathWrite_nk/\")" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 version_1 l version T "0.1 BETA"}
+ addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
+ addUserKnob {26 modified l "modified: " T " "}
+ addUserKnob {26 source l source: T "<a href='https://github.com/openNuke/toolset/blob/master/setBlacks.nk'> Github.com</a>"}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
