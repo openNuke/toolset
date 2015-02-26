@@ -1,0 +1,14 @@
+{
+"type": "node",
+"category": "image",
+"label": "Fizzle TV",
+"file": "fizzleTV.py",
+"tooltip": "TV simulation / distortion",
+"originalAuthor": "Julian van Mil",
+"dateCreated": "28/04/2010",
+"status": "stable",
+"documentation": "http://opennuke.github.io/fizzleTV/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "v2.0 http:/http://www.nukepedia.com/gizmos/filter/fizzle/",
+"call": ""
+}
