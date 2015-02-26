@@ -1,13 +1,11 @@
-#forked from http://richardfrazer.com/tools-tutorials/fractal-blur-for-nuke/ richard frazer
-#licence: https://github.com/vfxwiki/nukeArtistToolkit
 set cut_paste_input [stack 0]
-version 7.0 v6
+version 9.0 v1
 push $cut_paste_input
 Group {
  name Fractal_Blur
  selected true
- xpos 3528
- ypos 2860
+ xpos 75
+ ypos 74
  addUserKnob {20 User l Fractal_Blur}
  addUserKnob {41 channels T IDistort.channels}
  addUserKnob {41 uv_scale l "distortion size" T IDistort.uv_scale}
@@ -17,7 +15,7 @@ Group {
  addUserKnob {41 octaves T U.octaves}
  addUserKnob {41 dilate T NoOp.dilate}
  addUserKnob {41 blur T NoOp.blur}
- addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 ""}
  addUserKnob {41 grade T NoOp.grade}
  addUserKnob {41 multiply l contrast T NoOp.multiply}
  addUserKnob {41 blackpoint T NoOp.blackpoint}
@@ -34,6 +32,14 @@ Group {
  addUserKnob {41 center T U.center}
  addUserKnob {41 xrotate T U.xrotate}
  addUserKnob {41 yrotate T U.yrotate}
+ addUserKnob {20 Info}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/fractalBlur_nk/\")" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 version l version: T "0.1 Stable"}
+ addUserKnob {26 created l created: T "01/05/2012 by Richard Frazer"}
+ addUserKnob {26 modified l "modified: " T " 1/1/2015 Rafal Kaniewski (rgb distortions  added) "}
+ addUserKnob {26 source l source: T "<a href='https://github.com/RichFrazer/fractal-blur'> Github.com</a>"}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  Input {
   inputs 0
@@ -56,7 +62,7 @@ Group {
   xpos -316
   ypos -696
  }
-set Ndbec3a90 [stack 0]
+set N51123820 [stack 0]
  AdjBBox {
   numpixels {{max(0,IDistort.uv_scale) i} {max(0,parent.IDistort.uv_scale) i}}
   name AdjBBox1
@@ -68,7 +74,7 @@ set Ndbec3a90 [stack 0]
   xpos 286
   ypos -309
  }
-push $Ndbec3a90
+push $N51123820
  Dot {
   name Dot1
   xpos 254
@@ -85,8 +91,8 @@ add_layer {tempDistortion tempDistortion.u tempDistortion.v}
   gamma 1
   center {960 540}
   name U
-  xpos 493
-  ypos -425
+  xpos 354
+  ypos -515
  }
  Noise {
   output {-tempDistortion.u tempDistortion.v}
@@ -105,7 +111,18 @@ add_layer {tempDistortion tempDistortion.u tempDistortion.v}
   yrotate {{U.yrotate}}
   name V
   xpos 354
-  ypos -425
+  ypos -483
+ }
+ Expression {
+  channel0 {tempDistortion.u -tempDistortion.v}
+  expr0 4*(1-r)*r
+  expr1 4*(1-g)*g
+  channel2 none
+  expr2 4*(1-b)*b
+  name X_Fringe2
+  xpos 354
+  ypos -435
+  disable true
  }
  Clamp {
   name Clamp2
@@ -118,8 +135,8 @@ add_layer {tempDistortion tempDistortion.u tempDistortion.v}
   xpos 354
   ypos -312
  }
-set Ncaa659f0 [stack 0]
-push $Ncaa659f0
+set N510ee4b0 [stack 0]
+push $N510ee4b0
  Invert {
   channels tempDistortion
   name Invert4
@@ -148,11 +165,10 @@ push $Ncaa659f0
   gamma {{NoOp.multiply}}
   black_clamp false
   name Grade1
-  selected true
   xpos 5
   ypos -364
  }
-push $Ndbec3a90
+push $N51123820
  Dot {
   name Dot10
   xpos -99
@@ -170,7 +186,15 @@ push $Ndbec3a90
   ypos -312
   disable {{!NoOp.grade}}
  }
-set N9b27bbd0 [stack 0]
+ Expression {
+  expr0 4*(1-r)*r
+  expr1 4*(1-g)*g
+  expr2 4*(1-b)*b
+  name X_Fringe1
+  xpos -95
+  ypos -250
+  disable true
+ }
  Copy {
   inputs 2
   channels tempDistortion
@@ -196,16 +220,17 @@ set N9b27bbd0 [stack 0]
   uv_offset 0.5
   uv_scale 100
   name IDistort
-  xpos -94
+  xpos -171
   ypos 293
  }
+set N512a4f90 [stack 0]
  Blur {
   channels {{{IDistort.channels}}}
   size {{NoOp.blur}}
   crop false
   name Blur2
   xpos -82
-  ypos 341
+  ypos 340
  }
  Remove {
   channels tempDistortion
@@ -217,16 +242,6 @@ set N9b27bbd0 [stack 0]
   name Output1
   xpos -82
   ypos 477
- }
-push $N9b27bbd0
- Viewer {
-  gain 0.325
-  gamma 1.01
-  viewerProcess ra_bluescreen_grade.cube
-  input_process false
-  name Viewer1
-  xpos 286
-  ypos -191
  }
  NoOp {
   inputs 0
@@ -245,5 +260,18 @@ push $N9b27bbd0
   gamma 1
   addUserKnob {6 blackClamp +STARTLINE}
   addUserKnob {6 whiteClamp +STARTLINE}
+ }
+push $N512a4f90
+ Viewer {
+  frame_range 1-100
+  channels rgb
+  gain 0.14
+  gamma 1.01
+  viewerProcess rec709
+  input_process false
+  name Viewer1
+  selected true
+  xpos 286
+  ypos -191
  }
 end_group
