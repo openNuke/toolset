@@ -11,7 +11,6 @@ Group {
  addUserKnob {41 destination T Add1.destination}
  addUserKnob {41 rollOffMax T Add1.rollOffMax}
 addUserKnob {20 Info}
-addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
 addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/setBlacks_nk/\")" +STARTLINE}
 addUserKnob {26 ""}
 addUserKnob {26 version l version: T "0.1 Stable"}
