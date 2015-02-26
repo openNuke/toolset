@@ -12,6 +12,9 @@ Copy and paste into Nuke Script Editor and click run:
 
 import urllib; exec urllib.urlopen("https://raw.githubusercontent.com/openNuke/toolset/master/_loadTools.py").read()
 
+docs
+==========
+[http://opennuke.github.io/]
 
 
 licence
