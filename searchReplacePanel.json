@@ -1,0 +1,14 @@
+{
+"type": "python",
+"category": "Panel UI",
+"label": "Search and Replace",
+"file": "SearchReplacePanel.py",
+"tooltip": "Search and replace values in all or selected nodes",
+"originalAuthor": "Frank Rueter",
+"dateCreated": "14/03/2012",
+"status": "stable",
+"documentation": "http://opennuke.github.io/searchReplacePanel/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "1.2 http://www.nukepedia.com/python/ui/searchreplacepanel",
+"call": ""
+}
