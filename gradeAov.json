@@ -1,0 +1,24 @@
+{
+"type": "nodes",
+"category": "colour",
+"label": "GradeAOV",
+"file": "gradeAov.nk",
+"tooltip": "Colour correct the CG beauty using the secondary(aov) passes.with a subtractive process.\nto be used when:\n * the CG is good and only a few passes need adjusting\n * the secondaries don't add up to the beauty\n * rgb saturation (luminance mix on)\n * rgb contrast (with pivot)\n * matting with external mask input or main channel input or both with an operation.\n The order of correction is: Grade Node>Contrast Node>Saturation.",
+"originalAuthor": "Rafal Kaniewski",
+"dateCreated": "01/01/2015",
+"status": "stable",
+"documentation": "https://github.com/vfxwiki/gradeAOV",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "http://opennuke.github.io/gradeAov_nk/",
+"call": ""
+}
+
+addUserKnob {20 Info}
+addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
+addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"https://github.com/vfxwiki/gradeAOV/\")" +STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {26 version l version: T "0.1 Stable"}
+addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
+addUserKnob {26 modified l "modified: " T " "}
+addUserKnob {26 source l source: T "<a href='http://opennuke.github.io/gradeAov_nk/'> Github.com</a>"}
+addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
