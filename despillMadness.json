@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "keying",
+"label": "Despill Madness",
+"file": "despillMadness.nk",
+"tooltip": "Uber Despill",
+"originalAuthor": "Andreas Frickinger",
+"dateCreated": "19/02/2013",
+"status": "stable",
+"documentation": "http://opennuke.github.io/RotateNormal_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "v3.0 www.nukepedia.com/gizmos/keyer/despillmadness/",
+"call": ""
+}
