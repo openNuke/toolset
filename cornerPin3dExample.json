@@ -6,7 +6,7 @@
 "tooltip": "Rotates Normal",
 "originalAuthor": "Rafal Kaniewski",
 "dateCreated": "21/06/2010",
-"status": "stable",
+"status": "beta",
 "documentation": "http://opennuke.github.io/cornerPin3dExample_nk/",
 "licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
 "source": "https://github.com/openNuke/",
