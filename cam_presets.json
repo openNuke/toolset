@@ -1,0 +1,14 @@
+{
+"type": "python",
+"category": "presets",
+"label": "Camera format Presets",
+"file": "cam_presets.nk",
+"tooltip": "Camera format Presets with filmback of various sensors",
+"originalAuthor": "Deke Kincaid",
+"dateCreated": "10/16/12",
+"status": "stable",
+"documentation": "http://opennuke.github.io/cam_presets_py/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "https://github.com/dekekincaid/nuke.env/blob/master/python/cam_presets.py",
+"call": ""
+}
