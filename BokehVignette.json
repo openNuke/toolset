@@ -1,0 +1,14 @@
+{
+    "type": "nodes",
+    "category": "filter",
+    "label": "Bokeh Vignette",
+    "file": "BokehVignette.nk",
+    "tooltip": "Z-Defocus node that reproduces artifacs asossiated with the vignetting of bokeh otherwise known as 'cat-eye' and 'barn-door' cropped bokeh.",
+    "originalAuthor": "Rafal Kaniewski with thx to Adam Paschke & Ian Simpson}",
+    "dateCreated": "21/06/2012",
+    "status": "stable",
+    "documentation": "http: //opennuke.github.io/BokehVignette_nk/",
+    "licence": "https: //github.com/openNuke/toolkit/blob/master/LICENCE",
+    "source": "https: //github.com/vfxwiki/BokehVignette",
+    "call": ""
+}
