@@ -14,7 +14,7 @@ import urllib; exec urllib.urlopen("https://raw.githubusercontent.com/openNuke/t
 
 docs
 ==========
-[http://opennuke.github.io/]
+http://opennuke.github.io/
 
 
 licence
