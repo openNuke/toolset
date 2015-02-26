@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "example",
+"label": "cornerPin3d",
+"file": "cornerPin3d.nk",
+"tooltip": "Rotates Normal",
+"originalAuthor": "Rafal Kaniewski",
+"dateCreated": "21/06/2010",
+"status": "stable",
+"documentation": "http://opennuke.github.io/cornerPin3d_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "https://github.com/vfxwiki/cornerPin3d",
+"call": ""
+}
