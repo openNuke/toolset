@@ -7,7 +7,7 @@
 "originalAuthor": "Hakan Blomdahl",
 "dateCreated": "21/06/2010",
 "status": "stable",
-"documentation": "http://www.nukepedia.com/gizmos/3d/rotatenormals/",
+"documentation": "http://opennuke.github.io/RotateNormal_nk/",
 "licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
 "source": "http://www.nukepedia.com/gizmos/3d/rotatenormals/",
 "call": ""
