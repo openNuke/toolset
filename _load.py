@@ -101,7 +101,7 @@ class toolSetData():
 	def __init__(self):
 		global rootPath
 		
-	def select(self)
+	def select(self):
 		if self.licence():		  
 			#### Select Location of Release Path ####
 			pLoc = UI_enumerationSelect(['web','local'], '_load.json file location?' )
