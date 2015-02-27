@@ -106,7 +106,8 @@ class toolSetData():
 	def run(self):
 		if self.licence():		  
 			#### Select Location of Release Path and get Choice ####
-			self.selectedLocPath
+			selectLocPath()
+			print self.selectedLocPath
 			self.toolChoicePath = getData(selectLocPath().selectedLocPath).gotData() 
 			print self.toolChoicePath
 			#### Select choice of tools and get Choice ####
