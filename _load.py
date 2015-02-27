@@ -19,7 +19,7 @@ class ToolSetWidget(QtGui.QWidget):
 		self.loadToolPane()
 									
 	def loadToolPane(self):
-		self.toolDict = toolSetData().selectSet().toolDict #ToDo pass this to the class before registering the pane
+		self.toolDict = toolSetData().run().toolDict #ToDo pass this to the class before registering the pane
 		self.tabs = QtGui.QTabWidget(self)
 		self.scriptsTab = QtGui.QWidget()
 		self.nodesTab = QtGui.QWidget()		   
@@ -101,31 +101,35 @@ class toolSetData():
 	def __init__(self):
 		global rootPath
 		self.rootPath=rootPath
-	def selectSet(self):
+		self.toolDict={}
+		
+	def run(self):
 		if self.licence():		  
-			#### Select Location of Release Path ####
+			selectLocPath() #### Select Location of Release Path ####
+			self.toolSet=getData(self.selectedLocPath).gotData() #### 
+			selectToolList() #### Select selection of tools ####
+			self.selectedToolList = toolSetDict[self.selectedToolList]  #### return list from selection
+			makeToolDict()
+	
+	def selectLocPath(self):
 			pLoc = UI_enumerationSelect(['web','local'], '_load.json file location?' )
 			if pLoc.showModalDialog():
 				selectedLocationLabel = pLoc.typeKnob.value()
 				if selectedLocationLabel=='local':
 					self.rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
-			selectedToolsetPath = os.path.join(self.rootPath, "_load.json")
-			#### Get Tool Release Data ####
-			toolSetData().getData(selectedToolsetPath)
-			toolSetDict = self.gotData
+			self.selectedLocPath = os.path.join(self.rootPath, "_load.json")
+			
+	def selectToolList(self):
+			#### Get ToolSet  Data ####
 			#### Select witch release to load ###
-			print selectedToolsetPath
-			print toolSetDict
-			toolChoices=toolSetDict.keys()
+			toolChoices=self.toolSetLists.keys()
 			#for x in toolDict:
 				#releaseLabelChoices.append(x['label'])
 			pRelease = UI_enumerationSelect(toolChoices,'Select NukeTool selection from repository?')
 			if pRelease.showModalDialog():
-				selectedSet = pRelease.typeKnob.value() 
-			#for x in toolDict:
-			#	if x['label'] == selectedReleaseLabel:
-			#		 file = os.path.split(x['file'])[1]
-			self.selectToolSetList = toolSetDict[selectedSet]
+				self.selectedToolList = pRelease.typeKnob.value() 
+				
+			
 			
 	def makeToolDict(self):
 			print selectToolSetList
