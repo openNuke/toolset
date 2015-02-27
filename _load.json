@@ -1,5 +1,4 @@
 {
-{
     "all": "['alignNodes','bokehVignette','bumpNormals','cam_presets','cornerPin3D',' cornerPin3dExample','deepId_example','despillMadness','filePathWrite','fizzleTV','fractalBlur','gradeAov','horizon_line','Inverse0ver','keychew','killOutline','pasteToSelected','relight',' rotateNormal','scaleNodes',' searchReplacePanel','setBlacks','uvTile']",
     "favourites": "['alignNodes','bokehVignette','bumpNormals','cam_presets']"
 }
