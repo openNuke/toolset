@@ -109,11 +109,11 @@ class toolSetData():
 				selectedLocationLabel = pLoc.typeKnob.value()
 				if selectedLocationLabel=='local':
 					self.rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
-			choiceRemoteLocal = os.path.join(self.rootPath, "_load.json")
+			selectedToolsetPath = os.path.join(self.rootPath, "_load.json")
 			#### Get Tool Release Data ####
-			toolSetDict = toolSetData().getData(choiceRemoteLocal)
+			toolSetDict = toolSetData().getData(selectedToolsetPath)
 			#### Select witch release to load ###
-			print choiceRemoteLocal
+			print selectedToolsetPath
 			print toolSetDict
 			toolChoices=toolSetDict.keys()
 			#for x in toolDict:
@@ -143,14 +143,18 @@ class toolSetData():
 			if path[0:4] == "http":
 				try:
 					response = urllib2.urlopen(path)
+					print "LOADING HTTP DATA"
 				except urllib2.request.URLError:
 					nuke.message('errr. path to '+path+' not reached')
 			else:
 					response = open((path), 'r')
+					print "LOADING LOCAL DATA"
 			if os.path.splitext(os.path.split(path)[1])[1] == '.json':
+				print "JSON FROM:"+path
 				self.gotData = json.load(response)
 			else:
 				self.gotData = response.read()
+				print "FROM:"+path
 			response.close()
 	  
 		
