@@ -19,7 +19,7 @@ class ToolSetWidget(QtGui.QWidget):
 		self.loadToolPane()
 									
 	def loadToolPane(self):
-		self.toolDict = toolSetData().select().toolDict #ToDo pass this to the class before registering the pane
+		self.toolDict = toolSetData().selectSet().toolDict #ToDo pass this to the class before registering the pane
 		self.tabs = QtGui.QTabWidget(self)
 		self.scriptsTab = QtGui.QWidget()
 		self.nodesTab = QtGui.QWidget()		   
@@ -101,7 +101,7 @@ class toolSetData():
 	def __init__(self):
 		global rootPath
 		
-	def select(self):
+	def selectSet(self):
 		if self.licence():		  
 			#### Select Location of Release Path ####
 			pLoc = UI_enumerationSelect(['web','local'], '_load.json file location?' )
