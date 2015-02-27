@@ -111,7 +111,8 @@ class toolSetData():
 					self.rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
 			selectedToolsetPath = os.path.join(self.rootPath, "_load.json")
 			#### Get Tool Release Data ####
-			toolSetDict = toolSetData().getData(selectedToolsetPath)
+			toolSetData().getData(selectedToolsetPath)
+			toolSetDict = self.gotData
 			#### Select witch release to load ###
 			print selectedToolsetPath
 			print toolSetDict
@@ -152,6 +153,7 @@ class toolSetData():
 			if os.path.splitext(os.path.split(path)[1])[1] == '.json':
 				print "JSON FROM:"+path
 				self.gotData = json.load(response)
+				print self.gotData
 			else:
 				self.gotData = response.read()
 				print "FROM:"+path
