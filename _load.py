@@ -100,7 +100,6 @@ class UI_enumerationSelect(nukescripts.PythonPanel):
 class toolSetData():
 	def __init__(self):
 		global rootPath
-		self.rootpath = rootpath
 	def selectSet(self):
 		if self.licence():		  
 			#### Select Location of Release Path ####
@@ -108,8 +107,8 @@ class toolSetData():
 			if pLoc.showModalDialog():
 				selectedLocationLabel = pLoc.typeKnob.value()
 				if selectedLocationLabel=='local':
-					self.rootpath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
-			choicePath = os.path.join(self.rootpath, "_load.json")
+					rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
+			choicePath = os.path.join(rootPath, "_load.json")
 			#### Get Tool Release Data ####
 			toolSetDict = toolSetData().getData(choicePath).gotData
 			#### Select witch release to load ####
@@ -129,7 +128,7 @@ class toolSetData():
 			print selectToolSetList
 			for tool in selectToolSetList:		
 				#### Load Tool Selection ####
-				toolsetPath = os.path.join(self.rootpath, tool+'.json')
+				toolsetPath = os.path.join(rootPath, tool+'.json')
 				self.toolDict = toolSetData().getData(toolsetPath).gotData
 				print '================--=====[]['
 				print self.toolDict
