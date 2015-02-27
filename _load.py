@@ -105,10 +105,12 @@ class toolSetData():
 		
 	def run(self):
 		if self.licence():		  
-			selectLocPath() #### Select Location of Release Path ####
-			self.toolSet=getData(self.selectedLocPath).gotData() #### 
-			selectToolList() #### Select selection of tools ####
-			self.selectedToolList = toolSetDict[self.selectedToolList]  #### return list from selection
+			#### Select Location of Release Path and get Choice ####
+			print selectLocPath().selectedLocPath
+			self.toolChoicePath = getData(selectLocPath().selectedLocPath).gotData() 
+			print self.toolChoicePath
+			#### Select choice of tools and get Choice ####
+			self.selectedToolList = toolSetDict[selectToolList().selectedToolList]  #### return list from selection
 			makeToolDict()
 	
 	def selectLocPath(self):
@@ -132,13 +134,10 @@ class toolSetData():
 			
 			
 	def makeToolDict(self):
-			print selectToolSetList
 			for tool in selectToolSetList:		
 				#### Load Tool Selection ####
 				toolsetPath = os.path.join(self.rootPath, tool+'.json')
 				self.toolDict = toolSetData().getData(toolsetPath).gotData
-				print '================--=====[]['
-				print self.toolDict
 
 					
 	def licence(self):
