@@ -109,15 +109,16 @@ class toolSetData():
 				selectedLocationLabel = pLoc.typeKnob.value()
 				if selectedLocationLabel=='local':
 					self.rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
-			choicePath = os.path.join(self.rootPath, "_load.json")
+			choiceRemoteLocal = os.path.join(self.rootPath, "_load.json")
 			#### Get Tool Release Data ####
-			toolSetDict = toolSetData().getData(choicePath)
+			toolSetDict = toolSetData().getData(choiceRemoteLocal)
 			#### Select witch release to load ###
-			releaseLabelChoices=[]
-			toolSeChoices=toolSetDict.keys()
+			print choiceRemoteLocal
+			print toolSetDict
+			toolChoices=toolSetDict.keys()
 			#for x in toolDict:
 				#releaseLabelChoices.append(x['label'])
-			pRelease = UI_enumerationSelect(releaseLabelChoices,'Select NukeTool selection from repository?')
+			pRelease = UI_enumerationSelect(toolChoices,'Select NukeTool selection from repository?')
 			if pRelease.showModalDialog():
 				selectedSet = pRelease.typeKnob.value() 
 			#for x in toolDict:
