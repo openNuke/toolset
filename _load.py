@@ -102,24 +102,27 @@ class selectToolsetData():
 		global rootPath
 		if self.licence():		  
 			#### Select Location of Release Path ####
-			pLoc = UI_enumerationSelect(['web','local'], '_loadChoice.json file location?' )
+			pLoc = UI_enumerationSelect(['web','local'], '_load.json file location?' )
 			if pLoc.showModalDialog():
 				selectedLocationLabel = pLoc.typeKnob.value()
 				if selectedLocationLabel=='local':
-					rootPath = os.path.split(nuke.getFilename('Select _loadChoice.json', '_loadChoice.json'))[0]
-			choicePath = os.path.join(rootPath, "_loadChoice.json")
+					rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
+			choicePath = os.path.join(rootPath, "_load.json")
 			#### Get Tool Release Data ####
 			toolDict = getData(choicePath).gotData
 			#### Select witch release to load ####
 			releaseLabelChoices=[]
 			for x in toolDict:
 				releaseLabelChoices.append(x['label'])
-			pRelease = UI_enumerationSelect(releaseLabelChoices,'Select NukeToolKit Release?')
+			pRelease = UI_enumerationSelect(releaseLabelChoices,'Select NukeTool selection from repository?')
 			if pRelease.showModalDialog():
 				selectedReleaseLabel = pRelease.typeKnob.value() 
 			for x in toolDict:
 				if x['label'] == selectedReleaseLabel:
 					 file = os.path.split(x['file'])[1]
+			print file
+			for x in file:
+				print x
 			#### Load Toolset Data ####
 			toolsetPath = os.path.join(rootPath, file)
 			self.toolDict = getData(toolsetPath).gotData
