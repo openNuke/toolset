@@ -112,7 +112,7 @@ class toolSetData():
 			choicePath = os.path.join(self.rootPath, "_load.json")
 			#### Get Tool Release Data ####
 			toolSetDict = toolSetData().getData(choicePath)
-			#### Select witch release to load ####
+			#### Select witch release to load ###
 			releaseLabelChoices=[]
 			toolSeChoices=toolSetDict.keys()
 			#for x in toolDict:
