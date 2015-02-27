@@ -108,7 +108,7 @@ class toolSetData():
 			#### Select Location of Release Path and get Choice ####
 			self.selectLocPath()
 			print self.selectedLocPath
-			PRINT "FFFFFF"
+			print "FFFFFF"
 			print self.selectLocPath().selectedLocPath
 			self.toolChoicePath = getData(selectLocPath().selectedLocPath).gotData() 
 			print self.toolChoicePath
