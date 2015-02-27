@@ -110,10 +110,16 @@ class selectToolsetData():
 			choicePath = os.path.join(rootPath, "_load.json")
 			#### Get Tool Release Data ####
 			toolDict = getData(choicePath).gotData
+			print "=======TEST START========="
+			print toolDict.keys()
+			for x in toolDict:
+				print x
+			print "=======TEST END========="
 			#### Select witch release to load ####
 			releaseLabelChoices=[]
-			for x in toolDict:
-				releaseLabelChoices.append(x['label'])
+			releaseLabelChoices=toolDict.keys()
+			#for x in toolDict:
+				#releaseLabelChoices.append(x['label'])
 			pRelease = UI_enumerationSelect(releaseLabelChoices,'Select NukeTool selection from repository?')
 			if pRelease.showModalDialog():
 				selectedReleaseLabel = pRelease.typeKnob.value() 
@@ -123,11 +129,7 @@ class selectToolsetData():
 			#### Load Toolset Selection ####
 			toolsetPath = os.path.join(rootPath, file)
 			self.toolDict = getData(toolsetPath).gotData
-			print "=======TEST START========="
-			print self.toolDict
-			for x in self.toolDict:
-				print x
-			print "=======TEST END========="
+
 					
 	def licence(self):
 		return nuke.ask("LICENCE \nBy downloading a file from this repository you agree to the general license terms below. Copyright (c) 2010 till present All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. Neither the name of Nukepedia nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOO/ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n Do You Agree to the above licence?")
