@@ -139,7 +139,7 @@ class toolSetData():
 			documentation = self.toolDict['documentation']
 			source = self.toolDict['source']
 			
-			self.toolsDict.update({toolType:{category:{'label':label}})
+			self.toolsDict.update({toolType:{category:{'label':label}}})
 					
 	def licence(self):
 		return nuke.ask(getData(os.path.join(self.rootPath, "LICENCE")).gotData)
