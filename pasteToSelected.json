@@ -11,7 +11,7 @@
         "scaleNodes(6)"
     ],
     "tooltip": "Paste node copied in the clipboard to all selected nodes, multiplying a paste",
-    "author": "Frank Rueter",
+    "originalAuthor": "Frank Rueter",
     "dateCreated": "19/02/2012",
     "status": "stable",
     "documentation": "http://opennuke.github.io/pasteToSelected_py/",
