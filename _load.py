@@ -139,12 +139,13 @@ class toolSetData():
 			status = self.toolDict['status']
 			documentation = self.toolDict['documentation']
 			source = self.toolDict['source']
-			
+			print file
 			#self.toolsDict.update({toolType:{category{'file':file}}})
 			#self.toolsDict.file[toolType:[category['file']]] = file
 			#self.toolsDict{toolType:{'category'}}) = category
-			self.toolsDict.update({toolType:{category:{}}})
-			self.toolsDict[toolType[category]] = str(file)
+			self.toolsDict.update({toolType:{category:[{}]}})
+			self.toolsDict.[toolType][category][file] = file
+			#self.toolsDict[toolType[category]] = str(file)
 			#self.toolsDict.update({toolType:{category:{'tooltip':tooltip}}})
 			#self.toolsDict.update({toolType:{category:{'originalAuthor':originalAuthor}}})
 			#self.toolsDict.update({toolType:{category:{'dateCreated':dateCreated}}})
