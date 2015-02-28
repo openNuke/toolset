@@ -104,15 +104,18 @@ class toolSetData():
 		self.toolDict={}
 		
 	def run(self):
+		#### Select Location of Release Path ####
+		self.rootPath == self.selectLocPath()
 		if self.licence():		  
-			#### Select Location of Release Path and get Dict ####
-			self.toolLoadJsonDict = getData(self.selectLocPath()).gotData
+			#### Get Release Path  Dict ####
+			self.toolLoadJsonDict = getData(os.path.join(self.rootPath, "_load.json")).gotData
 			#### Select choice of tools and get list ####
 			self.toolLoadList = self.selectToolList()
 			#### load tool dict and add to tools dict ####
 			for toolName in self.toolLoadList:
 				self.toolDict = getData(os.path.join(self.rootPath, toolName+'.json')).gotData
 				addToolDict()
+			print "TOOL DICT============"
 			print self.toolDict
 	
 	def selectLocPath(self):
@@ -120,8 +123,8 @@ class toolSetData():
 			if pLoc.showModalDialog():
 				selectedLocationLabel = pLoc.typeKnob.value()
 				if selectedLocationLabel=='local':
-					self.rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
-			return os.path.join(self.rootPath, "_load.json")
+					rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
+			return rootPath
 			
 	def selectToolList(self):
 			#### Get ToolSet  Data ####
@@ -149,26 +152,9 @@ class toolSetData():
 			self.toolDict.update({toolType:category})
 					
 	def licence(self):
-		return nuke.ask("LICENCE \nBy downloading a file from this repository you agree to the general license terms below. Copyright (c) 2010 till present All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. Neither the name of Nukepedia nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOO/ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n Do You Agree to the above licence?")
+		return nuke.ask(getData(os.path.join(self.rootPath, "LICENCE")).gotData)
 		
-	def getData(self,path):
-			if path[0:4] == "http":
-				try:
-					response = urllib2.urlopen(path)
-					print "LOADING HTTP DATA"
-				except urllib2.request.URLError:
-					nuke.message('errr. path to '+path+' not reached')
-			else:
-					response = open((path), 'r')
-					print "LOADING LOCAL DATA"
-			if os.path.splitext(os.path.split(path)[1])[1] == '.json':
-				print "JSON FROM:"+path
-				self.gotData = json.load(response)
-				print self.gotData
-			else:
-				self.gotData = response.read()
-				print "FROM:"+path
-			response.close()
+
 ########################
 class getData():
 	def __init__(self,path):
