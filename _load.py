@@ -106,10 +106,10 @@ class toolSetData():
 		if self.licence():		  
 			## Get Release Path  Dict ##
 			self.toolLoadJsonDict = getData(os.path.join(self.rootPath, "_load.json")).gotData
-			self.selectedToolList = self.toolLoadJsonDict[self.selectToolList()]
-			print self.selectedToolList
+			selectedToolList = self.toolLoadJsonDict[self.selectToolList()]
+			print selectedToolList
 			## load tool dict and add to tools dict ##
-			for toolName in self.selectedToolList:
+			for toolName in selectedToolList:
 				print  toolName
 				self.toolDict = getData(os.path.join(self.rootPath, toolName +'.json')).gotData
 				addToolDict()
