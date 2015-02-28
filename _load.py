@@ -6,12 +6,9 @@ import os, re
 import json 
 import urllib2
 
-global rootPath 
-rootPath = "https://raw.githubusercontent.com/opennuke/toolkit/master/" #path must start with http
-
 ########################
 
-class ToolSetWidget(QtGui.QWidget):
+class toolSetWidget(QtGui.QWidget):
 	def __init__(self,parent=None):
 		global rootPath
 		QtGui.QWidget.__init__(self, parent)
@@ -19,7 +16,7 @@ class ToolSetWidget(QtGui.QWidget):
 		self.loadToolPane()
 									
 	def loadToolPane(self):
-		self.toolDict = toolSetData().run().toolDict #ToDo pass this to the class before registering the pane
+		self.toolDict = toolSetData().toolDict #ToDo pass this to the class before registering the pane
 		self.tabs = QtGui.QTabWidget(self)
 		self.scriptsTab = QtGui.QWidget()
 		self.nodesTab = QtGui.QWidget()		   
@@ -99,32 +96,19 @@ class UI_enumerationSelect(nukescripts.PythonPanel):
 	  
 class toolSetData():
 	def __init__(self):
-		global rootPath
-		self.rootPath=rootPath
 		self.toolDict={}
-		
-	def run(self):
-		#### Select Location of Release Path ####
-		self.rootPath == self.selectLocPath()
+		## Select Location of Release Path ##
 		if self.licence():		  
-			#### Get Release Path  Dict ####
+			## Get Release Path  Dict ##
 			self.toolLoadJsonDict = getData(os.path.join(self.rootPath, "_load.json")).gotData
-			#### Select choice of tools and get list ####
+			## Select choice of tools and get list ##
 			self.toolLoadList = self.selectToolList()
-			#### load tool dict and add to tools dict ####
+			## load tool dict and add to tools dict ##
 			for toolName in self.toolLoadList:
 				self.toolDict = getData(os.path.join(self.rootPath, toolName+'.json')).gotData
 				addToolDict()
 			print "TOOL DICT============"
 			print self.toolDict
-	
-	def selectLocPath(self):
-			pLoc = UI_enumerationSelect(['web','local'], '_load.json file location?' )
-			if pLoc.showModalDialog():
-				selectedLocationLabel = pLoc.typeKnob.value()
-				if selectedLocationLabel=='local':
-					rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
-			return rootPath
 			
 	def selectToolList(self):
 			#### Get ToolSet  Data ####
@@ -153,8 +137,15 @@ class toolSetData():
 					
 	def licence(self):
 		return nuke.ask(getData(os.path.join(self.rootPath, "LICENCE")).gotData)
-		
-
+########################
+class getRoot():
+	def __init__(self):	
+			self.rootPath = "https://raw.githubusercontent.com/opennuke/toolkit/master/" #path must start with http	
+			pLoc = UI_enumerationSelect(['web','local'], '_load.json file location?' )
+			if pLoc.showModalDialog():
+				selectedLocationLabel = pLoc.typeKnob.value()
+			if selectedLocationLabel=='local':
+				self.rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
 ########################
 class getData():
 	def __init__(self,path):
@@ -177,7 +168,7 @@ def runPane():
 	paneExistsCheck = nuke.getPaneFor('org.vfxwiki.nuketoolkit')
 	if not paneExistsCheck:
 		pane = nuke.getPaneFor('Properties.1')
-		nukescripts.registerWidgetAsPanel('ToolSetWidget', 'Web Tools', 'org.vfxwiki.nuketoolkit', True).addToPane(pane)
+		nukescripts.registerWidgetAsPanel('toolSetWidget', 'Web Tools', 'org.vfxwiki.nuketoolkit', True).addToPane(pane)
 	else:
 		nuke.message("errr. unable to load pane, as it already exists. \nClose the 'WebTools' pane, and try again.")
 
@@ -198,7 +189,8 @@ def setUpMenus():
 ########################
 		
 def run(): 
- runPane()	  
+ getRoot()		## set self.rootPath
+ runPane()	    ## create the panel running the ToolSetWidget() to load toolSetData()
 run()
 
 if 1==3:
