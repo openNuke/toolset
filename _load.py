@@ -101,7 +101,7 @@ class toolSetData():
 	def __init__(self):
 		global rootPath
 		self.rootPath = rootPath
-		self.toolDict={}
+		self.toolsDict={}
 		## Select Location of Release Path ##
 		if self.licence():		  
 			## Get Release Path  Dict ##
@@ -111,11 +111,10 @@ class toolSetData():
 			print selectedToolList
 			## load tool dict and add to tools dict ##
 			for toolName in selectedToolList:
-				print  toolName
 				self.toolDict = getData(os.path.join(self.rootPath, toolName +'.json')).gotData
 				self.addToolDict()
 			print "TOOL DICT============"
-			print self.toolDict
+			print self.tooslDict
 			
 	def selectToolList(self):
 			#### Get ToolSet  Data ####
@@ -140,7 +139,7 @@ class toolSetData():
 			documentation = self.toolDict['documentation']
 			source = self.toolDict['source']
 			
-			self.toolDict.update({toolType:category})
+			self.toolsDict.update({toolType:category})
 					
 	def licence(self):
 		return nuke.ask(getData(os.path.join(self.rootPath, "LICENCE")).gotData)
