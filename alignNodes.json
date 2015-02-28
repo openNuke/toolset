@@ -1,14 +1,20 @@
 {
-"type": "python",
-"category": "nodeGraph",
-"label": "['Align Nodes x','Align Nodes y'],
-"file": "alignNodes.py",
-"tooltip": "Align a bunch of Nodes either horizontally in the Node Graph",
-"originalAuthor": "Frank Rueter",
-"dateCreated": "16/04/201",
-"status": "stable",
-"documentation": "http://opennuke.github.io/alignNodes/",
-"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
-"source": "v1.1 http://www.nukepedia.com/python/nodegraph/alignnodes/",
-"call": "[alignNodes.alignNodes( nuke.selectedNodes(), direction='x' ),alignNodes.alignNodes( nuke.selectedNodes(), direction='y' )]"
+    "type": "python",
+    "category": "nodeGraph",
+    "file": "alignNodes.py",
+    "tooltip": "Align a bunch of Nodes either horizontally in the Node Graph",
+    "originalAuthor": "Frank Rueter",
+    "dateCreated": "16/04/201",
+    "status": "stable",
+    "documentation": "http://opennuke.github.io/alignNodes/",
+    "licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+    "source": "v1.1 http://www.nukepedia.com/python/nodegraph/alignnodes/",
+    "call": [
+        "alignNodes.alignNodes( nuke.selectedNodes(), direction='x' )",
+        "alignNodes.alignNodes( nuke.selectedNodes(), direction='y' )"
+    ],
+    "label": [
+        "Align Nodes x",
+        "Align Nodes y"
+    ]
 }
