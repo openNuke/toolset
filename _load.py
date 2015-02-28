@@ -110,7 +110,7 @@ class toolSetData():
 			print self.selectedToolList
 			## load tool dict and add to tools dict ##
 			for toolName in self.selectedToolList:
-				print toolName
+				print  toolName
 				self.toolDict = getData(os.path.join(self.rootPath, toolName +'.json')).gotData
 				addToolDict()
 			print "TOOL DICT============"
