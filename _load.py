@@ -141,7 +141,7 @@ class toolSetData():
 			source = self.toolDict['source']
 			
 			self.toolsDict.update({toolType:{category}})
-			self.toolsDict.file{toolType:{category}} = {'file':file}
+			self.toolsDict.file[toolType:[category]] = {'file':file}
 			#self.toolsDict{toolType:{'category'}}) = category
 			#self.toolsDict.update({toolType:{category:{'file':file}}})
 			
