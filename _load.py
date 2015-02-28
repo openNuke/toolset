@@ -19,7 +19,7 @@ class toolSetWidget(QtGui.QWidget):
 		self.loadToolPane()
 									
 	def loadToolPane(self):
-		self.toolDict = toolSetData().toolDict #ToDo pass this to the class before registering the pane
+		self.tooslDict = toolSetData().toolsDict #ToDo pass this to the class before registering the pane
 		self.tabs = QtGui.QTabWidget(self)
 		self.scriptsTab = QtGui.QWidget()
 		self.nodesTab = QtGui.QWidget()		   
@@ -28,16 +28,16 @@ class toolSetWidget(QtGui.QWidget):
 		
 		for cat in ['scripts', 'nodes']:		
 			self.widgetDict = {}
-			types = self.toolDict[cat].keys()
+			types = self.toolsDict[cat].keys()
 			types.sort()
 			for type in types:
-				if self.toolDict[cat][type]:
+				if self.toolsDict[cat][type]:
 					groupBox = QtGui.QGroupBox(type)
 					self.widgetDict[type] = {}
 					columnCount = 0
 					rowCount = 0
 					grid = QtGui.QGridLayout()				  
-					for tool in self.toolDict[cat][type]:
+					for tool in self.toolsDict[cat][type]:
 							button = QtGui.QPushButton(tool['label'])
 							button.setToolTip(tool['tooltip'])
 							grid.addWidget(button, rowCount, columnCount)					  
@@ -114,7 +114,7 @@ class toolSetData():
 				self.toolDict = getData(os.path.join(self.rootPath, toolName +'.json')).gotData
 				self.addToolDict()
 			print "TOOL DICT============"
-			print self.tooslDict
+			print self.toolsDict
 			
 	def selectToolList(self):
 			#### Get ToolSet  Data ####
