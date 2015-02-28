@@ -1,5 +1,5 @@
 {
-"type": "node",
+"type": "nodes",
 "category": "image",
 "label": "Fizzle TV",
 "file": "fizzleTV.py",
