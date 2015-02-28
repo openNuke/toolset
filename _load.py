@@ -134,11 +134,11 @@ class toolSetData():
 			label = self.toolDict['label']
 			file = self.toolDict['file']
 			tooltip = self.toolDict['tooltip']
-			self.toolDict['originalAuthor']
-			self.toolDict['dateCreated']
-			self.toolDict['status']
-			self.toolDict['documentation']
-			self.toolDict['source']
+			originalAuthor = self.toolDict['originalAuthor']
+			dateCreated = self.toolDict['dateCreated']
+			status = self.toolDict['status']
+			documentation = self.toolDict['documentation']
+			source = self.toolDict['source']
 			
 			self.toolDict.update({toolType:category})
 					
