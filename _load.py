@@ -19,7 +19,7 @@ class toolSetWidget(QtGui.QWidget):
 		self.loadToolPane()
 									
 	def loadToolPane(self):
-		self.tooslDict = toolSetData().toolsDict #ToDo pass this to the class before registering the pane
+		self.toolsDict = toolSetData().toolsDict #ToDo pass this to the class before registering the pane
 		self.tabs = QtGui.QTabWidget(self)
 		self.scriptsTab = QtGui.QWidget()
 		self.nodesTab = QtGui.QWidget()		   
@@ -140,6 +140,13 @@ class toolSetData():
 			source = self.toolDict['source']
 			
 			self.toolsDict.update({toolType:{category:{'label':label}}})
+			self.toolsDict.update({toolType:{category:{'file':file}}})
+			self.toolsDict.update({toolType:{category:{'tooltip':tooltip}}})
+			self.toolsDict.update({toolType:{category:{'originalAuthor':originalAuthor}}})
+			self.toolsDict.update({toolType:{category:{'dateCreated':dateCreated}}})
+			self.toolsDict.update({toolType:{category:{'status':status}}})
+			self.toolsDict.update({toolType:{category:{'documentation':documentation}}})
+			self.toolsDict.update({toolType:{category:{'source':source}}})
 					
 	def licence(self):
 		return nuke.ask(getData(os.path.join(self.rootPath, "LICENCE")).gotData)
