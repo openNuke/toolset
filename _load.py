@@ -10,7 +10,7 @@ import urllib2
 
 class toolSetWidget(QtGui.QWidget):
 	def __init__(self,parent=None):
-		global rootPath
+		self.rootPath = getRoot().rootPath
 		QtGui.QWidget.__init__(self, parent)
 		self.shortCutList = []				 
 		self.loadToolPane()
@@ -97,6 +97,7 @@ class UI_enumerationSelect(nukescripts.PythonPanel):
 class toolSetData():
 	def __init__(self):
 		self.toolDict={}
+		self.rootPath = getRoot().rootPath
 		## Select Location of Release Path ##
 		if self.licence():		  
 			## Get Release Path  Dict ##
@@ -145,7 +146,7 @@ class getRoot():
 			if pLoc.showModalDialog():
 				selectedLocationLabel = pLoc.typeKnob.value()
 			if selectedLocationLabel=='local':
-				self.rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
+				rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
 ########################
 class getData():
 	def __init__(self,path):
@@ -189,7 +190,6 @@ def setUpMenus():
 ########################
 		
 def run(): 
- getRoot()		## set self.rootPath
  runPane()	    ## create the panel running the ToolSetWidget() to load toolSetData()
 run()
 
