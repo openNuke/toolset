@@ -140,14 +140,17 @@ class toolSetData():
 			documentation = self.toolDict['documentation']
 			source = self.toolDict['source']
 			
-			self.toolsDict.update({toolType:{category:{'label':label}}})
-			self.toolsDict.update({toolType:{category:{'file':file}}})
-			self.toolsDict.update({toolType:{category:{'tooltip':tooltip}}})
-			self.toolsDict.update({toolType:{category:{'originalAuthor':originalAuthor}}})
-			self.toolsDict.update({toolType:{category:{'dateCreated':dateCreated}}})
-			self.toolsDict.update({toolType:{category:{'status':status}}})
-			self.toolsDict.update({toolType:{category:{'documentation':documentation}}})
-			self.toolsDict.update({toolType:{category:{'source':source}}})
+			self.toolsDict.update({toolType:{category:{}}})
+			self.toolsDict{toolType:{category:{'file':file}}}
+			
+			#self.toolsDict.update({toolType:{category:{'file':file}}})
+			
+			#self.toolsDict.update({toolType:{category:{'tooltip':tooltip}}})
+			#self.toolsDict.update({toolType:{category:{'originalAuthor':originalAuthor}}})
+			#self.toolsDict.update({toolType:{category:{'dateCreated':dateCreated}}})
+			#self.toolsDict.update({toolType:{category:{'status':status}}})
+			#self.toolsDict.update({toolType:{category:{'documentation':documentation}}})
+			#self.toolsDict.update({toolType:{category:{'source':source}}})
 					
 	def licence(self):
 		return nuke.ask(getData(os.path.join(self.rootPath, "LICENCE")).gotData)
