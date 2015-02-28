@@ -106,11 +106,8 @@ class toolSetData():
 	def run(self):
 		if self.licence():		  
 			#### Select Location of Release Path and get Choice ####
-			self.selectLocPath()
-			print self.selectedLocPath
-			print "FFFFFF"
-			print self.selectLocPath().selectedLocPath
-			self.toolChoicePath = getData(selectLocPath().selectedLocPath).gotData() 
+			self.toolSetLists = self.selectLocPath()
+			self.toolChoicePath = getData(self.selectLocPath()) 
 			print self.toolChoicePath
 			#### Select choice of tools and get Choice ####
 			self.selectedToolList = toolSetDict[selectToolList().selectedToolList]  #### return list from selection
@@ -122,7 +119,7 @@ class toolSetData():
 				selectedLocationLabel = pLoc.typeKnob.value()
 				if selectedLocationLabel=='local':
 					self.rootPath = os.path.split(nuke.getFilename('Select _load.json', '_load.json'))[0]
-			self.selectedLocPath = os.path.join(self.rootPath, "_load.json")
+			return os.path.join(self.rootPath, "_load.json")
 			
 	def selectToolList(self):
 			#### Get ToolSet  Data ####
