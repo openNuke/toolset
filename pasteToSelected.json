@@ -1,14 +1,20 @@
 {
-"type": "scripts",
-"category": "Node Graph",
-"label": ["Scale x1",Scale x2]
-"file": "scaleNodes.py",
-"pycall": ["scaleNodes(2)","scaleNodes(6)"]
-"tooltip": "Paste node copied in the clipboard to all selected nodes, multiplying a paste",
-"author": "Frank Rueter",
-"dateCreated": "19/02/2012",
-"status": "stable",
-"documentation": "http://opennuke.github.io/pasteToSelected_py/",
-"licence": "https://github.com/openNuke/toolset/blob/master/LICENCE",
-"source": "http://www.nukepedia.com/python/nodegraph/pasteToSelected/ v1.1"
+    "type": "scripts",
+    "category": "Node Graph",
+    "label": [
+        "Scale x1",
+        "Scale x2"
+    ],
+    "file": "scaleNodes.py",
+    "pycall": [
+        "scaleNodes(2)",
+        "scaleNodes(6)"
+    ],
+    "tooltip": "Paste node copied in the clipboard to all selected nodes, multiplying a paste",
+    "author": "Frank Rueter",
+    "dateCreated": "19/02/2012",
+    "status": "stable",
+    "documentation": "http://opennuke.github.io/pasteToSelected_py/",
+    "licence": "https://github.com/openNuke/toolset/blob/master/LICENCE",
+    "source": "http://www.nukepedia.com/python/nodegraph/pasteToSelected/ v1.1"
 }
