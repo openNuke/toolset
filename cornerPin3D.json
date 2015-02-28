@@ -3,7 +3,7 @@
 "category": "example",
 "label": "cornerPin3d",
 "file": "cornerPin3d.nk",
-"tooltip": "card3D alternative (realtime), but has stabalize, matchmove, project, and concatination & roto control passthrough like a cornerPin node"
+"tooltip": "card3D alternative (realtime), but has stabalize, matchmove, project, and concatination & roto control passthrough like a cornerPin node",
 "originalAuthor": "Rafal Kaniewski",
 "dateCreated": "21/06/2010",
 "status": "stable",
