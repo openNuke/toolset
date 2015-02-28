@@ -5,12 +5,15 @@ import nuke, nukescripts
 import os, re
 import json 
 import urllib2
+global rootPath
+rootPath = "https://raw.githubusercontent.com/opennuke/toolkit/master/" #path must start with http
 
 ########################
 
 class toolSetWidget(QtGui.QWidget):
 	def __init__(self,parent=None):
-		self.rootPath = getRoot().rootPath
+		global rootPath
+		self.rootPath = rootPath
 		QtGui.QWidget.__init__(self, parent)
 		self.shortCutList = []				 
 		self.loadToolPane()
@@ -96,8 +99,9 @@ class UI_enumerationSelect(nukescripts.PythonPanel):
 	  
 class toolSetData():
 	def __init__(self):
+		global rootPath
+		self.rootPath = rootPath
 		self.toolDict={}
-		self.rootPath = getRoot().rootPath
 		## Select Location of Release Path ##
 		if self.licence():		  
 			## Get Release Path  Dict ##
@@ -139,9 +143,9 @@ class toolSetData():
 	def licence(self):
 		return nuke.ask(getData(os.path.join(self.rootPath, "LICENCE")).gotData)
 ########################
-class getRoot():
-	def __init__(self):	
-			self.rootPath = "https://raw.githubusercontent.com/opennuke/toolkit/master/" #path must start with http	
+class isRootPathLocal():
+	def __init__(self):
+			global rootPath
 			pLoc = UI_enumerationSelect(['web','local'], '_load.json file location?' )
 			if pLoc.showModalDialog():
 				selectedLocationLabel = pLoc.typeKnob.value()
@@ -190,7 +194,8 @@ def setUpMenus():
 ########################
 		
 def run(): 
- runPane()	    ## create the panel running the ToolSetWidget() to load toolSetData()
+ isRootPathLocal()	## set the 'global rootPath'
+ runPane()	## create the panel running the ToolSetWidget() to load toolSetData()
 run()
 
 if 1==3:
