@@ -5,7 +5,7 @@
 "file": "scaleNodes.py",
 "pycall": "scaleNodes(3)",
 "tooltip": "Contract and expand node connections, including backdrops.",
-"author": "Frank Rueter",
+"originalAuthor": "Frank Rueter",
 "dateCreated": "06/02/2012",
 "status": "stable",
 "documentation": "http://opennuke.github.io/scaleNodes_py/",
