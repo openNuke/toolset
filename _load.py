@@ -106,12 +106,10 @@ class toolSetData():
 		if self.licence():		  
 			## Get Release Path  Dict ##
 			self.toolLoadJsonDict = getData(os.path.join(self.rootPath, "_load.json")).gotData
-			## Select choice of tools and get list ##
-			print "selectToolList"
-			self.selectToolList()
+			self.selectedToolList = self.toolLoadJsonDict[selectToolList()]
 			print self.selectedToolList
 			## load tool dict and add to tools dict ##
-			for toolName in self.selectedToolList:
+			for toolName in self.selectedToolList]:
 				print toolName
 				self.toolDict = getData(os.path.join(self.rootPath, toolName +'.json')).gotData
 				addToolDict()
@@ -126,7 +124,8 @@ class toolSetData():
 				#releaseLabelChoices.append(x['label'])
 			pRelease = UI_enumerationSelect(toolChoices,'Select NukeTool selection from repository?')
 			if pRelease.showModalDialog():
-				self.selectedToolList = pRelease.typeKnob.value() 
+				self.selectedToolListName = pRelease.typeKnob.value() 
+			return self.selectedToolListName
 										
 	def addToolDict(self):
 			toolType = self.toolDict['type']
