@@ -64,7 +64,7 @@ class ToolSetWidget(QtGui.QWidget):
 		
 	def runTool(self, toolPath, pycall):
 		toolPath = os.path.join(rootPath, os.path.split(toolPath)[1])
-		self.toolData = toolSetData().getData(toolPath).gotData
+		self.toolData = getData(toolPath).gotData
 		print os.path.splitext(os.path.split(toolPath)[1])[1]
 		if os.path.splitext(os.path.split(toolPath)[1])[1]==".nk":
 			clipboard = QtGui.QApplication.clipboard()
@@ -105,13 +105,17 @@ class toolSetData():
 		
 	def run(self):
 		if self.licence():		  
-			#### Select Location of Release Path and get Choice ####
-			self.toolSetLists = self.selectLocPath()
-			self.toolChoicePath = getData(self.selectLocPath()) 
-			print self.toolChoicePath
-			#### Select choice of tools and get Choice ####
-			self.selectedToolList = toolSetDict[selectToolList().selectedToolList]  #### return list from selection
-			makeToolDict()
+			#### Select Location of Release Path and get Dict ####
+			self.toolLoadJsonDict = getData(self.selectLocPath()).gotData
+			print self.toolLoadJsonDict
+			#### Select choice of tools and get list ####
+			self.toolLoadList = self.selectToolList()
+			#### load tool dict and add to tools dict ####
+			for toolName in self.toolLoadList:
+				self.toolDict = getData(os.path.join(self.rootPath, toolName+'.json')).gotData
+				print self.toolDict
+				addToolDict()
+			print self.toolDict
 	
 	def selectLocPath(self):
 			pLoc = UI_enumerationSelect(['web','local'], '_load.json file location?' )
@@ -124,21 +128,27 @@ class toolSetData():
 	def selectToolList(self):
 			#### Get ToolSet  Data ####
 			#### Select witch release to load ###
-			toolChoices=self.toolSetLists.keys()
-			#for x in toolDict:
+			toolChoices=self.toolLoadJsonDict.keys()
+			#for x in self.toolLoadJsonDict:
 				#releaseLabelChoices.append(x['label'])
 			pRelease = UI_enumerationSelect(toolChoices,'Select NukeTool selection from repository?')
 			if pRelease.showModalDialog():
 				self.selectedToolList = pRelease.typeKnob.value() 
-				
+			return self.selectedToolList
+										
+	def addToolDict(self):
+			type = self.toolDict['type']
+			category= self.toolDict['category']
+			label = self.toolDict['label']
+			file = self.toolDict['file']
+			tooltip = self.toolDict['tooltip']
+			self.toolDict['originalAuthor']
+			self.toolDict['dateCreated']
+			self.toolDict['status']
+			self.toolDict['documentation']
+			self.toolDict['source']
 			
-			
-	def makeToolDict(self):
-			for tool in selectToolSetList:		
-				#### Load Tool Selection ####
-				toolsetPath = os.path.join(self.rootPath, tool+'.json')
-				self.toolDict = toolSetData().getData(toolsetPath).gotData
-
+			self.toolDict.update({type:category})
 					
 	def licence(self):
 		return nuke.ask("LICENCE \nBy downloading a file from this repository you agree to the general license terms below. Copyright (c) 2010 till present All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. Neither the name of Nukepedia nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOO/ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n Do You Agree to the above licence?")
@@ -161,9 +171,23 @@ class toolSetData():
 				self.gotData = response.read()
 				print "FROM:"+path
 			response.close()
-	  
-		
 ########################
+class getData():
+	def __init__(self,path):
+		if path[0:4] == "http":
+			try:
+				response = urllib2.urlopen(path)
+			except urllib2.request.URLError:
+				nuke.message('errr. path to '+path+' not reached')
+		else:
+			response = open((path), 'r')
+		if os.path.splitext(os.path.split(path)[1])[1] == '.json':
+			self.gotData = json.load(response)
+		else:
+			self.gotData = response.read()
+		response.close()
+########################
+	  
 
 def runPane():
 	paneExistsCheck = nuke.getPaneFor('org.vfxwiki.nuketoolkit')
