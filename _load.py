@@ -107,13 +107,11 @@ class toolSetData():
 		if self.licence():		  
 			#### Select Location of Release Path and get Dict ####
 			self.toolLoadJsonDict = getData(self.selectLocPath()).gotData
-			print self.toolLoadJsonDict
 			#### Select choice of tools and get list ####
 			self.toolLoadList = self.selectToolList()
 			#### load tool dict and add to tools dict ####
 			for toolName in self.toolLoadList:
 				self.toolDict = getData(os.path.join(self.rootPath, toolName+'.json')).gotData
-				print self.toolDict
 				addToolDict()
 			print self.toolDict
 	
@@ -137,7 +135,7 @@ class toolSetData():
 			return self.selectedToolList
 										
 	def addToolDict(self):
-			type = self.toolDict['type']
+			toolType = self.toolDict['type']
 			category= self.toolDict['category']
 			label = self.toolDict['label']
 			file = self.toolDict['file']
@@ -148,7 +146,7 @@ class toolSetData():
 			self.toolDict['documentation']
 			self.toolDict['source']
 			
-			self.toolDict.update({type:category})
+			self.toolDict.update({toolType:category})
 					
 	def licence(self):
 		return nuke.ask("LICENCE \nBy downloading a file from this repository you agree to the general license terms below. Copyright (c) 2010 till present All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. Neither the name of Nukepedia nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOO/ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n Do You Agree to the above licence?")
