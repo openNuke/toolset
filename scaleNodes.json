@@ -1,5 +1,5 @@
 {
-"type":  "scripts",
+"type":  "python",
 "category": "Node Graph Layout",
 "label": "Scale",
 "file": "scaleNodes.py",
