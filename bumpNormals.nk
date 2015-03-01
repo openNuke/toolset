@@ -1,5 +1,5 @@
 #http://www.nukepedia.com/gizmos/other/bumpnormals Michael Garrett 15/06/2010
-set cut_paste_input [stack 0] 
+set cut_paste_input [stack 0]
 version 9.0 v1
 push $cut_paste_input
 add_layer {UV UV.u UV.v}
@@ -8,8 +8,8 @@ Group {
  name Bump_Normals
  help "Generate bump for a 3D normals pass in world space.  The input bump texture can either be flat or a 3D render."
  selected true
- xpos 27
- ypos -51
+ xpos 367
+ ypos -31
  addUserKnob {20 BumpNormals l "Bump Normals"}
  addUserKnob {41 from0 l "bump channel" t "Choose the channel that is used to generate the bump texture." T Bump2Vectors.from0}
  addUserKnob {41 size l "blur amount" T Bump2Vectors.size}
@@ -27,6 +27,7 @@ Group {
  addUserKnob {26 ""}
  addUserKnob {26 version l version: T 1.0}
  addUserKnob {26 created l created: T "15/06/2010 by <a href=\\'http://www.nukepedia.com/gizmos/other/bumpnormals'> Michael Garrett.</a>"}
+ addUserKnob {26 source T "http://www.nukepedia.com/gizmos/other/bumpnormals\n"}
  addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  Input {
@@ -40,7 +41,7 @@ Group {
   xpos 55
   ypos -322
  }
-set N50a60770 [stack 0]
+set N3b3b8b70 [stack 0]
  Dot {
   name Dot4
   xpos -41
@@ -51,8 +52,8 @@ set N50a60770 [stack 0]
   xpos -41
   ypos -58
  }
-set N50f35200 [stack 0]
-push $N50a60770
+set N3b3c1240 [stack 0]
+push $N3b3b8b70
  Expression {
   channel0 {forward.u -forward.v none -backward.v}
   expr0 x/width
@@ -65,7 +66,7 @@ push $N50a60770
   xpos 77
   ypos -266
  }
-push $N50a60770
+push $N3b3b8b70
  Shuffle {
   in UV
   out forward
@@ -104,8 +105,8 @@ push $N50a60770
    xpos 240
    ypos -309
   }
-set N50f65b10 [stack 0]
-push $N50f65b10
+set N3b3f9fa0 [stack 0]
+push $N3b3f9fa0
   Copy {
    inputs 2
    to0 rgba.red
@@ -143,7 +144,7 @@ push $N50f65b10
    xpos 240
    ypos -96
   }
-set N50f99ee0 [stack 0]
+set N3fe13b80 [stack 0]
   Shuffle {
    green black
    blue black
@@ -152,22 +153,22 @@ set N50f99ee0 [stack 0]
    xpos 199
    ypos -48
   }
-set N50fa4070 [stack 0]
+set N3fe1dd10 [stack 0]
   Position {
    translate {1 0}
    name Position2
    xpos 199
    ypos 7
   }
-set N507adae0 [stack 0]
-push $N50fa4070
+set N3fe2aad0 [stack 0]
+push $N3fe1dd10
   Position {
    translate {-1 0}
    name Position1
    xpos 114
    ypos 7
   }
-set N507c1a60 [stack 0]
+set N3fe32180 [stack 0]
   Switch {
    inputs 2
    which {{flipy}}
@@ -179,8 +180,8 @@ set N507c1a60 [stack 0]
    addUserKnob {6 flipx l "flip x" +STARTLINE}
    flipx true
   }
-push $N507c1a60
-push $N507adae0
+push $N3fe32180
+push $N3fe2aad0
   Switch {
    inputs 2
    which {{parent.SwitchXB.which}}
@@ -199,7 +200,7 @@ push $N507adae0
    xpos 152
    ypos 101
   }
-push $N50f99ee0
+push $N3fe13b80
   Shuffle {
    red black
    blue black
@@ -208,22 +209,22 @@ push $N50f99ee0
    xpos 288
    ypos -49
   }
-set N50fbb910 [stack 0]
+set N3fe53060 [stack 0]
   Position {
    translate {0 1}
    name Position4
    xpos 376
    ypos 4
   }
-set N50fc8700 [stack 0]
-push $N50fbb910
+set N3fe5fe50 [stack 0]
+push $N3fe53060
   Position {
    translate {0 -1}
    name Position3
    xpos 288
    ypos 5
   }
-set N50fcfdb0 [stack 0]
+set N3fe67500 [stack 0]
   Switch {
    inputs 2
    which {{flipx}}
@@ -233,8 +234,8 @@ set N50fcfdb0 [stack 0]
    addUserKnob {20 User}
    addUserKnob {6 flipy l "flip y" +STARTLINE}
   }
-push $N50fcfdb0
-push $N50fc8700
+push $N3fe67500
+push $N3fe5fe50
   Switch {
    inputs 2
    which {{parent.SwitchYB.which}}
@@ -281,7 +282,7 @@ push $N50fc8700
   xpos 189
   ypos -62
  }
-push $N50f35200
+push $N3b3c1240
  Dot {
   name Dot2
   xpos -41
@@ -307,7 +308,7 @@ push $N50f35200
    xpos 149
    ypos -328
   }
-set N510266f0 [stack 0]
+set N404b4eb0 [stack 0]
   Dot {
    name Dot2
    xpos 274
@@ -342,7 +343,7 @@ set N510266f0 [stack 0]
    xpos 240
    ypos -208
   }
-set N510440a0 [stack 0]
+set N404d2880 [stack 0]
   Group {
    name Normalise
    xpos 324
@@ -355,9 +356,9 @@ set N510440a0 [stack 0]
     xpos -187
     ypos -119
    }
-set N510574a0 [stack 0]
-push $N510574a0
-push $N510574a0
+set N404e5c90 [stack 0]
+push $N404e5c90
+push $N404e5c90
    MergeExpression {
     inputs 2
     channel0 rgb
@@ -387,7 +388,7 @@ push $N510574a0
     ypos 264
    }
   end_group
-push $N510440a0
+push $N404d2880
   Switch {
    inputs 2
    which {{parent.parent.normalise i}}
@@ -395,7 +396,7 @@ push $N510440a0
    xpos 240
    ypos -96
   }
-push $N510266f0
+push $N404b4eb0
   ShuffleCopy {
    inputs 2
    red red
