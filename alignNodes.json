@@ -10,8 +10,8 @@
     "licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
     "source": "v1.1 http://www.nukepedia.com/python/nodegraph/alignnodes/",
     "call": [
-        "alignNodes.alignNodes( nuke.selectedNodes(), direction='x' )",
-        "alignNodes.alignNodes( nuke.selectedNodes(), direction='y' )"
+        "alignNodes( nuke.selectedNodes(), direction='x' )",
+        "alignNodes( nuke.selectedNodes(), direction='y' )"
     ],
     "label": [
         "Align Nodes x",
