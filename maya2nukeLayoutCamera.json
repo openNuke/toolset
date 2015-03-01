@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "pipeline",
+"label": "maya2nukeLayoutCamera",
+"file": "maya2nukeLayoutCamera.nk",
+"tooltip": "An Example tool for exporting plate layout decisions applied in maya (filmBack_Translates/Rotate/Scale) to a camera in nuke. This translates the plate in nuke so the renders from 3d line up.",
+"originalAuthor": "Rafal Kaniewski}",
+"dateCreated": "01/01/2015",
+"status": "stable",
+"documentation": "http: //opennuke.github.io/maya2nukeLayoutCamera_nk/",
+"licence": "https: //github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "https: //github.com/vfxwiki/maya2nukeLayoutCamera",
+"call": ""
+}
