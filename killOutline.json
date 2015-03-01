@@ -1,7 +1,7 @@
 {
     "type": "nodes",
     "category": "keying",
-    "label": "RotateNormal",
+    "label": "Kill Outline",
     "file": "killOutline.nk",
     "tooltip": "KillOutline reduces unwanted outlines from keyed footage.\n\nerode controls: erode the alpha in for the amount of the visible outline.\n\nexpand controls: expand outer pixels of eroded image out again until it reaches the edge of the original alpha.\n\ntransition treatment: if needed, blur the transition between original image and extension.",
     "originalAuthor": "Andreas Frickinger",
