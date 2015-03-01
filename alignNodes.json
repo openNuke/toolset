@@ -1,6 +1,6 @@
 {
     "type": "python",
-    "category": "nodeGraph",
+    "category": "Node Graph Layout",
     "file": "alignNodes.py",
     "tooltip": "Align a bunch of Nodes either horizontally in the Node Graph",
     "originalAuthor": "Frank Rueter",
