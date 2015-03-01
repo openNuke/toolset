@@ -1,0 +1,464 @@
+# https://github.com/vfxwiki/FilterAov created: rafal kaniewski
+# v0.1b / last editor: rafal kaniewski
+set cut_paste_input [stack 0]
+version 9.0 v2
+push $cut_paste_input
+Group {
+ name AovFilter
+ selected true
+ xpos 4517
+ ypos 914
+ cached true
+ addUserKnob {20 AovFilter}
+ addUserKnob {41 channels l "channel to use" T From.Achannels}
+ addUserKnob {26 ""}
+ addUserKnob {4 Filter M {Denoise Blur Median Soften Sharpen Matrix3x3}}
+ Filter Matrix3x3
+ addUserKnob {6 filterRGB l "filterRGB   |" -STARTLINE}
+ filterRGB true
+ addUserKnob {6 filterChannel -STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannel l "mask channel" -STARTLINE T Keymix4.maskChannel}
+ addUserKnob {41 invertMask l invert -STARTLINE T Keymix4.invertMask}
+ addUserKnob {41 mix T Keymix4.mix}
+ addUserKnob {20 Denoise}
+ addUserKnob {26 ""}
+ addUserKnob {26 text l "Local GPU:" T " "}
+ addUserKnob {41 useGPUIfAvailable l "Use GPU if available" T Denoise1.useGPUIfAvailable}
+ addUserKnob {26 ""}
+ addUserKnob {41 type l Source T Denoise1.type}
+ addUserKnob {41 model l "Noise Model" T Denoise1.model}
+ addUserKnob {41 profile l Profile T Denoise1.profile}
+ addUserKnob {41 output l Output T Denoise1.output}
+ addUserKnob {41 amount l "Denoise Amount" T Denoise1.amount}
+ addUserKnob {41 rolloff l "Roll Off" T Denoise1.rolloff}
+ addUserKnob {41 smoothness l Smoothness T Denoise1.smoothness}
+ addUserKnob {41 sharpen l Sharpen T Denoise1.sharpen}
+ addUserKnob {41 lumablend l "Luminance Blend" T Denoise1.lumablend}
+ addUserKnob {41 chromablend l "Chrominance Blend" T Denoise1.chromablend}
+ addUserKnob {20 "Noise Analysis" n 2}
+ addUserKnob {41 lockNoiseAnalysis l "Lock Noise Analysis" T Denoise1.lockNoiseAnalysis}
+ addUserKnob {41 analysisRegion l "Analysis Region" T Denoise1.analysisRegion}
+ addUserKnob {41 analysisFrame l "Analysis Frame" T Denoise1.analysisFrame}
+ addUserKnob {26 "" l " "}
+ addUserKnob {41 analyze l "Analyze Noise" T Denoise1.analyze}
+ addUserKnob {20 "" n -1}
+ addUserKnob {41 analysisFile l "Analysis File" T Denoise1.analysisFile}
+ addUserKnob {41 import l Import T Denoise1.import}
+ addUserKnob {41 export l Export T Denoise1.export}
+ addUserKnob {20 "Tune Frequencies" n 2}
+ addUserKnob {41 processHigh l "Process High Frequencies" T Denoise1.processHigh}
+ addUserKnob {41 highAmount l "High Gain" T Denoise1.highAmount}
+ addUserKnob {26 "" l " "}
+ addUserKnob {41 processMedium l "Process Medium Frequencies" T Denoise1.processMedium}
+ addUserKnob {41 mediumAmount l "Medium Gain" T Denoise1.mediumAmount}
+ addUserKnob {26 "" l " "}
+ addUserKnob {41 processLow l "Process Low Frequencies" T Denoise1.processLow}
+ addUserKnob {41 lowAmount l "Low Gain" T Denoise1.lowAmount}
+ addUserKnob {26 "" l " "}
+ addUserKnob {41 processVeryLow l "Process Very Low Frequencies" T Denoise1.processVeryLow}
+ addUserKnob {41 veryLowAmount l "Very Low Gain" T Denoise1.veryLowAmount}
+ addUserKnob {20 "" n -1}
+ addUserKnob {20 "Tune Channels" n 2}
+ "Tune Channels" 1
+ addUserKnob {41 lumaAmount l "Luminance Gain" T Denoise1.lumaAmount}
+ addUserKnob {41 chromaAmount l "Chrominance Gain" T Denoise1.chromaAmount}
+ addUserKnob {20 Blur}
+ addUserKnob {41 size T Blur1.size}
+ addUserKnob {41 filter_1 l filter T Blur1.filter}
+ addUserKnob {41 quality l "" -STARTLINE T Blur1.quality}
+ addUserKnob {41 crop l "crop to format" T Blur1.crop}
+ addUserKnob {20 Soften}
+ addUserKnob {41 minimum T Soften1.minimum}
+ addUserKnob {41 maximum T Soften1.maximum}
+ addUserKnob {41 amount_1 l amount T Soften1.amount}
+ addUserKnob {41 size_2 l size T Soften1.size}
+ addUserKnob {41 filter_2 l filter T Soften1.filter}
+ addUserKnob {41 quality_1 l "" -STARTLINE T Soften1.quality}
+ addUserKnob {41 crop_1 l "crop to format" T Soften1.crop}
+ addUserKnob {20 Median}
+ addUserKnob {41 size_1 l size T Median1.size}
+ addUserKnob {41 ignore_top_line l "ignore top line" T Median1.ignore_top_line}
+ addUserKnob {20 Sharpen}
+ addUserKnob {41 minimum_1 l minimum T Sharpen1.minimum}
+ addUserKnob {41 maximum_1 l maximum T Sharpen1.maximum}
+ addUserKnob {41 amount_2 l amount T Sharpen1.amount}
+ addUserKnob {41 size_3 l size T Sharpen1.size}
+ addUserKnob {41 filter_3 l filter T Sharpen1.filter}
+ addUserKnob {41 quality_2 l "" -STARTLINE T Sharpen1.quality}
+ addUserKnob {41 crop_2 l "crop to format" T Sharpen1.crop}
+ addUserKnob {20 Matrix3x3}
+ addUserKnob {41 filter T MatrixSwitch.filter}
+ addUserKnob {20 Info}
+ addUserKnob {22 HELP l " HELP " T "import webbrowser\nwebbrowser.open(\"http://www.vfxwiki.org/tiki-index.php?page=FilterAOV\") \n\n\n" +STARTLINE}
+ addUserKnob {26 text01 l version: T 0.1b}
+ addUserKnob {26 text02 l "date created:" T 1/1/2015}
+ addUserKnob {26 text03 l "last modified:" T 1/1/2015}
+ addUserKnob {26 creator l creator: T www.vfxwiki.org}
+ addUserKnob {26 modifiedby l "modified by:" T na}
+ addUserKnob {26 source l source: T https://github.com/vfxwiki}
+ addUserKnob {20 licenceGroup l licence n 1}
+ licenceGroup 0
+ addUserKnob {26 licence l licence: T "By downloading this nuke group from github.com you agree to the general license terms below.\n Copyright (c) 2015 till present All rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification, are permitted\n provided that the following conditions are met: Redistributions of source code must retain the\n above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary\n form must reproduce the above copyright notice, this list of conditions and the following disclaimer\n in the documentation and/or other materials provided with the distribution. Neither the name of\n Nukepedia nor the names of its contributors may be used to endorse or promote products derived\n from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE\n COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND ANY EXPRESS OR IMPLIED WARRANTIES,\n INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS\n FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR\n CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR\n CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE\n GOO/ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER\n CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."}
+ addUserKnob {20 endGroup n -1}
+}
+ Input {
+  inputs 0
+  name In
+  xpos -357
+  ypos -638
+ }
+ Dot {
+  name Dot11
+  xpos -473
+  ypos -560
+ }
+set N3cbec4c0 [stack 0]
+ Dot {
+  name Dot27
+  xpos -619
+  ypos -483
+ }
+set N3c695d70 [stack 0]
+ Dot {
+  name Dot25
+  xpos -743
+  ypos -483
+ }
+ Dot {
+  name Dot26
+  xpos -739
+  ypos -433
+ }
+set N3c68a430 [stack 0]
+push $N3c68a430
+add_layer {indirect_diffuse indirect_diffuse.red indirect_diffuse.green indirect_diffuse.blue indirect_diffuse.alpha}
+ Merge2 {
+  inputs 2
+  operation max
+  Achannels {{{parent.From.Achannels}}}
+  Bchannels indirect_diffuse
+  name Merge9
+  xpos -773
+  ypos -377
+ }
+ Remove {
+  operation keep
+  channels rgba
+  name Remove1
+  xpos -773
+  ypos -351
+ }
+set N3d020f60 [stack 0]
+ Dot {
+  name Dot15
+  xpos -2383
+  ypos -384
+ }
+ Dot {
+  name Dot12
+  xpos -2393
+  ypos -315
+ }
+set N3c6d38d0 [stack 0]
+ Dot {
+  name Dot13
+  xpos -2338
+  ypos -315
+ }
+set N3c6bcb40 [stack 0]
+ Dot {
+  name Dot14
+  xpos -2228
+  ypos -315
+ }
+set N3c69df80 [stack 0]
+ Dot {
+  name Dot16
+  xpos -2082
+  ypos -315
+ }
+set N3c68ffd0 [stack 0]
+ Dot {
+  name Dot17
+  xpos -1939
+  ypos -315
+ }
+ Matrix {
+  matrix {
+      {1 2 1}
+      {0 0 0}
+      {-1 -2 -1}
+    }
+  name Matrix_Horizontal_Sobel
+  xpos -1973
+  ypos -219
+ }
+ Dot {
+  name Dot18
+  xpos -1942
+  ypos -140
+ }
+push $N3c68ffd0
+ Matrix {
+  matrix {
+      {1 0 -1}
+      {2 0 -2}
+      {1 0 -1}
+    }
+  name Matrix_Vertical_Sobel
+  xpos -2116
+  ypos -220
+ }
+push $N3c69df80
+ Matrix {
+  matrix {
+      {2 0 0}
+      {0 -1 0}
+      {0 0 -1}
+    }
+  name Matrix_Emboss
+  xpos -2262
+  ypos -227
+ }
+push $N3c6bcb40
+ Matrix {
+  matrix {
+      {-1 -1 -1}
+      {0 0 0}
+      {1 1 1}
+    }
+  name Matrix_EdgeDetect
+  xpos -2372
+  ypos -227
+ }
+push $N3c6d38d0
+ Dot {
+  name Dot19
+  xpos -2448
+  ypos -315
+ }
+set N3d536a10 [stack 0]
+ Matrix {
+  matrix {
+      {-1 -1 -1}
+      {-1 9 -1}
+      {-1 -1 -1}
+    }
+  normalize true
+  name Matrix_Sharpen
+  xpos -2482
+  ypos -227
+ }
+push $N3d536a10
+ Dot {
+  name Dot20
+  xpos -2558
+  ypos -315
+ }
+set N3d371a30 [stack 0]
+ Matrix {
+  matrix {
+      {0 1 0}
+      {1 3 1}
+      {0 1 0}
+    }
+  normalize true
+  name Matrix_AntiAlias
+  xpos -2592
+  ypos -227
+ }
+push $N3d371a30
+ Dot {
+  name Dot21
+  xpos -2682
+  ypos -315
+ }
+ Dot {
+  name Dot22
+  xpos -2682
+  ypos -127
+ }
+ Switch {
+  inputs 7
+  which {{filter}}
+  name MatrixSwitch
+  xpos -2313
+  ypos -132
+  addUserKnob {20 User}
+  addUserKnob {4 filter M {Off AntiAlias Sharpen EdgeDetect Emboss "Vertical Sobel" "Horizontal Sobel" ""}}
+  filter AntiAlias
+ }
+ Dot {
+  name Dot23
+  xpos -2282
+  ypos -5
+ }
+push $N3d020f60
+ Colorspace {
+  colorspace_out CIE-Lab
+  name Colorspace1
+  xpos -1566
+  ypos -283
+ }
+ Sharpen {
+  name Sharpen1
+  xpos -1566
+  ypos -259
+ }
+ Colorspace {
+  colorspace_in CIE-Lab
+  name Colorspace2
+  xpos -1550
+  ypos -196
+ }
+push $N3d020f60
+ Soften {
+  channels rgba
+  amount 1
+  size 0
+  name Soften1
+  xpos -1375
+  ypos -250
+ }
+push $N3d020f60
+ Median {
+  ignore_top_line false
+  name Median1
+  xpos -1201
+  ypos -244
+ }
+push $N3d020f60
+ Blur {
+  size 3
+  name Blur1
+  xpos -956
+  ypos -228
+ }
+push $N3d020f60
+ Denoise2 {
+  "Noise Analysis" 1
+  analysisRegion {1509 828 1593 910}
+  analysisFrame 10085
+  needsAnalyzing false
+  profileCurve {profile {curve x0.1000000015 0 x0.1333521456 0 x0.1778279245 0 x0.2371373624 0 x0.3162277937 0 x0.4216964841 0 x0.5623412728 0 x0.7498942614 0 x1 0}}
+  serializeKnob "1.61981 0.45483 0.518006
+0.00687031 0.00149429 0.000983379
+0.00687031 0.00149429 0.000983379
+0.00572898 0.00138919 0.000911012
+0 0 0
+0.00252876 0.000537546 0.00035966
+0.00252876 0.000537546 0.00035966
+0.00162977 0.000394861 0.000262522
+0 0 0
+0.00141973 0.000286447 0.000183188
+0.00141973 0.000286447 0.000183188
+0.000475057 0.000149801 9.75259e-05
+0 0 0
+0.000326787 0.000185176 9.95915e-05
+0.000326787 0.000185176 9.95915e-05
+1.07251e-05 6.959e-07 1.41931e-06
+0 0 0 0 0 0 0 0 0 
+18318342446355795289"
+  name Denoise1
+  xpos -783
+  ypos -209
+ }
+ Switch {
+  inputs 6
+  which {{parent.Filter}}
+  name Switch1
+  selected true
+  xpos -783
+  ypos -68
+ }
+ Dot {
+  name Dot24
+  xpos -749
+  ypos 300
+ }
+set N3d3fa240 [stack 0]
+ Dot {
+  name Dot28
+  xpos -749
+  ypos 439
+ }
+set N3d5f47f0 [stack 0]
+push $N3d5f47f0
+ Merge2 {
+  inputs 2
+  operation max
+  output {{{parent.From.Achannels}}}
+  name Merge12
+  xpos -679
+  ypos 429
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos -231
+  ypos -636
+  number 1
+ }
+ Invert {
+  name Invert1
+  xpos -385
+  ypos 238
+ }
+ Dot {
+  name Dot30
+  xpos -347
+  ypos 358
+ }
+push $N3cbec4c0
+push $N3d3fa240
+push $N3c68a430
+push $N3c695d70
+ Merge2 {
+  inputs 2
+  operation from
+  Achannels none
+  name From
+  xpos -650
+  ypos -432
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels rgb
+  name Merge34
+  xpos -650
+  ypos 301
+ }
+ Dot {
+  name Dot29
+  xpos -619
+  ypos 363
+ }
+ Keymix {
+  inputs 3
+  maskChannel -rgba.alpha
+  name Keymix4
+  label "\[value maskChannel]"
+  xpos -507
+  ypos 349
+  disable {{!maskChannel}}
+  addUserKnob {20 User}
+ }
+ Merge2 {
+  inputs 2
+  also_merge all
+  name Merge13
+  xpos -507
+  ypos 429
+  disable true
+ }
+ Output {
+  name Output1
+  xpos -357
+  ypos 529
+ }
+end_group
+
+
+
