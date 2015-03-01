@@ -26,7 +26,7 @@
         "uvTile",
         "filterAOV",
         "maya2nukeLayoutCamera",
-        "CameraShakeVetr"
+        "cameraShakeVetr"
     ],
     "FAVOURITES": [
         "alignNodes",
