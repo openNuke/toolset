@@ -130,7 +130,7 @@ class toolSetData():
                 self.selectedToolListName = pRelease.typeKnob.value() 
             return self.selectedToolListName
                                         
-    def addToolDict(self):
+    def addToolDict(self): 
             ## load self.toolDict and add to self.toolsDict ##
             toolType = self.toolDict['type']
             category= self.toolDict['category']
