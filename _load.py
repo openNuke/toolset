@@ -61,6 +61,7 @@ class toolSetWidget(QtGui.QWidget):
                         while 0 < columnCount < 3:
                                 grid.addWidget(QtGui.QLabel(''), rowCount, columnCount)
                                 columnCount += 1
+                        print "loaded: "+tool['file']
                     groupBox.setLayout(grid)                    
                 if cat == 'python':
                     self.scriptsMainLayout.addWidget(groupBox)
