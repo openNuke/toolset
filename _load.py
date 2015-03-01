@@ -25,21 +25,19 @@ class toolSetWidget(QtGui.QWidget):
         self.nodesTab = QtGui.QWidget()           
         self.scriptsMainLayout = QtGui.QVBoxLayout() 
         self.nodesMainLayout = QtGui.QVBoxLayout()         
-        for cat in ['python', 'nodes']: 
-            print 'cat:'+cat       
+        for cat in ['nodes', 'python' ]: 
             self.widgetDict = {}
             types = self.toolsDict[cat].keys()
             types.sort()
             for type in types:
-                print 'type:'+type
                 if self.toolsDict[cat][type]:
                     groupBox = QtGui.QGroupBox(type)
                     self.widgetDict[type] = {}
                     columnCount = 0
                     rowCount = 0
                     grid = QtGui.QGridLayout()   
-  
                     for tool in self.toolsDict[cat][type]:
+                        ## If tool has 'label list then it has multiple buttons with different calls ##
                         if isinstance(tool['label'], list) :
                             stepRange = len(tool['label'])
                             toolLabel = tool['label']
@@ -48,10 +46,7 @@ class toolSetWidget(QtGui.QWidget):
                              stepRange = 1 
                              toolLabel = [tool['label']]
                              toolCall = [tool['call']]
-                              
                         for x in range(0,stepRange) :  
-                                    print toolLabel[x]
-                                    print toolCall[x]
                                     button = QtGui.QPushButton(toolLabel[x])
                                     button.setToolTip(tool['tooltip'])
                                     grid.addWidget(button, rowCount, columnCount)                      
@@ -79,8 +74,8 @@ class toolSetWidget(QtGui.QWidget):
     def runTool(self, toolPath, call):
         toolPath = os.path.join(rootPath, os.path.split(toolPath)[1])
         self.toolData = getData(toolPath).gotData
-        print os.path.splitext(os.path.split(toolPath)[1])[1]
         if os.path.splitext(os.path.split(toolPath)[1])[1]==".nk":
+            print os.path.splitext(os.path.split(toolPath)[1])[1]
             clipboard = QtGui.QApplication.clipboard()
             clipboard.setText(self.toolData)
             if len(nuke.selectedNodes()):    
@@ -93,11 +88,8 @@ class toolSetWidget(QtGui.QWidget):
             else:
                 nuke.nodePaste("%clipboard%")
         elif os.path.splitext(os.path.split(toolPath)[1])[1]==".py":
-            print self.toolData
-            #exec self.toolData
-            print "================"
             print call
-            #exec call
+            exec call
             
 ########################                
     
@@ -122,25 +114,21 @@ class toolSetData():
             self.toolLoadJsonDict = getData(os.path.join(self.rootPath, "_load.json")).gotData
             selectedToolList=[]
             selectedToolList = self.toolLoadJsonDict[self.selectToolList()]
-            ## load tool dict and add to tools dict ##
+            ## load self.toolDict and add to self.toolsDict ##
             for toolName in selectedToolList:
                 self.toolDict = getData(os.path.join(self.rootPath, toolName +'.json')).gotData
                 self.addToolDict()
-                print toolName
-            #print self.toolsDict
             
     def selectToolList(self):
-            #### Get ToolSet  Data ####
             #### Select witch release to load ###
             toolChoices=self.toolLoadJsonDict.keys()
-            #for x in self.toolLoadJsonDict:
-                #releaseLabelChoices.append(x['label'])
             pRelease = UI_enumerationSelect(toolChoices,'Select NukeTool selection from repository?')
             if pRelease.showModalDialog():
                 self.selectedToolListName = pRelease.typeKnob.value() 
             return self.selectedToolListName
                                         
     def addToolDict(self):
+            ## load self.toolDict and add to self.toolsDict ##
             toolType = self.toolDict['type']
             category= self.toolDict['category']
             label = self.toolDict['label']
@@ -152,8 +140,8 @@ class toolSetData():
             documentation = self.toolDict['documentation']
             source = self.toolDict['source']
             call = self.toolDict['call']
-            print label
-
+            ## HACK - tehre must be a cleaner way of doing this? ##
+            ## Check if [toolType][category] exsits and if save so old 'toolList and extend with new tool ##
             if toolType in self.toolsDict:
                 if category in self.toolsDict[toolType]:
                     toolList=self.toolsDict[toolType][category]
@@ -162,16 +150,13 @@ class toolSetData():
             else:
                 toolList=[]
             toolList.extend([{'call':call,'file':file,'label':label,'tooltip':tooltip,'originalAuthor':originalAuthor,'dateCreated':dateCreated,'status':status,'source':source}])
+            ## if [toolType][category] exists then add rather than replace ##
             if toolType in self.toolsDict.keys():
                     self.toolsDict[toolType].update({category:[]})
             else:
-                    self.toolsDict.update({toolType:{category:[]}})          
+                    self.toolsDict.update({toolType:{category:[]}})    
+            ## Add the toolList
             self.toolsDict[toolType][category] = self.toolsDict[toolType][category]+toolList
-            print toolType+' '+category
-            print self.toolsDict[toolType][category]
-
-            
- 
                     
     def licence(self):
         return nuke.ask(getData(os.path.join(self.rootPath, "LICENCE")).gotData)
