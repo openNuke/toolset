@@ -26,7 +26,7 @@ Group {
  addUserKnob {26 ""}
  addUserKnob {26 version l version: T 1.0}
  addUserKnob {26 created l created: T "15/06/2010 by <a href=\\'http://www.nukepedia.com/gizmos/other/bumpnormals'> Michael Garrett.</a>"}
- addUserKnob {26 source l source:  T "\http://www.nukepedia.com/gizmos/other/bumpnormals\"}
+ addUserKnob {26 source l source:  T "<a href=\\'http://www.nukepedia.com/gizmos/other/bumpnormals'> Nukepedia</a>"}
  addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  Input {
