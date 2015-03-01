@@ -115,7 +115,7 @@ class toolSetData():
             self.toolLoadJsonDict = getData(os.path.join(self.rootPath, "_load.json")).gotData
             selectedToolList=[]
             selectedToolList = self.toolLoadJsonDict[self.selectToolList()]
-            print 'selectedToolList: '+str(selectedToolList)
+            print 'selectedToolList: '+str(self.selectToolList())
             ## load self.toolDict and add to self.toolsDict ##
             for toolName in selectedToolList:
                 print "loading: "+toolName
