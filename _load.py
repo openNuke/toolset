@@ -38,23 +38,34 @@ class toolSetWidget(QtGui.QWidget):
                     self.widgetDict[type] = {}
                     columnCount = 0
                     rowCount = 0
-                    grid = QtGui.QGridLayout()                  
+                    grid = QtGui.QGridLayout()   
+  
                     for tool in self.toolsDict[cat][type]:
-                            print tool
-                            button = QtGui.QPushButton(tool['label'])
-                            button.setToolTip(tool['tooltip'])
-                            grid.addWidget(button, rowCount, columnCount)                      
-                            buttonRunner = lambda toolPath = tool['file'], call = tool['call']: self.runTool( toolPath, call )
-                            self.connect( button, QtCore.SIGNAL( 'clicked()' ), buttonRunner )                         
-                            self.widgetDict[type][tool['label']] = button                                                 
-                            if columnCount == 2:
-                                columnCount = 0
-                                rowCount += 1
-                            else:
+                        print tool['label']
+                        if isinstance(tool['label'], list) :
+                            stepRange = len(tool['label'])-1
+                            toolLabel = tool['label']
+                            toolCall = tool['call']
+                        else:
+                             stepRange = 0 
+                             toolLabel = [tool['label']]
+                             toolCall = [tool['call']]
+                              
+                        for x in range(0,stepRange) :  
+                                    button = QtGui.QPushButton(toolLabel[x])
+                                    button.setToolTip(tool['tooltip'])
+                                    grid.addWidget(button, rowCount, columnCount)                      
+                                    buttonRunner = lambda toolPath = tool['file'], call = toolCall[x]: self.runTool( toolPath, call )
+                                    self.connect( button, QtCore.SIGNAL( 'clicked()' ), buttonRunner )                         
+                                    self.widgetDict[type][toolLabel[x]] = button                                                 
+                                    if columnCount == 2:
+                                        columnCount = 0
+                                        rowCount += 1
+                                    else:
+                                        columnCount += 1
+                        while 0 < columnCount < 3:
+                                grid.addWidget(QtGui.QLabel(''), rowCount, columnCount)
                                 columnCount += 1
-                    while 0 < columnCount < 3:
-                        grid.addWidget(QtGui.QLabel(''), rowCount, columnCount)
-                        columnCount += 1
                     groupBox.setLayout(grid)                    
                 if cat == 'python':
                     self.scriptsMainLayout.addWidget(groupBox)
@@ -111,13 +122,10 @@ class toolSetData():
             self.toolLoadJsonDict = getData(os.path.join(self.rootPath, "_load.json")).gotData
             selectedToolList=[]
             selectedToolList = self.toolLoadJsonDict[self.selectToolList()]
-            print selectedToolList
             ## load tool dict and add to tools dict ##
             for toolName in selectedToolList:
                 self.toolDict = getData(os.path.join(self.rootPath, toolName +'.json')).gotData
                 self.addToolDict()
-            print "TOOL DICT============"
-            print self.toolsDict
             
     def selectToolList(self):
             #### Get ToolSet  Data ####
@@ -134,7 +142,6 @@ class toolSetData():
             toolType = self.toolDict['type']
             category= self.toolDict['category']
             label = self.toolDict['label']
-            print label
             file = self.toolDict['file']
             tooltip = self.toolDict['tooltip']
             originalAuthor = self.toolDict['originalAuthor']
