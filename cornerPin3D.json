@@ -1,6 +1,6 @@
 {
 "type": "nodes",
-"category": "example",
+"category": "2.5D",
 "label": "cornerPin3d",
 "file": "cornerPin3d.nk",
 "tooltip": "card3D alternative (realtime), but has stabalize, matchmove, project, and concatination & roto control passthrough like a cornerPin node",
