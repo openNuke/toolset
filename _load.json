@@ -22,7 +22,10 @@
         "scaleNodes",
         "searchReplacePanel",
         "setBlacks",
-        "uvTile"
+        "uvTile",
+        "filterAOV",
+        "maya2nukeLayoutCamera",
+        "CameraShakeVetr"
     ],
     "FAVOURITES": [
         "alignNodes",
