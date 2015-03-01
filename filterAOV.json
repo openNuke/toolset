@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "filter",
+"label": "Filter AOV",
+"file": "filterAOV.nk",
+"tooltip": "Uses subtractive maths to isolate a secondary pass from a beauty and apply a filter to it. Most commonly used to remove artifacts from CG.",
+"originalAuthor": "Rafal Kaniewski",
+"dateCreated": "01/01/2015",
+"status": "stable",
+"documentation": "http: //opennuke.github.io/filterAOV_nk/",
+"licence": "https: //github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "https: //github.com/vfxwiki/filterAOV",
+"call": ""
+}
