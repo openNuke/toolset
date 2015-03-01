@@ -61,7 +61,7 @@ class toolSetWidget(QtGui.QWidget):
                         while 0 < columnCount < 3:
                                 grid.addWidget(QtGui.QLabel(''), rowCount, columnCount)
                                 columnCount += 1
-                        print "loaded: "+tool['file']
+                        print "button added: "+tool['file']
                     groupBox.setLayout(grid)                    
                 if cat == 'python':
                     self.scriptsMainLayout.addWidget(groupBox)
@@ -119,6 +119,7 @@ class toolSetData():
             for toolName in selectedToolList:
                 self.toolDict = getData(os.path.join(self.rootPath, toolName +'.json')).gotData
                 self.addToolDict()
+                print "loaded: "+toolName
             
     def selectToolList(self):
             #### Select witch release to load ###
