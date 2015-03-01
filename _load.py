@@ -25,7 +25,6 @@ class toolSetWidget(QtGui.QWidget):
         self.nodesTab = QtGui.QWidget()           
         self.scriptsMainLayout = QtGui.QVBoxLayout() 
         self.nodesMainLayout = QtGui.QVBoxLayout()         
-        
         for cat in ['python', 'nodes']: 
             print 'cat:'+cat       
             self.widgetDict = {}
@@ -41,17 +40,18 @@ class toolSetWidget(QtGui.QWidget):
                     grid = QtGui.QGridLayout()   
   
                     for tool in self.toolsDict[cat][type]:
-                        print tool['label']
                         if isinstance(tool['label'], list) :
-                            stepRange = len(tool['label'])-1
+                            stepRange = len(tool['label'])
                             toolLabel = tool['label']
                             toolCall = tool['call']
                         else:
-                             stepRange = 0 
+                             stepRange = 1 
                              toolLabel = [tool['label']]
                              toolCall = [tool['call']]
                               
                         for x in range(0,stepRange) :  
+                                    print toolLabel[x]
+                                    print toolCall[x]
                                     button = QtGui.QPushButton(toolLabel[x])
                                     button.setToolTip(tool['tooltip'])
                                     grid.addWidget(button, rowCount, columnCount)                      
@@ -126,6 +126,8 @@ class toolSetData():
             for toolName in selectedToolList:
                 self.toolDict = getData(os.path.join(self.rootPath, toolName +'.json')).gotData
                 self.addToolDict()
+                print toolName
+            #print self.toolsDict
             
     def selectToolList(self):
             #### Get ToolSet  Data ####
@@ -150,13 +152,23 @@ class toolSetData():
             documentation = self.toolDict['documentation']
             source = self.toolDict['source']
             call = self.toolDict['call']
+            print label
 
-
+            if toolType in self.toolsDict:
+                if category in self.toolsDict[toolType]:
+                    toolList=self.toolsDict[toolType][category]
+                else:
+                    toolList=[] 
+            else:
+                toolList=[]
+            toolList.extend([{'call':call,'file':file,'label':label,'tooltip':tooltip,'originalAuthor':originalAuthor,'dateCreated':dateCreated,'status':status,'source':source}])
             if toolType in self.toolsDict.keys():
                     self.toolsDict[toolType].update({category:[]})
             else:
-                    self.toolsDict.update({toolType:{category:[]}})
-            self.toolsDict[toolType][category].append({'call':call,'file':file,'label':label,'tooltip':tooltip,'originalAuthor':originalAuthor,'dateCreated':dateCreated,'status':status,'source':source})
+                    self.toolsDict.update({toolType:{category:[]}})          
+            self.toolsDict[toolType][category] = self.toolsDict[toolType][category]+toolList
+            print toolType+' '+category
+            print self.toolsDict[toolType][category]
 
             
  
@@ -224,4 +236,3 @@ if 1==3:
     
     
 ########################
-
