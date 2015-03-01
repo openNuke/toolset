@@ -1,411 +1,703 @@
-#  licence https://github.com/vfxwiki/maya2nukeLayoutCamera
 set cut_paste_input [stack 0]
-version 7.0 v6
+version 9.0 v1
 push $cut_paste_input
 Group {
-name Layout
-selected true
-xpos 423
-ypos 15293
-addUserKnob {20 User l Layout}
-addUserKnob {26 text01 l "" +STARTLINE T "OPEN THIS GROUP AND ADD LENS DISTORT BEFORE USING"}
-addUserKnob {26 ""}
-addUserKnob {41 channels T STMap6.channels}
-addUserKnob {41 format l "cg format" T Reformat8.format}
-addUserKnob {41 lensOut T Switch1.lensOut}
-addUserKnob {41 filter T Card3D2.filter}
-addUserKnob {41 removeFilteringArtifacts l "Remove Filtering Artifacts" -STARTLINE T Colorspace.removeFilteringArtifacts}
-addUserKnob {41 blackOutside T Merge1.blackOutside}
-addUserKnob {41 outputLayoutChannels l "Output Layout Channels" T Remove2.outputLayoutChannels}
-addUserKnob {26 ""}
-addUserKnob {41 method_1 l method T CONTROL.method}
-addUserKnob {41 format_1 l "| output format (method A)" -STARTLINE T Reformat4.format}
-addUserKnob {26 ""}
-addUserKnob {41 motionBlur T VectorBlur4.motionBlur}
-addUserKnob {41 scale l multiply T VectorBlur4.scale}
-addUserKnob {41 offset T VectorBlur4.offset}
-addUserKnob {41 grow_bbox l "grow bbox" T VectorBlur4.grow_bbox}
-addUserKnob {41 method T VectorBlur4.method}
-addUserKnob {20 Info}
-addUserKnob {26 instructions l instructions: T "txX=.filmTranslateH / txY=filmTranslateV\nrtX=filmRollValue / scX=postscale"}
-addUserKnob {26 ""}
-addUserKnob {26 release l release: T "v0.1b 12 July 2014 "}
-addUserKnob {26 author l author: T "initial: rafal kaniewski / last: rafal kaniewski"}
-addUserKnob {26 source l source: T https://github.com/vfxwiki/maya2nukeLayoutCamera}
+ name CameraShkVctr
+ help "Another 2D Camera Shake Tool for Nuke Features:/n* use either vector Blur or 2d transform motion blur/n* combine vectors from an input with camera shake vectors for motion blur/n*presets/n* tiling/n* pre-transform paramaters (i.e. to scale the image)/n* combining two noise patterns together i.e. a small vibration shake with a hand-held shake./n* being able to view the output curves with time offsets to place the big 'bumps' at the right moment in time/n* separate amplitude and frequency for Transform, scale and rotation."
+ tile_color 0x8ac160ff
+ label "\n\n"
+ selected true
+ xpos -235
+ ypos 51
+ addUserKnob {20 Controls}
+ addUserKnob {52 pyLoad l "" +STARTLINE T "nuke.thisGroup()\['pyClass'].execute()" +STARTLINE}
+ addUserKnob {22 pyClass l INVISIBLE -STARTLINE +INVISIBLE T "class cameraShakeVectors:\n\n\n    def __init__(self):\n\timport nuke\n\timport ast\n\tself.knobKeys = \['global_amt','center','amplitude','scale_amount','rot_amount','frequency','frequencyScale','frequencyRotation','global_amtHF','frequencyHF']\n\tself.thisG=nuke.thisGroup()\n\tpresetsStr=self.thisG\['presetsStr'].getValue()\n\tif not presetsStr is \"\":\n\t\tself.presetsDict=ast.literal_eval(presetsStr)\n\telse:\n\t\tself.presetsDict=\{\}\n\n    def savePreset(self):\n        newDict=\{\}\n        presetName=nuke.getInput('name of new preset')\n        if presetName: #2do validate is unique\n           presetName=presetName\n           for knob in self.knobKeys:\n                newDict\[knob]=(self.thisG\[knob].getValue())\n           self.presetsDict\[presetName]=newDict\n           self.thisG\['presetsStr'].setValue(str(self.presetsDict))\n\n    def updatePresetsList(self):\n             self.thisG\['presets'].setValues(self.presetsDict.keys())\n\n    def load(self):\n        preset=self.thisG\['presets'].value()\n        presetKnobs=self.presetsDict\[preset]        \n        for knob in presetKnobs:\n            \tself.thisG\[knob].setValue(presetKnobs\[knob])\n\n    def clearAll(self):\n\tif nuke.ask('Do you want to delete all the presets'):\n\t\tself.thisG\['presetsStr'].setValue('')\n\t\tself.thisG\['presets'].setValues(\[])\n\n    def delete(self):\n\tpreset=self.thisG\['presets'].value()\n\tif nuke.ask('Do you want to delete the '+preset+' preset'):\n\t\tdel self.presetsDict\[preset]\n\t\tnuke.tprint(self.presetsDict)\n\t\tself.thisG\['presetsStr'].setValue(str(self.presetsDict))"}
+ addUserKnob {41 enableShake l "Enable Shake (vector mode: motion blur is control independent)" T control.enableShake}
+ addUserKnob {41 enableMotionBlur l "Enable Motion Blur" T control.enableMotionBlur}
+ addUserKnob {6 motiontileEnable l "Enable Tile (motion blur only works in vector mode)" +STARTLINE}
+ addUserKnob {41 checkerBoard T control.checkerBoard}
+ addUserKnob {20 PreShakeTransform l "Pre-Shake Transform" n 1}
+ PreShakeTransform 0
+ addUserKnob {12 xformSizeOriginal_translate l Translate t "Use to translate image before you shake it"}
+ addUserKnob {14 xformSizeOriginal_scale l Scale t "Use to scale image before you shake it" R 0 100}
+ xformSizeOriginal_scale 1
+ addUserKnob {12 xformSizeOriginal_center l "XY Center" t "center of the pre-shake transform"}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 presets_G l Presets n 1}
+ addUserKnob {4 presets M {}}
+ addUserKnob {22 loadShake l " load " -STARTLINE T cameraShakeVectors().load()}
+ addUserKnob {22 saveShake l " save " -STARTLINE T "cameraShakeVectors().savePreset()\ncameraShakeVectors().updatePresetsList()"}
+ addUserKnob {22 clear l INVISIBLE -STARTLINE +INVISIBLE T cameraShakeVectors().clearAll()}
+ addUserKnob {22 delete l " delete " -STARTLINE T "cameraShakeVectors().delete()\ncameraShakeVectors().updatePresetsList()"}
+ addUserKnob {1 presetsStr l INVISIBLE +INVISIBLE}
+ presetsStr "\{\}"
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {20 ShakeControls l "Shake Controls" n 1}
+ addUserKnob {41 global_amt l shake T control.global_amt}
+ addUserKnob {41 center T control.center}
+ addUserKnob {26 text02 l " amplitude (amount)"}
+ addUserKnob {41 amplitude l Transform T control.amplitude}
+ addUserKnob {41 scale_amount l Scale T control.scale_amount}
+ addUserKnob {41 rot_amount l Rotation T control.rot_amount}
+ addUserKnob {26 text03 l "Frequency (smoothness)"}
+ addUserKnob {41 frequency l Transform T control.frequency}
+ addUserKnob {41 frequencyScale l Scale T control.frequencyScale}
+ addUserKnob {41 frequencyRotation l Rotation T control.frequencyRotation}
+ addUserKnob {26 text05 l "2nd Hi frequency shake"}
+ addUserKnob {41 global_amtHF l "Transform Amplitude" T control.global_amtHF}
+ addUserKnob {41 frequencyHF l "Transform Frequency" T control.frequencyHF}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 MotionBlur}
+ addUserKnob {41 mbChoice l method T control.mbChoice}
+ addUserKnob {26 ""}
+ addUserKnob {26 method2d l "method 2d"}
+ addUserKnob {41 filter T TransformMB.filter}
+ addUserKnob {41 motionblur T TransformMB.motionblur}
+ addUserKnob {41 shutter T TransformMB.shutter}
+ addUserKnob {41 shutteroffset l "shutter offset" T TransformMB.shutteroffset}
+ addUserKnob {41 shuttercustomoffset l "" -STARTLINE T TransformMB.shuttercustomoffset}
+ addUserKnob {26 ""}
+ addUserKnob {26 methodVectors l "method Vectors"}
+ addUserKnob {41 shutter_1 l shutter T MotionBlur2D1.shutter}
+ addUserKnob {41 shutteroffset_1 l "shutter offset" T MotionBlur2D1.shutteroffset}
+ addUserKnob {41 shuttercustomoffset_1 l "" -STARTLINE T MotionBlur2D1.shuttercustomoffset}
+ addUserKnob {41 method T VectorBlur2.method}
+ addUserKnob {41 grow_bbox l "grow bbox" T VectorBlur2.grow_bbox}
+ addUserKnob {26 ""}
+ addUserKnob {26 text01 l "Use Input Vectors" T ""}
+ addUserKnob {41 useVectorInput l "" t "combine input vectors and camera shake vectors together" -STARTLINE T control.useVectorInput}
+ addUserKnob {41 in l "" -STARTLINE T ShuffleCopy2.in}
+ addUserKnob {41 mix l "add input vectors" T Merge10.mix}
+ addUserKnob {20 Curves}
+ addUserKnob {26 text04 l "This are here so" T "you can look at the shake curves in the curve editor"}
+ addUserKnob {41 translate T control.translate}
+ addUserKnob {41 scale T control.scale}
+ addUserKnob {41 rotation T control.rotation}
+ addUserKnob {26 text04_1 l "Offset (time)"}
+ addUserKnob {41 TransformOffsetY l TransformOffsetH T control.TransformOffsetY}
+ addUserKnob {41 TransformOffsetX l TransformOffsetY T control.TransformOffsetX}
+ addUserKnob {41 ScaleOffset T control.ScaleOffset}
+ addUserKnob {41 RotationOffset T control.RotationOffset}
+ addUserKnob {20 endGroup_3 l endGroup n -1}
+ addUserKnob {20 Info}
+ addUserKnob {26 version l version: T "v0.6b (1/5/2014)"}
+ addUserKnob {26 github l "github latest:" T https://github.com/vfxwiki/CameraShakeVetr}
+ addUserKnob {26 githubstable l "github stable:" T https://github.com/vfxwiki/nukeArtistToolkit/blob/master/CameraShakeVetr}
 }
-Input {
-inputs 0
-name mmCam
-label 1
-xpos 237
-ypos -380
-number 1
-}
-Input {
-inputs 0
-name layoutAxis
-label 3
-xpos 485
-ypos -386
-number 3
-}
-Input {
-inputs 0
-name renderCam
-label 2
-xpos 362
-ypos -387
-number 2
-}
-Camera2 {
-inputs 0
-rotate {0 0 {"\[topnode parent.input3].rotate.x"}}
-focal {{"\[topnode parent.input2].focal"}}
-haperture {{"\[topnode parent.input1].haperture"}}
-vaperture {{"\[topnode parent.input2].vaperture"}}
-win_translate {{"\[topnode parent.input3].translate.x*CONTROL.fix" x1009 0 -0.0005272175767 -0.002082195366 -0.004624628462 -0.008113848977 -0.01251019444 -0.01777308062 -0.0238616094 -0.03073659539 -0.03835720941 -0.04668235406 -0.05567324907 -0.06528886408 -0.0754879266 -0.086232014 -0.09747989476 -0.1091901883 -0.1213247329 -0.1338421553 -0.1467009932 -0.1598632634 -0.1732875109 -0.1869321913 -0.2007594407 -0.2147277892 -0.2287956029 -0.2429251522 -0.2570748627 -0.2712031007 -0.2852722108 -0.2992405593 -0.313066572 -0.3267124891 -0.3401367366 -0.3532978296 -0.3661578298 -0.378675282 -0.3908087313 -0.4025200903 -25163.389 -0.4245111048 -0.4347111285 -0.4443267882 -0.4533168972 -0.4616428018 -0.4692634046 -0.4761377871 -0.4822269082 -0.4874897897 -0.4918857515 -0.495375365 -0.4979178011 -0.4994726777 -0.5} {"\[topnode parent.input3].translate.y*CONTROL.fix" x1009 0 -0.0005272175767 -0.002082195366 -0.004624628462 -0.008113848977 -0.01251019444 -0.01777308062 -0.0238616094 -0.03073659539 -0.03835720941 -0.04668235406 -0.05567324907 -0.06528886408 -0.0754879266 -0.086232014 -0.09747989476 -0.1091901883 -0.1213247329 -0.1338421553 -0.1467009932 -0.1598632634 -0.1732875109 -0.1869321913 -0.2007594407 -0.2147277892 -0.2287956029 -0.2429251522 -0.2570748627 -0.2712031007 -0.2852722108 -0.2992405593 -0.313066572 -0.3267124891 -0.3401367366 -0.3532978296 -0.3661578298 -0.378675282 -0.3908087313 -0.4025200903 -0.4137680233 -0.4245111048 -0.4347111285 -0.4443267882 -0.4533168972 -0.4616428018 -0.4692634046 -0.4761377871 -0.4822269082 -0.4874897897 -0.4918857515 -0.495375365 -0.4979178011 -0.4994726777 -0.5}}
-win_scale {{"1/\[topnode parent.input3].scaling.x" x1009 1 1.000527263 1.002082229 1.004624605 1.008113861 1.01251018 1.017773032 1.023861766 1.030736566 1.038357258 1.046682358 1.055673242 1.065288901 1.075487971 1.086232066 1.097479939 1.109190226 1.121324778 1.133842111 1.146700978 1.159863353 1.173287511 1.186932206 1.200759411 1.214727759 1.228795648 1.242925167 1.257074833 1.27120316 1.285272241 1.299240589 1.313066602 1.326712489 1.340136766 1.35329783 1.366157889 1.378675342 1.390808702 1.402520061 1.413767934 1.424511075 1.434711099 1.444326758 1.453316808 1.461642742 1.469263434 1.476137757 1.482226968 1.48748982 1.491885781 1.495375514 1.497917771 1.499472737 1.5} {win_scale.u x1009 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1}}
-version 50
-name LayoutCamera1
-xpos 934
-ypos 231
-}
-Reformat {
-inputs 0
-resize none
-name Reformat8
-label "CG RENDER FORMAT"
-xpos 705
-ypos -413
-}
-Expression {
-expr0 (x+0.5)/width
-expr1 (y+0.5)/height
-channel3 {rgba.alpha none none rgba.alpha}
-expr3 1
-name Expression2
-xpos 834
-ypos -350
-}
-NoOp {
-name put_lens
-tile_color 0xff00bfff
-label "undisort here\n\\\\/ \\\\/ \\\\/ \\\\/ \\\\/"
-xpos 834
-ypos -270
-}
-NoOp {
-name _put_lens
-tile_color 0xff00bfff
-label "undisort here\n/\\\\ /\\\\ /\\\\ /\\\\"
-xpos 834
-ypos 185
-}
-set N24213a40 [stack 0]
-Card3D {
-inputs 2
-lens_in_focal {{"\[topnode parent.input2].focal"}}
-lens_in_haperture {{"\[topnode parent.input2].haperture"}}
-format {{{parent.Reformat8.format}}}
-black_outside false
-name Card3D1
-xpos 1221
-ypos 288
-disable {{"!\[exists input0] | !\[exists input1] | !\[exists input2] | !\[exists input3]"}}
-}
-Camera2 {
-inputs 0
-rotate {0 0 {"\[topnode parent.input3].rotate.x"}}
-focal {{"\[topnode parent.input2].focal"}}
-haperture {{"\[topnode parent.input2].haperture"}}
-vaperture {{"\[topnode parent.input1].vaperture"}}
-win_translate {{"\[topnode parent.input3].translate.x*CONTROL.fix" x1009 0 -0.0005272175767 -0.002082195366 -0.004624628462 -0.008113848977 -0.01251019444 -0.01777308062 -0.0238616094 -0.03073659539 -0.03835720941 -0.04668235406 -0.05567324907 -0.06528886408 -0.0754879266 -0.086232014 -0.09747989476 -0.1091901883 -0.1213247329 -0.1338421553 -0.1467009932 -0.1598632634 -0.1732875109 -0.1869321913 -0.2007594407 -0.2147277892 -0.2287956029 -0.2429251522 -0.2570748627 -0.2712031007 -0.2852722108 -0.2992405593 -0.313066572 -0.3267124891 -0.3401367366 -0.3532978296 -0.3661578298 -0.378675282 -0.3908087313 -0.4025200903 -25163.389 -0.4245111048 -0.4347111285 -0.4443267882 -0.4533168972 -0.4616428018 -0.4692634046 -0.4761377871 -0.4822269082 -0.4874897897 -0.4918857515 -0.495375365 -0.4979178011 -0.4994726777 -0.5} {"\[topnode parent.input3].translate.y*CONTROL.fix" x1009 0 -0.0005272175767 -0.002082195366 -0.004624628462 -0.008113848977 -0.01251019444 -0.01777308062 -0.0238616094 -0.03073659539 -0.03835720941 -0.04668235406 -0.05567324907 -0.06528886408 -0.0754879266 -0.086232014 -0.09747989476 -0.1091901883 -0.1213247329 -0.1338421553 -0.1467009932 -0.1598632634 -0.1732875109 -0.1869321913 -0.2007594407 -0.2147277892 -0.2287956029 -0.2429251522 -0.2570748627 -0.2712031007 -0.2852722108 -0.2992405593 -0.313066572 -0.3267124891 -0.3401367366 -0.3532978296 -0.3661578298 -0.378675282 -0.3908087313 -0.4025200903 -0.4137680233 -0.4245111048 -0.4347111285 -0.4443267882 -0.4533168972 -0.4616428018 -0.4692634046 -0.4761377871 -0.4822269082 -0.4874897897 -0.4918857515 -0.495375365 -0.4979178011 -0.4994726777 -0.5}}
-win_scale {{"1/\[topnode parent.input3].scaling.x" x1009 1 1.000527263 1.002082229 1.004624605 1.008113861 1.01251018 1.017773032 1.023861766 1.030736566 1.038357258 1.046682358 1.055673242 1.065288901 1.075487971 1.086232066 1.097479939 1.109190226 1.121324778 1.133842111 1.146700978 1.159863353 1.173287511 1.186932206 1.200759411 1.214727759 1.228795648 1.242925167 1.257074833 1.27120316 1.285272241 1.299240589 1.313066602 1.326712489 1.340136766 1.35329783 1.366157889 1.378675342 1.390808702 1.402520061 1.413767934 1.424511075 1.434711099 1.444326758 1.453316808 1.461642742 1.469263434 1.476137757 1.482226968 1.48748982 1.491885781 1.495375514 1.497917771 1.499472737 1.5} {win_scale.u x1009 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1}}
-version 50
-name LayoutCamera2
-xpos 591
-ypos 299
-}
-set N333d9700 [stack 0]
-push $N24213a40
-Card3D {
-inputs 2
-lens_in_focal {{"\[topnode parent.input2].focal"}}
-lens_in_haperture {{"\[topnode parent.input2].haperture"}}
-format {{{parent.Reformat8.format}}}
-black_outside false
-name Card3D2
-xpos 838
-ypos 320
-disable {{"!\[exists input0] | !\[exists input1] | !\[exists input2] | !\[exists input3]" x1009 1}}
-}
-Switch {
-inputs 2
-which {{CONTROL.method}}
-name Switch2
-xpos 838
-ypos 353
-}
-Dot {
-name Dot4
-xpos 872
-ypos 383
-}
-set N7883bda0 [stack 0]
-Dot {
-name Dot6
-xpos 766
-ypos 383
-}
-BlackOutside {
-name BlackOutside2
-xpos 732
-ypos 450
-}
-push $N7883bda0
-add_layer {layoutAlpha layoutAlpha.red layoutAlpha.green layoutAlpha.blue layoutAlpha.alpha}
-AddChannels {
-channels {-layoutAlpha.red -layoutAlpha.green -layoutAlpha.blue layoutAlpha.alpha}
-name AddChannels3
-xpos 839
-ypos 406
-}
-Copy {
-inputs 2
-from0 rgba.alpha
-to0 layoutAlpha.alpha
-name Copy1
-xpos 838
-ypos 444
-}
-Reformat {
-format "2880 2160 0 0 2880 2160 1 HUN_Alexa_Sph_2160"
-center false
-name Reformat1
-label mmCam
-xpos 838
-ypos 490
-disable {{CONTROL.method}}
-}
-Remove {
-channels depth
-name Remove1
-xpos 838
-ypos 554
-}
-set N99bd96d0 [stack 0]
-Dot {
-name Dot1
-xpos 761
-ypos 563
-}
-Dot {
-name Dot2
-xpos 761
-ypos 1213
-}
-push $N99bd96d0
-NoOp {
-name put_lens_
-tile_color 0xff00bfff
-label "disort here\n\\\\/ \\\\/ \\\\/ \\\\/ \\\\/"
-xpos 838
-ypos 621
-}
-NoOp {
-name _put_lens_
-tile_color 0xff00bfff
-label "disort here\n/\\\\ /\\\\ /\\\\ /\\\\"
-xpos 838
-ypos 1129
-}
-Switch {
-inputs 2
-which {{lensOut}}
-name Switch1
-xpos 838
-ypos 1210
-addUserKnob {20 User}
-addUserKnob {4 lensOut M {Undistorted Distorted ""}}
-}
-add_layer {layoutUV layoutUV.u layoutUV.v}
-AddChannels {
-channels layoutUV
-name AddChannels4
-xpos 838
-ypos 1480
-}
-Shuffle {
-in rgb
-out layoutUV
-name Shuffle3
-xpos 838
-ypos 1516
-}
-Dot {
-name Dot8
-xpos 872
-ypos 1606
-}
-set N7c333820 [stack 0]
-Dot {
-name Dot7
-xpos 872
-ypos 1771
-}
-set N7c337690 [stack 0]
-Dot {
-name Dot3
-xpos 870
-ypos 1937
-}
-push $N7c337690
-push $N7c333820
-push $N333d9700
-Dot {
-name Dot5
-xpos 615
-ypos 1427
-}
-Input {
-inputs 0
-name plate
-label 0
-xpos 1250
-ypos -361
-}
-add_layer {layoutMotion layoutMotion.u layoutMotion.v}
-AddChannels {
-channels layoutMotion
-name AddChannels2
-xpos 1250
-ypos 1265
-}
-MotionBlur3D {
-inputs 2
-uv layoutMotion
-distance inf
-name MotionBlur3D1
-xpos 1251
-ypos 1424
-}
-Colorspace {
-channels all
-colorspace_out CIE-Lab
-name Colorspace
-xpos 1251
-ypos 1547
-disable {{!removeFilteringArtifacts}}
-addUserKnob {20 User}
-addUserKnob {6 removeFilteringArtifacts +STARTLINE}
-}
-STMap {
-inputs 2
-uv layoutUV
-name STMap6
-xpos 1161
-ypos 1597
-}
-Colorspace {
-channels all
-colorspace_in CIE-Lab
-name Colorspace2
-xpos 1251
-ypos 1654
-disable {{!Colorspace.removeFilteringArtifacts}}
-}
-Merge2 {
-inputs 2
-operation mask
-bbox A
-Achannels layoutAlpha
-name Merge1
-xpos 1251
-ypos 1768
-disable {{!blackOutside x1025 1}}
-addUserKnob {20 User}
-addUserKnob {6 blackOutside +STARTLINE}
-blackOutside true
-}
-VectorBlur {
-uv layoutMotion
-scale 0.9
-offset 0
-name VectorBlur4
-xpos 1247
-ypos 1860
-disable {{motionBlur x1037 1}}
-addUserKnob {20 User}
-addUserKnob {4 motionBlur M {on off ""}}
-motionBlur off
-}
-Copy {
-inputs 2
-from0 layoutUV.u
-to0 layoutUV.u
-from1 layoutUV.v
-to1 layoutUV.v
-bbox B
-name Copy3
-xpos 1250
-ypos 1922
-}
-Remove {
-channels layoutMotion
-channels2 layoutUV
-name Remove2
-xpos 1250
-ypos 2260
-disable {{outputLayoutChannels}}
-addUserKnob {20 User}
-addUserKnob {6 outputLayoutChannels l "Output Layout Channels" +STARTLINE}
-outputLayoutChannels true
-}
-Remove {
-channels layoutAlpha
-name Remove3
-xpos 1250
-ypos 2326
-}
-Output {
-name Output1
-xpos 1250
-ypos 2397
-}
-Card2 {
-inputs 0
-z 1
-lens_in_focal 18
-lens_in_haperture {{"\[topnode parent.input2].haperture"}}
-lens_in_power 2
-control_points {3 3 3 6 
-
-1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
-1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
-1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
-1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
-1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
-1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
-1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
-1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
-1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
-name Card4
-label "\n"
-xpos 1071
-ypos 203
-disable true
-}
-NoOp {
-inputs 0
-name CONTROL
-selected true
-xpos 1045
-ypos 388
-addUserKnob {20 User}
-addUserKnob {7 fix}
-fix {{method?1:ratioDiff}}
-addUserKnob {7 ratioDiff}
-ratioDiff {{"(\[topnode parent.input2].focal/\[topnode parent.input2].haperture)/(\[topnode parent.input1].focal/\[topnode parent.input1].haperture)"}}
-addUserKnob {4 method M {A B "" "" "" "" "" "" ""}}
-}
+ Input {
+  inputs 0
+  name vectors
+  xpos 615
+  ypos -247
+  number 1
+ }
+ CheckerBoard2 {
+  inputs 0
+  name CheckerBoard1
+  xpos 229
+  ypos -291
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 370
+  ypos -286
+ }
+ Switch {
+  inputs 2
+  which {{control.checkerBoard i}}
+  name Switch3
+  xpos 370
+  ypos -194
+ }
+set N427b0490 [stack 0]
+add_layer {motionShk motionShk.red motionShk.green motionShk.blue motionShk.alpha}
+ AddChannels {
+  channels motionShk
+  name AddChannels1
+  xpos 370
+  ypos -164
+ }
+ ShuffleCopy {
+  inputs 2
+  in motion
+  red red
+  green green
+  blue blue
+  out motionShk
+  out2 rgba
+  name ShuffleCopy2
+  xpos 370
+  ypos -107
+ }
+ Crop {
+  box {0 0 {width} {height}}
+  name Crop2
+  xpos 370
+  ypos -77
+  disable {{!motiontileEnable}}
+ }
+ Dot {
+  name Dot12
+  xpos 402
+  ypos -19
+ }
+set N427d3cd0 [stack 0]
+ Transform {
+  translate {{xformSizeOriginal_translate.x} {xformSizeOriginal_translate.y}}
+  scale {{xformSizeOriginal_scale.w}}
+  center {{xformSizeOriginal_center.x} {xformSizeOriginal_center.y}}
+  filter Rifman
+  name xformSizeOriginal
+  tile_color 0xffff00
+  label "Pre-Shake Translate"
+  xpos 412
+  ypos 30
+ }
+set N427d7c40 [stack 0]
+ Transform {
+  translate {{control.translate i} {control.translate i}}
+  center {{control.center i} {control.center i}}
+  filter Rifman
+  name xformShake
+  tile_color 0xff000000
+  label ShakeXY
+  xpos 379
+  ypos 250
+ }
+set N427e3850 [stack 0]
+ Dot {
+  name Dot23
+  xpos 223
+  ypos 193
+ }
+push $N427e3850
+ MotionBlur2D {
+  inputs 2
+  uv motionShk
+  name MotionBlur2D2
+  xpos 341
+  ypos 316
+ }
+set N427f3470 [stack 0]
+ Transform {
+  translate {{-control.translate} {-control.translate}}
+  center {{control.center} {control.center}}
+  filter Rifman
+  name xformShake3
+  tile_color 0xff000000
+  label ShakeXY
+  xpos 151
+  ypos 310
+ }
+push $N427d3cd0
+ Dot {
+  name Dot11
+  xpos 70
+  ypos 125
+ }
+ ShuffleCopy {
+  inputs 2
+  in motionShk
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 motionShk
+  name ShuffleCopy5
+  xpos 36
+  ypos 316
+ }
+ Dot {
+  name Dot2
+  xpos 70
+  ypos 362
+ }
+set N4291c280 [stack 0]
+ Dot {
+  name Dot9
+  xpos 70
+  ypos 426
+ }
+set N429204a0 [stack 0]
+ Dot {
+  name Dot8
+  xpos 70
+  ypos 454
+ }
+set N42924860 [stack 0]
+ Dot {
+  name Dot7
+  xpos 70
+  ypos 482
+ }
+set N42928aa0 [stack 0]
+ Dot {
+  name Dot6
+  xpos 70
+  ypos 562
+ }
+set N4292cd60 [stack 0]
+ Dot {
+  name Dot5
+  xpos 70
+  ypos 590
+ }
+set N42931020 [stack 0]
+ Dot {
+  name Dot4
+  xpos 70
+  ypos 618
+ }
+set N429352e0 [stack 0]
+ Dot {
+  name Dot3
+  xpos 70
+  ypos 700
+ }
+set N42939450 [stack 0]
+ Dot {
+  name Dot10
+  xpos 70
+  ypos 728
+ }
+ Transform {
+  translate {{width+Transform1.translate.x i} {-height+Transform1.translate.y i}}
+  scale {-1 -1}
+  center {{width/2 i} {height/2 i}}
+  name Transform9
+  xpos 142
+  ypos 725
+ }
+push $N42939450
+ Transform {
+  translate {{-width+Transform1.translate.x i} {height+Transform1.translate.y i}}
+  scale {-1 -1}
+  center {{width/2 i} {height/2 i}}
+  name Transform8
+  xpos 142
+  ypos 697
+ }
+push $N429352e0
+ Transform {
+  translate {{width+Transform1.translate.x i} {height+Transform1.translate.y i}}
+  scale {-1 -1}
+  center {{width/2 i} {height/2 i}}
+  name Transform5
+  xpos 142
+  ypos 615
+ }
+push $N42931020
+ Transform {
+  translate {{Transform1.translate.x i} {height+Transform1.translate.y i}}
+  scale {1 -1}
+  center {{width/2 i} {height/2 i}}
+  name Transform6
+  xpos 142
+  ypos 587
+ }
+push $N4292cd60
+ Transform {
+  translate {{width+Transform1.translate.x i} {Transform1.translate.y i}}
+  scale {-1 1}
+  center {{width/2 i} {height/2 i}}
+  name Transform7
+  xpos 142
+  ypos 559
+ }
+push $N42928aa0
+ Transform {
+  translate {{-width+Transform1.translate.x i} {-height+Transform1.translate.y i}}
+  scale {-1 -1}
+  center {{width/2 i} {height/2 i}}
+  name Transform4
+  xpos 142
+  ypos 479
+ }
+push $N42924860
+ Transform {
+  translate {{Transform1.translate.x i} {-height+Transform1.translate.y i}}
+  scale {1 -1}
+  center {{width/2 i} {height/2 i}}
+  name Transform3
+  xpos 142
+  ypos 451
+ }
+push $N429204a0
+ Transform {
+  translate {{-width+Transform1.translate.x i} {Transform1.translate.y i}}
+  scale {-1 1}
+  center {{width/2 i} {height/2 i}}
+  name Transform2
+  xpos 142
+  ypos 423
+ }
+push $N4291c280
+ Transform {
+  translate {{xformShake.translate.x} {xformShake.translate.y}}
+  center {{width/2} {height/2}}
+  name Transform1
+  xpos 252
+  ypos 359
+ }
+ Merge2 {
+  inputs 2
+  also_merge motionShk
+  name Merge1
+  xpos 252
+  ypos 423
+ }
+ Merge2 {
+  inputs 2
+  also_merge motionShk
+  name Merge2
+  xpos 252
+  ypos 451
+ }
+ Merge2 {
+  inputs 2
+  also_merge motionShk
+  name Merge3
+  xpos 252
+  ypos 479
+ }
+ Merge2 {
+  inputs 2
+  also_merge motionShk
+  name Merge4
+  xpos 252
+  ypos 559
+ }
+ Merge2 {
+  inputs 2
+  also_merge motionShk
+  name Merge5
+  xpos 252
+  ypos 587
+ }
+ Merge2 {
+  inputs 2
+  also_merge motionShk
+  name Merge6
+  xpos 252
+  ypos 615
+ }
+ Merge2 {
+  inputs 2
+  also_merge motionShk
+  name Merge7
+  xpos 252
+  ypos 697
+ }
+ Merge2 {
+  inputs 2
+  also_merge motionShk
+  name Merge8
+  xpos 252
+  ypos 725
+ }
+ Shuffle {
+  alpha white
+  name Shuffle3
+  xpos 252
+  ypos 749
+ }
+push $N427f3470
+push $N427e3850
+ Switch {
+  inputs 2
+  which {{motiontileEnable}}
+  name Switch4
+  xpos 379
+  ypos 482
+ }
+ Merge2 {
+  inputs 2
+  bbox A
+  also_merge motionShk
+  name Merge9
+  label MotionTile
+  xpos 379
+  ypos 731
+  disable {{!motiontileEnable x1042 0}}
+ }
+set N3fd6baa0 [stack 0]
+push $N427d7c40
+ Dot {
+  name Dot1
+  xpos 883
+  ypos 39
+ }
+ Dot {
+  name Dot15
+  xpos 885
+  ypos 708
+ }
+set N40255db0 [stack 0]
+ Dot {
+  name Dot13
+  xpos 1202
+  ypos 1385
+ }
+set N3fd47d40 [stack 0]
+push $N40255db0
+push $N3fd6baa0
+ Transform {
+  rotate {{control.rotation i}}
+  center {{control.center i} {control.center i}}
+  filter Rifman
+  name xformShake1
+  tile_color 0xff000000
+  label ShakeRotate
+  xpos 379
+  ypos 820
+ }
+set N40269f40 [stack 0]
+ ShuffleCopy {
+  inputs 2
+  in motionShk
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 motionShk
+  name ShuffleCopy1
+  xpos 869
+  ypos 862
+ }
+ Dot {
+  name Dot24
+  xpos 924
+  ypos 1426
+ }
+push $N3fd6baa0
+push $N40269f40
+ Transform {
+  scale {{control.scale i}}
+  center {{control.center i} {control.center i}}
+  filter Rifman
+  name xformShake2
+  tile_color 0xff000000
+  label ShakeZoom
+  xpos 379
+  ypos 916
+ }
+set N4028bb20 [stack 0]
+ Dot {
+  name Dot17
+  xpos 383
+  ypos 1035
+ }
+push $N4028bb20
+ Dot {
+  name Dot16
+  xpos 426
+  ypos 1037
+ }
+ MotionBlur2D {
+  inputs 2
+  uv motionShk
+  name MotionBlur2D1
+  xpos 373
+  ypos 1072
+ }
+set N4029f820 [stack 0]
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels motionShk
+  Bchannels motionShk
+  output motionShk
+  name Merge11
+  xpos 291
+  ypos 1140
+  disable {{!motiontileEnable i}}
+ }
+ Dot {
+  name Dot18
+  xpos 407
+  ypos 1243
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels motionShk
+  Bchannels motionShk
+  output motionShk
+  name Merge10
+  xpos 385
+  ypos 1398
+  disable {{!control.useVectorInput x1046 1}}
+ }
+ ShuffleCopy {
+  inputs 2
+  in2 motionShk
+  red red
+  green green
+  blue blue
+  out2 motionShk
+  name ShuffleCopy3
+  xpos 996
+  ypos 1588
+  disable {{control.enableShake x1049 0}}
+ }
+ ShuffleCopy {
+  inputs 2
+  in motionShk
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 motionShk
+  name ShuffleCopy4
+  xpos 917
+  ypos 1642
+  disable true
+ }
+ VectorBlur {
+  channels rgb
+  uv motionShk
+  mix {{control.enableMotionBlur 0.9064516129}}
+  name VectorBlur2
+  tile_color 0xcc804e00
+  label (all)
+  xpos 834
+  ypos 1678
+  disable {{!control.enableMotionBlur x1040 1}}
+ }
+push $N4028bb20
+ Transform {
+  center {{width/2} {height/2}}
+  filter Rifman
+  motionblur 1
+  shutteroffset centred
+  name TransformMB
+  xpos 526
+  ypos 1275
+  disable {{!control.enableMotionBlur x1044 0}}
+ }
+push $N3fd47d40
+ Dot {
+  name Dot22
+  xpos 665
+  ypos 1717
+ }
+ Switch {
+  inputs 2
+  which {{control.enableShake}}
+  name Switch1
+  xpos 603
+  ypos 1856
+ }
+ Switch {
+  inputs 2
+  which {{control.mbChoice}}
+  name Switch2
+  xpos 834
+  ypos 1856
+ }
+ Remove {
+  channels motionShk
+  name Remove1
+  xpos 834
+  ypos 1881
+ }
+ Output {
+  name Output1
+  xpos 834
+  ypos 1932
+ }
+ Dot {
+  inputs 0
+  name Dot14
+  xpos 211
+  ypos 916
+ }
+push $N427b0490
+ Dot {
+  name Dot25
+  xpos -328
+  ypos -202
+ }
+ Dot {
+  name Dot27
+  xpos -298
+  ypos 833
+ }
+ Dot {
+  name Dot19
+  xpos -298
+  ypos 1002
+ }
+ Dot {
+  name Dot26
+  xpos -282
+  ypos 1666
+ }
+ NoOp {
+  name control
+  xpos -110
+  ypos 1584
+  addUserKnob {20 User}
+  addUserKnob {6 checkerBoard +STARTLINE}
+  checkerBoard true
+  addUserKnob {7 frequencyHF R 1 100}
+  frequencyHF 20
+  addUserKnob {14 global_amtHF R 0 100}
+  addUserKnob {7 global_amt}
+  global_amt 1
+  addUserKnob {7 scale_amount}
+  scale_amount 0.215
+  addUserKnob {7 rot_amount}
+  rot_amount 0.225
+  addUserKnob {14 translate R 0 100}
+  translate {{"frequency.h>0?(((( noise((frame+TransformOffsetX)*(1/(frequency.w/5)),0,5) + (frequency.w/5)) * amplitude.w)-(amplitude.w*(frequency.w/5)))*10+((( noise((frame+TransformOffsetX+1000)*(1/((frequency.w/100*frequencyHF*0.25))),0,5) + (frequency.w/100*frequencyHF*0.25)) * amplitude.w)-(amplitude.w*(frequency.w/100*frequencyHF*0.25)))*(global_amtHF/10))*global_amt:0" x1026 -6930281} {"frequency.h>0?((((noise((frame+TransformOffsetY+1000)*(1/((frequency.h/5))),0,5) + (frequency.h/5)) * amplitude.h)-(amplitude.h*(frequency.h/5)))*10+((( noise((frame+TransformOffsetY+2000)*(1/((frequency.h/100*frequencyHF*0.25))),0,5) + (frequency.h/100*frequencyHF*0.25)) * amplitude.h)-(amplitude.h*(frequency.h/100*frequencyHF*0.25)))*(global_amtHF/10))*global_amt:0"}}
+  addUserKnob {14 scale R 0 100}
+  scale {{frequencyScale>0?1+((scale_amount/10)*noise((frame+ScaleOffset)*(2/(frequencyScale/10)),0.5)*global_amt):1}}
+  addUserKnob {7 rotation}
+  rotation {{"frequencyRotation>0?(((rot_amount*100)* noise((frame+RotationOffset)*(1/(frequencyRotation/100)),0.5)) * rot_amount/3)*global_amt:0" x1026 0.225}}
+  addUserKnob {12 center}
+  center {{width/2 x1049 1930 x1066 1440} {height/2 x1049 1505 x1066 1080}}
+  addUserKnob {6 enableShake +STARTLINE}
+  enableShake true
+  addUserKnob {6 enableMotionBlur +STARTLINE}
+  enableMotionBlur true
+  addUserKnob {4 mbChoice l method M {"2d transform" "vector blur" "" ""}}
+  mbChoice "vector blur"
+  addUserKnob {6 useVectorInput +STARTLINE}
+  useVectorInput true
+  addUserKnob {26 ""}
+  addUserKnob {14 frequency l Transform R 0 100}
+  frequency 5.4
+  addUserKnob {7 frequencyScale R 1 100}
+  addUserKnob {7 frequencyRotation R 1 100}
+  addUserKnob {14 amplitude l Amplitude/Amount R 0 100}
+  amplitude 0.14
+  addUserKnob {7 TransformOffsetX R -50 50}
+  TransformOffsetX -9
+  addUserKnob {7 TransformOffsetY R -50 50}
+  TransformOffsetY -14
+  addUserKnob {7 ScaleOffset R -50 50}
+  addUserKnob {7 RotationOffset R -50 50}
+  RotationOffset -3
+ }
+push 0
+push 0
+push 0
+push 0
+push 0
+push 0
+push $N4029f820
+ Viewer {
+  inputs 8
+  channels motion
+  viewerProcess rec709
+  input_process false
+  name Viewer1
+  xpos 529
+  ypos 1114
+ }
 end_group
