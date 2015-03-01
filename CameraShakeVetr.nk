@@ -1,0 +1,411 @@
+# licence https://github.com/vfxwiki/maya2nukeLayoutCamera
+set cut_paste_input [stack 0]
+version 7.0 v6
+push $cut_paste_input
+Group {
+name Layout
+selected true
+xpos 423
+ypos 15293
+addUserKnob {20 User l Layout}
+addUserKnob {26 text01 l "" +STARTLINE T "OPEN THIS GROUP AND ADD LENS DISTORT BEFORE USING"}
+addUserKnob {26 ""}
+addUserKnob {41 channels T STMap6.channels}
+addUserKnob {41 format l "cg format" T Reformat8.format}
+addUserKnob {41 lensOut T Switch1.lensOut}
+addUserKnob {41 filter T Card3D2.filter}
+addUserKnob {41 removeFilteringArtifacts l "Remove Filtering Artifacts" -STARTLINE T Colorspace.removeFilteringArtifacts}
+addUserKnob {41 blackOutside T Merge1.blackOutside}
+addUserKnob {41 outputLayoutChannels l "Output Layout Channels" T Remove2.outputLayoutChannels}
+addUserKnob {26 ""}
+addUserKnob {41 method_1 l method T CONTROL.method}
+addUserKnob {41 format_1 l "| output format (method A)" -STARTLINE T Reformat4.format}
+addUserKnob {26 ""}
+addUserKnob {41 motionBlur T VectorBlur4.motionBlur}
+addUserKnob {41 scale l multiply T VectorBlur4.scale}
+addUserKnob {41 offset T VectorBlur4.offset}
+addUserKnob {41 grow_bbox l "grow bbox" T VectorBlur4.grow_bbox}
+addUserKnob {41 method T VectorBlur4.method}
+addUserKnob {20 Info}
+addUserKnob {26 instructions l instructions: T "txX=.filmTranslateH / txY=filmTranslateV\nrtX=filmRollValue / scX=postscale"}
+addUserKnob {26 ""}
+addUserKnob {26 release l release: T "v0.1b 12 July 2014 "}
+addUserKnob {26 author l author: T "initial: rafal kaniewski / last: rafal kaniewski"}
+addUserKnob {26 source l source: T https://github.com/vfxwiki/maya2nukeLayoutCamera}
+}
+Input {
+inputs 0
+name mmCam
+label 1
+xpos 237
+ypos -380
+number 1
+}
+Input {
+inputs 0
+name layoutAxis
+label 3
+xpos 485
+ypos -386
+number 3
+}
+Input {
+inputs 0
+name renderCam
+label 2
+xpos 362
+ypos -387
+number 2
+}
+Camera2 {
+inputs 0
+rotate {0 0 {"\[topnode parent.input3].rotate.x"}}
+focal {{"\[topnode parent.input2].focal"}}
+haperture {{"\[topnode parent.input1].haperture"}}
+vaperture {{"\[topnode parent.input2].vaperture"}}
+win_translate {{"\[topnode parent.input3].translate.x*CONTROL.fix" x1009 0 -0.0005272175767 -0.002082195366 -0.004624628462 -0.008113848977 -0.01251019444 -0.01777308062 -0.0238616094 -0.03073659539 -0.03835720941 -0.04668235406 -0.05567324907 -0.06528886408 -0.0754879266 -0.086232014 -0.09747989476 -0.1091901883 -0.1213247329 -0.1338421553 -0.1467009932 -0.1598632634 -0.1732875109 -0.1869321913 -0.2007594407 -0.2147277892 -0.2287956029 -0.2429251522 -0.2570748627 -0.2712031007 -0.2852722108 -0.2992405593 -0.313066572 -0.3267124891 -0.3401367366 -0.3532978296 -0.3661578298 -0.378675282 -0.3908087313 -0.4025200903 -25163.389 -0.4245111048 -0.4347111285 -0.4443267882 -0.4533168972 -0.4616428018 -0.4692634046 -0.4761377871 -0.4822269082 -0.4874897897 -0.4918857515 -0.495375365 -0.4979178011 -0.4994726777 -0.5} {"\[topnode parent.input3].translate.y*CONTROL.fix" x1009 0 -0.0005272175767 -0.002082195366 -0.004624628462 -0.008113848977 -0.01251019444 -0.01777308062 -0.0238616094 -0.03073659539 -0.03835720941 -0.04668235406 -0.05567324907 -0.06528886408 -0.0754879266 -0.086232014 -0.09747989476 -0.1091901883 -0.1213247329 -0.1338421553 -0.1467009932 -0.1598632634 -0.1732875109 -0.1869321913 -0.2007594407 -0.2147277892 -0.2287956029 -0.2429251522 -0.2570748627 -0.2712031007 -0.2852722108 -0.2992405593 -0.313066572 -0.3267124891 -0.3401367366 -0.3532978296 -0.3661578298 -0.378675282 -0.3908087313 -0.4025200903 -0.4137680233 -0.4245111048 -0.4347111285 -0.4443267882 -0.4533168972 -0.4616428018 -0.4692634046 -0.4761377871 -0.4822269082 -0.4874897897 -0.4918857515 -0.495375365 -0.4979178011 -0.4994726777 -0.5}}
+win_scale {{"1/\[topnode parent.input3].scaling.x" x1009 1 1.000527263 1.002082229 1.004624605 1.008113861 1.01251018 1.017773032 1.023861766 1.030736566 1.038357258 1.046682358 1.055673242 1.065288901 1.075487971 1.086232066 1.097479939 1.109190226 1.121324778 1.133842111 1.146700978 1.159863353 1.173287511 1.186932206 1.200759411 1.214727759 1.228795648 1.242925167 1.257074833 1.27120316 1.285272241 1.299240589 1.313066602 1.326712489 1.340136766 1.35329783 1.366157889 1.378675342 1.390808702 1.402520061 1.413767934 1.424511075 1.434711099 1.444326758 1.453316808 1.461642742 1.469263434 1.476137757 1.482226968 1.48748982 1.491885781 1.495375514 1.497917771 1.499472737 1.5} {win_scale.u x1009 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1}}
+version 50
+name LayoutCamera1
+xpos 934
+ypos 231
+}
+Reformat {
+inputs 0
+resize none
+name Reformat8
+label "CG RENDER FORMAT"
+xpos 705
+ypos -413
+}
+Expression {
+expr0 (x+0.5)/width
+expr1 (y+0.5)/height
+channel3 {rgba.alpha none none rgba.alpha}
+expr3 1
+name Expression2
+xpos 834
+ypos -350
+}
+NoOp {
+name put_lens
+tile_color 0xff00bfff
+label "undisort here\n\\\\/ \\\\/ \\\\/ \\\\/ \\\\/"
+xpos 834
+ypos -270
+}
+NoOp {
+name _put_lens
+tile_color 0xff00bfff
+label "undisort here\n/\\\\ /\\\\ /\\\\ /\\\\"
+xpos 834
+ypos 185
+}
+set N24213a40 [stack 0]
+Card3D {
+inputs 2
+lens_in_focal {{"\[topnode parent.input2].focal"}}
+lens_in_haperture {{"\[topnode parent.input2].haperture"}}
+format {{{parent.Reformat8.format}}}
+black_outside false
+name Card3D1
+xpos 1221
+ypos 288
+disable {{"!\[exists input0] | !\[exists input1] | !\[exists input2] | !\[exists input3]"}}
+}
+Camera2 {
+inputs 0
+rotate {0 0 {"\[topnode parent.input3].rotate.x"}}
+focal {{"\[topnode parent.input2].focal"}}
+haperture {{"\[topnode parent.input2].haperture"}}
+vaperture {{"\[topnode parent.input1].vaperture"}}
+win_translate {{"\[topnode parent.input3].translate.x*CONTROL.fix" x1009 0 -0.0005272175767 -0.002082195366 -0.004624628462 -0.008113848977 -0.01251019444 -0.01777308062 -0.0238616094 -0.03073659539 -0.03835720941 -0.04668235406 -0.05567324907 -0.06528886408 -0.0754879266 -0.086232014 -0.09747989476 -0.1091901883 -0.1213247329 -0.1338421553 -0.1467009932 -0.1598632634 -0.1732875109 -0.1869321913 -0.2007594407 -0.2147277892 -0.2287956029 -0.2429251522 -0.2570748627 -0.2712031007 -0.2852722108 -0.2992405593 -0.313066572 -0.3267124891 -0.3401367366 -0.3532978296 -0.3661578298 -0.378675282 -0.3908087313 -0.4025200903 -25163.389 -0.4245111048 -0.4347111285 -0.4443267882 -0.4533168972 -0.4616428018 -0.4692634046 -0.4761377871 -0.4822269082 -0.4874897897 -0.4918857515 -0.495375365 -0.4979178011 -0.4994726777 -0.5} {"\[topnode parent.input3].translate.y*CONTROL.fix" x1009 0 -0.0005272175767 -0.002082195366 -0.004624628462 -0.008113848977 -0.01251019444 -0.01777308062 -0.0238616094 -0.03073659539 -0.03835720941 -0.04668235406 -0.05567324907 -0.06528886408 -0.0754879266 -0.086232014 -0.09747989476 -0.1091901883 -0.1213247329 -0.1338421553 -0.1467009932 -0.1598632634 -0.1732875109 -0.1869321913 -0.2007594407 -0.2147277892 -0.2287956029 -0.2429251522 -0.2570748627 -0.2712031007 -0.2852722108 -0.2992405593 -0.313066572 -0.3267124891 -0.3401367366 -0.3532978296 -0.3661578298 -0.378675282 -0.3908087313 -0.4025200903 -0.4137680233 -0.4245111048 -0.4347111285 -0.4443267882 -0.4533168972 -0.4616428018 -0.4692634046 -0.4761377871 -0.4822269082 -0.4874897897 -0.4918857515 -0.495375365 -0.4979178011 -0.4994726777 -0.5}}
+win_scale {{"1/\[topnode parent.input3].scaling.x" x1009 1 1.000527263 1.002082229 1.004624605 1.008113861 1.01251018 1.017773032 1.023861766 1.030736566 1.038357258 1.046682358 1.055673242 1.065288901 1.075487971 1.086232066 1.097479939 1.109190226 1.121324778 1.133842111 1.146700978 1.159863353 1.173287511 1.186932206 1.200759411 1.214727759 1.228795648 1.242925167 1.257074833 1.27120316 1.285272241 1.299240589 1.313066602 1.326712489 1.340136766 1.35329783 1.366157889 1.378675342 1.390808702 1.402520061 1.413767934 1.424511075 1.434711099 1.444326758 1.453316808 1.461642742 1.469263434 1.476137757 1.482226968 1.48748982 1.491885781 1.495375514 1.497917771 1.499472737 1.5} {win_scale.u x1009 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1}}
+version 50
+name LayoutCamera2
+xpos 591
+ypos 299
+}
+set N333d9700 [stack 0]
+push $N24213a40
+Card3D {
+inputs 2
+lens_in_focal {{"\[topnode parent.input2].focal"}}
+lens_in_haperture {{"\[topnode parent.input2].haperture"}}
+format {{{parent.Reformat8.format}}}
+black_outside false
+name Card3D2
+xpos 838
+ypos 320
+disable {{"!\[exists input0] | !\[exists input1] | !\[exists input2] | !\[exists input3]" x1009 1}}
+}
+Switch {
+inputs 2
+which {{CONTROL.method}}
+name Switch2
+xpos 838
+ypos 353
+}
+Dot {
+name Dot4
+xpos 872
+ypos 383
+}
+set N7883bda0 [stack 0]
+Dot {
+name Dot6
+xpos 766
+ypos 383
+}
+BlackOutside {
+name BlackOutside2
+xpos 732
+ypos 450
+}
+push $N7883bda0
+add_layer {layoutAlpha layoutAlpha.red layoutAlpha.green layoutAlpha.blue layoutAlpha.alpha}
+AddChannels {
+channels {-layoutAlpha.red -layoutAlpha.green -layoutAlpha.blue layoutAlpha.alpha}
+name AddChannels3
+xpos 839
+ypos 406
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 layoutAlpha.alpha
+name Copy1
+xpos 838
+ypos 444
+}
+Reformat {
+format "2880 2160 0 0 2880 2160 1 HUN_Alexa_Sph_2160"
+center false
+name Reformat1
+label mmCam
+xpos 838
+ypos 490
+disable {{CONTROL.method}}
+}
+Remove {
+channels depth
+name Remove1
+xpos 838
+ypos 554
+}
+set N99bd96d0 [stack 0]
+Dot {
+name Dot1
+xpos 761
+ypos 563
+}
+Dot {
+name Dot2
+xpos 761
+ypos 1213
+}
+push $N99bd96d0
+NoOp {
+name put_lens_
+tile_color 0xff00bfff
+label "disort here\n\\\\/ \\\\/ \\\\/ \\\\/ \\\\/"
+xpos 838
+ypos 621
+}
+NoOp {
+name _put_lens_
+tile_color 0xff00bfff
+label "disort here\n/\\\\ /\\\\ /\\\\ /\\\\"
+xpos 838
+ypos 1129
+}
+Switch {
+inputs 2
+which {{lensOut}}
+name Switch1
+xpos 838
+ypos 1210
+addUserKnob {20 User}
+addUserKnob {4 lensOut M {Undistorted Distorted ""}}
+}
+add_layer {layoutUV layoutUV.u layoutUV.v}
+AddChannels {
+channels layoutUV
+name AddChannels4
+xpos 838
+ypos 1480
+}
+Shuffle {
+in rgb
+out layoutUV
+name Shuffle3
+xpos 838
+ypos 1516
+}
+Dot {
+name Dot8
+xpos 872
+ypos 1606
+}
+set N7c333820 [stack 0]
+Dot {
+name Dot7
+xpos 872
+ypos 1771
+}
+set N7c337690 [stack 0]
+Dot {
+name Dot3
+xpos 870
+ypos 1937
+}
+push $N7c337690
+push $N7c333820
+push $N333d9700
+Dot {
+name Dot5
+xpos 615
+ypos 1427
+}
+Input {
+inputs 0
+name plate
+label 0
+xpos 1250
+ypos -361
+}
+add_layer {layoutMotion layoutMotion.u layoutMotion.v}
+AddChannels {
+channels layoutMotion
+name AddChannels2
+xpos 1250
+ypos 1265
+}
+MotionBlur3D {
+inputs 2
+uv layoutMotion
+distance inf
+name MotionBlur3D1
+xpos 1251
+ypos 1424
+}
+Colorspace {
+channels all
+colorspace_out CIE-Lab
+name Colorspace
+xpos 1251
+ypos 1547
+disable {{!removeFilteringArtifacts}}
+addUserKnob {20 User}
+addUserKnob {6 removeFilteringArtifacts +STARTLINE}
+}
+STMap {
+inputs 2
+uv layoutUV
+name STMap6
+xpos 1161
+ypos 1597
+}
+Colorspace {
+channels all
+colorspace_in CIE-Lab
+name Colorspace2
+xpos 1251
+ypos 1654
+disable {{!Colorspace.removeFilteringArtifacts}}
+}
+Merge2 {
+inputs 2
+operation mask
+bbox A
+Achannels layoutAlpha
+name Merge1
+xpos 1251
+ypos 1768
+disable {{!blackOutside x1025 1}}
+addUserKnob {20 User}
+addUserKnob {6 blackOutside +STARTLINE}
+blackOutside true
+}
+VectorBlur {
+uv layoutMotion
+scale 0.9
+offset 0
+name VectorBlur4
+xpos 1247
+ypos 1860
+disable {{motionBlur x1037 1}}
+addUserKnob {20 User}
+addUserKnob {4 motionBlur M {on off ""}}
+motionBlur off
+}
+Copy {
+inputs 2
+from0 layoutUV.u
+to0 layoutUV.u
+from1 layoutUV.v
+to1 layoutUV.v
+bbox B
+name Copy3
+xpos 1250
+ypos 1922
+}
+Remove {
+channels layoutMotion
+channels2 layoutUV
+name Remove2
+xpos 1250
+ypos 2260
+disable {{outputLayoutChannels}}
+addUserKnob {20 User}
+addUserKnob {6 outputLayoutChannels l "Output Layout Channels" +STARTLINE}
+outputLayoutChannels true
+}
+Remove {
+channels layoutAlpha
+name Remove3
+xpos 1250
+ypos 2326
+}
+Output {
+name Output1
+xpos 1250
+ypos 2397
+}
+Card2 {
+inputs 0
+z 1
+lens_in_focal 18
+lens_in_haperture {{"\[topnode parent.input2].haperture"}}
+lens_in_power 2
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card4
+label "\n"
+xpos 1071
+ypos 203
+disable true
+}
+NoOp {
+inputs 0
+name CONTROL
+selected true
+xpos 1045
+ypos 388
+addUserKnob {20 User}
+addUserKnob {7 fix}
+fix {{method?1:ratioDiff}}
+addUserKnob {7 ratioDiff}
+ratioDiff {{"(\[topnode parent.input2].focal/\[topnode parent.input2].haperture)/(\[topnode parent.input1].focal/\[topnode parent.input1].haperture)"}}
+addUserKnob {4 method M {A B "" "" "" "" "" "" ""}}
+}
+end_group
