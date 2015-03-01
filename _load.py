@@ -194,7 +194,7 @@ def runPane():
     paneExistsCheck = nuke.getPaneFor('org.vfxwiki.nuketoolkit')
     if not paneExistsCheck:
         pane = nuke.getPaneFor('Properties.1')
-        nukescripts.registerWidgetAsPanel('toolSetWidget', 'Web Tools', 'org.vfxwiki.nuketoolkit', True).addToPane(pane)
+        nukescripts.registerWidgetAsPanel('toolSetWidget', 'openNuke', 'org.vfxwiki.nuketoolkit', True).addToPane(pane)
     else:
         nuke.message("errr. unable to load pane, as it already exists. \nClose the 'WebTools' pane, and try again.")
 
