@@ -1,0 +1,15 @@
+
+{
+"type": "nodes",
+"category": "transform",
+"label": "cameraShakeVetr",
+"file": "cameraShakeVetr.nk",
+"tooltip": "Another 2D Camera Shake Tool for Nuke Features:/n* use either vector Blur or 2d transform motion blur/n* combine vectors from an input with camera shake vectors for motion blur/n*presets/n* tiling/n* pre-transform paramaters (i.e. to scale the image)/n* combining two noise patterns together i.e. a small vibration shake with a hand-held shake./n* being able to view the output curves with time offsets to place the big 'bumps' at the right moment in time/n* separate amplitude and frequency for Transform, scale and rotation.",
+"originalAuthor": "Rafal Kaniewski",
+"dateCreated": "01/01/2015",
+"status": "stable",
+"documentation": "http: //opennuke.github.io/cameraShakeVetr_nk/",
+"licence": "https: //github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "https: //github.com/vfxwiki/cameraShakeVetr",
+"call": ""
+}
