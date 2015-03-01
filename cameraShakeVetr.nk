@@ -1,4 +1,4 @@
-# licence https://github.com/vfxwiki/maya2nukeLayoutCamera
+#  licence https://github.com/vfxwiki/maya2nukeLayoutCamera
 set cut_paste_input [stack 0]
 version 7.0 v6
 push $cut_paste_input
