@@ -22,12 +22,11 @@ Group {
  addUserKnob {41 out l "normal out" T MakeBump.out}
  addUserKnob {6 normalise -STARTLINE}
  addUserKnob {20 Info}
- addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLKIT +++"}
  addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open('http://www.nukepedia.com/gizmos/other/bumpnormals')" +STARTLINE}
  addUserKnob {26 ""}
  addUserKnob {26 version l version: T 1.0}
  addUserKnob {26 created l created: T "15/06/2010 by <a href=\\'http://www.nukepedia.com/gizmos/other/bumpnormals'> Michael Garrett.</a>"}
- addUserKnob {26 modified l "modified: " T " "}
+ addUserKnob {26 source l "source: " T "\http://www.nukepedia.com/gizmos/other/bumpnormals\"}
  addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  Input {
