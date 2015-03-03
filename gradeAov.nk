@@ -1,13 +1,15 @@
 set cut_paste_input [stack 0]
-version 9.0 v1
+version 8.0 v5
+push 0
 push $cut_paste_input
 Group {
+ inputs 2
  name AOVGrade
  help "Colour correct the CG beauty using the secondary(aov) passes.with a subtractive process.\nto be used when:\n * the CG is good and only a few passes need adjusting\n * the secondaries don't add up to the beauty\n * rgb saturation (luminance mix on)\n * rgb contrast (with pivot)\n * matting with external mask input or main channel input or both with an operation.\n The order of correction is: Grade Node>Contrast Node>Saturation."
  label "\[value in]\n"
  selected true
- xpos 2135
- ypos 171
+ xpos 950
+ ypos 520
  addUserKnob {20 User l AOVGrade}
  addUserKnob {41 in l "Channel to use" T Shuffle.in}
  addUserKnob {41 AlsoGradeChannel l "Also Grade Channel" t "as well as grading the beauty bake the grade into the selected channel" T ShuffleCopy1.AlsoGradeChannel}
@@ -43,15 +45,15 @@ Group {
  addUserKnob {26 ""}
  addUserKnob {41 alpha l "(un)premult by" T Unpremult1.alpha}
  addUserKnob {41 mixBlend l mix T Blend1.mixBlend}
-addUserKnob {20 Info}
-addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
-addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"https://github.com/vfxwiki/gradeAOV/\")" +STARTLINE}
-addUserKnob {26 ""}
-addUserKnob {26 version l version: T "0.1 Stable"}
-addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
-addUserKnob {26 modified l "modified: " T " "}
-addUserKnob {26 source l source: T "<a href='http://opennuke.github.io/gradeAov_nk/'> Github.com</a>"}
-addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
+ addUserKnob {20 Info}
+ addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLSET +++"}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"https://github.com/vfxwiki/gradeAOV/\")" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 version l version: T "0.1 Stable"}
+ addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
+ addUserKnob {26 modified l "modified: " T " "}
+ addUserKnob {26 source l source: T "<a href='http://opennuke.github.io/gradeAov_nk/'> Github.com</a>"}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  Input {
   inputs 0
@@ -64,7 +66,7 @@ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/tool
   xpos -186
   ypos -550
  }
-set N38a3b480 [stack 0]
+set N60964bc0 [stack 0]
  Unpremult {
   alpha -rgba.alpha
   name Unpremult1
@@ -78,7 +80,7 @@ set N38a3b480 [stack 0]
   xpos -457
   ypos -473
  }
-set N38a47280 [stack 0]
+set N609652a0 [stack 0]
  Dot {
   name Dot26
   xpos -649
@@ -91,9 +93,10 @@ set N38a47280 [stack 0]
   xpos -680
   ypos -419
  }
-set N38a4f6a0 [stack 0]
+set N539c20f0 [stack 0]
  Grade {
   channels all
+  multiply 4
   enable_mix_luminance false
   name Grade27
   xpos -680
@@ -104,13 +107,13 @@ set N38a4f6a0 [stack 0]
   expr1 "pow(g/grey, value+1)*grey"
   expr2 "pow(b/grey, value+1)*grey"
   name contrast
-  selected true
   xpos -680
   ypos -319
   addUserKnob {20 User}
   addUserKnob {7 grey}
   grey 0.18
   addUserKnob {18 value R -1 1}
+  value {0 0 0}
   addUserKnob {6 value_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  }
  ColorCorrect {
@@ -120,27 +123,27 @@ set N38a4f6a0 [stack 0]
   xpos -680
   ypos -273
  }
-set N38a76120 [stack 0]
+set N539c2b40 [stack 0]
  Dot {
   name Dot6
   xpos -649
   ypos 89
  }
-push $N38a3b480
+push $N60964bc0
  Dot {
   name Dot2
   xpos -189
   ypos -321
  }
-set N38a8aa10 [stack 0]
+set N539c3220 [stack 0]
  Dot {
   name Dot3
   xpos -319
   ypos -321
  }
-push $N38a76120
-push $N38a4f6a0
-push $N38a47280
+push $N539c2b40
+push $N539c20f0
+push $N609652a0
  Merge2 {
   inputs 2
   operation from
@@ -184,21 +187,7 @@ push $N38a47280
   addUserKnob {7 mixBlend}
   mixBlend 1
  }
-set N38ab8f30 [stack 0]
-push $N38a3b480
- Dot {
-  name Dot5
-  xpos -135
-  ypos -550
- }
- Invert {
-  name InvertChannel
-  xpos -166
-  ypos -377
-  disable {{!mask_1}}
-  addUserKnob {20 User}
-  addUserKnob {6 mask_1 l mask +STARTLINE}
- }
+set N350e4c70 [stack 0]
  Input {
   inputs 0
   name mask
@@ -206,10 +195,48 @@ push $N38a3b480
   ypos -641
   number 1
  }
+set N350e56c0 [stack 0]
+push $N350e56c0
+ Multiply {
+  value 0
+  name Multiply1
+  xpos 70
+  ypos -568
+ }
+ Switch {
+  inputs 2
+  which {{"\[exists parent.input1.name]" x45 1}}
+  name Switch2
+  xpos -20
+  ypos -497
+ }
  Invert {
   name InverMask
   xpos -20
   ypos -441
+  disable {{!mask_1}}
+  addUserKnob {20 User}
+  addUserKnob {6 mask_1 l mask +STARTLINE}
+ }
+push $N60964bc0
+ Dot {
+  name Dot5
+  xpos -135
+  ypos -550
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle2
+  xpos -169
+  ypos -504
+ }
+ Invert {
+  name InvertChannel
+  xpos -169
+  ypos -379
   disable {{!mask_1}}
   addUserKnob {20 User}
   addUserKnob {6 mask_1 l mask +STARTLINE}
@@ -240,6 +267,7 @@ push $N38a3b480
   ChannelMerge {
    inputs 2
    A none
+   operation max
    B none
    name ChannelMerge
    selected true
@@ -255,21 +283,16 @@ push $N38a3b480
    ypos -55
   }
  end_group
- Dot {
-  name Dot4
-  xpos 14
-  ypos -340
- }
-set N39404d00 [stack 0]
  Shuffle {
-  red white
-  out alpha
+  red black
+  green black
+  blue black
   name Shuffle1
   xpos -20
   ypos -289
   disable {{!ChannelMerge.off K x22 1}}
  }
-push $N38ab8f30
+push $N350e4c70
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -283,7 +306,7 @@ push $N38ab8f30
   xpos -20
   ypos -88
  }
-push $N38a8aa10
+push $N539c3220
  Merge2 {
   inputs 2
   name Merge1
@@ -292,9 +315,10 @@ push $N38a8aa10
  }
  Switch {
   inputs 2
+  which {{Group1.A|Group1.B>0?1:0}}
   name Switch1
-  xpos -275
-  ypos -3
+  selected true
+  xpos -268
  }
  ShuffleCopy {
   inputs 2
@@ -315,14 +339,5 @@ push $N38a8aa10
   name Output1
   xpos -220
   ypos 208
- }
-push $N39404d00
- Viewer {
-  frame_range 1-115
-  fps 25
-  channels alpha
-  name Viewer1
-  xpos 207
-  ypos 152
  }
 end_group
