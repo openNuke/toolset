@@ -1,4 +1,4 @@
-set cut_paste_input [stack 0]
+set cut_paste_input [stack 0] 
 version 8.0 v5
 push 0
 push $cut_paste_input
