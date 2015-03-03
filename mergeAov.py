@@ -211,8 +211,3 @@ def executeScript():
     mainBeautyLayer = 0
     sGroup = []
     isGroup = True
-    
-    
-    
-
-executeScript()
