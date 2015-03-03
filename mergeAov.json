@@ -1,0 +1,14 @@
+{
+    "type": "python",
+    "category": "Node Graph Layout",
+    "file": "mergeAovs.py",
+    "tooltip": "Merge Selected Read nodes into one multi-channel pipe",
+    "originalAuthor": "<a href='https://zabander.wordpress.com'>Jose A. Enriquez</a>",
+    "dateCreated": "21/11/2014",
+    "status": "stable",
+    "documentation": "http://opennuke.github.io/mergeAov/",
+    "licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+    "source": "v1.0  http://www.nukepedia.com/python/render/exr-merge-ztools",
+    "call": "executeScript()",
+    "label": "merge AOV"
+}
