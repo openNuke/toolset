@@ -14,23 +14,29 @@ mainBeautyLayer = 0
 sGroup = []
 isGroup = True
 nIncrement = 1
+splitString =''
+removeFront=''
+removeBack=''
 
 #Permite seleccionar al passe beauty
 
 def mainBeauty():
+    global  removeFront,removeBack,splitString
     try:
         for nodes in lista:
             dic[nodes] = os.path.split(nodes.knob('file').value())[1]
         
         p = nuke.Panel('ExrMerge by Zabander')
         p.addEnumerationPulldown('BeautyLayer', dic.values())
-        
+        p.addSingleLineInput('splitString', '_')
+        p.addEnumerationPulldown('removeFront', '4 0 1 2 3 4 5 6 7')
+        p.addEnumerationPulldown('removeBack', '2 0 1 2 3 4 5 6 7')
         ret = p.show()
         c = p.value('BeautyLayer')
-        #print c
+        splitString =p.value('splitString')
+        removeFront=p.value('removeFront')
+        removeBack=p.value('removeBack')
         result = c.split("'")[1]
-        #print result
-        #print dic.values()[1]
         for mKey, name in dic.items():
             if result == name:
                 global mainBeautyLayer
@@ -67,7 +73,6 @@ def readNodes():
     except:
         isGroup = False
         
-#print lista
 
 
 #Define el nombre del nodo a ser usado
@@ -80,12 +85,13 @@ def name(nodo):
     extentionsplited2 = extentionsplited[0].split("%")
     nameLayer = extentionsplited2[0]
     currentlayerName = str(nameLayer)
-    #print currentlayerName
+
 
 #Generar Shuffle y transferir atributos
 
 def exrCompile (x, y):
-    global node, sGroup
+    global node, sGroup,removeFront,removeBack,splitString
+
     s1 = nuke.nodes.ShuffleCopy()
     sGroup.append(s1)
     s1.autoplace()
@@ -93,19 +99,22 @@ def exrCompile (x, y):
         s1.setInput( 0, node)
         s1.setInput( 1, node2)
         chan =  s1["in2"].value()
-        #print s1
         s1["red"].setValue('red')
         s1["green"].setValue('green')
         s1["blue"].setValue('blue')
         s1["alpha"].setValue('alpha')
         name(node2)
-        currentlayerNameRed = str(currentlayerName) + ".red"
-        currentlayerNameGreen = str(currentlayerName) + ".green"
-        currentlayerNameBlue = str(currentlayerName) + ".blue"
-        currentlayerNameAlpha = str(currentlayerName) + ".alpha"
+        nameTemp=''
+        listTemp=str.split(currentlayerName,'_')
+        for x in range(int(float(removeFront)),len(listTemp)-int(float(removeBack)),1):
+            nameTemp= nameTemp+'_'+list[x]
+        currentlayerNameRed = str(nameTemp) + ".red"
+        currentlayerNameGreen = str(nameTemp) + ".green"
+        currentlayerNameBlue = str(nameTemp) + ".blue"
+        currentlayerNameAlpha = str(nameTemp) + ".alpha"
          
-        nuke.Layer(currentlayerName,[currentlayerNameRed, currentlayerNameGreen,currentlayerNameBlue, currentlayerNameAlpha])
-        s1["out"].setValue(currentlayerName)              
+        nuke.Layer(nameTemp,[currentlayerNameRed, currentlayerNameGreen,currentlayerNameBlue, currentlayerNameAlpha])
+        s1["out"].setValue(nameTemp)              
         node = s1
         node.knob("selected").setValue(False)
         node2.knob("selected").setValue(False)  
@@ -120,8 +129,7 @@ def selector():
         global add
         global node2
         node2 = lista[add]
-        #print node.name()
-        #print node2.name()
+
 
         exrCompile(node, node2)
         if add < len(lista):
@@ -132,42 +140,6 @@ def selector():
         
         item.knob("selected").setValue(False) 
     
-   
-
-
-#Crea un path para guardar el render automatico
-def renderPath():
-    global newdir
-    totalPath = os.path.split(lista[0].knob("file").value())[0]
-    totalName =  os.path.split(lista[0].knob("file").value())[1]
-    splitExt = totalName.split(".")
-    splitNum = splitExt[0].split("%")
-    nameFile = splitNum[0] + "_%04d.exr"
-   
-    path = totalPath + "/" + "nukeCompiledExrFiles"  + "/" 
-    newdir = os.path.join(path, nameFile)
-    #print newdir
-    if not os.path.exists(path): 
-        os.makedirs(path)
-    else:
-        pass
-    
-#Crear nodo write con especificaciones
-def renderOut():
-    if len(lista) >= 2:
-        a = nuke.createNode("Write")      
-        a.connectInput(0, node)
-        nuke.connectViewer(0, node)
-        a["channels"].setValue("all")
-        a["file_type"].setValue("exr")
-        a.autoplace()
-        renderPath()
-        a["file"].setValue(newdir)
-    else:
-        pass
-
-
-
 def makeGroup(): 
     if len(lista) >= 2:
         global node, nIncrement
@@ -176,25 +148,20 @@ def makeGroup():
         node = nuke.collapseToGroup(show=False)
         node.autoplace()
         gName = node.name()
-        #print gName
         nuke.toNode(gName)["name"].setValue("Exr Merge %s" %nIncrement)
         nIncrement += 1
         #node.lock_connections(True)
-        #print node
     else:
         pass
 
 
 def executeScript():
     readNodes()
-    #print nIncrement
     global lista, add, node, node2, currentlayerName, newdir, dic, mainBeautyLayer, sGroup, isGroup
-    print isGroup
+    global splitString, removeFront,removeBack
     if len(lista) >= 2 and isGroup == True:
         selector()
         makeGroup()
-        renderOut()
-        print "Done"
        
     else:
         print "Process Stopped"
@@ -211,3 +178,5 @@ def executeScript():
     mainBeautyLayer = 0
     sGroup = []
     isGroup = True
+
+executeScript()
