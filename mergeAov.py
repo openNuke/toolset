@@ -1,6 +1,7 @@
 #ExrMerge v1.0
 #Desarrollado por Jose A. Enriquez (Zabander) 21-11-2014.
 #hacked by Rafal 1)removed the write node 2)added stringSplit to tidy the name to remove version, show, shot
+#todo change into class, do noBeauty, make gui
 
 import os
 import nuke
@@ -22,13 +23,13 @@ removeBack=''
 #Permite seleccionar al passe beauty
 
 def mainBeauty():
-    global  removeFront,removeBack,splitString
+    global  removeFront,removeBack,splitString,mainBeautyLayer
     try:
         for nodes in lista:
             dic[nodes] = os.path.split(nodes.knob('file').value())[1]
         
         p = nuke.Panel('ExrMerge by Zabander')
-        p.addEnumerationPulldown('BeautyLayer', dic.values())
+        p.addEnumerationPulldown('BeautyLayer', dic.values()+['noBeauty'])
         p.addSingleLineInput('splitString', '_')
         p.addEnumerationPulldown('removeFront', '4 0 1 2 3 4 5 6 7')
         p.addEnumerationPulldown('removeBack', '2 0 1 2 3 4 5 6 7')
@@ -65,7 +66,10 @@ def readNodes():
                      nuke.message("One of your nodes is not a read node: %s, it will be excluded." % node.name())
         
             mainBeauty()
-            beautyIndex = lista.index(mainBeautyLayer)
+            if mainBeautyLayer=='0':
+                nuke.ask('err broken.. sorry')
+            else:
+                beautyIndex = lista.index(mainBeautyLayer)
             lista[beautyIndex], lista[0] = lista[0], lista[beautyIndex]   
             node = lista[0]  
             node.knob("selected").setValue(False)
@@ -106,9 +110,10 @@ def exrCompile (x, y):
         s1["alpha"].setValue('alpha')
         name(node2)
         nameTemp=''
+        listTemp=[]
         listTemp=str.split(currentlayerName,'_')
         for x in range(int(float(removeFront)),len(listTemp)-int(float(removeBack)),1):
-            nameTemp= nameTemp+'_'+list[x]
+            nameTemp= nameTemp+'_'+listTemp[x]
         currentlayerNameRed = str(nameTemp) + ".red"
         currentlayerNameGreen = str(nameTemp) + ".green"
         currentlayerNameBlue = str(nameTemp) + ".blue"
@@ -129,6 +134,7 @@ def selector():
     for item in lista[1:]:
         global add
         global node2
+        global mainBeautyLayer
         node2 = lista[add]
 
 
@@ -138,7 +144,8 @@ def selector():
         else:
             add =+ add + 0
             pass
-        
+        if mainBeautyLayer=='0':
+            pass
         item.knob("selected").setValue(False) 
     
 def makeGroup(): 
