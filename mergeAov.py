@@ -1,7 +1,7 @@
 #ExrMerge v1.0
 #Desarrollado por Jose A. Enriquez (Zabander) 21-11-2014.
 #hacked by Rafal 1)removed the write node 2)added stringSplit to tidy the name to remove version, show, shot
-#todo change into class, do noBeauty, make gui
+#todo change into class, do noBeauty, make gui, new group name
 
 import os
 import nuke
