@@ -1,0 +1,164 @@
+set cut_paste_input [stack 0]
+version 8.0 v5
+push $cut_paste_input
+Group {
+ name VrayShadows
+ selected true
+ xpos 2059
+ ypos 3031
+ addUserKnob {20 VrayShadows}
+ addUserKnob {41 in l "Shadow Channel" T ShuffleAO3.in}
+ addUserKnob {41 multiply T Grade13.multiply}
+ addUserKnob {26 line l AO}
+ addUserKnob {41 in_1 l "AO Channel" T ShuffleAO2.in}
+ addUserKnob {41 in_2 l "GI Channel" T ShuffleGI3.in}
+ addUserKnob {41 multiplyAO l multiply T MultiplyAO.multiplyAO}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 257
+  ypos 340
+ }
+ Unpremult {
+  channels all
+  name Unpremult21
+  xpos 257
+  ypos 380
+ }
+ Dot {
+  name Dot41
+  xpos 291
+  ypos 426
+ }
+set Na75df580 [stack 0]
+ Dot {
+  name Dot42
+  xpos 181
+  ypos 426
+ }
+set Na75df8f0 [stack 0]
+ Dot {
+  name Dot31
+  xpos 102
+  ypos 426
+ }
+ Shuffle {
+  in none
+  name ShuffleAO3
+  xpos 68
+  ypos 819
+ }
+set Na75dffd0 [stack 0]
+ Grade {
+  name Grade13
+  xpos 68
+  ypos 907
+ }
+ Dot {
+  name Dot32
+  xpos 102
+  ypos 1009
+ }
+push $Na75dffd0
+push $Na75df8f0
+ Shuffle {
+  in none
+  name ShuffleAO2
+  xpos 148
+  ypos 571
+ }
+push $Na75df580
+ Shuffle {
+  in none
+  name ShuffleGI3
+  xpos 257
+  ypos 489
+ }
+ Multiply {
+  value {{multiplyAO}}
+  name MultiplyAO
+  xpos 257
+  ypos 513
+  addUserKnob {20 User}
+  addUserKnob {7 multiplyAO l multiply R 0 1.25}
+ }
+set Na75e1100 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name MergeAO
+  xpos 258
+  ypos 571
+ }
+ Dot {
+  name Dot43
+  xpos 292
+  ypos 752
+ }
+push $Na75e1100
+ Dot {
+  name Dot44
+  xpos 359
+  ypos 522
+ }
+ Dot {
+  name Dot45
+  xpos 359
+  ypos 628
+ }
+push $Na75df580
+ Dot {
+  name Dot46
+  xpos 436
+  ypos 426
+ }
+ Dot {
+  name Dot47
+  xpos 436
+  ypos 563
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge22
+  xpos 402
+  ypos 625
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge23
+  xpos 402
+  ypos 749
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge17
+  xpos 402
+  ypos 819
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge18
+  xpos 402
+  ypos 1006
+ }
+ Premult {
+  name Premult6
+  xpos 402
+  ypos 1088
+  disable {{Unpremult21.disable}}
+ }
+ Output {
+  name Output1
+  xpos 402
+  ypos 1188
+ }
+end_group
