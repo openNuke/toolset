@@ -1,18 +1,18 @@
-set cut_paste_input [stack 0] 
+set cut_paste_input [stack 0]
 version 8.0 v5
-push 0
 push $cut_paste_input
+add_layer {_bulldozer_VRayLighting _bulldozer_VRayLighting.red _bulldozer_VRayLighting.green _bulldozer_VRayLighting.blue _bulldozer_VRayLighting.alpha}
 Group {
- inputs 2
  name AOVGrade
  help "Colour correct the CG beauty using the secondary(aov) passes.with a subtractive process.\nto be used when:\n * the CG is good and only a few passes need adjusting\n * the secondaries don't add up to the beauty\n * rgb saturation (luminance mix on)\n * rgb contrast (with pivot)\n * matting with external mask input or main channel input or both with an operation.\n The order of correction is: Grade Node>Contrast Node>Saturation."
- label "\[value in]\n"
+ label " \[value in]"
  selected true
- xpos 950
- ypos 520
+ xpos 2261
+ ypos 3101
  addUserKnob {20 User l AOVGrade}
  addUserKnob {41 in l "Channel to use" T Shuffle.in}
- addUserKnob {41 AlsoGradeChannel l "Also Grade Channel" t "as well as grading the beauty bake the grade into the selected channel" T ShuffleCopy1.AlsoGradeChannel}
+ addUserKnob {41 out T Switch3.output}
+ addUserKnob {41 AlsoGradeChannel l "Also Grade Channel" t "as well as grading the beauty bake the grade into the selected channel" -STARTLINE T ShuffleCopy1.AlsoGradeChannel}
  addUserKnob {26 ""}
  addUserKnob {41 blackpoint T Grade27.blackpoint}
  addUserKnob {41 whitepoint T Grade27.whitepoint}
@@ -56,21 +56,136 @@ Group {
 }
  Input {
   inputs 0
+  name mask
+  xpos -20
+  ypos -710
+  number 1
+ }
+ Input {
+  inputs 0
   name In
   xpos -217
-  ypos -639
+  ypos -722
  }
  Dot {
   name Dot1
   xpos -186
-  ypos -550
+  ypos -633
  }
-set N60964bc0 [stack 0]
+set N23e6d7e0 [stack 0]
+ Dot {
+  name Dot5
+  xpos -135
+  ypos -633
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle2
+  xpos -169
+  ypos -587
+ }
+set N23e6dec0 [stack 0]
+ Multiply {
+  value 0
+  name Multiply1
+  xpos 76
+  ypos -593
+ }
+ Switch {
+  inputs 2
+  which {{"\[exists parent.input1.name]" x45 1}}
+  name Switch2
+  xpos -20
+  ypos -497
+ }
+ Invert {
+  name InverMask
+  xpos -20
+  ypos -441
+  disable {{!mask_1}}
+  addUserKnob {20 User}
+  addUserKnob {6 mask_1 l mask +STARTLINE}
+ }
+push $N23e6dec0
+ Invert {
+  name InvertChannel
+  xpos -169
+  ypos -379
+  disable {{!mask_1}}
+  addUserKnob {20 User}
+  addUserKnob {6 mask_1 l mask +STARTLINE}
+ }
+ Group {
+  inputs 2
+  name Group1
+  xpos -20
+  ypos -373
+  addUserKnob {20 User}
+  addUserKnob {41 A l "A channel" T ChannelMerge.A}
+  addUserKnob {41 operation T ChannelMerge.operation}
+  addUserKnob {41 B l "B channel" T ChannelMerge.B}
+ }
+  Input {
+   inputs 0
+   name Input2
+   xpos -5
+   ypos -195
+   number 1
+  }
+  Input {
+   inputs 0
+   name Input1
+   xpos -5
+   ypos -195
+  }
+  ChannelMerge {
+   inputs 2
+   A none
+   operation max
+   B none
+   name ChannelMerge
+   xpos -5
+   ypos -155
+   addUserKnob {20 User}
+   addUserKnob {6 off +STARTLINE}
+   off {{"\[python nuke.thisNode()\\\['A'\\].value()\\ ==\\ 'none'\\ and\\ nuke.thisNode()\\\['B'\\].value()\\ ==\\ 'none']"}}
+  }
+  Output {
+   name Output1
+   xpos -5
+   ypos -55
+  }
+ end_group
+ Shuffle {
+  red black
+  green black
+  blue black
+  name Shuffle1
+  xpos -20
+  ypos -289
+  disable {{!ChannelMerge.off K x22 1}}
+ }
+push $N23e6d7e0
+ Dot {
+  name Dot2
+  xpos -189
+  ypos -321
+ }
+set Na75d9f90 [stack 0]
+ Dot {
+  name Dot3
+  xpos -319
+  ypos -321
+ }
+push $N23e6d7e0
  Unpremult {
   alpha -rgba.alpha
   name Unpremult1
   xpos -488
-  ypos -550
+  ypos -633
   disable {{!alpha x9 0}}
   addUserKnob {20 User}
  }
@@ -79,23 +194,22 @@ set N60964bc0 [stack 0]
   xpos -457
   ypos -473
  }
-set N609652a0 [stack 0]
+set Na75da9e0 [stack 0]
  Dot {
   name Dot26
   xpos -649
   ypos -473
  }
  Shuffle {
-  in none
+  in _bulldozer_VRayLighting
   out rgb
   name Shuffle
   xpos -680
   ypos -419
  }
-set N539c20f0 [stack 0]
+set Na75db0c0 [stack 0]
  Grade {
   channels all
-  multiply 4
   enable_mix_luminance false
   name Grade27
   xpos -680
@@ -122,27 +236,9 @@ set N539c20f0 [stack 0]
   xpos -680
   ypos -273
  }
-set N539c2b40 [stack 0]
- Dot {
-  name Dot6
-  xpos -649
-  ypos 89
- }
-push $N60964bc0
- Dot {
-  name Dot2
-  xpos -189
-  ypos -321
- }
-set N539c3220 [stack 0]
- Dot {
-  name Dot3
-  xpos -319
-  ypos -321
- }
-push $N539c2b40
-push $N539c20f0
-push $N609652a0
+set Na75dbb10 [stack 0]
+push $Na75db0c0
+push $Na75da9e0
  Merge2 {
   inputs 2
   operation from
@@ -186,112 +282,7 @@ push $N609652a0
   addUserKnob {7 mixBlend}
   mixBlend 1
  }
-set N350e4c70 [stack 0]
- Input {
-  inputs 0
-  name mask
-  xpos -20
-  ypos -641
-  number 1
- }
-set N350e56c0 [stack 0]
-push $N350e56c0
- Multiply {
-  value 0
-  name Multiply1
-  xpos 70
-  ypos -568
- }
- Switch {
-  inputs 2
-  which {{"\[exists parent.input1.name]" x45 1}}
-  name Switch2
-  xpos -20
-  ypos -497
- }
- Invert {
-  name InverMask
-  xpos -20
-  ypos -441
-  disable {{!mask_1}}
-  addUserKnob {20 User}
-  addUserKnob {6 mask_1 l mask +STARTLINE}
- }
-push $N60964bc0
- Dot {
-  name Dot5
-  xpos -135
-  ypos -550
- }
- Shuffle {
-  red black
-  green black
-  blue black
-  alpha black
-  name Shuffle2
-  xpos -169
-  ypos -504
- }
- Invert {
-  name InvertChannel
-  xpos -169
-  ypos -379
-  disable {{!mask_1}}
-  addUserKnob {20 User}
-  addUserKnob {6 mask_1 l mask +STARTLINE}
- }
- Group {
-  inputs 2
-  name Group1
-  xpos -20
-  ypos -373
-  addUserKnob {20 User}
-  addUserKnob {41 A l "A channel" T ChannelMerge.A}
-  addUserKnob {41 operation T ChannelMerge.operation}
-  addUserKnob {41 B l "B channel" T ChannelMerge.B}
- }
-  Input {
-   inputs 0
-   name Input2
-   xpos -5
-   ypos -195
-   number 1
-  }
-  Input {
-   inputs 0
-   name Input1
-   xpos -5
-   ypos -195
-  }
-  ChannelMerge {
-   inputs 2
-   A none
-   operation max
-   B none
-   name ChannelMerge
-   selected true
-   xpos -5
-   ypos -155
-   addUserKnob {20 User}
-   addUserKnob {6 off +STARTLINE}
-   off {{"\[python nuke.thisNode()\\\['A'\\].value()\\ ==\\ 'none'\\ and\\ nuke.thisNode()\\\['B'\\].value()\\ ==\\ 'none']"}}
-  }
-  Output {
-   name Output1
-   xpos -5
-   ypos -55
-  }
- end_group
- Shuffle {
-  red black
-  green black
-  blue black
-  name Shuffle1
-  xpos -20
-  ypos -289
-  disable {{!ChannelMerge.off K x22 1}}
- }
-push $N350e4c70
+set Na75dcc40 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -305,19 +296,58 @@ push $N350e4c70
   xpos -20
   ypos -88
  }
-push $N539c3220
+set Na75dd320 [stack 0]
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle3
+  xpos -18
+  ypos -13
+ }
+push $Na75db0c0
+ Dot {
+  name Dot4
+  xpos -833
+  ypos -411
+ }
+ Dot {
+  name Dot7
+  xpos -833
+  ypos 149
+ }
+ Switch {
+  inputs 2
+  which {{Switch3.output==2?1:0}}
+  name Switch4
+  xpos -25
+  ypos 128
+  addUserKnob {20 User}
+  addUserKnob {4 output M {"rgb graded by channel" "preview channel" "preview mask" "" ""}}
+  output "preview channel"
+  addUserKnob {6 viewchannelonly l "view channel only" +STARTLINE}
+ }
+push $Na75dbb10
+ Dot {
+  name Dot6
+  xpos -649
+  ypos 89
+ }
+push $Na75dd320
+push $Na75d9f90
  Merge2 {
   inputs 2
   name Merge1
   xpos -220
   ypos -88
  }
+push $Na75dcc40
  Switch {
   inputs 2
   which {{Group1.A|Group1.B>0?1:0}}
   name Switch1
-  selected true
   xpos -268
+  ypos 25
  }
  ShuffleCopy {
   inputs 2
@@ -328,15 +358,33 @@ push $N539c3220
   red2 blue
   out2 {{{Shuffle.in}}}
   name ShuffleCopy1
-  xpos -220
-  ypos 97
+  xpos -268
+  ypos 101
   disable {{!AlsoGradeChannel}}
   addUserKnob {20 User}
   addUserKnob {6 AlsoGradeChannel l "Also Grade Channel" +STARTLINE}
  }
+ Switch {
+  inputs 2
+  which {{output?1:0}}
+  name Switch3
+  xpos -268
+  ypos 163
+  addUserKnob {20 User}
+  addUserKnob {4 output M {"rgb graded by channel" "preview channel" "preview mask" "" ""}}
+  addUserKnob {6 viewchannelonly l "view channel only" +STARTLINE}
+ }
  Output {
   name Output1
-  xpos -220
-  ypos 208
+  xpos -269
+  ypos 261
+ }
+push $Na75dbb10
+ Viewer {
+  input_process false
+  name Viewer1
+  selected true
+  xpos -474
+  ypos -96
  }
 end_group
