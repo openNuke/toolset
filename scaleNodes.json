@@ -4,12 +4,12 @@
 "label": [
   "Scale+",
   "Scale-"
-  ]
+  ],
 "file": "scaleNodes.py",
 "call": [
     "scaleNodes.scaleNodes(3)",
     "scaleNodes.scaleNodes(-3)"
-    ]
+    ],
 "tooltip": "Contract and expand node connections, including backdrops.",
 "originalAuthor": "Frank Rueter",
 "dateCreated": "06/02/2012",
