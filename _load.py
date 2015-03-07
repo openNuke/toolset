@@ -91,6 +91,7 @@ class toolSetWidget(QtGui.QWidget):
         elif os.path.splitext(os.path.split(toolPath)[1])[1]==".py":
             print call
             runFunct = exec(self.toolData)
+            
             runFunct.call
             
 ########################                
