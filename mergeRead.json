@@ -1,8 +1,8 @@
 {
     "type": "python",
     "category": "Node Graph Layout",
-    "file": "mergeAovs.py",
-    "tooltip": "Merge Selected Read nodes into one multi-channel pipe",
+    "file": "mergeRead.py",
+    "tooltip": "Merge selected read nodes into one multi-channel pipe, extracting the name from the path using a 'split string'",
     "originalAuthor": "<a href='https://zabander.wordpress.com'>Jose A. Enriquez</a>",
     "dateCreated": "21/11/2014",
     "status": "stable",
