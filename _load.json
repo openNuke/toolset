@@ -26,7 +26,7 @@
         "uvTile",
         "maya2nukeLayoutCamera",
         "cameraShakeVetr",
-        "mergeAov"
+        "mergeWrite"
     ],
     "FAVOURITES": [
         "alignNodes",
