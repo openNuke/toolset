@@ -9,6 +9,6 @@
     "documentation": "http://opennuke.github.io/mergeAov/",
     "licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
     "source": "v1.0  http://www.nukepedia.com/python/render/exr-merge-ztools",
-    "call": "mergeAov.executeScript()",
+    "call": "executeScript()",
     "label": "merge AOV"
 }
