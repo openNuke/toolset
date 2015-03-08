@@ -95,10 +95,7 @@ class toolSetWidget(QtGui.QWidget):
             #exec(call)
             code_globals = {}
             code_locals = {}
-            exec self.toolData in code_globals, code_locals
-            #exec call in code_globals, code_locals
-            print code_locals
-            print "0pppppppo"
+            exec self.toolData in code_globals
             exec call
             
 ########################               
