@@ -100,7 +100,7 @@ class toolSetWidget(QtGui.QWidget):
             print code_locals
             code_globals.call
             
-########################                
+########################               
     
 class UI_enumerationSelect(nukescripts.PythonPanel):
     def __init__(self,labelChoices,title):
