@@ -99,7 +99,6 @@ class toolSetWidget(QtGui.QWidget):
             #exec call in code_globals, code_locals
             print code_locals
             print "0pppppppo"
-            print code_locals['alignNodes']
             exec call
             
 ########################               
