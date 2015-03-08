@@ -93,8 +93,7 @@ class toolSetWidget(QtGui.QWidget):
             #code_obj = compile(self.toolData,  '<string>, 'exec')
             #exec(code_obj) in globals(), locals()
             #exec(call)
-            exec(self.toolData)
-            exec(call)
+            exec(self.toolData+'\n'+call)
             
 ########################               
     
