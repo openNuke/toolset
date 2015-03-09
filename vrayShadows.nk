@@ -4,10 +4,10 @@ push $cut_paste_input
 Group {
  name VrayShadows
  selected true
- xpos 2059
- ypos 3031
+ xpos 1909
+ ypos 5359
  addUserKnob {20 VrayShadows}
- addUserKnob {41 in l "Shadow Channel" T ShuffleAO3.in}
+ addUserKnob {41 in l "Shadow Channel" T ShufflSshadows.in}
  addUserKnob {41 multiply T Grade13.multiply}
  addUserKnob {26 line l AO}
  addUserKnob {41 in_1 l "AO Channel" T ShuffleAO2.in}
@@ -17,27 +17,27 @@ Group {
  Input {
   inputs 0
   name Input1
-  xpos 257
-  ypos 340
+  xpos 258
+  ypos 307
  }
  Unpremult {
-  channels all
   name Unpremult21
-  xpos 257
-  ypos 380
+  xpos 256
+  ypos 357
  }
+set N60872ab0 [stack 0]
  Dot {
   name Dot41
-  xpos 291
+  xpos 289
   ypos 426
  }
-set Na75df580 [stack 0]
+set N60873190 [stack 0]
  Dot {
   name Dot42
   xpos 181
   ypos 426
  }
-set Na75df8f0 [stack 0]
+set N608772e0 [stack 0]
  Dot {
   name Dot31
   xpos 102
@@ -45,11 +45,18 @@ set Na75df8f0 [stack 0]
  }
  Shuffle {
   in none
-  name ShuffleAO3
-  xpos 68
-  ypos 819
+  in2 rgba
+  alpha alpha2
+  name ShufflSshadows
+  xpos 65
+  ypos 822
  }
-set Na75dffd0 [stack 0]
+ Unpremult {
+  name Unpremult3
+  xpos 68
+  ypos 843
+ }
+set N60873500 [stack 0]
  Grade {
   name Grade13
   xpos 68
@@ -60,55 +67,71 @@ set Na75dffd0 [stack 0]
   xpos 102
   ypos 1009
  }
-push $Na75dffd0
-push $Na75df8f0
+push $N60873500
+push $N608772e0
  Shuffle {
   in none
+  in2 rgba
+  alpha alpha2
   name ShuffleAO2
-  xpos 148
-  ypos 571
+  xpos 135
+  ypos 534
  }
-push $Na75df580
+ Unpremult {
+  name Unpremult2
+  xpos 135
+  ypos 558
+ }
+push $N60873190
  Shuffle {
   in none
+  in2 rgba
+  alpha alpha2
   name ShuffleGI3
-  xpos 257
-  ypos 489
+  xpos 251
+  ypos 474
+ }
+ Unpremult {
+  name Unpremult1
+  xpos 253
+  ypos 496
  }
  Multiply {
+  channels rgb
   value {{multiplyAO}}
   name MultiplyAO
-  xpos 257
-  ypos 513
+  xpos 256
+  ypos 529
   addUserKnob {20 User}
   addUserKnob {7 multiplyAO l multiply R 0 1.25}
+  multiplyAO 1
  }
-set Na75e1100 [stack 0]
+set N6086fe00 [stack 0]
  Merge2 {
   inputs 2
   operation multiply
   Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
   name MergeAO
-  xpos 258
-  ypos 571
+  xpos 253
+  ypos 617
  }
  Dot {
   name Dot43
   xpos 292
   ypos 752
  }
-push $Na75e1100
+push $N6086fe00
  Dot {
   name Dot44
   xpos 359
-  ypos 522
+  ypos 532
  }
  Dot {
   name Dot45
   xpos 359
   ypos 628
  }
-push $Na75df580
+push $N60873190
  Dot {
   name Dot46
   xpos 436
@@ -124,41 +147,50 @@ push $Na75df580
   operation from
   Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
   name Merge22
-  xpos 402
-  ypos 625
+  xpos 403
+  ypos 627
  }
  Merge2 {
   inputs 2
   operation plus
   Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
   name Merge23
-  xpos 402
-  ypos 749
+  xpos 401
+  ypos 750
  }
  Merge2 {
   inputs 2
   operation from
   Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
   name Merge17
-  xpos 402
-  ypos 819
+  xpos 401
+  ypos 836
  }
  Merge2 {
   inputs 2
   operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
   name Merge18
-  xpos 402
-  ypos 1006
+  xpos 397
+  ypos 1016
  }
  Premult {
   name Premult6
-  xpos 402
-  ypos 1088
+  xpos 403
+  ypos 1089
   disable {{Unpremult21.disable}}
  }
  Output {
   name Output1
   xpos 402
   ypos 1188
+ }
+push $N60872ab0
+ Viewer {
+  gain 12.4
+  input_process false
+  name Viewer1
+  xpos 480
+  ypos 303
  }
 end_group
