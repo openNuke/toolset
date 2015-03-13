@@ -1,7 +1,7 @@
 #ExrMerge v1.0
 #Desarrollado por Jose A. Enriquez (Zabander) 21-11-2014.
 #hacked by Rafal 1)removed the write node 2)added stringSplit to tidy the name to remove version, show, shot; 3) changed into class
-#todo , do noBeauty, make gui, new group name, bring back option to create write, fix error traps (i.e. if read not selected)
+#todo , do noBeauty, make gui, new group name, bring back option to create write, fix error traps (i.e. if read not selected); backStringSplit, clean ui
 
 class channelMergeFromRead():
     def __init__(self):
