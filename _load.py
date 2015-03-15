@@ -58,7 +58,7 @@ class toolSetWidget(QtGui.QWidget):
                                         rowCount += 1
                                     else:
                                         columnCount += 1
-                        while 0 < columnCount < 3:
+                        while 0 < columnCount < 2:
                                 grid.addWidget(QtGui.QLabel(''), rowCount, columnCount)
                                 columnCount += 1
                         print "button added: "+tool['file']
