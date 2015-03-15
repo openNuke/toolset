@@ -22,8 +22,10 @@ class toolSetWidget(QtGui.QWidget):
         self.toolsDict = toolSetData().toolsDict #ToDo pass this to the class before registering the pane
         self.tabs = QtGui.QTabWidget(self)
         self.scriptsTab = QtGui.QWidget()
-        self.nodesTab = QtGui.QWidget()           
+        self.nodesTab = QtGui.QWidget()  
+        self.scrolArea=QScrollArea()
         self.scriptsMainLayout = QtGui.QVBoxLayout() 
+        self.scriptsMainLayout.addWidget(self.scrolArea)
         self.nodesMainLayout = QtGui.QVBoxLayout()         
         for cat in ['nodes', 'python' ]: 
             self.widgetDict = {}
