@@ -9,6 +9,7 @@
     "documentation": "http://opennuke.github.io/alignNodes/",
     "licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
     "source": "v1.1 http://www.nukepedia.com/python/nodegraph/alignnodes/",
+    "originalVersion": "v1.1",
     "call": [
         "alignNodes( nuke.selectedNodes(), direction='x' )",
         "alignNodes( nuke.selectedNodes(), direction='y' )"
