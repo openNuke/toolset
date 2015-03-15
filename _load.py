@@ -42,6 +42,7 @@ class toolSetWidget(QtGui.QWidget):
                             stepRange = len(tool['label'])
                             toolLabel = tool['label']
                             toolCall = tool['call']
+                            columnCount += 1
                         else:
                              stepRange = 1 
                              toolLabel = [tool['label']]
@@ -53,15 +54,12 @@ class toolSetWidget(QtGui.QWidget):
                                     buttonRunner = lambda toolPath = tool['file'], call = toolCall[x]: self.runTool( toolPath, call )
                                     self.connect( button, QtCore.SIGNAL( 'clicked()' ), buttonRunner )                         
                                     self.widgetDict[type][toolLabel[x]] = button                                                 
-                                    if stepRange>1:
-                                        columnCount = 0
-                                        rowCount += 1                                    
-                                    elif columnCount == 2:
+                                    if columnCount == 2:
                                         columnCount = 0
                                         rowCount += 1
                                     else:
                                         columnCount += 1
-                        while 0 < columnCount < 3:
+                        while 0 < columnCount < 2:
                                 grid.addWidget(QtGui.QLabel(''), rowCount, columnCount)
                                 columnCount += 1
                         print "button added: "+tool['file']
