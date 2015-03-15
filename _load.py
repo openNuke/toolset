@@ -23,7 +23,7 @@ class toolSetWidget(QtGui.QWidget):
         self.tabs = QtGui.QTabWidget(self)
         self.scriptsTab = QtGui.QWidget()
         self.nodesTab = QtGui.QWidget()  
-        self.scrolArea=QScrollArea()
+        self.scrolArea= QtGui.QScrollArea()
         self.scriptsMainLayout = QtGui.QVBoxLayout() 
         self.scriptsMainLayout.addWidget(self.scrolArea)
         self.nodesMainLayout = QtGui.QVBoxLayout()         
