@@ -53,7 +53,10 @@ class toolSetWidget(QtGui.QWidget):
                                     buttonRunner = lambda toolPath = tool['file'], call = toolCall[x]: self.runTool( toolPath, call )
                                     self.connect( button, QtCore.SIGNAL( 'clicked()' ), buttonRunner )                         
                                     self.widgetDict[type][toolLabel[x]] = button                                                 
-                                    if columnCount == 2:
+                                    if stepRange>1:
+                                        columnCount = 0
+                                        rowCount += 1                                    
+                                    elif columnCount == 2:
                                         columnCount = 0
                                         rowCount += 1
                                     else:
