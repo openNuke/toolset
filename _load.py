@@ -71,7 +71,7 @@ class toolSetWidget(QtGui.QWidget):
                     self.scroll.setWidget(groupBox)
                     self.scroll.setWidgetResizable(True)
                     self.scroll.setFixedWidth(400)
-                    self.scriptsMainLayout  = QtGui.QVBoxLayout(self)
+                    self.scriptsMainLayout = QtGui.QVBoxLayout(self)
                     self.scriptsMainLayout .addWidget(self.scroll)
         
                     self.scriptsTab.setLayout(self.scriptsMainLayout)
