@@ -23,9 +23,9 @@ class toolSetWidget(QtGui.QWidget):
         self.tabs = QtGui.QTabWidget(self)
         self.scriptsTab = QtGui.QWidget()
         self.nodesTab = QtGui.QWidget()  
-        self.scrolArea= QtGui.QScrollArea()
+        self.scrollArea= QtGui.QScrollArea(self)
         self.scriptsMainLayout = QtGui.QVBoxLayout() 
-        self.scriptsMainLayout.addWidget(self.scrolArea)
+        self.scriptsMainLayout.addWidget(self.scrollArea)
         self.nodesMainLayout = QtGui.QVBoxLayout()         
         for cat in ['nodes', 'python' ]: 
             self.widgetDict = {}
