@@ -66,7 +66,7 @@ class toolSetWidget(QtGui.QWidget):
                         print "button added: "+tool['file']
                     groupBox.setLayout(grid)                    
                 if cat == 'python':
-                    self.scriptsMainLayout.addWidget(groupBox)
+
 
                     self.scroll.setWidget(groupBox)
                     self.scroll.setWidgetResizable(True)
