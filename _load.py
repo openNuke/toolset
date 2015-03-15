@@ -68,8 +68,8 @@ class toolSetWidget(QtGui.QWidget):
                 if cat == 'python':
 
 
-                    self.scroll.setWidget(groupBox)
-                    self.scroll.setWidgetResizable(True)
+                    #self.scroll.setWidget(groupBox)
+                    #self.scroll.setWidgetResizable(True)
         
                     self.scriptsMainLayout.addWidget(groupBox)
                     self.scriptsTab.setLayout(self.nodesMainLayout)
