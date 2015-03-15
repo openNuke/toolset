@@ -23,7 +23,7 @@ class toolSetWidget(QtGui.QWidget):
         self.tabs = QtGui.QTabWidget(self)
         self.scriptsTab = QtGui.QWidget()
         self.nodesTab = QtGui.QWidget()  
-        self.scroll= QtGui.QScrollArea(self)
+        self.scroll= QtGui.QScrollBar(self)
         self.scriptsMainLayout = QtGui.QVBoxLayout()    
         
         self.nodesMainLayout = QtGui.QVBoxLayout()         
@@ -70,7 +70,9 @@ class toolSetWidget(QtGui.QWidget):
                     
                     self.scroll.setWidget(groupBox)
                     self.scroll.setWidgetResizable(True)
-                    self.scroll.setFixedHeight(400)
+                    self.scroll.setFixedWidth(400)
+                    self.scroll.setHorizontalScrollBarPolicy(False)
+s                   self.scroll.setVerticalScrollBarPolicy(True)
                     self.scriptsMainLayout  = QtGui.QVBoxLayout(self)
                     self.scriptsMainLayout .addWidget(self.scroll)
         
