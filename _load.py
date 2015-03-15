@@ -71,8 +71,6 @@ class toolSetWidget(QtGui.QWidget):
                     self.scroll.setWidget(groupBox)
                     self.scroll.setWidgetResizable(True)
                     self.scroll.setFixedWidth(400)
-                    self.scroll.setHorizontalScrollBarPolicy(False)
-                    self.scroll.setVerticalScrollBarPolicy(True)
                     self.scriptsMainLayout  = QtGui.QVBoxLayout(self)
                     self.scriptsMainLayout .addWidget(self.scroll)
         
