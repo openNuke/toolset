@@ -1,7 +1,7 @@
 {
     "ALL TOOLS": [
-        "alignNodes",
-        "bokehVignette",
+        "alignNodes_py",
+        "bokehVignette_nk",
         "bumpNormals",
         "cam_presets",
         "cornerPin3D",
