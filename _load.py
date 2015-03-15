@@ -23,9 +23,9 @@ class toolSetWidget(QtGui.QWidget):
         self.tabs = QtGui.QTabWidget(self)
         self.scriptsTab = QtGui.QWidget()
         self.nodesTab = QtGui.QWidget()  
-        self.scrollArea= QtGui.QScrollArea(self)
-        self.scriptsMainLayout = QtGui.QVBoxLayout() 
-        self.scriptsMainLayout.addWidget(self.scrollArea)
+        self.scroll= QtGui.QScrollArea(self)
+        self.scriptsMainLayout = QtGui.QVBoxLayout()    
+        
         self.nodesMainLayout = QtGui.QVBoxLayout()         
         for cat in ['nodes', 'python' ]: 
             self.widgetDict = {}
@@ -67,6 +67,13 @@ class toolSetWidget(QtGui.QWidget):
                     groupBox.setLayout(grid)                    
                 if cat == 'python':
                     self.scriptsMainLayout.addWidget(groupBox)
+                    
+                    self.scroll.setWidget(groupBox)
+                    self.scroll.setWidgetResizable(True)
+                    self.scroll.setFixedHeight(400)
+                    self.scriptsMainLayout  = QtGui.QVBoxLayout(self)
+                    self.scriptsMainLayout .addWidget(self.scroll)
+        
                     self.scriptsTab.setLayout(self.scriptsMainLayout)
                 if cat == 'nodes':
                     self.nodesMainLayout.addWidget(groupBox)
