@@ -4,56 +4,58 @@ version 8.0 v5
 push $cut_paste_input
 NoOp {
  name curveGenerator
- knobChanged "\nn=nuke.thisNode()\nn\['RESULT'].setExpression(\"\[value \" +n\['waveType'].value()+\"]\")\n"
  selected true
- xpos 4064
- ypos 4323
+ xpos 4192
+ ypos 4278
  addUserKnob {20 curveGenerator}
  addUserKnob {22 setKnobChanged l INVISIBLE +INVISIBLE T "n=nuke.thisNode()\nn\['knobChanged'].setValue('''\nn=nuke.thisNode()\nn\['RESULT'].setExpression(\"\[value \" +n\['waveType'].value()+\"]\")\n'''\n)" +STARTLINE}
  addUserKnob {4 waveType M {random noise sine triangle square Bounce sawtooth sawtooth_parabolic sawtooth_parabolic_reversed sawtooth_exponential fbn turbulence "" "" "" "" "" ""}}
+ waveType noise
  addUserKnob {7 RESULT}
- RESULT {{"\[value random]" x14 0}}
+ RESULT {{"waveType==11?((turbulence((frame*frequency+timeOffset),seed+.001,seed+.001,octaves,5,gain)*2)*(maxAmplitude-minAmplitude))+minAmplitude:waveType==10?((fBm((frame*frequency+timeOffset),seed+.001,seed+.001,octaves,5,gain)+0.5)*(maxAmplitude-minAmplitude))+minAmplitude:waveType==9?(exp(2*pi*((frame*seed+timeOffset) % frequency)/frequency)-1)/exp(2*pi) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==8?cos((4.93480220054468*(frame*seed+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==7?sin((4.93480220054468*(frame*seed+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==6?((frame*seed+timeOffset) % frequency)/frequency * (maxAmplitude-minAmplitude) + minAmplitude:waveType==5?abs(sin(pi*(frame*seed + timeOffset)/frequency))* (maxAmplitude-minAmplitude) + minAmplitude:waveType==4?int(sin(2*pi*(frame*seed+timeOffset)/frequency)+1) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==3?(asin(sin(2*pi*(frame*seed+timeOffset)/frequency))/pi+0.5) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==2?(sin(2*pi*(frame*seed+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude:waveType==1?(noise((frame*seed+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude:waveType==0?random((frame*seed+timeOffset)/frequency) *(maxAmplitude-minAmplitude) +minAmplitude:0" i x14 0}}
+ addUserKnob {26 text l height}
  addUserKnob {7 maxAmplitude R 0 10}
  maxAmplitude 1
  addUserKnob {20 expressions l INVISIBLE +INVISIBLE n 1}
  addUserKnob {7 square l INVISIBLE +INVISIBLE}
- square {{"int(sin(2*pi*(frame*seed+timeOffset)/waveLength)+1) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
+ square {{"int(sin(2*pi*(frame*seed+timeOffset)/frequency)+1) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
  addUserKnob {7 sine l INVISIBLE +INVISIBLE}
- sine {{"(sin(2*pi*(frame*seed+timeOffset)/waveLength)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude" i}}
+ sine {{"(sin(2*pi*(frame*seed+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude" i}}
  addUserKnob {7 turbulence l INVISIBLE +INVISIBLE}
- turbulence {{((turbulence((frame*waveLength+timeOffset),seed+.001,seed+.001,octaves,5,gain)*2)*(maxAmplitude-minAmplitude))+minAmplitude i x128 -617791.3}}
+ turbulence {{((turbulence((frame*frequency+timeOffset),seed+.001,seed+.001,octaves,5,gain)*2)*(maxAmplitude-minAmplitude))+minAmplitude i x128 -617791.3}}
  addUserKnob {7 fbn l INVISIBLE +INVISIBLE}
- fbn {{((fBm((frame*waveLength+timeOffset),seed+.001,seed+.001,octaves,5,gain)+0.5)*(maxAmplitude-minAmplitude))+minAmplitude i x128 -123983.98}}
+ fbn {{((fBm((frame*frequency+timeOffset),seed+.001,seed+.001,octaves,5,gain)+0.5)*(maxAmplitude-minAmplitude))+minAmplitude i x128 -123983.98}}
  addUserKnob {7 random l INVISIBLE +INVISIBLE}
- random {{"random((frame*seed+timeOffset)/waveLength) *(maxAmplitude-minAmplitude) +minAmplitude" i x127 0.8632318 0.02}}
+ random {{"random((frame*seed+timeOffset)/frequency) *(maxAmplitude-minAmplitude) +minAmplitude" i x127 0.8632318 0.02}}
  addUserKnob {7 noise l INVISIBLE +INVISIBLE}
- noise {{"(noise((frame*seed+timeOffset)/waveLength)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude" i}}
+ noise {{"(noise((frame*seed+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude" i}}
  addUserKnob {7 triangle l INVISIBLE +INVISIBLE}
- triangle {{"(asin(sin(2*pi*(frame*seed+timeOffset)/waveLength))/pi+0.5) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
- addUserKnob {7 bounce l INVISIBLE +INVISIBLE}
- bounce {{"abs(sin(pi*(frame*seed + timeOffset)/waveLength))* (maxAmplitude-minAmplitude) + minAmplitude" i}}
+ triangle {{"(asin(sin(2*pi*(frame*seed+timeOffset)/frequency))/pi+0.5) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
+ addUserKnob {7 Bounce l INVISIBLE +INVISIBLE}
+ Bounce {{"abs(sin(pi*(frame*seed + timeOffset)/frequency))* (maxAmplitude-minAmplitude) + minAmplitude" i}}
  addUserKnob {7 sawtooth l INVISIBLE +INVISIBLE}
- sawtooth {{"((frame*seed+timeOffset) % waveLength)/waveLength * (maxAmplitude-minAmplitude) + minAmplitude" i}}
+ sawtooth {{"((frame*seed+timeOffset) % frequency)/frequency * (maxAmplitude-minAmplitude) + minAmplitude" i}}
  addUserKnob {7 sawtooth_exponential l INVISIBLE +INVISIBLE}
- sawtooth_exponential {{"(exp(2*pi*((frame*seed+timeOffset) % waveLength)/waveLength)-1)/exp(2*pi) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
+ sawtooth_exponential {{"(exp(2*pi*((frame*seed+timeOffset) % frequency)/frequency)-1)/exp(2*pi) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
  addUserKnob {7 sawtooth_parabolic l INVISIBLE +INVISIBLE}
- sawtooth_parabolic {{"sin((4.93480220054468*(frame*seed+timeOffset)/(pi*waveLength)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
+ sawtooth_parabolic {{"sin((4.93480220054468*(frame*seed+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
  addUserKnob {7 sawtooth_parabolic_reversed l INVISIBLE +INVISIBLE}
- sawtooth_parabolic_reversed {{"cos((4.93480220054468*(frame*seed+timeOffset)/(pi*waveLength)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
+ sawtooth_parabolic_reversed {{"cos((4.93480220054468*(frame*seed+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
  addUserKnob {20 endGroup l INVISIBLE +INVISIBLE n -1}
  addUserKnob {7 minAmplitude R -1 1}
- minAmplitude 0.03
- addUserKnob {7 waveLength}
- waveLength 1
+ addUserKnob {26 text l width}
+ addUserKnob {7 frequency}
+ frequency 3
  addUserKnob {7 timeOffset R -50 50}
- timeOffset -0.5
  addUserKnob {7 seed}
- seed 0.23
- addUserKnob {26 textLine l "fbm & turb only"}
- addUserKnob {7 gain}
+ seed 0.345
+ addUserKnob {26 textLine l (fbm/turbulence)}
+ addUserKnob {7 gain t "this add a high Freq noise to the Amplitude"}
  gain 0.23
  addUserKnob {3 octaves}
  octaves 10
+ addUserKnob {26 ""}
+ addUserKnob {26 text l note: T "if the curve is not visible in the editor, nudge a value to get it to refresh."}
  addUserKnob {20 info}
  addUserKnob {26 author l "author: " T "Rafal Kaniewski,David Emeny, Cameron Carson"}
 }
