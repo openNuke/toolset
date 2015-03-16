@@ -192,9 +192,10 @@ class SearchReplacePanel( nukescripts.PythonPanel ):
 
 ######################
 def regSRPanel():
-        nukescripts.registerPanel('com.ohufx.SearchReplace', addSRPanel)
         nuke.menu('Pane').addCommand('SearchReplace', addSRPanel)
+        nukescripts.registerPanel('com.ohufx.SearchReplace', addSRPanel)
 def addSRPanel():
         '''Run the panel script and add it as a tab into the pane it is called from'''
-        myPanel = SearchReplacePanel()
-        return myPanel.addToPane()
+        global mySRPanel
+        mySRPanel = SearchReplacePanel()
+        return mySRPanel.addToPane()
