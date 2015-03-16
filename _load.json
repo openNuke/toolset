@@ -26,7 +26,8 @@
         "uvTile",
         "maya2nukeLayoutCamera",
         "cameraShakeVetr",
-        "channelMergeFromRead"
+        "channelMergeFromRead",
+        "spotFlare"
     ],
     "FAVOURITES": [
         "alignNodes",
