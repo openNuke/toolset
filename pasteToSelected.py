@@ -12,7 +12,7 @@ class pasteToSelected():
             return
         selection = nuke.selectedNodes()
         for self.node in selection:
-            self.toggleSelection(self.node)
+            self.toggleSelection()
         for self.node in selection:
             self.node['selected'].setValue(1)
             self.nuke.nodePaste('%clipboard%')
