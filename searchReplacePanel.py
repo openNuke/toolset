@@ -198,5 +198,7 @@ def addSRPanel():
         '''Run the panel script and add it as a tab into the pane it is called from'''
         global mySRPanel
         mySRPanel = SearchReplacePanel()
+        mySRPanel.show()
         pane = nuke.getPaneFor('Properties.1')
         return mySRPanel.addToPane(pane)
+        mySRPanel.show()
