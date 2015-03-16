@@ -9,8 +9,8 @@ class pasteToSelected():
     def __init__(self):
         if not nuke.selectedNodes():
             nuke.nodePaste('%clipboard%')
-          return
-       selection = nuke.selectedNodes()
+            return
+        selection = nuke.selectedNodes()
         for self.node in selection:
             toggleSelection(self.node)
         for self.node in selection:
