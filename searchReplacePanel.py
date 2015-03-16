@@ -196,6 +196,7 @@ def addSRPanel():
         myPanel = SearchReplacePanel.SearchReplacePanel()
         return myPanel.addToPane()
 def loadSRPanel():
+        print "hello"
         nuke.menu('Pane').addCommand('SearchReplace', addSRPanel)
         nukescripts.registerPanel('com.ohufx.SearchReplace', addSRPanel) 
 
