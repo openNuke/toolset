@@ -10,5 +10,5 @@
 "documentation": "http://opennuke.github.io/searchReplacePanel/",
 "licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
 "source": "1.2 http://www.nukepedia.com/python/ui/searchreplacepanel",
-"call": "addSRPanel()"
+"call": "regSRPanel()"
 }
