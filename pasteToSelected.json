@@ -1,9 +1,9 @@
 {
-    "type": "scripts",
+    "type": "python",
     "category": "Node Graph",
     "label": "Paste To Selected ",
     "file": "pasteToSelected.py",
-    "call": "pasteToSelected.pasteToSelected()",
+    "call": "pasteToSelected()",
     "tooltip": "Paste node copied in the clipboard to all selected nodes, multiplying a paste",
     "originalAuthor": "Frank Rueter",
     "dateCreated": "19/02/2012",
