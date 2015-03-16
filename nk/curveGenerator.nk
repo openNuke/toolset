@@ -5,14 +5,14 @@ push $cut_paste_input
 NoOp {
  name curveGenerator
  selected true
- xpos 4192
- ypos 4278
+ xpos 4021
+ ypos 4256
  addUserKnob {20 curveGenerator}
  addUserKnob {22 setKnobChanged l INVISIBLE +INVISIBLE T "n=nuke.thisNode()\nn\['knobChanged'].setValue('''\nn=nuke.thisNode()\nn\['RESULT'].setExpression(\"\[value \" +n\['waveType'].value()+\"]\")\n'''\n)" +STARTLINE}
  addUserKnob {4 waveType M {random noise sine triangle square Bounce sawtooth sawtooth_parabolic sawtooth_parabolic_reversed sawtooth_exponential fbn turbulence "" "" "" "" "" ""}}
  waveType noise
  addUserKnob {7 RESULT}
- RESULT {{"waveType==11?((turbulence((frame*frequency+timeOffset),seed+.001,seed+.001,octaves,5,gain)*2)*(maxAmplitude-minAmplitude))+minAmplitude:waveType==10?((fBm((frame*frequency+timeOffset),seed+.001,seed+.001,octaves,5,gain)+0.5)*(maxAmplitude-minAmplitude))+minAmplitude:waveType==9?(exp(2*pi*((frame*seed+timeOffset) % frequency)/frequency)-1)/exp(2*pi) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==8?cos((4.93480220054468*(frame*seed+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==7?sin((4.93480220054468*(frame*seed+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==6?((frame*seed+timeOffset) % frequency)/frequency * (maxAmplitude-minAmplitude) + minAmplitude:waveType==5?abs(sin(pi*(frame*seed + timeOffset)/frequency))* (maxAmplitude-minAmplitude) + minAmplitude:waveType==4?int(sin(2*pi*(frame*seed+timeOffset)/frequency)+1) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==3?(asin(sin(2*pi*(frame*seed+timeOffset)/frequency))/pi+0.5) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==2?(sin(2*pi*(frame*seed+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude:waveType==1?(noise((frame*seed+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude:waveType==0?random((frame*seed+timeOffset)/frequency) *(maxAmplitude-minAmplitude) +minAmplitude:0" i x14 0}}
+ RESULT {{"(waveType==11?((turbulence((frame*frequency+timeOffset),seed+.001,seed+.001,octaves,5,gain)*2)*(maxAmplitude-minAmplitude))+minAmplitude:waveType==10?((fBm((frame*frequency+timeOffset),seed+.001,seed+.001,octaves,5,gain)+0.5)*(maxAmplitude-minAmplitude))+minAmplitude:waveType==9?(exp(2*pi*((frame*seed+timeOffset) % frequency)/frequency)-1)/exp(2*pi) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==8?cos((4.93480220054468*(frame*seed+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==7?sin((4.93480220054468*(frame*seed+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==6?((frame*seed+timeOffset) % frequency)/frequency * (maxAmplitude-minAmplitude) + minAmplitude:waveType==5?abs(sin(pi*(frame*seed + timeOffset)/frequency))* (maxAmplitude-minAmplitude) + minAmplitude:waveType==4?int(sin(2*pi*(frame*seed+timeOffset)/frequency)+1) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==3?(asin(sin(2*pi*(frame*seed+timeOffset)/frequency))/pi+0.5) * (maxAmplitude-minAmplitude) + minAmplitude:waveType==2?(sin(2*pi*(frame*seed+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude:waveType==1?(noise((frame*seed+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude:waveType==0?random((frame*seed+timeOffset)/frequency) *(maxAmplitude-minAmplitude) +minAmplitude:0)*globalAmplitude" x14 0}}
  addUserKnob {26 text l height}
  addUserKnob {7 maxAmplitude R 0 10}
  maxAmplitude 1
@@ -43,6 +43,8 @@ NoOp {
  sawtooth_parabolic_reversed {{"cos((4.93480220054468*(frame*seed+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude" i}}
  addUserKnob {20 endGroup l INVISIBLE +INVISIBLE n -1}
  addUserKnob {7 minAmplitude R -1 1}
+ addUserKnob {7 globalAmplitude R 0 3}
+ globalAmplitude 1
  addUserKnob {26 text l width}
  addUserKnob {7 frequency}
  frequency 3
