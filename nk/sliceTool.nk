@@ -1,0 +1,227 @@
+#! /usr/local/Nuke6.2v2/Nuke6.2 -nx
+# sliceTool v2.1 http://www.nukepedia.com/gizmos/other/slicetoolv21
+version 6.2 v2
+Group {
+ tile_color 0xff9500ff
+ note_font "Bitstream Vera Sans"
+ mapsize {0.15 0.15}
+ addUserKnob {20 sliceTool}
+ addUserKnob {7 pos l line R 0 2000}
+ addUserKnob {4 output M {Over Right Left Top Bottom}}
+ addUserKnob {7 thickness}
+ thickness 1
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -386
+  ypos -489
+ }
+set N449ab00 [stack 0]
+ Transform {
+  translate {{0 i x1 0} {-parent.pos i}}
+  black_outside false
+  name Transform4
+  label T
+  xpos -535
+  ypos -231
+ }
+ Crop {
+  box {0 0 {Input1.width i} 1}
+  reformat true
+  crop false
+  name Crop1
+  xpos -536
+  ypos -122
+ }
+ Reformat {
+  type "to box"
+  box_width {{Input1.width i}}
+  box_height {{Input1.height i}}
+  box_fixed true
+  resize distort
+  filter Impulse
+  name Reformat1
+  xpos -536
+  ypos -92
+ }
+ Expression {
+  expr0 "fabs((y/height)-r)<=tolerance ? 1 : 0"
+  expr1 "fabs((y/height)-g)<=tolerance ? 1 : 0"
+  expr2 "fabs((y/height)-b)<=tolerance ? 1 : 0"
+  name Expression3
+  xpos -536
+  ypos -47
+  addUserKnob {20 User}
+  addUserKnob {7 tolerance}
+  tolerance {{parent.thickness/100 i}}
+ }
+set N44b2f60 [stack 0]
+ Dot {
+  name Dot3
+  xpos -293
+  ypos -44
+ }
+set N44bb420 [stack 0]
+ Dot {
+  name Dot4
+  xpos -192
+  ypos -44
+ }
+set N44be2c0 [stack 0]
+ Dot {
+  name Dot6
+  xpos -93
+  ypos -44
+ }
+set N44c10f0 [stack 0]
+ Dot {
+  name Dot9
+  xpos 29
+  ypos -44
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0.5 0.5 0.5 0}
+  format {{{root.format}}}
+  name Constant1
+  xpos -794
+  ypos -452
+ }
+ Crop {
+  box {0 0 {Input1.width i} 2}
+  name Crop2
+  xpos -794
+  ypos -374
+ }
+ Transform {
+  translate {0 {pos i x16 0}}
+  name Transform1
+  xpos -794
+  ypos -344
+ }
+push $N449ab00
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge2
+  xpos -535
+  ypos -344
+ }
+ Dot {
+  name Dot2
+  xpos -367
+  ypos -252
+ }
+set N44e1cd0 [stack 0]
+ Dot {
+  name Dot1
+  xpos -249
+  ypos -252
+ }
+set N44e4b20 [stack 0]
+ Dot {
+  name Dot5
+  xpos -136
+  ypos -252
+ }
+set N44e7950 [stack 0]
+ Dot {
+  name Dot8
+  xpos -26
+  ypos -252
+ }
+set N44ea780 [stack 0]
+ Dot {
+  name Dot7
+  xpos 90
+  ypos -252
+ }
+ ContactSheet {
+  inputs 2
+  width {{Input1.width i}}
+  height {{Input1.height*2 i}}
+  rows 2
+  columns 1
+  roworder TopBottom
+  name ContactSheet2
+  xpos 56
+  ypos -23
+ }
+push $N44c10f0
+push $N44ea780
+ ContactSheet {
+  inputs 2
+  width {{Input1.width i}}
+  height {{Input1.height*2 i}}
+  rows 2
+  columns 1
+  name ContactSheet3
+  xpos -56
+  ypos -21
+ }
+push $N44be2c0
+push $N44e7950
+ ContactSheet {
+  inputs 2
+  width {{Input1.width*2 i}}
+  height {{Input1.height i}}
+  rows 1
+  columns 2
+  colorder RightLeft
+  name ContactSheet4
+  xpos -170
+  ypos -16
+ }
+push $N44bb420
+push $N44e4b20
+ ContactSheet {
+  inputs 2
+  width {{Input1.width*2 i}}
+  height {{Input1.height i}}
+  rows 1
+  columns 2
+  name ContactSheet1
+  xpos -283
+  ypos -18
+ }
+push $N44b2f60
+push $N44b2f60
+ ChannelMerge {
+  inputs 2
+  A rgba.red
+  B rgba.green
+  name ChannelMerge1
+  xpos -536
+  ypos -9
+ }
+set N450a3b0 [stack 0]
+push $N450a3b0
+ ChannelMerge {
+  inputs 2
+  B rgba.blue
+  name ChannelMerge2
+  xpos -536
+  ypos 37
+ }
+push $N44e1cd0
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos -401
+  ypos 48
+ }
+ Switch {
+  inputs 5
+  which {{parent.output i}}
+  name Switch1
+  xpos -283
+  ypos 48
+ }
+ Output {
+  name Output1
+  xpos -283
+  ypos 171
+ }
+end_group
