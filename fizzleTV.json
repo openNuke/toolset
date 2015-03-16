@@ -2,7 +2,7 @@
 "type": "nodes",
 "category": "image",
 "label": "Fizzle TV",
-"file": "fizzleTV.py",
+"file": "fizzleTV.nk",
 "tooltip": "TV simulation / distortion",
 "originalAuthor": "Julian van Mil",
 "dateCreated": "28/04/2010",
