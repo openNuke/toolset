@@ -1,0 +1,14 @@
+{
+"type": "nodes",
+"category": "filter",
+"label": "Spot Flare",
+"file": "spotFlare.nk",
+"tooltip": "Lens Glint/ Glow",
+"originalAuthor": "Mads Hagbarth Lund",
+"dateCreated": "14/01/2015",
+"status": "stable",
+"documentation": "http://opennuke.github.io/spotFlare_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "v1.0 www.nukepedia.com/gizmos/draw/spot-flare/",
+"call": ""
+}
