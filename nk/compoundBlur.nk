@@ -1,0 +1,97 @@
+#! C:/Program Files/Nuke7.0v4/Nuke7.0.exe -nx
+#http://bjorkvisuals.com/tools/the-foundrys-nuke/gizmos
+version 7.0 v4
+Group {
+ name sb_CompoundBlur
+ inputs 2
+ help "Simon Bjork\nJuly 2012\nVersion 1.0\nbjork.simon@gmail.com\nStorm Studios"
+ tile_color 0xffff
+ note_font Verdana
+ mapsize {0.15 0.15}
+ addUserKnob {20 User}
+ addUserKnob {41 channels T ZDefocus1.channels}
+ addUserKnob {26 divider1 l "" +STARTLINE}
+ addUserKnob {41 from0 l "matte channel" T Copy1.from0}
+ addUserKnob {26 divider2 l "" +STARTLINE}
+ addUserKnob {41 size T ZDefocus1.size}
+ addUserKnob {41 max_size l maximum T ZDefocus1.max_size}
+}
+ Input {
+  inputs 0
+  name img
+  label "input number: \[value number]"
+  xpos -921
+  ypos -319
+ }
+ AddChannels {
+  channels depth
+  name AddChannels1
+  xpos -921
+  ypos -198
+ }
+ Dot {
+  name Dot3
+  xpos -887
+  ypos -7
+ }
+set N3471e180 [stack 0]
+ Dot {
+  name Dot2
+  xpos -1120
+  ypos -7
+ }
+ Dot {
+  name Dot5
+  xpos -1120
+  ypos 578
+ }
+ Input {
+  inputs 0
+  name matte
+  label "input number: \[value number]"
+  xpos -665
+  ypos -35
+  number 1
+ }
+ AddChannels {
+  channels {rgba.alpha none none rgba.alpha}
+  name AddChannels2
+  xpos -665
+  ypos 98
+ }
+ Dot {
+  name Dot1
+  xpos -631
+  ypos 195
+ }
+push $N3471e180
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 depth.Z
+  name Copy1
+  xpos -921
+  ypos 186
+ }
+ ZDefocus2 {
+  channels rgba
+  math direct
+  size 10
+  name ZDefocus1
+  xpos -921
+  ypos 405
+ }
+ Copy {
+  inputs 2
+  from0 depth.Z
+  to0 depth.Z
+  name Copy2
+  xpos -921
+  ypos 569
+ }
+ Output {
+  name Output1
+  xpos -921
+  ypos 862
+ }
+end_group
