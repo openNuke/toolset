@@ -1,0 +1,170 @@
+#! C:/Program Files/Nuke7.0v4/Nuke7.0.exe -nx
+#http://bjorkvisuals.com/tools/the-foundrys-nuke/gizmos
+version 8.0 v1
+Group {
+ name sb_FindPosition
+ inputs 2
+ help "Simon Bjork\nMarch 2014\nVersion 1.6\nwww.bjorkvisuals.com"
+ knobChanged "\n\n\nfrom __future__ import with_statement\n\nn = nuke.thisNode()\nk = nuke.thisKnob()\n\nif k.name() == \"transform_type\":\n\n    manual_knobs = \[\"translate_manual\", \"set_camera_pos\", \"ground_plane_zero\"]\n    pick_knobs = \[\"in\", \"translate_sample\"]\n\n    if n\[\"transform_type\"].value() == \"manual placement\":\n        for i in manual_knobs:\n            n.knobs()\[i].setVisible(True)\n        for i in pick_knobs:\n            n.knobs()\[i].setVisible(False)\n    elif n\[\"transform_type\"].value() == \"sample position channel\":\n        for i in pick_knobs:\n            n.knobs()\[i].setVisible(True)\n        for i in manual_knobs:\n            n.knobs()\[i].setVisible(False)\n        \n\n"
+ tile_color 0xffff
+ note_font Verdana
+ mapsize {0.15 0.15}
+ addUserKnob {20 controls}
+ addUserKnob {26 divider1 l "" +STARTLINE}
+ addUserKnob {4 pivot_card l "pivot point" M {red green blue yellow ""}}
+ addUserKnob {7 width_units l "width (units)"}
+ width_units 100
+ addUserKnob {7 height_units l "height (units)"}
+ height_units 100
+ addUserKnob {26 divider2 l "" +STARTLINE}
+ addUserKnob {4 transform_type l transform M {"manual placement" "sample position channel" ""}}
+ addUserKnob {22 set_camera_pos l "set to camera position" T "def sb_findPosition_setCamPos():\n\n    n = nuke.thisNode()\n    cam = n.input(1)\n\n    if cam == None:\n        nuke.message(\"Connect a camera.\")\n        return\n\n    if cam.Class() != \"Camera2\":\n        nuke.message(\"Connect a camera (directly to the node).\")\n        return\n\n    cam_pos = cam\[\"translate\"].value()\n\n    if n\[\"ground_plane_zero\"].value():\n        n\[\"translate_manual\"].setValue( \[cam_pos\[0], 0, cam_pos\[2]] )\n    else:\n        n\[\"translate_manual\"].setValue(cam_pos)\n\nsb_findPosition_setCamPos()" +STARTLINE}
+ addUserKnob {6 ground_plane_zero l "ground plane at 0" -STARTLINE}
+ ground_plane_zero true
+ addUserKnob {13 translate_manual l translate}
+ addUserKnob {41 in l "position channel" +HIDDEN T p2rgb.in}
+ addUserKnob {41 translate_sample l translate +HIDDEN T p_sample.translate_sample}
+ addUserKnob {26 divider3 l "" +STARTLINE}
+ addUserKnob {41 rotate T ref_card.rotate}
+ addUserKnob {26 divider4 l "" +STARTLINE}
+ addUserKnob {22 distance_from_camera l "mesure distance from camera" T "from __future__ import with_statement\nimport nuke\nimport math\n\ndef measureDistance(p1,p2):\n    dist = math.sqrt((p1\[0]-p2\[0])**2 + (p1\[1]-p2\[1])**2 + (p1\[2]-p2\[2])**2)\n    return \"\{0:.3f\}\".format(dist)\n\ndef sb_findPosition_distance():\n\n    n = nuke.thisNode()\n    cam = n.input(1)\n\n    if cam == None:\n        nuke.message(\"Connect a camera.\")\n        return\n\n    if cam.Class() != \"Camera2\":\n        nuke.message(\"Connect a camera (directly to the node).\")\n        return\n\n    with n:\n        cardPos = nuke.toNode(\"ref_card\")\[\"translate\"].value()\n\n    distance = measureDistance(cam\[\"translate\"].value(), cardPos)\n\n    nuke.message(\"Distance between camera and card is \{0\} units.\".format(distance))\n\nsb_findPosition_distance()" +STARTLINE}
+ addUserKnob {26 divider5 l "" +STARTLINE}
+ addUserKnob {41 format l "output format" T Reformat1.format}
+ addUserKnob {26 divider6 l "" +STARTLINE}
+ addUserKnob {22 create_card l "create card" T "from __future__ import with_statement\n\nn = nuke.thisNode()\n\nwith n:\n\n    car = nuke.toNode(\"ref_card\")\n    car_pos = car\[\"translate\"].value()\n    car_rot = car\[\"rotate\"].value()\n    car_sca_x = car\[\"scaling\"].value()\[0]\n    car_sca_y = car\[\"scaling\"].value()\[1]\n    car_piv = car\[\"pivot\"].value()\n\nwith nuke.root():\n\n    n\[\"selected\"].setValue(False)\n    c = nuke.createNode(\"Card\")\n    c\[\"image_aspect\"].setValue(False)\n    c\[\"translate\"].setValue(car_pos)\n    c\[\"rotate\"].setValue(car_rot)\n    c\[\"scaling\"].setValue(\[car_sca_x,car_sca_y, 1])\n    c\[\"pivot\"].setValue(car_piv)\n    c\[\"xpos\"].setValue( n\[\"xpos\"].value() )\n    c\[\"ypos\"].setValue( n\[\"ypos\"].value() + 60 )" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name camera
+  label "\[value input1.name]"
+  xpos -1167
+  ypos 161
+  number 1
+ }
+ Dot {
+  name Dot4
+  xpos -1133
+  ypos 292
+ }
+ CheckerBoard2 {
+  inputs 0
+  format "512 512 0 0 512 512 1 square_512"
+  boxsize 20
+  name CheckerBoard2
+  xpos -949
+  ypos -489
+ }
+ Rectangle {
+  area {0 -0.5 36.40000153 36.20000076}
+  color {1 0 0 1}
+  name Rectangle1
+  xpos -949
+  ypos -294
+ }
+ Rectangle {
+  area {476.2000122 -0.6000000238 512.2000122 36.59999847}
+  color {0 1 0 1}
+  name Rectangle2
+  xpos -949
+  ypos -226
+ }
+ Rectangle {
+  area {476.2000122 476.2000122 512.2000122 514.2000122}
+  color {0 0 1 1}
+  name Rectangle3
+  xpos -949
+  ypos -161
+ }
+ Rectangle {
+  area {-0.5 476 36.09999847 513.8999939}
+  color {1 1 0 1}
+  name Rectangle4
+  xpos -949
+  ypos -88
+ }
+ Card2 {
+  image_aspect false
+  translate {{"transform_type == 0 ? translate_manual : translate_sample" x1 3.814697266e-006 x684 -13240.25977} {"transform_type == 0 ? translate_manual : translate_sample" x1 36.79999924 x684 3.814697266e-006} {"transform_type == 0 ? translate_manual : translate_sample" x1 0 x684 2937.000244}}
+  scaling {{width_units} {height_units} 1}
+  pivot {{"pivot_card == 0 ? -0.5 : pivot_card == 1 ? 0.5 : pivot_card == 2 ? 0.5 : -0.5" x1 -0.5} {"pivot_card == 0 ? -0.5 : pivot_card == 1 ? -0.5 : pivot_card == 2 ? 0.5 : 0.5" x1 0.5} 0}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name ref_card
+  xpos -949
+  ypos 33
+ }
+ Reformat {
+  inputs 0
+  box_width 1920
+  box_height 1080
+  box_fixed true
+  name Reformat1
+  xpos -746
+  ypos 246
+ }
+ ScanlineRender {
+  inputs 3
+  motion_vectors_type velocity
+  name ScanlineRender1
+  xpos -949
+  ypos 289
+ }
+ Dot {
+  name Dot1
+  xpos -915
+  ypos 788
+ }
+ Input {
+  inputs 0
+  name img
+  label "input number: \[value number]"
+  xpos -1849
+  ypos -592
+ }
+ Dot {
+  name Dot2
+  xpos -1815
+  ypos -105
+ }
+set N238763d0 [stack 0]
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos -1857
+  ypos 778
+ }
+ Output {
+  name Output1
+  xpos -1857
+  ypos 1227
+ }
+push $N238763d0
+ Dot {
+  name Dot3
+  xpos -1550
+  ypos -105
+ }
+ Shuffle {
+  in rgb
+  name p2rgb
+  xpos -1584
+  ypos -16
+ }
+ NoOp {
+  name p_sample
+  xpos -1584
+  ypos 98
+  addUserKnob {20 User}
+  addUserKnob {18 translate_sample l translate}
+  translate_sample {0 0 0}
+ }
+end_group
