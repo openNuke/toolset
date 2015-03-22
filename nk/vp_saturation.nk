@@ -1,0 +1,31 @@
+#! C:/Program Files/Nuke7.0v8/Nuke7.0.exe -nx
+#http://www.nukepedia.com/python/nodegraph/massivepanel/
+version 7.0 v8
+Group {
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 504
+  ypos -52
+ }
+ Colorspace {
+  colorspace_out sRGB
+  name Colorspace1
+  xpos 504
+  ypos -26
+ }
+ Saturation {
+  saturation 2.5
+  mode Average
+  name Saturation1
+  selected true
+  xpos 504
+  ypos 15
+ }
+ Output {
+  name Output1
+  xpos 504
+  ypos 88
+ }
+end_group
