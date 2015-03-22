@@ -1,0 +1,168 @@
+#! C:/Program Files/Nuke7.0v4/Nuke7.0.exe -nx
+#http://bjorkvisuals.com/tools/the-foundrys-nuke/gizmos
+version 7.0 v4
+Group {
+ name sb_AlphaFromMax
+ inputs 2
+ help "Simon Bjork\nwww.bjorkvisuals.com"
+ tile_color 0x7200ffff
+ gl_color 0x7200ffff
+ note_font Verdana
+ note_font_color 0x7200ffff
+ addUserKnob {20 controls}
+ addUserKnob {41 blackpoint T set_grade.blackpoint}
+}
+ Input {
+  inputs 0
+  name mask
+  label "\[value number]"
+  xpos 799
+  ypos 1379
+  number 1
+ }
+ AddChannels {
+  channels alpha
+  color 1
+  name AddChannels1
+  xpos 799
+  ypos 1502
+  disable {{"\[exists parent.input1] ? 1 : 0" x428 1}}
+ }
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos 799
+  ypos 1608
+  disable {{"\[exists parent.input1] ? 1 : 0" x428 1}}
+ }
+ Dot {
+  name Dot7
+  xpos 833
+  ypos 1701
+ }
+ Input {
+  inputs 0
+  name img
+  xpos 540
+  ypos -448
+ }
+ Dot {
+  name Dot6
+  xpos 574
+  ypos -180
+ }
+set N1e8eea10 [stack 0]
+ Clamp {
+  channels rgb
+  maximum_enable false
+  MaxClampTo 1000
+  name no_negative_pixels
+  xpos 540
+  ypos 36
+ }
+ Grade {
+  name set_grade
+  xpos 540
+  ypos 150
+ }
+ Dot {
+  name Dot8
+  xpos 574
+  ypos 309
+ }
+set N9f7ab2a0 [stack 0]
+ Dot {
+  name Dot9
+  xpos 960
+  ypos 309
+ }
+ Dot {
+  name Dot1
+  xpos 960
+  ypos 537
+ }
+set N1e8efb40 [stack 0]
+ Shuffle {
+  red green
+  blue green
+  alpha green
+  name green
+  tile_color 0xff00ff
+  gl_color 0xff00ff
+  xpos 926
+  ypos 685
+ }
+push 0
+push $N1e8efb40
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name red
+  tile_color 0xff0000ff
+  gl_color 0xff0000ff
+  xpos 796
+  ypos 689
+ }
+push $N1e8efb40
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name blue
+  tile_color 0xffff
+  gl_color 0xffff
+  xpos 1062
+  ypos 684
+ }
+ Merge2 {
+  inputs 3+1
+  operation max
+  name Max
+  xpos 926
+  ypos 825
+ }
+ Dot {
+  name Dot3
+  xpos 960
+  ypos 922
+ }
+push $N9f7ab2a0
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 540
+  ypos 913
+ }
+ Clamp {
+  channels alpha
+  name Clamp1
+  xpos 540
+  ypos 1147
+ }
+push $N1e8eea10
+ Dot {
+  name Dot5
+  xpos 180
+  ypos -180
+ }
+ Dot {
+  name Dot4
+  xpos 180
+  ypos 1701
+ }
+ Keymix {
+  inputs 3
+  channels rgba
+  name Keymix1
+  xpos 540
+  ypos 1698
+ }
+ Output {
+  name Output1
+  xpos 540
+  ypos 1996
+ }
+end_group
