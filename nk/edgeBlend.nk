@@ -1,0 +1,176 @@
+#! C:/Program Files/Nuke7.0v4/Nuke7.0.exe -nx
+http://bjorkvisuals.com/tools/the-foundrys-nuke/gizmos
+version 7.0 v4
+Group {
+ name sb_EdgeBlend
+ inputs 3
+ help "Simon Bjork\nJuly 2012\nVersion 1.0\nbjork.simon@gmail.com\nStorm Studios"
+ tile_color 0xe86611ff
+ note_font Verdana
+ mapsize {0.15 0.15}
+ addUserKnob {20 controls}
+ addUserKnob {26 ""}
+ addUserKnob {41 edge_blur l "edge blend size" T Blur3.size}
+ addUserKnob {26 ""}
+ addUserKnob {6 view_matte l "view edge matte" +STARTLINE}
+ addUserKnob {41 blackpoint l "alpha black" T Grade1.blackpoint}
+ addUserKnob {41 whitepoint l "alpha white" T Grade1.whitepoint}
+ addUserKnob {41 gamma l "alpha gamma" T Grade1.gamma}
+ addUserKnob {41 size l "alpha erode" T FilterErode1.size}
+ addUserKnob {41 matte_blur l "alpha blur" T Blur2.size}
+ addUserKnob {41 to0 l "output matte channel" T Copy1.to0}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -973
+  ypos 395
+  number 2
+ }
+ AddChannels {
+  channels {rgba.alpha none none rgba.alpha}
+  color 1
+  name AddChannels3
+  xpos -973
+  ypos 510
+  disable {{"\[exists parent.input2] ? 1 : 0" x428 1}}
+ }
+ Shuffle {
+  alpha white
+  name Shuffle5
+  xpos -973
+  ypos 644
+  disable {{"\[exists parent.input2] ? 1 : 0" i x428 1}}
+ }
+ Input {
+  inputs 0
+  name alpha
+  xpos -132
+  ypos -1894
+  number 1
+ }
+ AddChannels {
+  channels alpha
+  name AddChannels1
+  xpos -132
+  ypos -1753
+ }
+ Grade {
+  channels alpha
+  white_clamp true
+  name Grade1
+  xpos -132
+  ypos -1609
+ }
+ EdgeDetectWrapper {
+  channels alpha
+  name EdgeDetectWrapper1
+  xpos -132
+  ypos -1448
+ }
+ FilterErode {
+  channels alpha
+  size 0
+  name FilterErode1
+  xpos -132
+  ypos -1297
+ }
+ Blur {
+  channels alpha
+  size 2
+  name Blur2
+  xpos -132
+  ypos -1148
+ }
+ Clamp {
+  channels alpha
+  name Clamp1
+  xpos -132
+  ypos -1016
+ }
+ Dot {
+  name Dot3
+  xpos -98
+  ypos -869
+ }
+set N28392cb0 [stack 0]
+ Dot {
+  name Dot2
+  xpos -98
+  ypos -392
+ }
+set N28393020 [stack 0]
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  alpha white
+  name Shuffle1
+  xpos -132
+  ypos -171
+ }
+ Dot {
+  name Dot1
+  xpos -98
+  ypos 62
+ }
+push $N28393020
+push $N28392cb0
+ Input {
+  inputs 0
+  name img
+  xpos -1345
+  ypos -2143
+ }
+ Dot {
+  name Dot9
+  xpos -1311
+  ypos -1481
+ }
+set N283eeef0 [stack 0]
+ Blur {
+  inputs 1+1
+  size 1.2
+  name Blur3
+  label "blur edges"
+  xpos -1345
+  ypos -884
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  bbox B
+  name Copy1
+  xpos -1345
+  ypos -401
+ }
+ Switch {
+  inputs 2
+  which {{"view_matte == 1?1:0" i}}
+  name Switch1
+  xpos -1345
+  ypos 59
+ }
+push $N283eeef0
+ Dot {
+  name Dot6
+  xpos -1829
+  ypos -1481
+ }
+ Dot {
+  name Dot5
+  xpos -1829
+  ypos 648
+ }
+ Keymix {
+  inputs 3
+  name Keymix2
+  xpos -1345
+  ypos 639
+ }
+ Output {
+  name Output1
+  xpos -1345
+  ypos 1134
+ }
+end_group
