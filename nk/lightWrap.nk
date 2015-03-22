@@ -1,0 +1,486 @@
+#! C:/Program Files/Nuke7.0v4/Nuke7.0.exe -nx
+#http://bjorkvisuals.com/tools/the-foundrys-nuke/gizmos
+version 8.0 v1
+Group {
+ name sb_LightWrap
+ inputs 4
+ help "Simon Bjork\nwww.bjorkvisuals.com"
+ tile_color 0xe86611ff
+ note_font Verdana
+ mapsize {0.15 0.15}
+ addUserKnob {20 controls_tab l controls}
+ addUserKnob {26 lw1_main l "light wrap 1"}
+ addUserKnob {41 size_2 l blur T lw1_blur.size}
+ addUserKnob {41 value_1 l color T lw1_color.value}
+ addUserKnob {41 value_2 l amount T lw1_amount.value}
+ addUserKnob {6 lw1_key l "luma key" +STARTLINE}
+ lw1_key true
+ addUserKnob {26 lw2_main l "light wrap 2"}
+ addUserKnob {41 lw2_blu l blur T lw2_blur.size}
+ addUserKnob {41 value l color T lw2_color.value}
+ addUserKnob {41 value_3 l amount T lw2_amount.value}
+ addUserKnob {6 lw2_key l "luma key" +STARTLINE}
+ lw2_key true
+ addUserKnob {26 divider1 l "" +STARTLINE}
+ addUserKnob {20 lw1_grp l "light wrap 1 key controls" n 1}
+ lw1_grp 0
+ addUserKnob {26 lw1_luma_key l "luma key"}
+ addUserKnob {7 lw1_black_slider l black}
+ lw1_black_slider 0.4
+ addUserKnob {7 lw1_white_slider l white}
+ lw1_white_slider 0.7
+ addUserKnob {26 lw1_grade_luma l "grade matte"}
+ addUserKnob {41 blackpoint T Grade4.blackpoint}
+ addUserKnob {41 whitepoint T Grade4.whitepoint}
+ addUserKnob {41 gamma_1 l gamma T Grade4.gamma}
+ addUserKnob {26 lw1_adj_luma l "adjust matte"}
+ addUserKnob {41 size_3 l erode T FilterErode2.size}
+ addUserKnob {41 size_4 l blur T Blur4.size}
+ addUserKnob {20 endGroup_lw1_grp l endGroup n -1}
+ addUserKnob {20 lw2_grp l "light wrap 2 key controls" n 1}
+ lw2_grp 0
+ addUserKnob {26 key_text l "luma key"}
+ addUserKnob {7 lw2_black_slider l black}
+ lw2_black_slider 0.4
+ addUserKnob {7 lw2_white_slider l white}
+ lw2_white_slider 0.7
+ addUserKnob {26 grade_matte l "grade matte"}
+ addUserKnob {41 blackpoint_1 l blackpoint T Grade2.blackpoint}
+ addUserKnob {41 whitepoint_1 l whitepoint T Grade2.whitepoint}
+ addUserKnob {41 gamma T Grade2.gamma}
+ addUserKnob {26 adjust_matte l "adjust matte"}
+ addUserKnob {41 size l erode T FilterErode1.size}
+ addUserKnob {41 size_1 l blur T Blur2.size}
+ addUserKnob {20 endGroup_lw2_grp l endGroup n -1}
+ addUserKnob {26 divider2 l "" +STARTLINE}
+ addUserKnob {41 to0 l "output matte channel" T output_channel.to0}
+ addUserKnob {26 divider3 l "" +STARTLINE}
+ addUserKnob {4 output M {rgb "light wrap 1 luma matte" "light wrap 2 luma matte" "" "" ""}}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x7171c600
+  label forground
+  note_font_size 92
+  xpos -598
+  ypos -778
+  bdwidth 512
+  bdheight 588
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x7171c600
+  label background
+  note_font_size 92
+  xpos -589
+  ypos -2447
+  bdwidth 502
+  bdheight 351
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0x7171c600
+  label "luma key 1"
+  note_font_size 92
+  xpos -1375
+  ypos -1677
+  bdwidth 669
+  bdheight 873
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x7171c600
+  label "luma key 2"
+  note_font_size 92
+  xpos 101
+  ypos -1681
+  bdwidth 669
+  bdheight 873
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  tile_color 0x7171c600
+  label "matte output"
+  note_font_size 92
+  xpos -609
+  ypos 1078
+  bdwidth 629
+  bdheight 564
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  tile_color 0x7171c600
+  label mask1
+  note_font_size 92
+  xpos -1370
+  ypos 552
+  bdwidth 295
+  bdheight 278
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode7
+  tile_color 0x7171c6ff
+  label mask2
+  note_font_size 92
+  xpos 419
+  ypos 538
+  bdwidth 310
+  bdheight 277
+ }
+ Input {
+  inputs 0
+  name bg
+  xpos -389
+  ypos -2283
+  number 1
+ }
+set N2c69b440 [stack 0]
+ Dot {
+  name Dot2
+  xpos 210
+  ypos -1859
+ }
+set N2c69b7b0 [stack 0]
+ Dot {
+  name Dot14
+  xpos 519
+  ypos -1859
+ }
+ Keyer {
+  operation "luminance key"
+  range {{lw2_black_slider i} {lw2_white_slider i} 1 1}
+  name Keyer1
+  xpos 485
+  ypos -1497
+ }
+ Grade {
+  channels alpha
+  black_clamp false
+  name Grade2
+  xpos 485
+  ypos -1418
+ }
+ FilterErode {
+  channels alpha
+  size 0
+  name FilterErode1
+  xpos 485
+  ypos -1295
+ }
+ Blur {
+  channels alpha
+  size 10
+  name Blur2
+  xpos 485
+  ypos -1177
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle1
+  xpos 485
+  ypos -1041
+ }
+set N2c96cef0 [stack 0]
+ Dot {
+  name Dot4
+  xpos 1023
+  ypos -1037
+ }
+ Dot {
+  name Dot5
+  xpos 1023
+  ypos 2121
+ }
+ Shuffle {
+  alpha white
+  name Shuffle3
+  xpos 139
+  ypos 2117
+ }
+push $N2c69b440
+ Dot {
+  name Dot8
+  xpos -910
+  ypos -1837
+ }
+set N2c96dcb0 [stack 0]
+ Dot {
+  name Dot13
+  xpos -1233
+  ypos -1837
+ }
+ Keyer {
+  operation "luminance key"
+  range {{lw1_black_slider i} {lw1_white_slider i} 1 1}
+  name Keyer2
+  xpos -1267
+  ypos -1475
+ }
+ Grade {
+  channels alpha
+  black_clamp false
+  name Grade4
+  xpos -1267
+  ypos -1386
+ }
+ FilterErode {
+  channels alpha
+  size 0
+  name FilterErode2
+  xpos -1267
+  ypos -1254
+ }
+ Blur {
+  channels alpha
+  size 10
+  name Blur4
+  xpos -1267
+  ypos -1140
+ }
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle2
+  xpos -1267
+  ypos -1005
+ }
+set N2c9c3120 [stack 0]
+ Dot {
+  name Dot6
+  xpos -1718
+  ypos -1001
+ }
+ Dot {
+  name Dot10
+  xpos -1718
+  ypos 2121
+ }
+ Shuffle {
+  alpha white
+  name Shuffle4
+  xpos -890
+  ypos 2117
+ }
+ Input {
+  inputs 0
+  name mask1
+  xpos -1248
+  ypos 702
+  number 2
+ }
+ Input {
+  inputs 0
+  name fg
+  xpos -390
+  ypos -589
+ }
+ Dot {
+  name Dot7
+  xpos -356
+  ypos -352
+ }
+set N2ca3aa40 [stack 0]
+ Dot {
+  name Dot1
+  xpos -356
+  ypos 81
+ }
+set N2ca3adb0 [stack 0]
+push $N2ca3aa40
+push $N2c9c3120
+ Dot {
+  name Dot9
+  xpos -1233
+  ypos -902
+ }
+push $N2c96dcb0
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge7
+  xpos -944
+  ypos -905
+  disable {{"lw1_key == 1?0:1"}}
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  bbox B
+  name Merge4
+  xpos -944
+  ypos -356
+ }
+ Blur {
+  size 6
+  name lw1_blur
+  xpos -944
+  ypos -216
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge5
+  xpos -944
+  ypos 77
+ }
+ Multiply {
+  channels rgb
+  value {1 1 1 1}
+  name lw1_color
+  xpos -944
+  ypos 261
+ }
+ Multiply {
+  channels rgba
+  value 0.1
+  name lw1_amount
+  xpos -944
+  ypos 477
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge8
+  xpos -944
+  ypos 702
+  disable {{"\[exists parent.input2] ? 0 : 1" i}}
+ }
+ Input {
+  inputs 0
+  name mask2
+  xpos 502
+  ypos 680
+  number 3
+ }
+push $N2ca3adb0
+push $N2ca3aa40
+push $N2c96cef0
+ Dot {
+  name Dot3
+  xpos 519
+  ypos -938
+ }
+push $N2c69b7b0
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge3
+  xpos 176
+  ypos -942
+  disable {{"lw2_key == 0?1:0" i}}
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  bbox B
+  name Merge1
+  xpos 176
+  ypos -356
+ }
+ Blur {
+  size 50
+  name lw2_blur
+  xpos 176
+  ypos -171
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge2
+  xpos 176
+  ypos 77
+ }
+ Multiply {
+  channels rgb
+  value {1 1 1 1}
+  name lw2_color
+  xpos 176
+  ypos 300
+ }
+ Multiply {
+  channels rgba
+  value 0.05
+  name lw2_amount
+  xpos 176
+  ypos 479
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge9
+  xpos 176
+  ypos 680
+  disable {{"\[exists parent.input3] == 1?0:1" i}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge6
+  xpos -373
+  ypos 871
+ }
+ Dot {
+  name Dot11
+  xpos -339
+  ypos 1298
+ }
+set N2cb42dd0 [stack 0]
+ Dot {
+  name Dot12
+  xpos -132
+  ypos 1298
+ }
+ Clamp {
+  channels alpha
+  name Clamp1
+  xpos -166
+  ypos 1395
+ }
+ Dot {
+  name Dot15
+  xpos -132
+  ypos 1532
+ }
+push $N2cb42dd0
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  name output_channel
+  xpos -373
+  ypos 1522
+ }
+ Shuffle {
+  alpha black
+  name Shuffle5
+  label "alpha to black"
+  xpos -373
+  ypos 1878
+ }
+ Switch {
+  inputs 3
+  which {{"output == 0?0 : output == 1?1 : 2" i x548 0}}
+  name output
+  xpos -373
+  ypos 2117
+ }
+ Output {
+  name Output2
+  xpos -373
+  ypos 2834
+ }
+end_group
