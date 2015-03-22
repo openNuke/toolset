@@ -1,0 +1,470 @@
+#! C:/Program Files/Nuke7.0v4/Nuke7.0.exe -nx
+#http://bjorkvisuals.com/tools/the-foundrys-nuke/gizmos
+version 8.0 v1
+Group {
+name sb_Haze
+inputs 2
+help "Simon Bjork\nJuly 2012\nVersion 1.0\nbjork.simon@gmail.com\nStorm Studios"
+tile_color 0xe86611ff
+note_font Verdana
+mapsize {0.15 0.15}
+addUserKnob {20 controls l Controls}
+addUserKnob {26 divider1 l "" +STARTLINE}
+addUserKnob {26 info l "" +STARTLINE T "Make sure to set up your depth mask correctly."}
+addUserKnob {26 divider2 l "" +STARTLINE}
+addUserKnob {20 scattering n 1}
+scattering 0
+addUserKnob {41 master_blur l "master blur" T blur_controls.master_blur}
+addUserKnob {41 master_contribution l contribution T blur_controls.master_contribution}
+addUserKnob {41 master_amount l amount T blur_controls.master_amount}
+addUserKnob {20 endGroup_scattering l endGroup n -1}
+addUserKnob {20 atmosphere n 1}
+atmosphere 0
+addUserKnob {41 color T Constant1.color}
+addUserKnob {41 mix l amount T Merge1.mix}
+addUserKnob {20 endGroup_atmosphere l endGroup n -1}
+addUserKnob {20 depth_mask l "depth mask" n 1}
+depth_mask 0
+addUserKnob {6 view_matte l "view matte" +STARTLINE}
+addUserKnob {41 from0 l "depth mask channel" T mask2alpha.from0}
+addUserKnob {41 blackpoint l "near (black)" T mask_grade.blackpoint}
+addUserKnob {41 whitepoint l "far (white)" T mask_grade.whitepoint}
+addUserKnob {41 gamma l "falloff (gamma)" T mask_grade.gamma}
+addUserKnob {41 white_clamp l "white clamp" T mask_grade.white_clamp}
+addUserKnob {41 black_clamp l "black clamp" -STARTLINE T mask_grade.black_clamp}
+addUserKnob {41 size l blur T blur_mask.size}
+addUserKnob {41 to0 l "output mask" T add_mask.to0}
+addUserKnob {20 endGroup_depth_mask l endGroup n -1}
+}
+BackdropNode {
+inputs 0
+name BackdropNode1
+tile_color 0x7171c600
+label "atmo over"
+note_font_size 92
+xpos -3943
+ypos 2367
+bdwidth 643
+bdheight 487
+}
+BackdropNode {
+inputs 0
+name BackdropNode2
+tile_color 0x7171c600
+label "seven iterations blur"
+note_font_size 92
+xpos -3811
+ypos 2
+bdwidth 1088
+bdheight 1931
+}
+BackdropNode {
+inputs 0
+name BackdropNode3
+tile_color 0x8e8e3800
+label mask
+note_font_size 92
+xpos -1532
+ypos 3004
+bdwidth 857
+bdheight 1362
+}
+BackdropNode {
+inputs 0
+name BackdropNode4
+tile_color 0x8e8e3800
+label "hold-out mask"
+note_font_size 92
+xpos -498
+ypos 3009
+bdwidth 857
+bdheight 1362
+}
+NoOp {
+inputs 0
+name blur_controls
+tile_color 0xff00ff
+note_font_size 92
+xpos -4567
+ypos 354
+addUserKnob {20 User}
+addUserKnob {7 master_blur l blur}
+master_blur 160
+addUserKnob {7 master_contribution l contribution}
+master_contribution 0.2
+addUserKnob {7 master_amount l amount}
+master_amount 0.6
+}
+Input {
+inputs 0
+name img
+label "\[value number]"
+xpos -3473
+ypos -1160
+}
+AddChannels {
+channels alpha
+channels2 depth
+name AddChannels2
+xpos -3473
+ypos -934
+}
+Dot {
+name Dot16
+xpos -3439
+ypos -493
+}
+set N913b35d0 [stack 0]
+Dot {
+name Dot15
+xpos -5792
+ypos -493
+}
+Dot {
+name Dot14
+xpos -5796
+ypos 4221
+}
+set N913b3cb0 [stack 0]
+Dot {
+name Dot11
+xpos -5796
+ypos 5983
+}
+set N913b4020 [stack 0]
+Dot {
+name Dot2
+xpos -5796
+ypos 6330
+}
+push $N913b4020
+Input {
+inputs 0
+name hold_out
+label "\[value number]"
+xpos -103
+ypos 3271
+number 1
+}
+AddChannels {
+channels alpha
+color 1
+name AddChannels1
+xpos -103
+ypos 3503
+disable {{"\[exists parent.input1] ? 1 : 0" x428 1}}
+}
+Shuffle {
+alpha white
+name Shuffle2
+xpos -103
+ypos 3670
+disable {{"\[exists parent.input1] ? 1 : 0" x428 1}}
+}
+Dot {
+name Dot5
+xpos -69
+ypos 4099
+}
+push $N913b35d0
+Dot {
+name Dot10
+xpos -1104
+ypos -493
+}
+Dot {
+name Dot7
+xpos -1104
+ypos 3071
+}
+AddChannels {
+channels depth
+color 1
+name AddChannels3
+xpos -1138
+ypos 3248
+disable {{"\[exists parent.input0] ? 1 : 0" x428 1}}
+}
+Shuffle {
+alpha white
+name Shuffle5
+xpos -1138
+ypos 3380
+disable {{"\[exists parent.input0] ? 1 : 0" x428 1}}
+}
+set N938f4a90 [stack 0]
+push $N938f4a90
+Copy {
+inputs 2
+from0 depth.Z
+to0 rgba.alpha
+name mask2alpha
+xpos -1138
+ypos 3561
+}
+Shuffle {
+red alpha
+green alpha
+blue alpha
+name Shuffle3
+xpos -1138
+ypos 3676
+}
+Grade {
+channels alpha
+blackpoint 1000
+whitepoint 6000
+white_clamp true
+name mask_grade
+xpos -1138
+ypos 3781
+}
+Blur {
+channels alpha
+size 2
+name blur_mask
+xpos -1138
+ypos 3897
+}
+Merge2 {
+inputs 2
+operation mask
+name Merge2
+xpos -1138
+ypos 4096
+}
+Dot {
+name Dot17
+xpos -1104
+ypos 4221
+}
+set N93c06150 [stack 0]
+Dot {
+name Dot1
+xpos -1104
+ypos 4841
+}
+set N93c064c0 [stack 0]
+Dot {
+name Dot4
+xpos -1108
+ypos 5306
+}
+push $N93c064c0
+push $N93c06150
+Constant {
+inputs 0
+channels rgb
+color {0.7113785148 0.9035110474 0.9499999881 1}
+name Constant1
+xpos -3830
+ypos 2500
+}
+Shuffle {
+alpha white
+name Shuffle1
+xpos -3830
+ypos 2640
+}
+Dot {
+name Dot6
+xpos -3796
+ypos 2703
+}
+push $N913b35d0
+Dot {
+name Dot3
+xpos -3439
+ypos 348
+}
+set N93c075f0 [stack 0]
+Dot {
+name Dot8
+xpos -3047
+ypos 348
+}
+Blur {
+channels rgb
+size {{parent.blur_controls.master_blur/64 i}}
+name Blur13
+xpos -3081
+ypos 480
+}
+set N916107a0 [stack 0]
+Blur {
+channels rgb
+size {{parent.blur_controls.master_blur/32 i}}
+name Blur1
+xpos -3310
+ypos 591
+}
+set N91610b10 [stack 0]
+Blur {
+channels rgb
+size {{parent.blur_controls.master_blur/16 i}}
+name Blur5
+xpos -3310
+ypos 745
+}
+set N91610e80 [stack 0]
+Blur {
+channels rgb
+size {{parent.blur_controls.master_blur/8 i}}
+name Blur12
+xpos -3310
+ypos 935
+}
+set N916111f0 [stack 0]
+Blur {
+channels rgb
+size {{parent.blur_controls.master_blur/4 i}}
+name Blur6
+xpos -3310
+ypos 1133
+}
+set N91611560 [stack 0]
+Blur {
+channels rgb
+size {{parent.blur_controls.master_blur/2 i}}
+name Blur7
+xpos -3310
+ypos 1323
+}
+set N916118d0 [stack 0]
+Blur {
+channels rgb
+size {{parent.blur_controls.master_blur i}}
+name Blur8
+xpos -3310
+ypos 1539
+}
+push $N916118d0
+push $N91611560
+push $N916111f0
+push $N91610e80
+push $N91610b10
+push $N916107a0
+Dissolve {
+inputs 2
+channels rgb
+which {{parent.blur_controls.master_contribution i}}
+name Dissolve12
+xpos -3081
+ypos 585
+}
+Dissolve {
+inputs 2
+channels rgb
+which {{parent.blur_controls.master_contribution i}}
+name Dissolve13
+xpos -3081
+ypos 739
+}
+Dissolve {
+inputs 2
+channels rgb
+which {{parent.blur_controls.master_contribution i}}
+name Dissolve14
+xpos -3081
+ypos 929
+}
+Dissolve {
+inputs 2
+channels rgb
+which {{parent.blur_controls.master_contribution i}}
+name Dissolve5
+xpos -3081
+ypos 1127
+}
+Dissolve {
+inputs 2
+channels rgb
+which {{parent.blur_controls.master_contribution i}}
+name Dissolve6
+xpos -3081
+ypos 1317
+}
+Dissolve {
+inputs 2
+channels rgb
+which {{parent.blur_controls.master_contribution i}}
+name Dissolve7
+xpos -3081
+ypos 1533
+}
+Dot {
+name Dot9
+xpos -3047
+ypos 1748
+}
+push $N93c075f0
+Dissolve {
+inputs 2
+channels rgb
+which {{parent.blur_controls.master_amount i}}
+name Dissolve15
+xpos -3473
+ypos 1745
+}
+Merge2 {
+inputs 2
+mix 0.2
+name Merge1
+xpos -3473
+ypos 2703
+}
+push $N913b3cb0
+Keymix {
+inputs 3
+channels rgb
+name Keymix1
+xpos -3481
+ypos 4218
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+name add_mask
+xpos -3481
+ypos 4826
+}
+ShuffleCopy {
+inputs 2
+red alpha
+green alpha
+blue alpha
+name mask2rgb
+label "view matte"
+xpos -3481
+ypos 5297
+disable {{"parent.view_matte == 1 ? 0 : 1"}}
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+from1 depth.Z
+to1 depth.Z
+name Copy1
+xpos -3481
+ypos 5968
+}
+CopyBBox {
+inputs 2
+name CopyBBox1
+xpos -3481
+ypos 6327
+}
+Output {
+name Output1
+xpos -3481
+ypos 7275
+}
+StickyNote {
+inputs 0
+name StickyNote1
+label "Make sure no error occurs."
+xpos -1329
+ypos 3320
+}
+end_group
