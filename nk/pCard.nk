@@ -1,0 +1,143 @@
+#! C:/Program Files/Nuke7.0v4/Nuke7.0.exe -nx
+#http://bjorkvisuals.com/tools/the-foundrys-nuke/gizmos
+version 7.0 v4
+Group {
+name sb_CardFromAOV
+inputs 4
+help "Simon Bjork\nwww.bjorkvisuals.com"
+tile_color 0xff00ffff
+note_font Verdana
+mapsize {0.15 0.15}
+addUserKnob {20 controls}
+addUserKnob {41 in l "position channel" T p2rgb.in}
+addUserKnob {41 in_1 l "normals channel" T n2rgb.in}
+addUserKnob {26 divider1 l "" +STARTLINE}
+addUserKnob {26 info l "" +STARTLINE T "Hold down Ctrl+Alt+Shift to sample values."}
+addUserKnob {41 normal_1 l position T p_sample.normal}
+addUserKnob {41 normals l rotation T n_sample.normals}
+addUserKnob {20 reference_card_grp l "reference card" n 1}
+reference_card_grp 0
+addUserKnob {41 image_aspect l "image aspect" T reference_card.image_aspect}
+addUserKnob {41 uniform_scale l "uniform scale" T reference_card.uniform_scale}
+addUserKnob {41 scaling l scale T reference_card.scaling}
+addUserKnob {41 pivot T reference_card.pivot}
+addUserKnob {20 endGroup_reference_card_grp l endGroup n -1}
+addUserKnob {26 divider2 l "" +STARTLINE}
+addUserKnob {41 format l "output format" T Reformat1.format}
+addUserKnob {26 divider3 l "" +STARTLINE}
+addUserKnob {6 create_scene l "create scene" +STARTLINE}
+create_scene true
+addUserKnob {22 create_card l "create card" T "# sb_cardFromAOV\n# Simon Bjork\n# Version 1.2\n# November 2012\n# www.bjorkvisuals.com\n\nfrom __future__ import with_statement\n\ndef sb_cardFromAOV():\n\n    n = nuke.thisNode()\n    n\[\"selected\"].setValue(False)\n\n    # The reference card.\n    with n:\n        rc = nuke.toNode(\"reference_card\")\n        rc_aspect = rc\[\"image_aspect\"].value()\n        rc_pos = rc\[\"translate\"].value()\n        rc_rot = rc\[\"rotate\"].value()\n        rc_uniform_scale = rc\[\"uniform_scale\"].value()\n        rc_scaling = rc\[\"scaling\"].value()\n        rc_pivot = rc\[\"pivot\"].value()\n\n    # Create new card.\n    with nuke.root():\n\n        offset = 100\n\n        c = nuke.createNode(\"Card2\")\n        c\[\"image_aspect\"].setValue(rc_aspect)\n        c\[\"translate\"].setValue(rc_pos)\n        c\[\"rotate\"].setValue(rc_rot)\n        c\[\"uniform_scale\"].setValue(rc_uniform_scale)\n        c\[\"scaling\"].setValue(rc_scaling)\n        c\[\"pivot\"].setValue(rc_pivot)\n        c\[\"xpos\"].setValue( n\[\"xpos\"].value() )\n        c\[\"ypos\"].setValue( n\[\"ypos\"].value() + offset )\n\n        # Create scene.\n        if n\[\"create_scene\"].value() == True:\n\n            s = nuke.createNode(\"Scene\", inpanel = False)\n            s\[\"xpos\"].setValue( c\[\"xpos\"].value() )\n            s\[\"ypos\"].setValue( c\[\"ypos\"].value() + offset )\n            s.setInput(0, c)\n\n            scanline = nuke.createNode(\"ScanlineRender\", inpanel = False)\n            scanline\[\"xpos\"].setValue( s\[\"xpos\"].value() )\n            scanline\[\"ypos\"].setValue( s\[\"ypos\"].value() + offset )\n            scanline.setInput(0, s)    \n        \nsb_cardFromAOV()" +STARTLINE}
+}
+Input {
+inputs 0
+name camera
+xpos -366
+ypos 94
+number 3
+}
+CheckerBoard2 {
+inputs 0
+name CheckerBoard1
+xpos -123
+ypos -501
+}
+Card2 {
+translate {{parent.p_sample.normal} {parent.p_sample.normal} {parent.p_sample.normal}}
+rotate {{"-degrees(atan2(parent.n_sample.normals.g, sqrt(parent.n_sample.normals.r**2 + parent.n_sample.normals.b**2)))"} {"degrees(atan2(parent.n_sample.normals.r, parent.n_sample.normals.b))"} {curve}}
+scaling {0.1 0.2 1}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name reference_card
+xpos -123
+ypos -121
+}
+Reformat {
+inputs 0
+name Reformat1
+xpos 114
+ypos 88
+}
+ScanlineRender {
+inputs 3
+motion_vectors_type velocity
+name ScanlineRender1
+xpos -123
+ypos 94
+}
+Dot {
+name Dot1
+xpos -89
+ypos 453
+}
+Input {
+inputs 0
+name img
+xpos -825
+ypos -662
+}
+Merge2 {
+inputs 2
+name Merge1
+xpos -825
+ypos 443
+}
+Output {
+name Output1
+xpos -825
+ypos 711
+}
+Input {
+inputs 0
+name position
+xpos 262
+ypos -316
+number 1
+}
+Shuffle {
+in rgb
+name p2rgb
+xpos 262
+ypos -256
+}
+NoOp {
+name p_sample
+xpos 262
+ypos -136
+addUserKnob {20 User}
+addUserKnob {18 normal l P}
+normal {0 0 0}
+addUserKnob {6 normal_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+}
+Input {
+inputs 0
+name normals
+xpos 120
+ypos -380
+number 2
+}
+Shuffle {
+in rgb
+name n2rgb
+xpos 120
+ypos -296
+}
+NoOp {
+name n_sample
+xpos 120
+ypos -203
+addUserKnob {20 User}
+addUserKnob {18 normals l N}
+normals {0 0 0}
+addUserKnob {6 normals_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+}
+end_group
