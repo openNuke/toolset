@@ -1,0 +1,33 @@
+#! C:/Program Files/Nuke7.0v8/Nuke7.0.exe -nx
+#http://www.nukepedia.com/python/nodegraph/massivepanel/
+version 7.0 v8
+Group {
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -584
+  ypos 509
+ }
+ Colorspace {
+  colorspace_out sRGB
+  name Colorspace1
+  selected true
+  xpos -584
+  ypos 535
+ }
+ Grid {
+  opacity 0.25
+  number 20
+  size 3
+  color {1 0 0 1}
+  name Grid1
+  xpos -584
+  ypos 587
+ }
+ Output {
+  name Output1
+  xpos -584
+  ypos 687
+ }
+end_group
