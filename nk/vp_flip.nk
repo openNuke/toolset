@@ -1,0 +1,39 @@
+#! C:/Program Files/Nuke7.0v8/Nuke7.0.exe -nx
+#http://www.nukepedia.com/python/nodegraph/massivepanel/
+version 7.0 v8
+Group {
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -197
+  ypos -85
+ }
+ Mirror {
+  Horizontal true
+  name Mirror1
+  xpos -197
+  ypos -28
+ }
+ Colorspace {
+  colorspace_out sRGB
+  name Colorspace1
+  selected true
+  xpos -197
+  ypos -2
+ }
+set N351dca10 [stack 0]
+ Output {
+  name Output1
+  xpos -197
+  ypos 55
+ }
+push $N351dca10
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos 70
+  ypos -10
+  hide_input true
+ }
+end_group
