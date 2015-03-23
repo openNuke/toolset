@@ -201,4 +201,3 @@ def addSRPanel():
         mySRPanel.show()
         pane = nuke.getPaneFor('Properties.1')
         return mySRPanel.addToPane(pane)
-        mySRPanel.show()
