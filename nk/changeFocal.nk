@@ -6,7 +6,7 @@ push 0
 push $cut_paste_input
 Group {
  inputs 2
- name ChangeCamera
+ name ChangeFocal
  help "This gives you controls to reframe your footage and output a new camera that matches to the reframed footage.\n\nCompositors are often asked to reframe shots to match changes that was made in editorial.\n However, reframing your shot prior to comp will cause problems when doing for example camera tracking. \nThis gizmo is designed with the following workflow in mind:\n\n* Camera track full frame footage.\n* Connect the tracked camera and the source footage (using as high resolution as available) to the gizmo.\n* Reframe footage in gizmo and output the reframed footage at a given resolution.\n* Export a new camera that match the reframe.\n"
  knobChanged "\n\nfrom __future__ import with_statement\n\nn = nuke.thisNode()\nk = nuke.thisKnob()\n\nif k.name() == \"method\":\n\n    if n\[\"method\"].value() == \"set new focal length\":\n        n\[\"new_focal\"].setVisible(True)\n        n\[\"focal_from_camera\"].setVisible(True)\n        n\[\"add_to_focal_percentage\"].setVisible(False)\n        n\[\"add_to_focal_mm\"].setVisible(False)\n\n    elif n\[\"method\"].value() == \"add to current focal length (%)\":\n        n\[\"add_to_focal_percentage\"].setVisible(True)\n        n\[\"add_to_focal_mm\"].setVisible(False)\n        n\[\"new_focal\"].setVisible(False)\n        n\[\"focal_from_camera\"].setVisible(False)\n\n    elif n\[\"method\"].value() == \"add to current focal length (mm)\":\n        n\[\"add_to_focal_mm\"].setVisible(True)\n        n\[\"add_to_focal_percentage\"].setVisible(False)\n        n\[\"new_focal\"].setVisible(False)\n        n\[\"focal_from_camera\"].setVisible(False)\n\n"
  tile_color 0xffff
