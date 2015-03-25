@@ -1,0 +1,17 @@
+{
+"type": "node",
+"category": "Other",
+"file": "/nk/CurveGenerator.nk",
+"tooltip": "Generate curves from various maths functions. i.e camera shake, light flicker etc. Features\n* 12 curve types inc. fbn\n* Mixing a seperate B curve with 11 math calcs\n* Friendly and responsive in the curve editor",
+"originalAuthor": "Rafal Kaniewski",.
+"dateCreated": "2015-01-01",
+"status": "stable",
+"documentation": "http://opennuke.github.io/ChangeFocal_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "https://github.com/vfxwiki",
+"originalVersion": "1",
+"call": "",
+"label": "CurveGenerator",
+"note": "",
+"icon": ""
+}
