@@ -1,0 +1,17 @@
+{
+"type": "node",
+"category": "Other",
+"file": "/nk/Spurt.nk",
+"tooltip": "2D liquid simulation"
+"originalAuthor": "Theodor Groeneboomk",
+"dateCreated": "2014-01-29",
+"status": "stable",
+"documentation": "http://opennuke.github.io/Spurt_nk/",
+"licence": "Sprut is distributed under GNU/GPL. It may be used for commercial purposes, but not redistributed or repackaged, in particular not for any fee",
+"source": "http://www.nukepedia.com/gizmos/draw/sprut-2d-fluids",
+"originalVersion": "1.2",
+"call": "",
+"label": "Spurt",
+"note": "Based on and around Jos Stam’s 1999 Siggraph paper Stable Fluids\nThanks to Andre Hitsøy, Lucien Fostier & Michael Ralla for contributions.",
+"icon": ""
+}
