@@ -1,0 +1,6634 @@
+set cut_paste_input [stack 0]
+version 8.0 v5
+StickyNote {
+inputs 0
+name StickyNote3
+label "Example 1.\nCombining two different SprutEmitters into the same simulation"
+note_font_size 21
+selected true
+xpos -19240
+ypos 8119
+}
+StickyNote {
+inputs 0
+name StickyNote5
+label "Example 5.\nA simple Sprut setup."
+note_font_size 21
+selected true
+xpos -15370
+ypos 8116
+}
+StickyNote {
+inputs 0
+name StickyNote6
+label "Example 6.\nThe motion vectors can be used to distort backgrounds."
+note_font_size 21
+selected true
+xpos -14197
+ypos 8286
+}
+StickyNote {
+inputs 0
+name StickyNote7
+label "Example 7.\nThe motion vectors can be used to push a texture around."
+note_font_size 21
+selected true
+xpos -14229
+ypos 9000
+}
+StickyNote {
+inputs 0
+name StickyNote4
+label "Example 4.\nSprutInspect shows the direction of the motion vectors."
+note_font_size 21
+selected true
+xpos -16423
+ypos 8118
+}
+push $cut_paste_input
+Camera2 {
+translate {0 0 2.9}
+name Camera1
+selected true
+xpos -16961
+ypos 7650
+}
+set N554300 [stack 0]
+Constant {
+inputs 0
+format "256 256 0 0 256 256 1 square_256"
+name Constant1
+selected true
+xpos -16836
+ypos 7205
+}
+Radial {
+area {0 0 256 256}
+name Radial2
+selected true
+xpos -16836
+ypos 7277
+}
+Grade {
+white {{random(frame+0.5)} {random(frame)} {random(frame-0.5)} {random(frame)}}
+name Grade24
+selected true
+xpos -16836
+ypos 7303
+}
+Saturation {
+saturation 3
+mode Average
+name Saturation3
+selected true
+xpos -16836
+ypos 7329
+}
+BlendMat {
+operation plus
+surfaceblend modulate
+name BlendMat1
+selected true
+xpos -16836
+ypos 7432
+}
+Card2 {
+inputs 0
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card1
+selected true
+xpos -16956
+ypos 7517
+}
+push 0
+ParticleEmitter {
+inputs 3
+emit_from bbox
+rate 2
+lifetime 5
+velocity 0
+size 0.026
+size_variation 1
+name ParticleEmitter1
+selected true
+xpos -16836
+ypos 7517
+}
+ParticleTurbulence {
+strength {0.03 {strength.main.x} 0}
+scale {6 1 1}
+offset {{frame*0.2} 0 0}
+name ParticleTurbulence1
+selected true
+xpos -16836
+ypos 7561
+}
+push $N554300
+Scene {
+inputs 2
+name Scene1
+selected true
+xpos -16826
+ypos 7650
+}
+Constant {
+inputs 0
+channels rgb
+format "640 480 0 0 640 480 1 PC_Video"
+name Constant4
+selected true
+xpos -16712
+ypos 7728
+}
+ScanlineRender {
+inputs 3
+motion_vectors_type velocity
+MB_channel motion
+name ScanlineRender1
+selected true
+xpos -16836
+ypos 7751
+}
+Grade {
+channels motion
+white -10
+black_clamp false
+name Grade25
+label "Increase velocities and reverse(!) them"
+selected true
+xpos -16836
+ypos 7850
+}
+set N558ea0 [stack 0]
+push $N558ea0
+Group {
+inputs 2
+name sprutSolver2
+help "SprutSolver v1.0\n(c) 2012-2014 theo@euahuba.com\n\nWritten by theodor groeneboom\nBased on Jos Stam's 1999 siggraph paper \"Stable Fluids\"\n\nUnder GPL/GNU License.\nPaypal donations to theo@euqahuba.com"
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xfffcffff
+selected true
+xpos -16836
+ypos 7931
+addUserKnob {20 sprutSolver l "Sprut Solver"}
+addUserKnob {26 about l About t "SprutSolver v1.0\n(c) 2012-2014 theo@euqahuba.com\n\nAdditional contributions and inspiration from\nAndre Hitsoy,Lucien Fostier, Vincen Houze and Jos Stam." T "SprutSolver v1.0\n(c) 2012-2014 theo@euqahuba.com"}
+addUserKnob {20 solverTab l "Solver Setup" n 1}
+addUserKnob {26 ""}
+addUserKnob {7 timeStep l TimeStep t "The amount the velocity field is projecting the fluid forward pr timestep. A value of 2 would double the speed of the motion, and a value of 0.5 would half the speed." R 0 2}
+timeStep 1
+addUserKnob {3 frameStart l Start}
+addUserKnob {3 frameEnd l End -STARTLINE}
+frameEnd 100
+addUserKnob {2 cache l "Cache Files" t "Folder to store the cached EXR files."}
+cache /mnt/scratch1/tgroeneb/nuke/sprut/sprut_%04d.exr
+addUserKnob {41 reload l "Reload Cache" -STARTLINE T readIn.reload}
+addUserKnob {26 ""}
+addUserKnob {22 executeSim l "Run Simulation" t "Executes the simulation." T "## Sprut by theodor groeneboom (theo@euqahuba.com)\n## (c) 2012-2014 - GPL\n## v0.15\n\n\nimport threading\nimport nuke\nimport time\n\nn = nuke.thisNode()\nframeStart = int(n.knob('frameStart').getValue())\nframeEnd = int(n.knob('frameEnd').getValue())\nwriteOut = n.node('writeOut')\nreadIn = n.node('readIn')\ntask = nuke.ProgressTask(\"Sprut:Simulating.\")\nreadIn.knob('reload').execute()\n\ndef render():\n    for renderRange in range(frameStart,frameEnd+1):\n      readIn.knob('reload').execute()\n      nuke.execute(writeOut,renderRange,renderRange)\n      progressTotal = frameEnd-frameStart\n      progress = ((renderRange-frameStart)/progressTotal)*100\n      task.setProgress(int(progress))\n      nuke.frame(renderRange)\n      ##nuke.Root().setFrame( renderRange )\n      ##nuke.updateUI\n      if task.isCancelled():\n\tnuke.executeInMainThread( nuke.message, args=( \"Aborted!\" ) )\n\tbreak;\n\n##threading.Thread( None, render ).start()\nrender()\ndel task\n\n##nuke.execute(writeOut,frameStart,frameEnd)\nreadIn.knob('reload').execute()\n" +STARTLINE}
+addUserKnob {20 endGroup n -1}
+addUserKnob {20 fluid l Fluid n 1}
+fluid 0
+addUserKnob {41 size_1 l Viscocity T viscocity.size}
+addUserKnob {26 ""}
+addUserKnob {7 veloctyDissipation l "Velocity Dissipation" t "Velocity dissipation is how much motion the velocity looses pr timestep/frame. \nA value of 0.1 will cause a slight drag and slow down, while a value of 1 will cause the fluid to stop instantly." R 0 0.1}
+veloctyDissipation 0.04
+addUserKnob {7 velocityDiffusion l "Velocity Diffusion" t "Velocity diffusion is how blurry or viscous the fluid should get pr timestep. The blurrier the more blobby the fluid motion gets." R 0 8}
+addUserKnob {26 ""}
+addUserKnob {7 densityDissipation l "Density Dissipation" t "Density dissipation is the amount of which the fluid fades away after emission." R 0 0.1}
+addUserKnob {7 densityDiffusion l "Density Diffusion" t "Density dissipation preforms a blur on the density and colour on each timestep. " R 0 8}
+addUserKnob {26 ""}
+addUserKnob {41 amount l "Vorticity Amount" T vorticity_calc.amount}
+addUserKnob {41 size_2 l "Vorticity Diffusion" T vorticity_blur.size}
+addUserKnob {20 endGroup_1 l endGroup n -1}
+addUserKnob {20 forces_1 l Forces n 1}
+forces_1 0
+addUserKnob {26 forces l Forces}
+addUserKnob {18 directionalForce l "Directional Force" t "This adds a constant directional force to the overall fluid field." R -1 1}
+directionalForce {0 0 0}
+addUserKnob {6 directionalForce_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {20 endGroup_2 l endGroup n -1}
+addUserKnob {20 postSim l "Post Simulation"}
+addUserKnob {6 addToOriginal l "Add source to output" +STARTLINE}
+addToOriginal true
+addUserKnob {26 ""}
+addUserKnob {41 size l "Pre Blur Velocity" T Blur1.size}
+addUserKnob {41 scale l "Motion Blur" T VectorBlur2.scale}
+addUserKnob {41 offset l "Motion Blur offset" T VectorBlur2.offset}
+addUserKnob {41 grow_bbox l "grow bbox" T VectorBlur2.grow_bbox}
+addUserKnob {41 method T VectorBlur2.method}
+}
+Input {
+inputs 0
+name emitter
+xpos -61
+ypos -505
+}
+set N559210 [stack 0]
+Dot {
+name Dot3
+xpos -148
+ypos -501
+}
+set N559580 [stack 0]
+Read {
+inputs 0
+file "\[ value parent.cache ]"
+format "256 256 0 0 256 256 1 square_256"
+first {{parent.frameStart}}
+last {{parent.frameEnd}}
+origfirst 0
+origlast 10
+origset true
+on_error black
+version 63477
+raw true
+name readIn
+xpos -399
+ypos -424
+}
+set N5598f0 [stack 0]
+Merge2 {
+inputs 2
+operation plus
+name Merge2
+xpos -399
+ypos -302
+disable {{1-parent.addToOriginal}}
+}
+Blur {
+channels motion
+size 1
+name Blur1
+xpos -399
+ypos -190
+}
+VectorBlur {
+channels rgba
+uv motion
+name VectorBlur2
+xpos -399
+ypos -152
+}
+Output {
+name Output1
+xpos -399
+ypos -117
+}
+push $N559210
+Dot {
+name Dot1
+xpos -27
+ypos -344
+}
+push $N5598f0
+FrameHold {
+first_frame {{frame-1}}
+name FrameHold1
+help "This nodes fetches the previous state of the simulation."
+xpos -289
+ypos -395
+}
+push $N559580
+Merge2 {
+inputs 2
+operation plus
+also_merge all
+name Merge1
+help "Adds the previous and the current fields together."
+xpos -182
+ypos -389
+}
+Switch {
+inputs 2
+which {{frame==frameStart?1:0}}
+name Switch1
+help "A switch is happening on the first frame to avoid residual simulation elements from previous sims."
+xpos -182
+ypos -348
+}
+Expression {
+temp_name0 curl
+temp_expr0 ((forward.u(x,y+1)-forward.u(x,y-1))*0.5)-((forward.v(x+1,y)-forward.v(x-1,y))*0.5)
+channel0 {backward.u -backward.v}
+expr0 curl
+channel1 {-backward.u backward.v}
+expr1 curl
+channel2 none
+name vorticity_curl
+xpos -182
+ypos -272
+}
+Expression {
+temp_name0 curlDx
+temp_expr0 (backward.u(x+1,y)-backward.u(x-1,y))*.5
+temp_name1 curlDy
+temp_expr1 (backward.u(x,y+1)-backward.u(x,y-1))*.5
+temp_name2 length
+temp_expr2 sqrt(pow2(curlDx)+pow2(curlDy))+0.00001
+channel0 {backward.u -backward.v}
+expr0 (backward.u*(curlDx/length))*amount
+channel1 {-backward.u backward.v}
+expr1 (backward.v*(curlDy/length))*amount
+channel2 backward
+expr2 0
+channel3 backward
+expr3 0
+name vorticity_calc
+xpos -182
+ypos -246
+addUserKnob {20 User}
+addUserKnob {7 amount}
+amount 0.6
+}
+Blur {
+channels backward
+size 1
+quality 45
+name vorticity_blur
+xpos -182
+ypos -220
+}
+Blur {
+channels {forward.u forward.v none -backward.v}
+size {{velocityDiffusion}}
+filter box
+name veloctyDiffusion
+xpos -182
+ypos -108
+}
+Blur {
+channels rgba
+size {{densityDiffusion}}
+name densityDiffusion
+xpos -182
+ypos -70
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+multiply {{1-veloctyDissipation}}
+add {{parent.directionalForce.r} {parent.directionalForce.g} 0 0}
+black_clamp false
+name velocity
+xpos -182
+ypos -46
+}
+Grade {
+channels rgba
+white {{1-parent.densityDissipation}}
+black_clamp false
+name density
+xpos -182
+ypos -8
+}
+Expression {
+channel0 {forward.u -forward.v none -backward.v}
+expr0 backward.u+forward.u
+channel1 {-forward.u forward.v none -backward.v}
+expr1 backward.v+forward.v
+channel2 backward
+expr2 0
+channel3 backward
+expr3 0
+name Expression1
+label add_vorticity
+xpos -182
+ypos 31
+}
+Dot {
+name Dot4
+xpos -148
+ypos 180
+}
+set N55cc80 [stack 0]
+Group {
+name divergence_and_pressure_solving
+xpos 6
+ypos 176
+addUserKnob {20 User}
+addUserKnob {3 val}
+val -1
+}
+Input {
+ inputs 0
+ name Input1
+ xpos -1580
+ ypos -285
+}
+Dot {
+ name Dot2
+ xpos -1546
+ ypos -118
+}
+set N55d360 [stack 0]
+Reformat {
+ type scale
+ scale 0.15
+ name Reformat33
+ xpos -700
+ ypos 32
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence17
+ xpos -700
+ ypos 56
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat33.scale i}}
+ name Reformat34
+ xpos -700
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.2
+ name Reformat31
+ xpos -810
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence16
+ xpos -810
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat31.scale i}}
+ name Reformat32
+ xpos -810
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.25
+ name Reformat29
+ xpos -920
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence15
+ xpos -920
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat29.scale i}}
+ name Reformat30
+ xpos -920
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.3
+ name Reformat27
+ xpos -1030
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence14
+ xpos -1030
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat27.scale i}}
+ name Reformat28
+ xpos -1030
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.35
+ name Reformat25
+ xpos -1140
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence13
+ xpos -1140
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat25.scale i}}
+ name Reformat26
+ xpos -1140
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.4
+ name Reformat3
+ xpos -1250
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence12
+ xpos -1250
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat3.scale i}}
+ name Reformat24
+ xpos -1250
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.45
+ name Reformat1
+ xpos -1360
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence11
+ xpos -1360
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat1.scale i}}
+ name Reformat2
+ xpos -1360
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.5
+ name Reformat22
+ xpos -1470
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence10
+ xpos -1470
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat22.scale i}}
+ name Reformat23
+ xpos -1470
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.55
+ name Reformat20
+ xpos -1580
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence9
+ xpos -1580
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat20.scale i}}
+ name Reformat21
+ xpos -1580
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.6
+ name Reformat18
+ xpos -1690
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence8
+ xpos -1690
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat18.scale i}}
+ name Reformat19
+ xpos -1690
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.65
+ name Reformat16
+ xpos -1800
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence7
+ xpos -1800
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat16.scale i}}
+ name Reformat17
+ xpos -1800
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.7
+ name Reformat14
+ xpos -1910
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence6
+ xpos -1910
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat14.scale i}}
+ name Reformat15
+ xpos -1910
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.75
+ name Reformat12
+ xpos -2020
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence5
+ xpos -2020
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat12.scale i}}
+ name Reformat13
+ xpos -2020
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.8
+ name Reformat10
+ xpos -2130
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence4
+ xpos -2130
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat10.scale i}}
+ name Reformat11
+ xpos -2130
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ scale 0.85
+ name Reformat8
+ xpos -2240
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence3
+ xpos -2240
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat8.scale i}}
+ name Reformat9
+ xpos -2240
+ ypos 86
+}
+push 0
+push $N55d360
+Reformat {
+ type scale
+ scale 0.9
+ name Reformat6
+ xpos -2350
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence2
+ xpos -2350
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat6.scale i}}
+ name Reformat7
+ xpos -2350
+ ypos 86
+}
+push $N55d360
+Reformat {
+ type scale
+ resize none
+ name Reformat4
+ xpos -2460
+ ypos 31
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence1
+ selected true
+ xpos -2460
+ ypos 60
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat4.scale i}}
+ name Reformat5
+ xpos -2460
+ ypos 86
+}
+Merge2 {
+ inputs 17+1
+ operation average
+ Achannels {forward.u forward.v none -backward.v}
+ Bchannels {forward.u forward.v none -backward.v}
+ output {forward.u forward.v none -backward.v}
+ name Merge3
+ xpos -1580
+ ypos 370
+}
+Output {
+ name Output1
+ xpos -1580
+ ypos 518
+}
+end_group
+Dot {
+name Dot2
+xpos 40
+ypos 231
+}
+push $N55cc80
+MergeExpression {
+inputs 2
+temp_name0 gradX
+temp_expr0 ((Au(x+1,y)-Au(x-1,y)))*0.5
+temp_name1 gradY
+temp_expr1 ((Au(x,y+1)-Au(x,y-1)))*0.5
+channel0 {forward.u -forward.v none -backward.v}
+expr0 Bu-1*gradX
+channel1 {-forward.u forward.v none -backward.v}
+expr1 Bv-1*gradY
+channel2 none
+channel3 none
+name subtract_pressureGradient_fromVel
+xpos -182
+ypos 227
+}
+set N2db000 [stack 0]
+IDistort {
+uv motion
+uv_scale {{-parent.timeStep}}
+name advect1
+xpos -53
+ypos 297
+}
+Blur {
+channels motion
+name viscocity
+selected true
+xpos -53
+ypos 335
+}
+push $N2db000
+Merge2 {
+inputs 2
+operation average
+Achannels {forward.u forward.v none -backward.v}
+Bchannels {forward.u forward.v none -backward.v}
+output {forward.u forward.v none -backward.v}
+name Merge3
+xpos -184
+ypos 335
+}
+IDistort {
+uv motion
+uv_scale {{parent.timeStep}}
+name advect
+xpos -182
+ypos 407
+}
+Crop {
+box {0 0 {width} {height}}
+name Crop1
+xpos -182
+ypos 452
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+add {{-parent.directionalForce.r x68 0} {-parent.directionalForce.g x68 0} 0 0}
+black_clamp false
+name Grade1
+xpos -182
+ypos 476
+}
+Write {
+channels all
+file "\[ value parent.cache ]"
+raw true
+file_type exr
+"Standard layer name format" true
+version 63201
+name writeOut
+xpos -182
+ypos 525
+}
+end_group
+Grade {
+channels rgba
+white 10
+gamma 0.875
+name Brightness1
+selected true
+xpos -16836
+ypos 8008
+}
+Group {
+name SprutInspect1
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xffffffff
+selected true
+xpos -16232
+ypos 7998
+addUserKnob {20 User l "Sprut Inspect"}
+addUserKnob {26 SprutInspect l "Sprut Inspect"}
+addUserKnob {4 view l View M {Color White "" ""}}
+addUserKnob {6 invert l "Invert Vectors" +STARTLINE}
+addUserKnob {41 val l Step-size T Expression1.val}
+addUserKnob {41 size l "Pre-Blur Vectors" T Blur1.size}
+addUserKnob {41 scale l "Scale Vectors" T VectorBlur2.scale}
+}
+Input {
+inputs 0
+name Input1
+xpos -532
+ypos -595
+}
+set N2dcef0 [stack 0]
+Dot {
+name Dot1
+xpos -498
+ypos -339
+}
+set N2dd260 [stack 0]
+push $N2dd260
+Blur {
+size 44
+name Blur2
+xpos -474
+ypos -473
+}
+push $N2dcef0
+Blur {
+channels motion
+size 30
+name Blur1
+xpos -379
+ypos -569
+}
+Grade {
+channels motion
+white -1
+black_clamp false
+name Grade1
+xpos -379
+ypos -531
+disable {{1-parent.invert}}
+}
+Expression {
+temp_name0 points
+temp_expr0 (fmod(x,val)*fmod(y,val))==1?1:0
+channel0 rgb
+expr0 points
+channel1 rgb
+expr1 points
+channel2 rgb
+expr2 points
+channel3 rgb
+expr3 points
+name Expression1
+xpos -379
+ypos -493
+addUserKnob {20 User}
+addUserKnob {3 val}
+val 12
+}
+Merge2 {
+inputs 2
+operation multiply
+name Merge2
+selected true
+xpos -379
+ypos -467
+disable {{parent.view}}
+}
+VectorBlur {
+channels rgb
+uv motion
+scale -7
+offset 0
+method forward
+name VectorBlur2
+xpos -379
+ypos -441
+}
+Grade {
+multiply 40
+gamma 1.94
+black_clamp false
+name Grade2
+xpos -379
+ypos -415
+}
+Merge2 {
+inputs 2
+operation plus
+name Merge1
+xpos -379
+ypos -343
+}
+Output {
+name Output1
+xpos -379
+ypos -295
+}
+end_group
+Grade {
+white 15
+name Grade26
+selected true
+xpos -16232
+ypos 8044
+}
+StickyNote {
+inputs 0
+name StickyNote8
+label "Example 2.\nUsing Nuke's Oflow nodes to generate motion vectors.\nThis example uses Nuke8's text node."
+note_font_size 21
+selected true
+xpos -18158
+ypos 8106
+}
+StickyNote {
+inputs 0
+name StickyNote9
+label "Example 3.\nUsing particles as a custom source of fluid emission"
+note_font_size 21
+selected true
+xpos -17058
+ypos 8116
+}
+Constant {
+inputs 0
+channels rgb
+format "512 512 0 0 512 512 1 square_512"
+name Constant5
+selected true
+xpos -19061
+ypos 7455
+}
+set N2df830 [stack 0]
+push $N2df830
+Radial {
+replace true
+area {240 246.5 263.5 269.5}
+softness 0.03
+name Radial3
+selected true
+xpos -18881
+ypos 7645
+}
+set N2dfba0 [stack 0]
+Grade {
+white {1 0.486511 0 1}
+name Grade27
+selected true
+xpos -18744
+ypos 7712
+}
+Group {
+inputs 2
+name sprutEmitter3
+help "SprutEmitter v1.0\n(c) 2012-2014 theo@euahuba.com\n\nWritten by theodor groeneboom\nBased on Jos Stam's 1999 siggraph paper \"Stable Fluids\"\n\nUnder GPL/GNU License.\nPaypal donations to theo@euqahuba.com"
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xfffcffff
+selected true
+xpos -18846
+ypos 7780
+addUserKnob {20 sprutEmitter l "Sprut Emitter"}
+addUserKnob {20 endGroup n -1}
+addUserKnob {7 globalMult l "Global Multiplier" t "Multiplier of both density and velocity. Can be used as an on/off switch for the emission."}
+globalMult 1
+addUserKnob {4 view l View t "Displays different fields. Usefull for setting up turbulence fields and checking velocities." M {Output "Velocity Field" "Turbulence Field" ""}}
+addUserKnob {20 transformTab l Transform n 1}
+transformTab 0
+addUserKnob {26 Transform}
+addUserKnob {41 matrix T Transform2.matrix}
+addUserKnob {41 translate l Translation T Transform2.translate}
+addUserKnob {41 rotate l Rotation T Transform2.rotate}
+addUserKnob {41 scale l Scale T Transform2.scale}
+addUserKnob {41 center T Transform2.center}
+addUserKnob {41 motionblur T Transform2.motionblur}
+addUserKnob {41 shutter T Transform2.shutter}
+addUserKnob {41 shutteroffset l "shutter offset" T Transform2.shutteroffset}
+addUserKnob {41 shuttercustomoffset l "" -STARTLINE T Transform2.shuttercustomoffset}
+addUserKnob {20 endGroup_2 l endGroup n -1}
+addUserKnob {20 velocityTab l Velocity n 1}
+addUserKnob {26 Velocity}
+addUserKnob {7 velocityMult l "Velocity Multiplier" t "Overall velocity multiplier" R 0 10}
+velocityMult 0.2
+addUserKnob {30 velocityDirection l "Add direction" t "Adds a single direction to the fluid field."}
+addUserKnob {7 velocityInherit l "Inherit Velocity" t "If the transform tabs are animated, you can add the motion to the velocites here."}
+velocityInherit 0.5
+addUserKnob {7 velocityRandom l "Random Direction" t "Adds a random uniform direction to the entire field for each frame."}
+velocityRandom 0.1
+addUserKnob {20 endGroup_1 l endGroup n -1}
+addUserKnob {20 turbulenceTab l Turbulence n 1}
+addUserKnob {26 ""}
+addUserKnob {7 affectDensity l "Affect Density" t "Affects the turbulence in the density field."}
+affectDensity 1
+addUserKnob {7 turbulenceMult l "Turbulence Mult" t "Adds turbulence to the velocity field."}
+turbulenceMult 1
+addUserKnob {26 ""}
+addUserKnob {41 size l x/ysize T Noise1.size}
+addUserKnob {41 zoffset l z T Noise1.zoffset}
+addUserKnob {41 octaves T Noise1.octaves}
+addUserKnob {41 nyquist l "clip at Nyquist limit" T Noise1.nyquist}
+addUserKnob {41 lacunarity T Noise1.lacunarity}
+addUserKnob {41 gain T Noise1.gain}
+addUserKnob {41 gamma T Noise1.gamma}
+}
+Input {
+inputs 0
+name shape
+xpos -285
+ypos -521
+}
+Shuffle {
+in motion
+red black
+green black
+blue black
+alpha black
+out motion
+name Shuffle2
+xpos -285
+ypos -469
+}
+Clamp {
+channels alpha
+name Clamp1
+xpos -285
+ypos -443
+}
+Transform {
+translate {{curve x1 -137 x25 108 x50 113 -117 x99 -115} {curve x1 113 x25 -145 x50 119 -114 x99 102}}
+scale 0.325
+center {240 262}
+motionblur 1
+shutter 4
+shutteroffset centred
+name Transform2
+xpos -285
+ypos -396
+}
+Expression {
+channel0 {forward.u -forward.v none -backward.v}
+expr0 "(((  ((-slope.x)*val)  +  ((random(frame+5)-0.5))*(randomDir)  +  (velocityDirection.u)) * velocityMult) * a )"
+channel1 {-forward.u forward.v none -backward.v}
+expr1 "(((  ((-slope.y)*val)  +  ((random(frame+50)-0.5))*(randomDir)  +  (velocityDirection.v)) * velocityMult) * a)"
+channel2 none
+name Expression1
+xpos -285
+ypos -333
+addUserKnob {20 User}
+addUserKnob {7 randomDir l "Random Direction"}
+randomDir {{parent.velocityRandom}}
+addUserKnob {7 val}
+val {{parent.velocityInherit}}
+addUserKnob {12 slope}
+slope {{Transform2.translate-Transform2.translate(frame-1)} {Transform2.translate-Transform2.translate(frame-1)}}
+}
+Input {
+inputs 0
+name grid
+xpos -92
+ypos -505
+number 1
+}
+Shuffle {
+in motion
+red black
+green black
+blue black
+alpha black
+name Shuffle1
+xpos -92
+ypos -471
+}
+Merge2 {
+inputs 2
+also_merge motion
+name Merge1
+xpos -92
+ypos -333
+}
+Dot {
+name Dot1
+xpos -58
+ypos -275
+}
+set N2e1e00 [stack 0]
+Dot {
+name Dot2
+xpos -369
+ypos -276
+}
+NoOp {
+name NoOp1
+xpos -403
+ypos -210
+}
+set N2e24e0 [stack 0]
+Noise {
+output motion
+size 6.1
+zoffset {{frame*0.1}}
+lacunarity 1
+gain 1
+gamma 0.27
+center {1030 438}
+name Noise1
+xpos -543
+ypos -218
+}
+set N2e2850 [stack 0]
+Dot {
+name Dot5
+xpos -653
+ypos -207
+}
+Dot {
+name Dot4
+xpos -653
+ypos 280
+}
+Shuffle {
+in motion
+name Shuffle6
+xpos -202
+ypos 276
+}
+push $N2e24e0
+Shuffle {
+red alpha
+green alpha
+blue alpha
+out motion
+name Shuffle3
+xpos -403
+ypos -134
+}
+push $N2e2850
+NoOp {
+name NoOp2
+xpos -543
+ypos -180
+}
+set N2e3cf0 [stack 0]
+Matrix {
+channels motion
+matrix {
+    {0 -1 0}
+    {0 1 0}
+    {0 0 0}
+  }
+name Matrix1
+xpos -590
+ypos -135
+}
+push $N2e3cf0
+Matrix {
+channels motion
+matrix {
+    {0 0 0}
+    {-1 1 0}
+    {0 0 0}
+  }
+name Matrix2
+xpos -493
+ypos -135
+}
+ShuffleCopy {
+inputs 2
+in motion
+in2 motion
+red red
+blue black
+alpha black
+out motion
+name ShuffleCopy1
+xpos -540
+ypos -79
+}
+Merge {
+inputs 2
+A {forward.u forward.v none -backward.v}
+operation mult
+B {forward.u forward.v none -backward.v}
+output {forward.u forward.v none backward.v}
+name Merge2
+xpos -293
+ypos -25
+}
+Grade {
+channels {forward.u forward.v none backward.v}
+white {{parent.turbulenceMult}}
+black_clamp false
+name Grade2
+xpos -293
+ypos 13
+}
+Dot {
+name Dot3
+xpos -259
+ypos 133
+}
+push $N2e2850
+Shuffle {
+in motion
+red alpha
+green alpha
+blue alpha
+name Shuffle4
+xpos -213
+ypos -156
+}
+Grade {
+channels rgba
+name Grade4
+xpos -213
+ypos -130
+}
+push $N2e1e00
+Merge2 {
+inputs 2
+operation multiply
+mix {{parent.affectDensity}}
+name Merge3
+selected true
+xpos -92
+ypos -130
+}
+Merge {
+inputs 2
+A forward
+operation plus
+B forward
+output forward
+bbox B
+name Merge4
+xpos -92
+ypos 124
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+white {{width/2} {height/2} 1 1}
+black_clamp false
+name Grade3
+xpos -92
+ypos 162
+}
+Grade {
+channels all
+white {{parent.globalMult}}
+black_clamp false
+name Grade1
+xpos -92
+ypos 196
+}
+set N2e6630 [stack 0]
+Shuffle {
+in motion
+name Shuffle5
+xpos -202
+ypos 202
+}
+push $N2e6630
+Switch {
+inputs 3
+which {{parent.view}}
+name Switch1
+xpos -92
+ypos 276
+}
+Output {
+name Output1
+xpos -92
+ypos 340
+}
+end_group
+push $N2df830
+push $N2dfba0
+Grade {
+white {0 0.297519 1 1}
+name Grade28
+selected true
+xpos -19007
+ypos 7691
+}
+Group {
+inputs 2
+name sprutEmitter1
+help "SprutEmitter v1.0\n(c) 2012-2014 theo@euahuba.com\n\nWritten by theodor groeneboom\nBased on Jos Stam's 1999 siggraph paper \"Stable Fluids\"\n\nUnder GPL/GNU License.\nPaypal donations to theo@euqahuba.com"
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xfffcffff
+selected true
+xpos -19061
+ypos 7791
+addUserKnob {20 sprutEmitter l "Sprut Emitter"}
+addUserKnob {20 endGroup n -1}
+addUserKnob {7 globalMult l "Global Multiplier" t "Multiplier of both density and velocity. Can be used as an on/off switch for the emission."}
+globalMult 1
+addUserKnob {4 view l View t "Displays different fields. Usefull for setting up turbulence fields and checking velocities." M {Output "Velocity Field" "Turbulence Field" ""}}
+addUserKnob {20 transformTab l Transform n 1}
+transformTab 0
+addUserKnob {26 Transform}
+addUserKnob {41 matrix T Transform2.matrix}
+addUserKnob {41 translate l Translation T Transform2.translate}
+addUserKnob {41 rotate l Rotation T Transform2.rotate}
+addUserKnob {41 scale l Scale T Transform2.scale}
+addUserKnob {41 center T Transform2.center}
+addUserKnob {41 motionblur T Transform2.motionblur}
+addUserKnob {41 shutter T Transform2.shutter}
+addUserKnob {41 shutteroffset l "shutter offset" T Transform2.shutteroffset}
+addUserKnob {41 shuttercustomoffset l "" -STARTLINE T Transform2.shuttercustomoffset}
+addUserKnob {20 endGroup_2 l endGroup n -1}
+addUserKnob {20 velocityTab l Velocity n 1}
+addUserKnob {26 Velocity}
+addUserKnob {7 velocityMult l "Velocity Multiplier" t "Overall velocity multiplier" R 0 10}
+velocityMult 0.6
+addUserKnob {30 velocityDirection l "Add direction" t "Adds a single direction to the fluid field."}
+addUserKnob {7 velocityInherit l "Inherit Velocity" t "If the transform tabs are animated, you can add the motion to the velocites here."}
+velocityInherit 0.5
+addUserKnob {7 velocityRandom l "Random Direction" t "Adds a random uniform direction to the entire field for each frame."}
+velocityRandom 0.1
+addUserKnob {20 endGroup_1 l endGroup n -1}
+addUserKnob {20 turbulenceTab l Turbulence n 1}
+addUserKnob {26 ""}
+addUserKnob {7 affectDensity l "Affect Density" t "Affects the turbulence in the density field."}
+affectDensity 1
+addUserKnob {7 turbulenceMult l "Turbulence Mult" t "Adds turbulence to the velocity field."}
+turbulenceMult 1
+addUserKnob {26 ""}
+addUserKnob {41 size l x/ysize T Noise1.size}
+addUserKnob {41 zoffset l z T Noise1.zoffset}
+addUserKnob {41 octaves T Noise1.octaves}
+addUserKnob {41 nyquist l "clip at Nyquist limit" T Noise1.nyquist}
+addUserKnob {41 lacunarity T Noise1.lacunarity}
+addUserKnob {41 gain T Noise1.gain}
+addUserKnob {41 gamma T Noise1.gamma}
+}
+Input {
+inputs 0
+name shape
+xpos -285
+ypos -521
+}
+Shuffle {
+in motion
+red black
+green black
+blue black
+alpha black
+out motion
+name Shuffle2
+xpos -285
+ypos -469
+}
+Clamp {
+channels alpha
+name Clamp1
+xpos -285
+ypos -443
+}
+Transform {
+translate {{curve -23 x7 46 x16 91 x24 116 40 -9 x53 -46 x63 -82 x72 -46 x89 22 x100 66} {curve -86 x7 -95 x16 -32 x24 42 80 63 x53 40 x63 2.000000238 x72 -28 x89 -13 x100 -110}}
+scale 0.325
+center {240 262}
+motionblur 1
+shutter 4
+shutteroffset centred
+name Transform2
+xpos -285
+ypos -396
+}
+Expression {
+channel0 {forward.u -forward.v none -backward.v}
+expr0 "(((  ((-slope.x)*val)  +  ((random(frame+5)-0.5))*(randomDir)  +  (velocityDirection.u)) * velocityMult) * a )"
+channel1 {-forward.u forward.v none -backward.v}
+expr1 "(((  ((-slope.y)*val)  +  ((random(frame+50)-0.5))*(randomDir)  +  (velocityDirection.v)) * velocityMult) * a)"
+channel2 none
+name Expression1
+xpos -285
+ypos -333
+addUserKnob {20 User}
+addUserKnob {7 randomDir l "Random Direction"}
+randomDir {{parent.velocityRandom}}
+addUserKnob {7 val}
+val {{parent.velocityInherit}}
+addUserKnob {12 slope}
+slope {{Transform2.translate-Transform2.translate(frame-1)} {Transform2.translate-Transform2.translate(frame-1)}}
+}
+Input {
+inputs 0
+name grid
+xpos -92
+ypos -505
+number 1
+}
+Shuffle {
+in motion
+red black
+green black
+blue black
+alpha black
+name Shuffle1
+xpos -92
+ypos -471
+}
+Merge2 {
+inputs 2
+also_merge motion
+name Merge1
+xpos -92
+ypos -333
+}
+Dot {
+name Dot1
+xpos -58
+ypos -275
+}
+set N2e8f70 [stack 0]
+Dot {
+name Dot2
+xpos -369
+ypos -276
+}
+NoOp {
+name NoOp1
+xpos -403
+ypos -210
+}
+set N2e9650 [stack 0]
+Noise {
+output motion
+size 6.1
+zoffset {{frame*0.1}}
+lacunarity 1
+gain 1
+gamma 0.27
+center {1030 438}
+name Noise1
+xpos -543
+ypos -218
+}
+set N2e99c0 [stack 0]
+Dot {
+name Dot5
+xpos -653
+ypos -207
+}
+Dot {
+name Dot4
+xpos -653
+ypos 280
+}
+Shuffle {
+in motion
+name Shuffle6
+xpos -202
+ypos 276
+}
+push $N2e9650
+Shuffle {
+red alpha
+green alpha
+blue alpha
+out motion
+name Shuffle3
+xpos -403
+ypos -134
+}
+push $N2e99c0
+NoOp {
+name NoOp2
+xpos -543
+ypos -180
+}
+set N2eae60 [stack 0]
+Matrix {
+channels motion
+matrix {
+    {0 -1 0}
+    {0 1 0}
+    {0 0 0}
+  }
+name Matrix1
+xpos -590
+ypos -135
+}
+push $N2eae60
+Matrix {
+channels motion
+matrix {
+    {0 0 0}
+    {-1 1 0}
+    {0 0 0}
+  }
+name Matrix2
+xpos -493
+ypos -135
+}
+ShuffleCopy {
+inputs 2
+in motion
+in2 motion
+red red
+blue black
+alpha black
+out motion
+name ShuffleCopy1
+xpos -540
+ypos -79
+}
+Merge {
+inputs 2
+A {forward.u forward.v none -backward.v}
+operation mult
+B {forward.u forward.v none -backward.v}
+output {forward.u forward.v none backward.v}
+name Merge2
+xpos -293
+ypos -25
+}
+Grade {
+channels {forward.u forward.v none backward.v}
+white {{parent.turbulenceMult}}
+black_clamp false
+name Grade2
+xpos -293
+ypos 13
+}
+Dot {
+name Dot3
+xpos -259
+ypos 133
+}
+push $N2e99c0
+Shuffle {
+in motion
+red alpha
+green alpha
+blue alpha
+name Shuffle4
+xpos -202
+ypos -156
+}
+Grade {
+channels rgba
+name Grade4
+selected true
+xpos -202
+ypos -130
+}
+push $N2e8f70
+Merge2 {
+inputs 2
+operation multiply
+mix {{parent.affectDensity}}
+name Merge3
+xpos -92
+ypos -130
+}
+Merge {
+inputs 2
+A forward
+operation plus
+B forward
+output forward
+bbox B
+name Merge4
+xpos -92
+ypos 124
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+white {{width/2} {height/2} 1 1}
+black_clamp false
+name Grade3
+xpos -92
+ypos 162
+}
+Grade {
+channels all
+white {{parent.globalMult}}
+black_clamp false
+name Grade1
+xpos -92
+ypos 196
+}
+set N2ed7a0 [stack 0]
+Shuffle {
+in motion
+name Shuffle5
+xpos -202
+ypos 202
+}
+push $N2ed7a0
+Switch {
+inputs 3
+which {{parent.view}}
+name Switch1
+xpos -92
+ypos 276
+}
+Output {
+name Output1
+xpos -92
+ypos 340
+}
+end_group
+Merge2 {
+inputs 2
+operation plus
+also_merge motion
+name Merge31
+selected true
+xpos -18923
+ypos 7883
+}
+set N2ee1f0 [stack 0]
+push $N2ee1f0
+Group {
+inputs 2
+name sprutSolver1
+help "SprutSolver v1.0\n(c) 2012-2014 theo@euahuba.com\n\nWritten by theodor groeneboom\nBased on Jos Stam's 1999 siggraph paper \"Stable Fluids\"\n\nUnder GPL/GNU License.\nPaypal donations to theo@euqahuba.com"
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xfffcffff
+selected true
+xpos -18923
+ypos 7959
+addUserKnob {20 sprutSolver l "Sprut Solver"}
+addUserKnob {26 about l About t "SprutSolver v1.0\n(c) 2012-2014 theo@euqahuba.com\n\nAdditional contributions and inspiration from\nAndre Hitsoy,Lucien Fostier, Vincen Houze and Jos Stam." T "SprutSolver v1.0\n(c) 2012-2014 theo@euqahuba.com"}
+addUserKnob {20 solverTab l "Solver Setup" n 1}
+addUserKnob {26 ""}
+addUserKnob {7 timeStep l TimeStep t "The amount the velocity field is projecting the fluid forward pr timestep. A value of 2 would double the speed of the motion, and a value of 0.5 would half the speed." R 0 2}
+timeStep 1
+addUserKnob {3 frameStart l Start}
+addUserKnob {3 frameEnd l End -STARTLINE}
+frameEnd 100
+addUserKnob {2 cache l "Cache Files" t "Folder to store the cached EXR files."}
+cache /mnt/scratch1/tgroeneb/nuke/sprut/sprut_%04d.exr
+addUserKnob {41 reload l "Reload Cache" -STARTLINE T readIn.reload}
+addUserKnob {26 ""}
+addUserKnob {22 executeSim l "Run Simulation" t "Executes the simulation." T "## Sprut by theodor groeneboom (theo@euqahuba.com)\n## (c) 2012-2014 - GPL\n## v0.15\n\n\nimport threading\nimport nuke\nimport time\n\nn = nuke.thisNode()\nframeStart = int(n.knob('frameStart').getValue())\nframeEnd = int(n.knob('frameEnd').getValue())\nwriteOut = n.node('writeOut')\nreadIn = n.node('readIn')\ntask = nuke.ProgressTask(\"Sprut:Simulating.\")\nreadIn.knob('reload').execute()\n\ndef render():\n    for renderRange in range(frameStart,frameEnd+1):\n      readIn.knob('reload').execute()\n      nuke.execute(writeOut,renderRange,renderRange)\n      progressTotal = frameEnd-frameStart\n      progress = ((renderRange-frameStart)/progressTotal)*100\n      task.setProgress(int(progress))\n      nuke.frame(renderRange)\n      ##nuke.Root().setFrame( renderRange )\n      ##nuke.updateUI\n      if task.isCancelled():\n\tnuke.executeInMainThread( nuke.message, args=( \"Aborted!\" ) )\n\tbreak;\n\n##threading.Thread( None, render ).start()\nrender()\ndel task\n\n##nuke.execute(writeOut,frameStart,frameEnd)\nreadIn.knob('reload').execute()\n" +STARTLINE}
+addUserKnob {20 endGroup n -1}
+addUserKnob {20 fluid l Fluid n 1}
+fluid 0
+addUserKnob {41 size_1 l Viscocity T viscocity.size}
+addUserKnob {26 ""}
+addUserKnob {7 veloctyDissipation l "Velocity Dissipation" t "Velocity dissipation is how much motion the velocity looses pr timestep/frame. \nA value of 0.1 will cause a slight drag and slow down, while a value of 1 will cause the fluid to stop instantly." R 0 0.1}
+veloctyDissipation 0.1
+addUserKnob {7 velocityDiffusion l "Velocity Diffusion" t "Velocity diffusion is how blurry or viscous the fluid should get pr timestep. The blurrier the more blobby the fluid motion gets." R 0 8}
+addUserKnob {26 ""}
+addUserKnob {7 densityDissipation l "Density Dissipation" t "Density dissipation is the amount of which the fluid fades away after emission." R 0 0.1}
+addUserKnob {7 densityDiffusion l "Density Diffusion" t "Density dissipation preforms a blur on the density and colour on each timestep. " R 0 8}
+addUserKnob {26 ""}
+addUserKnob {41 amount l "Vorticity Amount" T vorticity_calc.amount}
+addUserKnob {41 size_2 l "Vorticity Diffusion" T vorticity_blur.size}
+addUserKnob {20 endGroup_1 l endGroup n -1}
+addUserKnob {20 forces_1 l Forces n 1}
+forces_1 0
+addUserKnob {26 forces l Forces}
+addUserKnob {18 directionalForce l "Directional Force" t "This adds a constant directional force to the overall fluid field." R -1 1}
+directionalForce {0 0 0}
+addUserKnob {6 directionalForce_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {20 endGroup_2 l endGroup n -1}
+addUserKnob {20 postSim l "Post Simulation"}
+addUserKnob {6 addToOriginal l "Add source to output" +STARTLINE}
+addToOriginal true
+addUserKnob {26 ""}
+addUserKnob {41 size l "Pre Blur Velocity" T Blur1.size}
+addUserKnob {41 scale l "Motion Blur" T VectorBlur2.scale}
+addUserKnob {41 offset l "Motion Blur offset" T VectorBlur2.offset}
+addUserKnob {41 grow_bbox l "grow bbox" T VectorBlur2.grow_bbox}
+addUserKnob {41 method T VectorBlur2.method}
+}
+Input {
+inputs 0
+name emitter
+xpos -61
+ypos -505
+}
+set N2ee560 [stack 0]
+Dot {
+name Dot3
+xpos -148
+ypos -501
+}
+set N2ee8d0 [stack 0]
+Read {
+inputs 0
+file "\[ value parent.cache ]"
+format "256 256 0 0 256 256 1 square_256"
+first {{parent.frameStart}}
+last {{parent.frameEnd}}
+origfirst 0
+origlast 10
+origset true
+on_error black
+version 63271
+raw true
+name readIn
+xpos -399
+ypos -424
+}
+set N2eec40 [stack 0]
+Merge2 {
+inputs 2
+operation plus
+name Merge2
+xpos -399
+ypos -302
+disable {{1-parent.addToOriginal}}
+}
+Blur {
+channels motion
+size 1
+name Blur1
+xpos -399
+ypos -190
+}
+VectorBlur {
+channels rgba
+uv motion
+name VectorBlur2
+xpos -399
+ypos -152
+}
+Output {
+name Output1
+xpos -399
+ypos -117
+}
+push $N2ee560
+Dot {
+name Dot1
+xpos -27
+ypos -344
+}
+push $N2eec40
+FrameHold {
+first_frame {{frame-1}}
+name FrameHold1
+help "This nodes fetches the previous state of the simulation."
+xpos -289
+ypos -395
+}
+push $N2ee8d0
+Merge2 {
+inputs 2
+operation plus
+also_merge all
+name Merge1
+help "Adds the previous and the current fields together."
+xpos -182
+ypos -389
+}
+Switch {
+inputs 2
+which {{frame==frameStart?1:0}}
+name Switch1
+help "A switch is happening on the first frame to avoid residual simulation elements from previous sims."
+xpos -182
+ypos -348
+}
+Expression {
+temp_name0 curl
+temp_expr0 ((forward.u(x,y+1)-forward.u(x,y-1))*0.5)-((forward.v(x+1,y)-forward.v(x-1,y))*0.5)
+channel0 {backward.u -backward.v}
+expr0 curl
+channel1 {-backward.u backward.v}
+expr1 curl
+channel2 none
+name vorticity_curl
+xpos -182
+ypos -272
+}
+Expression {
+temp_name0 curlDx
+temp_expr0 (backward.u(x+1,y)-backward.u(x-1,y))*.5
+temp_name1 curlDy
+temp_expr1 (backward.u(x,y+1)-backward.u(x,y-1))*.5
+temp_name2 length
+temp_expr2 sqrt(pow2(curlDx)+pow2(curlDy))+0.00001
+channel0 {backward.u -backward.v}
+expr0 (backward.u*(curlDx/length))*amount
+channel1 {-backward.u backward.v}
+expr1 (backward.v*(curlDy/length))*amount
+channel2 backward
+expr2 0
+channel3 backward
+expr3 0
+name vorticity_calc
+xpos -182
+ypos -246
+addUserKnob {20 User}
+addUserKnob {7 amount}
+amount 0.6
+}
+Blur {
+channels backward
+quality 45
+name vorticity_blur
+xpos -182
+ypos -220
+}
+Blur {
+channels {forward.u forward.v none -backward.v}
+size {{velocityDiffusion}}
+filter box
+name veloctyDiffusion
+xpos -182
+ypos -108
+}
+Blur {
+channels rgba
+size {{densityDiffusion}}
+name densityDiffusion
+xpos -182
+ypos -70
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+multiply {{1-veloctyDissipation}}
+add {{parent.directionalForce.r} {parent.directionalForce.g} 0 0}
+black_clamp false
+name velocity
+xpos -182
+ypos -46
+}
+Grade {
+channels rgba
+white {{1-parent.densityDissipation}}
+black_clamp false
+name density
+xpos -182
+ypos -8
+}
+Expression {
+channel0 {forward.u -forward.v none -backward.v}
+expr0 backward.u+forward.u
+channel1 {-forward.u forward.v none -backward.v}
+expr1 backward.v+forward.v
+channel2 backward
+expr2 0
+channel3 backward
+expr3 0
+name Expression1
+label add_vorticity
+xpos -182
+ypos 31
+}
+Dot {
+name Dot4
+xpos -148
+ypos 180
+}
+set N7e8620 [stack 0]
+Group {
+name divergence_and_pressure_solving
+xpos 6
+ypos 176
+addUserKnob {20 User}
+addUserKnob {3 val}
+val -1
+}
+Input {
+ inputs 0
+ name Input1
+ xpos -1580
+ ypos -285
+}
+Dot {
+ name Dot2
+ xpos -1546
+ ypos -118
+}
+set N7e8d00 [stack 0]
+Reformat {
+ type scale
+ scale 0.15
+ name Reformat33
+ xpos -700
+ ypos 32
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence17
+ xpos -700
+ ypos 56
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat33.scale i}}
+ name Reformat34
+ xpos -700
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.2
+ name Reformat31
+ xpos -810
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence16
+ xpos -810
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat31.scale i}}
+ name Reformat32
+ xpos -810
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.25
+ name Reformat29
+ xpos -920
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence15
+ xpos -920
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat29.scale i}}
+ name Reformat30
+ xpos -920
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.3
+ name Reformat27
+ xpos -1030
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence14
+ xpos -1030
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat27.scale i}}
+ name Reformat28
+ xpos -1030
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.35
+ name Reformat25
+ xpos -1140
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence13
+ xpos -1140
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat25.scale i}}
+ name Reformat26
+ xpos -1140
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.4
+ name Reformat3
+ xpos -1250
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence12
+ xpos -1250
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat3.scale i}}
+ name Reformat24
+ xpos -1250
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.45
+ name Reformat1
+ xpos -1360
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence11
+ xpos -1360
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat1.scale i}}
+ name Reformat2
+ xpos -1360
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.5
+ name Reformat22
+ xpos -1470
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence10
+ xpos -1470
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat22.scale i}}
+ name Reformat23
+ xpos -1470
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.55
+ name Reformat20
+ xpos -1580
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence9
+ xpos -1580
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat20.scale i}}
+ name Reformat21
+ xpos -1580
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.6
+ name Reformat18
+ xpos -1690
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence8
+ xpos -1690
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat18.scale i}}
+ name Reformat19
+ xpos -1690
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.65
+ name Reformat16
+ xpos -1800
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence7
+ xpos -1800
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat16.scale i}}
+ name Reformat17
+ xpos -1800
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.7
+ name Reformat14
+ xpos -1910
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence6
+ xpos -1910
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat14.scale i}}
+ name Reformat15
+ xpos -1910
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.75
+ name Reformat12
+ xpos -2020
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence5
+ xpos -2020
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat12.scale i}}
+ name Reformat13
+ xpos -2020
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.8
+ name Reformat10
+ xpos -2130
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence4
+ xpos -2130
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat10.scale i}}
+ name Reformat11
+ xpos -2130
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.85
+ name Reformat8
+ xpos -2240
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence3
+ xpos -2240
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat8.scale i}}
+ name Reformat9
+ xpos -2240
+ ypos 86
+}
+push 0
+push $N7e8d00
+Reformat {
+ type scale
+ scale 0.9
+ name Reformat6
+ xpos -2350
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence2
+ xpos -2350
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat6.scale i}}
+ name Reformat7
+ xpos -2350
+ ypos 86
+}
+push $N7e8d00
+Reformat {
+ type scale
+ resize none
+ name Reformat4
+ xpos -2460
+ ypos 31
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence1
+ selected true
+ xpos -2460
+ ypos 60
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat4.scale i}}
+ name Reformat5
+ xpos -2460
+ ypos 86
+}
+Merge2 {
+ inputs 17+1
+ operation average
+ Achannels {forward.u forward.v none -backward.v}
+ Bchannels {forward.u forward.v none -backward.v}
+ output {forward.u forward.v none -backward.v}
+ name Merge3
+ xpos -1580
+ ypos 370
+}
+Output {
+ name Output1
+ xpos -1580
+ ypos 518
+}
+end_group
+Dot {
+name Dot2
+xpos 40
+ypos 231
+}
+push $N7e8620
+MergeExpression {
+inputs 2
+temp_name0 gradX
+temp_expr0 ((Au(x+1,y)-Au(x-1,y)))*0.5
+temp_name1 gradY
+temp_expr1 ((Au(x,y+1)-Au(x,y-1)))*0.5
+channel0 {forward.u -forward.v none -backward.v}
+expr0 Bu-1*gradX
+channel1 {-forward.u forward.v none -backward.v}
+expr1 Bv-1*gradY
+channel2 none
+channel3 none
+name subtract_pressureGradient_fromVel
+xpos -182
+ypos 227
+}
+set N7f4a10 [stack 0]
+IDistort {
+uv motion
+uv_scale {{-parent.timeStep}}
+name advect1
+xpos -53
+ypos 297
+}
+Blur {
+channels motion
+name viscocity
+xpos -53
+ypos 335
+}
+push $N7f4a10
+Merge2 {
+inputs 2
+operation average
+Achannels {forward.u forward.v none -backward.v}
+Bchannels {forward.u forward.v none -backward.v}
+output {forward.u forward.v none -backward.v}
+name Merge3
+xpos -184
+ypos 335
+}
+IDistort {
+uv motion
+uv_scale {{parent.timeStep}}
+name advect
+xpos -182
+ypos 407
+}
+Crop {
+box {0 0 {width} {height}}
+name Crop1
+xpos -182
+ypos 452
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+add {{-parent.directionalForce.r x68 0} {-parent.directionalForce.g x68 0} 0 0}
+black_clamp false
+name Grade1
+xpos -182
+ypos 476
+}
+Write {
+channels all
+file "\[ value parent.cache ]"
+raw true
+file_type exr
+"Standard layer name format" true
+version 62999
+name writeOut
+xpos -182
+ypos 525
+}
+end_group
+Grade {
+white 3.1
+gamma 0.685
+name Grade29
+selected true
+xpos -18923
+ypos 8078
+}
+CheckerBoard2 {
+inputs 0
+format "512 512 0 0 512 512 1 square_512"
+name CheckerBoard1
+selected true
+xpos -13949
+ypos 7840
+}
+set N7f6900 [stack 0]
+Expression {
+temp_name0 bound
+temp_expr0 1-(((x==0?1:0)+(x==(width-1)?1:0))+(y==0?1:0)+(y==(height-1)?1:0))
+channel0 rgba
+expr0 bound
+channel1 rgba
+expr1 bound
+name Expression5
+selected true
+xpos -14050
+ypos 7863
+}
+Constant {
+inputs 0
+channels rgb
+format "512 512 0 0 512 512 1 square_512"
+name Constant6
+selected true
+xpos -15310
+ypos 7641
+}
+set N7f6fe0 [stack 0]
+push $N7f6fe0
+Radial {
+replace true
+area {240 246.5 263.5 269.5}
+softness 0.03
+name Radial1
+selected true
+xpos -15136
+ypos 7664
+}
+Grade {
+white {{random(frame)} {random(frame+10)} {random(frame+20)} {curve}}
+multiply 6
+name Grade30
+selected true
+xpos -15136
+ypos 7690
+}
+Group {
+inputs 2
+name sprutEmitter2
+help "SprutEmitter v1.0\n(c) 2012-2014 theo@euahuba.com\n\nWritten by theodor groeneboom\nBased on Jos Stam's 1999 siggraph paper \"Stable Fluids\"\n\nUnder GPL/GNU License.\nPaypal donations to theo@euqahuba.com"
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xfffcffff
+selected true
+xpos -15310
+ypos 7794
+addUserKnob {20 sprutEmitter l "Sprut Emitter"}
+addUserKnob {20 endGroup n -1}
+addUserKnob {7 globalMult l "Global Multiplier" t "Multiplier of both density and velocity. Can be used as an on/off switch for the emission."}
+globalMult 1
+addUserKnob {4 view l View t "Displays different fields. Usefull for setting up turbulence fields and checking velocities." M {Output "Velocity Field" "Turbulence Field" ""}}
+addUserKnob {20 transformTab l Transform n 1}
+transformTab 0
+addUserKnob {26 Transform}
+addUserKnob {41 matrix T Transform2.matrix}
+addUserKnob {41 translate l Translation T Transform2.translate}
+addUserKnob {41 rotate l Rotation T Transform2.rotate}
+addUserKnob {41 scale l Scale T Transform2.scale}
+addUserKnob {41 center T Transform2.center}
+addUserKnob {41 motionblur T Transform2.motionblur}
+addUserKnob {41 shutter T Transform2.shutter}
+addUserKnob {41 shutteroffset l "shutter offset" T Transform2.shutteroffset}
+addUserKnob {41 shuttercustomoffset l "" -STARTLINE T Transform2.shuttercustomoffset}
+addUserKnob {20 endGroup_2 l endGroup n -1}
+addUserKnob {20 velocityTab l Velocity n 1}
+addUserKnob {26 Velocity}
+addUserKnob {7 velocityMult l "Velocity Multiplier" t "Overall velocity multiplier" R 0 10}
+velocityMult 1
+addUserKnob {30 velocityDirection l "Add direction" t "Adds a single direction to the fluid field."}
+addUserKnob {7 velocityInherit l "Inherit Velocity" t "If the transform tabs are animated, you can add the motion to the velocites here."}
+velocityInherit 0.895
+addUserKnob {7 velocityRandom l "Random Direction" t "Adds a random uniform direction to the entire field for each frame."}
+velocityRandom 0.1
+addUserKnob {20 endGroup_1 l endGroup n -1}
+addUserKnob {20 turbulenceTab l Turbulence n 1}
+turbulenceTab 0
+addUserKnob {26 ""}
+addUserKnob {7 affectDensity l "Affect Density" t "Affects the turbulence in the density field."}
+affectDensity 1
+addUserKnob {7 turbulenceMult l "Turbulence Mult" t "Adds turbulence to the velocity field."}
+turbulenceMult 1
+addUserKnob {26 ""}
+addUserKnob {41 size l x/ysize T Noise1.size}
+addUserKnob {41 zoffset l z T Noise1.zoffset}
+addUserKnob {41 octaves T Noise1.octaves}
+addUserKnob {41 nyquist l "clip at Nyquist limit" T Noise1.nyquist}
+addUserKnob {41 lacunarity T Noise1.lacunarity}
+addUserKnob {41 gain T Noise1.gain}
+addUserKnob {41 gamma T Noise1.gamma}
+}
+Input {
+inputs 0
+name shape
+xpos -285
+ypos -521
+}
+Shuffle {
+in motion
+red black
+green black
+blue black
+alpha black
+out motion
+name Shuffle2
+xpos -285
+ypos -469
+}
+Clamp {
+channels alpha
+name Clamp1
+xpos -285
+ypos -443
+}
+Transform {
+translate {{curve -94 x6 -1 x14 124 x20 124 44 x35 2 x45 -16 x57 -118 x63 -158 x70 -115 -136 x83 -90 x88 -27 x100 18 x113 -88 -65 -4 x153 71 x166 81 x186 -46 x200 -97} {curve -67 x6 33 x14 1 x20 -60 -54 x35 -40 x45 -2 x57 -86 x63 -51 x70 -9 45 x83 95 x88 50 x100 -81 x113 -142 -89 -161 x153 -77 x166 54 x186 104 x200 1}}
+scale {{curve x100 0.325 x107 1.04 x113 0.325}}
+center {240 262}
+motionblur 1
+shutter 4
+shutteroffset centred
+name Transform2
+xpos -285
+ypos -396
+}
+Expression {
+channel0 {forward.u -forward.v none -backward.v}
+expr0 "(((  ((-slope.x)*val)  +  ((random(frame+5)-0.5))*(randomDir)  +  (velocityDirection.u)) * velocityMult) * a )"
+channel1 {-forward.u forward.v none -backward.v}
+expr1 "(((  ((-slope.y)*val)  +  ((random(frame+50)-0.5))*(randomDir)  +  (velocityDirection.v)) * velocityMult) * a)"
+channel2 none
+name Expression1
+xpos -285
+ypos -333
+addUserKnob {20 User}
+addUserKnob {7 randomDir l "Random Direction"}
+randomDir {{parent.velocityRandom}}
+addUserKnob {7 val}
+val {{parent.velocityInherit}}
+addUserKnob {12 slope}
+slope {{Transform2.translate-Transform2.translate(frame-1)} {Transform2.translate-Transform2.translate(frame-1)}}
+}
+Input {
+inputs 0
+name grid
+xpos -92
+ypos -505
+number 1
+}
+Shuffle {
+in motion
+red black
+green black
+blue black
+alpha black
+name Shuffle1
+xpos -92
+ypos -471
+}
+Merge2 {
+inputs 2
+also_merge motion
+name Merge1
+xpos -92
+ypos -333
+}
+Dot {
+name Dot1
+xpos -58
+ypos -275
+}
+set N7f95b0 [stack 0]
+Dot {
+name Dot2
+xpos -369
+ypos -276
+}
+NoOp {
+name NoOp1
+xpos -403
+ypos -210
+}
+set N7f9c90 [stack 0]
+Noise {
+output motion
+size 6.1
+zoffset {{frame*0.1}}
+lacunarity 1
+gain 1
+gamma 0.27
+center {1030 438}
+name Noise1
+xpos -543
+ypos -218
+}
+set N7fa000 [stack 0]
+Dot {
+name Dot5
+xpos -653
+ypos -207
+}
+Dot {
+name Dot4
+xpos -653
+ypos 280
+}
+Shuffle {
+in motion
+name Shuffle6
+xpos -202
+ypos 276
+}
+push $N7f9c90
+Shuffle {
+red alpha
+green alpha
+blue alpha
+out motion
+name Shuffle3
+xpos -403
+ypos -134
+}
+push $N7fa000
+NoOp {
+name NoOp2
+xpos -543
+ypos -180
+}
+set N7fb4a0 [stack 0]
+Matrix {
+channels motion
+matrix {
+    {0 -1 0}
+    {0 1 0}
+    {0 0 0}
+  }
+name Matrix1
+xpos -590
+ypos -135
+}
+push $N7fb4a0
+Matrix {
+channels motion
+matrix {
+    {0 0 0}
+    {-1 1 0}
+    {0 0 0}
+  }
+name Matrix2
+xpos -493
+ypos -135
+}
+ShuffleCopy {
+inputs 2
+in motion
+in2 motion
+red red
+blue black
+alpha black
+out motion
+name ShuffleCopy1
+xpos -540
+ypos -79
+}
+Merge {
+inputs 2
+A {forward.u forward.v none -backward.v}
+operation mult
+B {forward.u forward.v none -backward.v}
+output {forward.u forward.v none backward.v}
+name Merge2
+xpos -293
+ypos -25
+}
+Grade {
+channels {forward.u forward.v none backward.v}
+white {{parent.turbulenceMult}}
+black_clamp false
+name Grade2
+xpos -293
+ypos 13
+}
+Dot {
+name Dot3
+xpos -259
+ypos 133
+}
+push $N7fa000
+Shuffle {
+in motion
+red alpha
+green alpha
+blue alpha
+name Shuffle4
+xpos -202
+ypos -156
+}
+Grade {
+channels rgba
+name Grade4
+xpos -202
+ypos -130
+}
+push $N7f95b0
+Merge2 {
+inputs 2
+operation multiply
+mix {{parent.affectDensity}}
+name Merge3
+xpos -92
+ypos -130
+}
+Merge {
+inputs 2
+A forward
+operation plus
+B forward
+output forward
+bbox B
+name Merge4
+xpos -92
+ypos 124
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+white {{width/2} {height/2} 1 1}
+black_clamp false
+name Grade3
+xpos -92
+ypos 162
+}
+Grade {
+channels all
+white {{parent.globalMult}}
+black_clamp false
+name Grade1
+xpos -92
+ypos 196
+}
+set N7fdde0 [stack 0]
+Shuffle {
+in motion
+name Shuffle5
+xpos -202
+ypos 202
+}
+push $N7fdde0
+Switch {
+inputs 3
+which {{parent.view}}
+name Switch1
+xpos -92
+ypos 276
+}
+Output {
+name Output1
+xpos -92
+ypos 340
+}
+end_group
+Saturation {
+saturation 3.91
+mode Average
+name Saturation4
+selected true
+xpos -15310
+ypos 7840
+}
+set N7fe830 [stack 0]
+push $N7fe830
+Group {
+inputs 2
+name sprutSolver4
+help "SprutSolver v1.0\n(c) 2012-2014 theo@euahuba.com\n\nWritten by theodor groeneboom\nBased on Jos Stam's 1999 siggraph paper \"Stable Fluids\"\n\nUnder GPL/GNU License.\nPaypal donations to theo@euqahuba.com"
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xfffcffff
+selected true
+xpos -15310
+ypos 7963
+addUserKnob {20 sprutSolver l "Sprut Solver"}
+addUserKnob {26 about l About t "SprutSolver v1.0\n(c) 2012-2014 theo@euqahuba.com\n\nAdditional contributions and inspiration from\nAndre Hitsoy,Lucien Fostier, Vincen Houze and Jos Stam." T "SprutSolver v1.0\n(c) 2012-2014 theo@euqahuba.com"}
+addUserKnob {20 solverTab l "Solver Setup" n 1}
+addUserKnob {26 ""}
+addUserKnob {7 timeStep l TimeStep t "The amount the velocity field is projecting the fluid forward pr timestep. A value of 2 would double the speed of the motion, and a value of 0.5 would half the speed." R 0 2}
+timeStep 1
+addUserKnob {3 frameStart l Start}
+addUserKnob {3 frameEnd l End -STARTLINE}
+frameEnd 3
+addUserKnob {2 cache l "Cache Files" t "Folder to store the cached EXR files."}
+cache X:/nuke/sims/sprut_simulation_%04d.exr
+addUserKnob {41 reload l "Reload Cache" -STARTLINE T readIn.reload}
+addUserKnob {26 ""}
+addUserKnob {22 executeSim l "Run Simulation" t "Executes the simulation." T "## Sprut by theodor groeneboom (theo@euqahuba.com)\n## (c) 2012-2014 - GPL\n## v0.15\n\n\nimport threading\nimport nuke\nimport time\n\nn = nuke.thisNode()\nframeStart = int(n.knob('frameStart').getValue())\nframeEnd = int(n.knob('frameEnd').getValue())\nwriteOut = n.node('writeOut')\nreadIn = n.node('readIn')\ntask = nuke.ProgressTask(\"Sprut:Simulating.\")\nreadIn.knob('reload').execute()\n\ndef render():\n    for renderRange in range(frameStart,frameEnd+1):\n      readIn.knob('reload').execute()\n      nuke.execute(writeOut,renderRange,renderRange)\n      progressTotal = frameEnd-frameStart\n      progress = ((renderRange-frameStart)/progressTotal)*100\n      task.setProgress(int(progress))\n      nuke.frame(renderRange)\n      ##nuke.Root().setFrame( renderRange )\n      ##nuke.updateUI\n      if task.isCancelled():\n\tnuke.executeInMainThread( nuke.message, args=( \"Aborted!\" ) )\n\tbreak;\n\n##threading.Thread( None, render ).start()\nrender()\ndel task\n\n##nuke.execute(writeOut,frameStart,frameEnd)\nreadIn.knob('reload').execute()\n" +STARTLINE}
+addUserKnob {20 endGroup n -1}
+addUserKnob {20 fluid l Fluid n 1}
+fluid 0
+addUserKnob {41 size_1 l Viscocity T viscocity.size}
+addUserKnob {26 ""}
+addUserKnob {7 veloctyDissipation l "Velocity Dissipation" t "Velocity dissipation is how much motion the velocity looses pr timestep/frame. \nA value of 0.1 will cause a slight drag and slow down, while a value of 1 will cause the fluid to stop instantly." R 0 0.1}
+addUserKnob {7 velocityDiffusion l "Velocity Diffusion" t "Velocity diffusion is how blurry or viscous the fluid should get pr timestep. The blurrier the more blobby the fluid motion gets." R 0 8}
+addUserKnob {26 ""}
+addUserKnob {7 densityDissipation l "Density Dissipation" t "Density dissipation is the amount of which the fluid fades away after emission." R 0 0.1}
+densityDissipation 0.0448
+addUserKnob {7 densityDiffusion l "Density Diffusion" t "Density dissipation preforms a blur on the density and colour on each timestep. " R 0 8}
+addUserKnob {26 ""}
+addUserKnob {41 amount l "Vorticity Amount" T vorticity_calc.amount}
+addUserKnob {41 size_2 l "Vorticity Diffusion" T vorticity_blur.size}
+addUserKnob {20 endGroup_1 l endGroup n -1}
+addUserKnob {20 forces_1 l Forces n 1}
+forces_1 0
+addUserKnob {26 forces l Forces}
+addUserKnob {18 directionalForce l "Directional Force" t "This adds a constant directional force to the overall fluid field." R -1 1}
+directionalForce {0 3 0}
+addUserKnob {6 directionalForce_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {20 endGroup_2 l endGroup n -1}
+addUserKnob {20 postSim l "Post Simulation"}
+addUserKnob {6 addToOriginal l "Add source to output" +STARTLINE}
+addToOriginal true
+addUserKnob {26 ""}
+addUserKnob {41 size l "Pre Blur Velocity" T Blur1.size}
+addUserKnob {41 scale l "Motion Blur" T VectorBlur2.scale}
+addUserKnob {41 offset l "Motion Blur offset" T VectorBlur2.offset}
+addUserKnob {41 grow_bbox l "grow bbox" T VectorBlur2.grow_bbox}
+addUserKnob {41 method T VectorBlur2.method}
+}
+Input {
+inputs 0
+name emitter
+xpos -61
+ypos -505
+}
+set N7feba0 [stack 0]
+Dot {
+name Dot3
+xpos -148
+ypos -501
+}
+set N7fef10 [stack 0]
+Read {
+inputs 0
+file "\[ value parent.cache ]"
+format "256 256 0 0 256 256 1 square_256"
+first {{parent.frameStart}}
+last {{parent.frameEnd}}
+origfirst 0
+origlast 10
+origset true
+on_error black
+version 64494
+raw true
+name readIn
+xpos -399
+ypos -424
+}
+set N7ff280 [stack 0]
+Merge2 {
+inputs 2
+operation plus
+name Merge2
+xpos -399
+ypos -302
+disable {{1-parent.addToOriginal}}
+}
+Blur {
+channels motion
+size 1
+name Blur1
+xpos -399
+ypos -190
+}
+VectorBlur {
+channels rgba
+uv motion
+scale 2
+name VectorBlur2
+xpos -399
+ypos -152
+}
+Output {
+name Output1
+xpos -399
+ypos -117
+}
+push $N7feba0
+Dot {
+name Dot1
+xpos -27
+ypos -344
+}
+push $N7ff280
+FrameHold {
+first_frame {{frame-1}}
+name FrameHold1
+help "This nodes fetches the previous state of the simulation."
+xpos -289
+ypos -395
+}
+push $N7fef10
+Merge2 {
+inputs 2
+operation plus
+also_merge all
+name Merge1
+help "Adds the previous and the current fields together."
+xpos -182
+ypos -389
+}
+Switch {
+inputs 2
+which {{frame==frameStart?1:0}}
+name Switch1
+help "A switch is happening on the first frame to avoid residual simulation elements from previous sims."
+xpos -182
+ypos -348
+}
+Expression {
+temp_name0 curl
+temp_expr0 ((forward.u(x,y+1)-forward.u(x,y-1))*0.5)-((forward.v(x+1,y)-forward.v(x-1,y))*0.5)
+channel0 {backward.u -backward.v}
+expr0 curl
+channel1 {-backward.u backward.v}
+expr1 curl
+channel2 none
+name vorticity_curl
+xpos -182
+ypos -272
+}
+Expression {
+temp_name0 curlDx
+temp_expr0 (backward.u(x+1,y)-backward.u(x-1,y))*.5
+temp_name1 curlDy
+temp_expr1 (backward.u(x,y+1)-backward.u(x,y-1))*.5
+temp_name2 length
+temp_expr2 sqrt(pow2(curlDx)+pow2(curlDy))+0.00001
+channel0 {backward.u -backward.v}
+expr0 (backward.u*(curlDx/length))*amount
+channel1 {-backward.u backward.v}
+expr1 (backward.v*(curlDy/length))*amount
+channel2 backward
+expr2 0
+channel3 backward
+expr3 0
+name vorticity_calc
+xpos -182
+ypos -246
+addUserKnob {20 User}
+addUserKnob {7 amount}
+amount 0.1
+}
+Blur {
+channels backward
+size 1
+quality 45
+name vorticity_blur
+xpos -182
+ypos -220
+}
+Blur {
+channels {forward.u forward.v none -backward.v}
+size {{velocityDiffusion}}
+filter box
+name veloctyDiffusion
+xpos -182
+ypos -108
+}
+Blur {
+channels rgba
+size {{densityDiffusion}}
+name densityDiffusion
+xpos -182
+ypos -70
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+multiply {{1-veloctyDissipation}}
+add {{parent.directionalForce.r} {parent.directionalForce.g} 0 0}
+black_clamp false
+name velocity
+xpos -182
+ypos -46
+}
+Grade {
+channels rgba
+white {{1-parent.densityDissipation}}
+black_clamp false
+name density
+xpos -182
+ypos -8
+}
+Expression {
+channel0 {forward.u -forward.v none -backward.v}
+expr0 backward.u+forward.u
+channel1 {-forward.u forward.v none -backward.v}
+expr1 backward.v+forward.v
+channel2 backward
+expr2 0
+channel3 backward
+expr3 0
+name Expression1
+label add_vorticity
+xpos -182
+ypos 18
+}
+Dot {
+name Dot4
+xpos -148
+ypos 180
+}
+set N802610 [stack 0]
+Group {
+name divergence_and_pressure_solving
+xpos 6
+ypos 176
+addUserKnob {20 User}
+addUserKnob {3 val}
+val -1
+}
+Input {
+ inputs 0
+ name Input1
+ xpos -1580
+ ypos -285
+}
+Dot {
+ name Dot2
+ xpos -1546
+ ypos -118
+}
+set N802cf0 [stack 0]
+Reformat {
+ type scale
+ scale 0.15
+ name Reformat33
+ xpos -700
+ ypos 32
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence17
+ xpos -700
+ ypos 56
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat33.scale i}}
+ name Reformat34
+ xpos -700
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.2
+ name Reformat31
+ xpos -810
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence16
+ xpos -810
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat31.scale i}}
+ name Reformat32
+ xpos -810
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.25
+ name Reformat29
+ xpos -920
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence15
+ xpos -920
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat29.scale i}}
+ name Reformat30
+ xpos -920
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.3
+ name Reformat27
+ xpos -1030
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence14
+ xpos -1030
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat27.scale i}}
+ name Reformat28
+ xpos -1030
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.35
+ name Reformat25
+ xpos -1140
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence13
+ xpos -1140
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat25.scale i}}
+ name Reformat26
+ xpos -1140
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.4
+ name Reformat3
+ xpos -1250
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence12
+ xpos -1250
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat3.scale i}}
+ name Reformat24
+ xpos -1250
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.45
+ name Reformat1
+ xpos -1360
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence11
+ xpos -1360
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat1.scale i}}
+ name Reformat2
+ xpos -1360
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.5
+ name Reformat22
+ xpos -1470
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence10
+ xpos -1470
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat22.scale i}}
+ name Reformat23
+ xpos -1470
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.55
+ name Reformat20
+ xpos -1580
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence9
+ xpos -1580
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat20.scale i}}
+ name Reformat21
+ xpos -1580
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.6
+ name Reformat18
+ xpos -1690
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence8
+ xpos -1690
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat18.scale i}}
+ name Reformat19
+ xpos -1690
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.65
+ name Reformat16
+ xpos -1800
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence7
+ xpos -1800
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat16.scale i}}
+ name Reformat17
+ xpos -1800
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.7
+ name Reformat14
+ xpos -1910
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence6
+ xpos -1910
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat14.scale i}}
+ name Reformat15
+ xpos -1910
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.75
+ name Reformat12
+ xpos -2020
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence5
+ xpos -2020
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat12.scale i}}
+ name Reformat13
+ xpos -2020
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.8
+ name Reformat10
+ xpos -2130
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence4
+ xpos -2130
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat10.scale i}}
+ name Reformat11
+ xpos -2130
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.85
+ name Reformat8
+ xpos -2240
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence3
+ xpos -2240
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat8.scale i}}
+ name Reformat9
+ xpos -2240
+ ypos 86
+}
+push 0
+push $N802cf0
+Reformat {
+ type scale
+ scale 0.9
+ name Reformat6
+ xpos -2350
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence2
+ xpos -2350
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat6.scale i}}
+ name Reformat7
+ xpos -2350
+ ypos 86
+}
+push $N802cf0
+Reformat {
+ type scale
+ resize none
+ name Reformat4
+ xpos -2460
+ ypos 31
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence1
+ selected true
+ xpos -2460
+ ypos 60
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat4.scale i}}
+ name Reformat5
+ xpos -2460
+ ypos 86
+}
+Merge2 {
+ inputs 17+1
+ operation average
+ Achannels {forward.u forward.v none -backward.v}
+ Bchannels {forward.u forward.v none -backward.v}
+ output {forward.u forward.v none -backward.v}
+ name Merge3
+ xpos -1580
+ ypos 370
+}
+Output {
+ name Output1
+ xpos -1580
+ ypos 518
+}
+end_group
+Dot {
+name Dot2
+xpos 40
+ypos 231
+}
+push $N802610
+MergeExpression {
+inputs 2
+temp_name0 gradX
+temp_expr0 ((Au(x+1,y)-Au(x-1,y)))*0.5
+temp_name1 gradY
+temp_expr1 ((Au(x,y+1)-Au(x,y-1)))*0.5
+channel0 {forward.u -forward.v none -backward.v}
+expr0 Bu-1*gradX
+channel1 {-forward.u forward.v none -backward.v}
+expr1 Bv-1*gradY
+channel2 none
+channel3 none
+name subtract_pressureGradient_fromVel
+xpos -182
+ypos 227
+}
+set Nffad7ff0 [stack 0]
+IDistort {
+uv motion
+uv_scale {{-parent.timeStep}}
+name advect1
+xpos -53
+ypos 297
+}
+Blur {
+channels motion
+size 2
+name viscocity
+selected true
+xpos -53
+ypos 335
+}
+push $Nffad7ff0
+Merge2 {
+inputs 2
+operation average
+Achannels {forward.u forward.v none -backward.v}
+Bchannels {forward.u forward.v none -backward.v}
+output {forward.u forward.v none -backward.v}
+name Merge3
+xpos -182
+ypos 335
+}
+IDistort {
+uv motion
+uv_scale {{parent.timeStep}}
+name advect
+xpos -182
+ypos 407
+}
+Crop {
+box {0 0 {width} {height}}
+name Crop1
+xpos -182
+ypos 452
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+add {{-parent.directionalForce.r x68 0} {-parent.directionalForce.g x68 0} 0 0}
+black_clamp false
+name Grade1
+xpos -182
+ypos 476
+}
+Write {
+channels all
+file "\[ value parent.cache ]"
+raw true
+file_type exr
+"Standard layer name format" true
+version 64192
+name writeOut
+xpos -182
+ypos 525
+}
+end_group
+set N2137de20 [stack 0]
+Grade {
+gamma 1.51
+name Grade31
+selected true
+xpos -15310
+ypos 8073
+}
+Dot {
+name Dot61
+selected true
+xpos -14679
+ypos 8077
+}
+set Nffad9ee0 [stack 0]
+Grade {
+channels alpha
+white 19.72
+gamma 4.1
+white_clamp true
+name Grade32
+selected true
+xpos -14287
+ypos 8067
+}
+Premult {
+channels motion
+name Premult1
+selected true
+xpos -14177
+ypos 8067
+}
+Dot {
+name Dot62
+selected true
+xpos -14045
+ypos 8077
+}
+set Nffada930 [stack 0]
+Grade {
+channels rgba
+white 4
+gamma 5
+name Grade33
+selected true
+xpos -14079
+ypos 8174
+}
+Saturation {
+saturation 0
+mode Average
+name Saturation1
+selected true
+xpos -14079
+ypos 8200
+}
+Grade {
+white 0.028
+gamma 0.4
+white_clamp true
+name Grade34
+selected true
+xpos -14079
+ypos 8226
+}
+push $Nffada930
+push $N7f6900
+ShuffleCopy {
+inputs 2
+in motion
+red red
+green green
+blue black
+alpha black
+out motion
+name ShuffleCopy3
+selected true
+xpos -13949
+ypos 8073
+}
+IDistort {
+uv motion
+name IDistort1
+selected true
+xpos -13949
+ypos 8112
+}
+VectorBlur {
+uv motion
+scale 25
+name VectorBlur5
+selected true
+xpos -13949
+ypos 8150
+}
+Merge2 {
+inputs 2
+operation plus
+name Merge32
+selected true
+xpos -13949
+ypos 8226
+}
+push $Nffad9ee0
+Dot {
+name Dot63
+selected true
+xpos -14679
+ypos 8854
+}
+Grade {
+channels motion
+white 0.125
+gamma 3.9
+black_clamp false
+name Grade35
+selected true
+xpos -14084
+ypos 8844
+}
+set Nffadc820 [stack 0]
+Grade {
+channels alpha
+white 13
+gamma 3.3
+white_clamp true
+name Grade36
+selected true
+xpos -14084
+ypos 8903
+}
+push $Nffadc820
+ColorWheel {
+inputs 0
+format "256 256 0 0 256 256 1 square_256"
+gamma 0.172
+name ColorWheel1
+selected true
+xpos -13974
+ypos 8637
+}
+Transform {
+scale 4
+center {128 128}
+name Transform2
+selected true
+xpos -13974
+ypos 8709
+}
+Noise {
+size {25.5 9.5}
+lacunarity 1.3
+gain 1
+gamma 0.536
+center {1030 438}
+name Noise3
+selected true
+xpos -13974
+ypos 8749
+}
+Grade {
+gamma 0.2
+name Grade37
+selected true
+xpos -13974
+ypos 8775
+}
+STMap {
+inputs 2
+channels rgba
+uv motion
+name STMap1
+selected true
+xpos -13974
+ypos 8844
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy2
+selected true
+xpos -13974
+ypos 8903
+}
+Premult {
+name Premult2
+selected true
+xpos -13974
+ypos 8962
+}
+push $cut_paste_input
+Group {
+name SprutInspect_
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xffffffff
+selected true
+xpos -20128
+ypos 7939
+addUserKnob {20 User l "Sprut Inspect"}
+addUserKnob {26 SprutInspect l "Sprut Inspect"}
+addUserKnob {4 view l View M {Color White "" ""}}
+addUserKnob {6 invert l "Invert Vectors" +STARTLINE}
+addUserKnob {41 val l Step-size T Expression1.val}
+addUserKnob {41 size l "Pre-Blur Vectors" T Blur1.size}
+addUserKnob {41 scale l "Scale Vectors" T VectorBlur2.scale}
+}
+Input {
+inputs 0
+name Input1
+xpos -532
+ypos -595
+}
+set Nffadea80 [stack 0]
+Dot {
+name Dot1
+xpos -498
+ypos -339
+}
+set Nffadedf0 [stack 0]
+push $Nffadedf0
+Blur {
+size 44
+name Blur2
+xpos -474
+ypos -473
+}
+push $Nffadea80
+Blur {
+channels motion
+size 30
+name Blur1
+xpos -379
+ypos -569
+}
+Grade {
+channels motion
+white -1
+black_clamp false
+name Grade1
+xpos -379
+ypos -531
+disable {{1-parent.invert}}
+}
+Expression {
+temp_name0 points
+temp_expr0 (fmod(x,val)*fmod(y,val))==1?1:0
+channel0 rgb
+expr0 points
+channel1 rgb
+expr1 points
+channel2 rgb
+expr2 points
+channel3 rgb
+expr3 points
+name Expression1
+xpos -379
+ypos -493
+addUserKnob {20 User}
+addUserKnob {3 val}
+val 12
+}
+Merge2 {
+inputs 2
+operation multiply
+name Merge2
+selected true
+xpos -379
+ypos -467
+disable {{parent.view}}
+}
+VectorBlur {
+channels rgb
+uv motion
+scale -7
+offset 0
+method forward
+name VectorBlur2
+xpos -379
+ypos -441
+}
+Grade {
+multiply 40
+gamma 1.94
+black_clamp false
+name Grade2
+xpos -379
+ypos -415
+}
+Merge2 {
+inputs 2
+operation plus
+name Merge1
+xpos -379
+ypos -343
+}
+Output {
+name Output1
+xpos -379
+ypos -295
+}
+end_group
+push $cut_paste_input
+Group {
+name sprutEmitter_
+help "SprutEmitter v1.0\n(c) 2012-2014 theo@euahuba.com\n\nWritten by theodor groeneboom\nBased on Jos Stam's 1999 siggraph paper \"Stable Fluids\"\n\nUnder GPL/GNU License.\nPaypal donations to theo@euqahuba.com"
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xfffcffff
+selected true
+xpos -20122
+ypos 7755
+addUserKnob {20 sprutEmitter l "Sprut Emitter"}
+addUserKnob {20 endGroup n -1}
+addUserKnob {7 globalMult l "Global Multiplier" t "Multiplier of both density and velocity. Can be used as an on/off switch for the emission."}
+globalMult 1
+addUserKnob {4 view l View t "Displays different fields. Usefull for setting up turbulence fields and checking velocities." M {Output "Velocity Field" "Turbulence Field" ""}}
+addUserKnob {20 transformTab l Transform n 1}
+addUserKnob {26 Transform}
+addUserKnob {41 matrix T Transform2.matrix}
+addUserKnob {41 translate l Translation T Transform2.translate}
+addUserKnob {41 rotate l Rotation T Transform2.rotate}
+addUserKnob {41 scale l Scale T Transform2.scale}
+addUserKnob {41 center T Transform2.center}
+addUserKnob {41 motionblur T Transform2.motionblur}
+addUserKnob {41 shutter T Transform2.shutter}
+addUserKnob {41 shutteroffset l "shutter offset" T Transform2.shutteroffset}
+addUserKnob {41 shuttercustomoffset l "" -STARTLINE T Transform2.shuttercustomoffset}
+addUserKnob {20 endGroup_2 l endGroup n -1}
+addUserKnob {20 velocityTab l Velocity n 1}
+velocityTab 0
+addUserKnob {26 Velocity}
+addUserKnob {7 velocityMult l "Velocity Multiplier" t "Overall velocity multiplier" R 0 10}
+velocityMult 1
+addUserKnob {30 velocityDirection l "Add direction" t "Adds a single direction to the fluid field."}
+addUserKnob {7 velocityInherit l "Inherit Velocity" t "If the transform tabs are animated, you can add the motion to the velocites here."}
+velocityInherit 0.5
+addUserKnob {7 velocityRandom l "Random Direction" t "Adds a random uniform direction to the entire field for each frame."}
+velocityRandom 0.1
+addUserKnob {20 endGroup_1 l endGroup n -1}
+addUserKnob {20 turbulenceTab l Turbulence n 1}
+turbulenceTab 0
+addUserKnob {26 ""}
+addUserKnob {7 affectDensity l "Affect Density" t "Affects the turbulence in the density field."}
+affectDensity 1
+addUserKnob {7 turbulenceMult l "Turbulence Mult" t "Adds turbulence to the velocity field."}
+turbulenceMult 1
+addUserKnob {26 ""}
+addUserKnob {41 size l x/ysize T Noise1.size}
+addUserKnob {41 zoffset l z T Noise1.zoffset}
+addUserKnob {41 octaves T Noise1.octaves}
+addUserKnob {41 nyquist l "clip at Nyquist limit" T Noise1.nyquist}
+addUserKnob {41 lacunarity T Noise1.lacunarity}
+addUserKnob {41 gain T Noise1.gain}
+addUserKnob {41 gamma T Noise1.gamma}
+}
+Input {
+inputs 0
+name shape
+xpos -285
+ypos -521
+}
+Shuffle {
+in motion
+red black
+green black
+blue black
+alpha black
+out motion
+name Shuffle2
+xpos -285
+ypos -469
+}
+Clamp {
+channels alpha
+name Clamp1
+xpos -285
+ypos -443
+}
+Transform {
+center {512 512}
+motionblur 1
+shutter 4
+shutteroffset centred
+name Transform2
+xpos -285
+ypos -396
+}
+Expression {
+channel0 {forward.u -forward.v none -backward.v}
+expr0 "(((  ((-slope.x)*val)  +  ((random(frame+5)-0.5))*(randomDir)  +  (velocityDirection.u)) * velocityMult) * a )"
+channel1 {-forward.u forward.v none -backward.v}
+expr1 "(((  ((-slope.y)*val)  +  ((random(frame+50)-0.5))*(randomDir)  +  (velocityDirection.v)) * velocityMult) * a)"
+channel2 none
+name Expression1
+xpos -285
+ypos -333
+addUserKnob {20 User}
+addUserKnob {7 randomDir l "Random Direction"}
+randomDir {{parent.velocityRandom}}
+addUserKnob {7 val}
+val {{parent.velocityInherit}}
+addUserKnob {12 slope}
+slope {{Transform2.translate-Transform2.translate(frame-1)} {Transform2.translate-Transform2.translate(frame-1)}}
+}
+Input {
+inputs 0
+name grid
+xpos -92
+ypos -505
+number 1
+}
+Shuffle {
+in motion
+red black
+green black
+blue black
+alpha black
+name Shuffle1
+xpos -92
+ypos -471
+}
+Merge2 {
+inputs 2
+also_merge motion
+name Merge1
+xpos -92
+ypos -333
+}
+Dot {
+name Dot1
+xpos -58
+ypos -275
+}
+set Nffae2bd0 [stack 0]
+Dot {
+name Dot2
+xpos -369
+ypos -276
+}
+NoOp {
+name NoOp1
+xpos -403
+ypos -210
+}
+set Nffae32b0 [stack 0]
+Noise {
+output motion
+size 6.1
+zoffset {{frame*0.1}}
+lacunarity 1
+gain 1
+gamma 0.27
+center {1030 438}
+name Noise1
+xpos -543
+ypos -218
+}
+set Nffae3620 [stack 0]
+Dot {
+name Dot5
+xpos -653
+ypos -207
+}
+Dot {
+name Dot4
+xpos -653
+ypos 280
+}
+Shuffle {
+in motion
+name Shuffle6
+xpos -202
+ypos 276
+}
+push $Nffae32b0
+Shuffle {
+red alpha
+green alpha
+blue alpha
+out motion
+name Shuffle3
+xpos -403
+ypos -134
+}
+push $Nffae3620
+NoOp {
+name NoOp2
+xpos -543
+ypos -180
+}
+set Nffae4ac0 [stack 0]
+Matrix {
+channels motion
+matrix {
+    {0 -1 0}
+    {0 1 0}
+    {0 0 0}
+  }
+name Matrix1
+xpos -590
+ypos -135
+}
+push $Nffae4ac0
+Matrix {
+channels motion
+matrix {
+    {0 0 0}
+    {-1 1 0}
+    {0 0 0}
+  }
+name Matrix2
+xpos -493
+ypos -135
+}
+ShuffleCopy {
+inputs 2
+in motion
+in2 motion
+red red
+blue black
+alpha black
+out motion
+name ShuffleCopy1
+xpos -540
+ypos -79
+}
+Merge {
+inputs 2
+A {forward.u forward.v none -backward.v}
+operation mult
+B {forward.u forward.v none -backward.v}
+output {forward.u forward.v none backward.v}
+name Merge2
+xpos -293
+ypos -25
+}
+Grade {
+channels {forward.u forward.v none backward.v}
+white {{parent.turbulenceMult}}
+black_clamp false
+name Grade2
+xpos -293
+ypos 13
+}
+Dot {
+name Dot3
+xpos -259
+ypos 133
+}
+push $Nffae3620
+Shuffle {
+in motion
+red alpha
+green alpha
+blue alpha
+name Shuffle4
+xpos -202
+ypos -156
+}
+Grade {
+channels rgba
+name Grade4
+selected true
+xpos -202
+ypos -130
+}
+push $Nffae2bd0
+Merge2 {
+inputs 2
+operation multiply
+mix {{parent.affectDensity}}
+name Merge3
+xpos -92
+ypos -130
+}
+Merge {
+inputs 2
+A forward
+operation plus
+B forward
+output forward
+bbox B
+name Merge4
+xpos -92
+ypos 124
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+white {{width/2} {height/2} 1 1}
+black_clamp false
+name Grade3
+xpos -92
+ypos 162
+}
+Grade {
+channels all
+white {{parent.globalMult}}
+black_clamp false
+name Grade1
+xpos -92
+ypos 196
+}
+set Nffae7400 [stack 0]
+Shuffle {
+in motion
+name Shuffle5
+xpos -202
+ypos 202
+}
+push $Nffae7400
+Switch {
+inputs 3
+which {{parent.view}}
+name Switch1
+xpos -92
+ypos 276
+}
+Output {
+name Output1
+xpos -92
+ypos 340
+}
+end_group
+Constant {
+inputs 0
+channels rgb
+format "512 512 0 0 512 512 1 square_512"
+name Constant7
+selected true
+xpos -17911
+ypos 7727
+}
+RotoPaint {
+curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 512}
+    {t x43800000 x43800000}
+    {a}
+    {cubiccurve Brush8 576 catmullrom
+     {cc
+      {f 2080}
+      {px x42bc0000
+       {x43940000 x43998000 x3e7e0000}
+       {x43950000 x43998000 x3ebf0000}
+       {x43950000 x43980000 x3ed48000}
+       {x43940000 x43940000 x3edb8000}
+       {x43930000 x438f8000 x3ef70000}
+       {x43920000 x438d8000 x3efb4000}
+       {x43918000 x43868000 x3efb8000}
+       {x43918000 x43858000 x3ee58000}
+       {x43918000 x43818000 x3ee1c000}
+       {x43920000 x437c0000 x3ecd4000}}}
+     {tx x42bc0000 x4392f333 x438d8ccd}
+     {a ro 0 go 0 bo 0 ao 0 bs x41700000 bu 1 str 1 spx x43800000 spy x43800000 sb 1 ltn x42bc0000 ltm x42bc0000 tt x41800000}}
+    {cubiccurve Brush7 512 catmullrom
+     {cc
+      {f 2080}
+      {px x42bc0000
+       {x437f0000 x43a10000 x3e898000}
+       {x43808000 x43a08000 x3ef5c000}
+       {x43848000 x439e0000 x3f240000}
+       {x438b0000 x439b8000 x3f282000}
+       {x43970000 x43990000 x3f2d8000}
+       {x439e0000 x43980000 x3f2e0000}
+       {x43a60000 x43978000 x3f2ae000}
+       {x43aa8000 x43970000 x3f0e0000}
+       {x43ab0000 x43970000 0}}}
+     {tx x42bc0000 x43955555 x439ad555}
+     {a ro 0 go 0 bo 0 ao 0 bs x41700000 bu 1 str 1 spx x43800000 spy x43800000 sb 1 ltn x42bc0000 ltm x42bc0000 tt x41800000}}
+    {cubiccurve Brush6 512 catmullrom
+     {cc
+      {f 2080}
+      {px x42bc0000
+       {x43800000 x43928000 x3e8a4000}
+       {x437f0000 x43928000 x3ec04000}
+       {x437e0000 x43910000 x3ef34000}
+       {x437b0000 x438f8000 x3f042000}
+       {x437a0000 x438f0000 x3f092000}
+       {x437a0000 x438c8000 x3f126000}
+       {x437c0000 x43880000 x3f15e000}
+       {x43818000 x43838000 x3f160000}
+       {x43838000 x43820000 x3f102000}
+       {x43868000 x43828000 x3f05e000}
+       {x438b0000 x43860000 x3f094000}
+       {x438d8000 x438c0000 x3f0b8000}
+       {x438d8000 x438f8000 x3f0d8000}
+       {x438c8000 x43938000 x3f0f6000}
+       {x438c8000 x43950000 x3f0f8000}
+       {x438c0000 x43950000 x3f0fa000}}}
+     {tx x42bc0000 x4384a800 x438d0000}
+     {a ro 0 go 0 bo 0 ao 0 bs x41700000 bu 1 str 1 spx x43800000 spy x43800000 sb 1 ltn x42bc0000 ltm x42bc0000 tt x41800000}}
+    {cubiccurve Brush5 512 catmullrom
+     {cc
+      {f 2080}
+      {px x42bc0000
+       {x43550000 x439e0000 x3d960000}
+       {x43540000 x439e8000 x3e4a0000}
+       {x43560000 x43a08000 x3ec04000}
+       {x435c0000 x43a30000 x3f04c000}
+       {x43620000 x43a48000 x3f0c0000}
+       {x436e0000 x43a30000 x3f14a000}
+       {x43770000 x43a08000 x3f166000}
+       {x437c0000 x439a8000 x3f0fe000}
+       {x43760000 x43960000 x3f062000}
+       {x43620000 x43930000 x3ef64000}
+       {x43590000 x43930000 x3eb20000}
+       {x43550000 x43928000 x3ebf0000}
+       {x43590000 x43928000 x3f002000}
+       {x435e0000 x43910000 x3f02a000}
+       {x43600000 x438f8000 x3f01a000}
+       {x43610000 x438d0000 x3eff8000}
+       {x43610000 x438b0000 x3f030000}
+       {x43640000 x43868000 x3f0aa000}
+       {x43660000 x43840000 x3f0fe000}
+       {x43670000 x43838000 x3ed80000}}}
+     {tx x42bc0000 x43624ccd x43954ccd}
+     {a ro 0 go 0 bo 0 ao 0 bs x41700000 bu 1 str 1 spx x43800000 spy x43800000 sb 1 ltn x42bc0000 ltm x42bc0000 tt x41800000}}
+    {cubiccurve Brush4 512 catmullrom
+     {cc
+      {f 2080}
+      {px x42bc0000
+       {x435c0000 x43a08000 x3c840000}
+       {x43590000 x439c8000 x3ea94000}
+       {x43580000 x439a0000 x3f010000}
+       {x43580000 x43990000 x3f046000}
+       {x43550000 x43918000 x3f04a000}
+       {x43540000 x438d8000 x3f04e000}
+       {x43510000 x438a8000 x3f012000}}}
+     {tx x42bc0000 x4356b6db x4395edb7}
+     {a ro 0 go 0 bo 0 ao 0 bs x41700000 bu 1 str 1 spx x43800000 spy x43800000 sb 1 ltn x42bc0000 ltm x42bc0000 tt x41800000}}
+    {cubiccurve Brush3 512 catmullrom
+     {cc
+      {f 2080}
+      {px x42bc0000
+       {x433a0000 x43950000 x3da70000}
+       {x433a0000 x43958000 x3e340000}
+       {x43390000 x43978000 x3eb44000}
+       {x43390000 x43990000 x3f12e000}
+       {x433a0000 x43998000 x3f1b2000}
+       {x433c0000 x439b8000 x3f1b6000}
+       {x43430000 x439d8000 x3f1bc000}
+       {x43470000 x439e0000 x3f1bc000}
+       {x434d0000 x439c0000 x3f1c0000}
+       {x434d0000 x439b8000 x3f1bc000}
+       {x43500000 x43980000 x3f1b8000}
+       {x43500000 x43930000 x3f1b4000}
+       {x434f0000 x43910000 x3f1b0000}
+       {x434a0000 x438f8000 x3f19e000}
+       {x43440000 x438f0000 x3f15c000}
+       {x43430000 x438f0000 x3f12a000}
+       {x433a0000 x43908000 x3f124000}
+       {x43360000 x43908000 x3f118000}
+       {x43330000 x43910000 x3f116000}
+       {x43310000 x43910000 x3eb44000}}}
+     {tx x42bc0000 x43410000 x43959333}
+     {a ro 0 go 0 bo 0 ao 0 bs x41700000 bu 1 str 1 spx x43800000 spy x43800000 sb 1 ltn x42bc0000 ltm x42bc0000 tt x41800000}}
+    {cubiccurve Brush2 512 catmullrom
+     {cc
+      {f 2080}
+      {px x42bc0000
+       {x43330000 x43998000 x3ce40000}
+       {x43350000 x43950000 x3ed68000}
+       {x43330000 x438f0000 x3f0e0000}
+       {x43300000 x43860000 x3f0aa000}
+       {x43300000 x43848000 x3f088000}
+       {x432e0000 x43820000 x3f088000}
+       {x43310000 x43820000 x3f020000}}}
+     {tx x42bc0000 x43316db7 x438adb6e}
+     {a ro 0 go 0 bo 0 ao 0 bs x41700000 bu 1 str 1 spx x43800000 spy x43800000 sb 1 ltn x42bc0000 ltm x42bc0000 tt x41800000}}
+    {cubiccurve Brush1 512 catmullrom
+     {cc
+      {f 2080}
+      {px x42bc0000
+       {x43350000 x438f0000 x3e2f8000}
+       {x43330000 x438f0000 x3e7f0000}
+       {x43330000 x43910000 x3e9b0000}
+       {x43320000 x43938000 x3ef70000}
+       {x43310000 x43950000 x3f0b4000}
+       {x432d0000 x43980000 x3f0cc000}
+       {x432a0000 x43998000 x3f0ca000}
+       {x43200000 x43990000 x3f0ca000}
+       {x43170000 x43970000 x3f0ca000}
+       {x430f0000 x43938000 x3f0c6000}
+       {x430c0000 x43918000 x3f0ca000}
+       {x430c0000 x438e8000 x3f110000}
+       {x430e0000 x438d8000 x3f11a000}
+       {x43180000 x438d0000 x3f112000}
+       {x43200000 x438d0000 x3f114000}
+       {x43290000 x438a8000 x3f118000}
+       {x432d0000 x43888000 x3f11c000}
+       {x43300000 x43860000 x3f114000}
+       {x43310000 x43840000 x3f118000}
+       {x432c0000 x43818000 x3f11a000}
+       {x43260000 x43800000 x3f118000}
+       {x431f0000 x43800000 x3f0be000}
+       {x43160000 x43818000 x3ee2c000}
+       {x430e0000 x43828000 x3e91c000}}}
+     {tx x42bc0000 x4322e000 x438cf000}
+     {a ro 0 go 0 bo 0 ao 0 bs x41700000 bu 1 str 1 spx x43800000 spy x43800000 sb 1 ltn x42bc0000 ltm x42bc0000 tt x41800000}}}}}}
+toolbox {brush {
+  { selectAll bs 15 str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush bs 15 str 1 ssx 1 ssy 1 sf 1 sb 1 ltn 94 ltm 94 ltt 0 tt 16 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+toolbar_brush_size 15
+toolbar_brush_hardness 0.200000003
+toolbar_source_transform_scale {1 1}
+toolbar_source_transform_center {256 256}
+colorOverlay {0 0 0 0}
+lifetime_type "all frames"
+lifetime_start 94
+lifetime_end 94
+motionblur_on true
+brush_size 15
+brush_spacing 0.05000000075
+brush_hardness 0.200000003
+source_black_outside true
+createNewTrack {{-1} "-1\t(none)\t-1" "1000\tNew Track Layer\t1000"}
+name RotoPaint1
+selected true
+xpos -17911
+ypos 7799
+}
+Transform {
+rotate {{(random(frame*0.2)-0.5)*360}}
+center {256 256}
+name Transform4
+selected true
+xpos -17911
+ypos 7834
+}
+Crop {
+box {0 0 512 512}
+name Crop2
+selected true
+xpos -17911
+ypos 7860
+}
+VectorGenerator {
+name VectorGenerator1
+selected true
+xpos -17911
+ypos 7886
+}
+Premult {
+channels motion
+name Premult6
+selected true
+xpos -17911
+ypos 7924
+}
+set Nffae8f80 [stack 0]
+push $Nffae8f80
+Group {
+inputs 2
+name sprutSolver3
+help "SprutSolver v1.0\n(c) 2012-2014 theo@euahuba.com\n\nWritten by theodor groeneboom\nBased on Jos Stam's 1999 siggraph paper \"Stable Fluids\"\n\nUnder GPL/GNU License.\nPaypal donations to theo@euqahuba.com"
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xfffcffff
+selected true
+xpos -17911
+ypos 7962
+addUserKnob {20 sprutSolver l "Sprut Solver"}
+addUserKnob {26 about l About t "SprutSolver v1.0\n(c) 2012-2014 theo@euqahuba.com\n\nAdditional contributions and inspiration from\nAndre Hitsoy,Lucien Fostier, Vincen Houze and Jos Stam." T "SprutSolver v1.0\n(c) 2012-2014 theo@euqahuba.com"}
+addUserKnob {20 solverTab l "Solver Setup" n 1}
+addUserKnob {26 ""}
+addUserKnob {7 timeStep l TimeStep t "The amount the velocity field is projecting the fluid forward pr timestep. A value of 2 would double the speed of the motion, and a value of 0.5 would half the speed." R 0 2}
+timeStep 1
+addUserKnob {3 frameStart l Start}
+addUserKnob {3 frameEnd l End -STARTLINE}
+frameEnd 100
+addUserKnob {2 cache l "Cache Files" t "Folder to store the cached EXR files."}
+cache /mnt/scratch1/tgroeneb/nuke/sprut/sprut_%04d.exr
+addUserKnob {41 reload l "Reload Cache" -STARTLINE T readIn.reload}
+addUserKnob {26 ""}
+addUserKnob {22 executeSim l "Run Simulation" t "Executes the simulation." T "## Sprut by theodor groeneboom (theo@euqahuba.com)\n## (c) 2012-2014 - GPL\n## v0.15\n\n\nimport threading\nimport nuke\nimport time\n\nn = nuke.thisNode()\nframeStart = int(n.knob('frameStart').getValue())\nframeEnd = int(n.knob('frameEnd').getValue())\nwriteOut = n.node('writeOut')\nreadIn = n.node('readIn')\ntask = nuke.ProgressTask(\"Sprut:Simulating.\")\nreadIn.knob('reload').execute()\n\ndef render():\n    for renderRange in range(frameStart,frameEnd+1):\n      readIn.knob('reload').execute()\n      nuke.execute(writeOut,renderRange,renderRange)\n      progressTotal = frameEnd-frameStart\n      progress = ((renderRange-frameStart)/progressTotal)*100\n      task.setProgress(int(progress))\n      nuke.frame(renderRange)\n      ##nuke.Root().setFrame( renderRange )\n      ##nuke.updateUI\n      if task.isCancelled():\n\tnuke.executeInMainThread( nuke.message, args=( \"Aborted!\" ) )\n\tbreak;\n\n##threading.Thread( None, render ).start()\nrender()\ndel task\n\n##nuke.execute(writeOut,frameStart,frameEnd)\nreadIn.knob('reload').execute()\n" +STARTLINE}
+addUserKnob {20 endGroup n -1}
+addUserKnob {20 fluid l Fluid n 1}
+fluid 0
+addUserKnob {41 size_1 l Viscocity T viscocity.size}
+addUserKnob {26 ""}
+addUserKnob {7 veloctyDissipation l "Velocity Dissipation" t "Velocity dissipation is how much motion the velocity looses pr timestep/frame. \nA value of 0.1 will cause a slight drag and slow down, while a value of 1 will cause the fluid to stop instantly." R 0 0.1}
+veloctyDissipation 0.1
+addUserKnob {7 velocityDiffusion l "Velocity Diffusion" t "Velocity diffusion is how blurry or viscous the fluid should get pr timestep. The blurrier the more blobby the fluid motion gets." R 0 8}
+addUserKnob {26 ""}
+addUserKnob {7 densityDissipation l "Density Dissipation" t "Density dissipation is the amount of which the fluid fades away after emission." R 0 0.1}
+addUserKnob {7 densityDiffusion l "Density Diffusion" t "Density dissipation preforms a blur on the density and colour on each timestep. " R 0 8}
+addUserKnob {26 ""}
+addUserKnob {41 amount l "Vorticity Amount" T vorticity_calc.amount}
+addUserKnob {41 size_2 l "Vorticity Diffusion" T vorticity_blur.size}
+addUserKnob {20 endGroup_1 l endGroup n -1}
+addUserKnob {20 forces_1 l Forces n 1}
+forces_1 0
+addUserKnob {26 forces l Forces}
+addUserKnob {18 directionalForce l "Directional Force" t "This adds a constant directional force to the overall fluid field." R -1 1}
+directionalForce {0 0 0}
+addUserKnob {6 directionalForce_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {20 endGroup_2 l endGroup n -1}
+addUserKnob {20 postSim l "Post Simulation"}
+addUserKnob {6 addToOriginal l "Add source to output" +STARTLINE}
+addToOriginal true
+addUserKnob {26 ""}
+addUserKnob {41 size l "Pre Blur Velocity" T Blur1.size}
+addUserKnob {41 scale l "Motion Blur" T VectorBlur2.scale}
+addUserKnob {41 offset l "Motion Blur offset" T VectorBlur2.offset}
+addUserKnob {41 grow_bbox l "grow bbox" T VectorBlur2.grow_bbox}
+addUserKnob {41 method T VectorBlur2.method}
+}
+Input {
+inputs 0
+name emitter
+xpos -61
+ypos -505
+}
+set Nffae92f0 [stack 0]
+Dot {
+name Dot3
+xpos -148
+ypos -501
+}
+set Nffae9660 [stack 0]
+Read {
+inputs 0
+file "\[ value parent.cache ]"
+format "256 256 0 0 256 256 1 square_256"
+first {{parent.frameStart}}
+last {{parent.frameEnd}}
+origfirst 0
+origlast 10
+origset true
+on_error black
+version 63374
+raw true
+name readIn
+xpos -399
+ypos -424
+}
+set Nffae99d0 [stack 0]
+Merge2 {
+inputs 2
+operation plus
+name Merge2
+xpos -399
+ypos -302
+disable {{1-parent.addToOriginal}}
+}
+Blur {
+channels motion
+size 1
+name Blur1
+xpos -399
+ypos -190
+}
+VectorBlur {
+channels rgba
+uv motion
+name VectorBlur2
+xpos -399
+ypos -152
+}
+Output {
+name Output1
+xpos -399
+ypos -117
+}
+push $Nffae92f0
+Dot {
+name Dot1
+xpos -27
+ypos -344
+}
+push $Nffae99d0
+FrameHold {
+first_frame {{frame-1}}
+name FrameHold1
+help "This nodes fetches the previous state of the simulation."
+xpos -289
+ypos -395
+}
+push $Nffae9660
+Merge2 {
+inputs 2
+operation plus
+also_merge all
+name Merge1
+help "Adds the previous and the current fields together."
+xpos -182
+ypos -389
+}
+Switch {
+inputs 2
+which {{frame==frameStart?1:0}}
+name Switch1
+help "A switch is happening on the first frame to avoid residual simulation elements from previous sims."
+xpos -182
+ypos -348
+}
+Expression {
+temp_name0 curl
+temp_expr0 ((forward.u(x,y+1)-forward.u(x,y-1))*0.5)-((forward.v(x+1,y)-forward.v(x-1,y))*0.5)
+channel0 {backward.u -backward.v}
+expr0 curl
+channel1 {-backward.u backward.v}
+expr1 curl
+channel2 none
+name vorticity_curl
+xpos -182
+ypos -272
+}
+Expression {
+temp_name0 curlDx
+temp_expr0 (backward.u(x+1,y)-backward.u(x-1,y))*.5
+temp_name1 curlDy
+temp_expr1 (backward.u(x,y+1)-backward.u(x,y-1))*.5
+temp_name2 length
+temp_expr2 sqrt(pow2(curlDx)+pow2(curlDy))+0.00001
+channel0 {backward.u -backward.v}
+expr0 (backward.u*(curlDx/length))*amount
+channel1 {-backward.u backward.v}
+expr1 (backward.v*(curlDy/length))*amount
+channel2 backward
+expr2 0
+channel3 backward
+expr3 0
+name vorticity_calc
+xpos -182
+ypos -246
+addUserKnob {20 User}
+addUserKnob {7 amount}
+amount 0.6
+}
+Blur {
+channels backward
+quality 45
+name vorticity_blur
+xpos -182
+ypos -220
+}
+Blur {
+channels {forward.u forward.v none -backward.v}
+size {{velocityDiffusion}}
+filter box
+name veloctyDiffusion
+xpos -182
+ypos -108
+}
+Blur {
+channels rgba
+size {{densityDiffusion}}
+name densityDiffusion
+xpos -182
+ypos -70
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+multiply {{1-veloctyDissipation}}
+add {{parent.directionalForce.r} {parent.directionalForce.g} 0 0}
+black_clamp false
+name velocity
+xpos -182
+ypos -46
+}
+Grade {
+channels rgba
+white {{1-parent.densityDissipation}}
+black_clamp false
+name density
+xpos -182
+ypos -8
+}
+Expression {
+channel0 {forward.u -forward.v none -backward.v}
+expr0 backward.u+forward.u
+channel1 {-forward.u forward.v none -backward.v}
+expr1 backward.v+forward.v
+channel2 backward
+expr2 0
+channel3 backward
+expr3 0
+name Expression1
+label add_vorticity
+xpos -182
+ypos 31
+}
+Dot {
+name Dot4
+xpos -148
+ypos 180
+}
+set Nffaecd60 [stack 0]
+Group {
+name divergence_and_pressure_solving
+xpos 6
+ypos 176
+addUserKnob {20 User}
+addUserKnob {3 val}
+val -1
+}
+Input {
+ inputs 0
+ name Input1
+ xpos -1580
+ ypos -285
+}
+Dot {
+ name Dot2
+ xpos -1546
+ ypos -118
+}
+set Nffaed440 [stack 0]
+Reformat {
+ type scale
+ scale 0.15
+ name Reformat33
+ xpos -700
+ ypos 32
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence17
+ xpos -700
+ ypos 56
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat33.scale i}}
+ name Reformat34
+ xpos -700
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.2
+ name Reformat31
+ xpos -810
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence16
+ xpos -810
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat31.scale i}}
+ name Reformat32
+ xpos -810
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.25
+ name Reformat29
+ xpos -920
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence15
+ xpos -920
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat29.scale i}}
+ name Reformat30
+ xpos -920
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.3
+ name Reformat27
+ xpos -1030
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence14
+ xpos -1030
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat27.scale i}}
+ name Reformat28
+ xpos -1030
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.35
+ name Reformat25
+ xpos -1140
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence13
+ xpos -1140
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat25.scale i}}
+ name Reformat26
+ xpos -1140
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.4
+ name Reformat3
+ xpos -1250
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence12
+ xpos -1250
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat3.scale i}}
+ name Reformat24
+ xpos -1250
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.45
+ name Reformat1
+ xpos -1360
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence11
+ xpos -1360
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat1.scale i}}
+ name Reformat2
+ xpos -1360
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.5
+ name Reformat22
+ xpos -1470
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence10
+ xpos -1470
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat22.scale i}}
+ name Reformat23
+ xpos -1470
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.55
+ name Reformat20
+ xpos -1580
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence9
+ xpos -1580
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat20.scale i}}
+ name Reformat21
+ xpos -1580
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.6
+ name Reformat18
+ xpos -1690
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence8
+ xpos -1690
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat18.scale i}}
+ name Reformat19
+ xpos -1690
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.65
+ name Reformat16
+ xpos -1800
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence7
+ xpos -1800
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat16.scale i}}
+ name Reformat17
+ xpos -1800
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.7
+ name Reformat14
+ xpos -1910
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence6
+ xpos -1910
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat14.scale i}}
+ name Reformat15
+ xpos -1910
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.75
+ name Reformat12
+ xpos -2020
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence5
+ xpos -2020
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat12.scale i}}
+ name Reformat13
+ xpos -2020
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.8
+ name Reformat10
+ xpos -2130
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence4
+ xpos -2130
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat10.scale i}}
+ name Reformat11
+ xpos -2130
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.85
+ name Reformat8
+ xpos -2240
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence3
+ xpos -2240
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat8.scale i}}
+ name Reformat9
+ xpos -2240
+ ypos 86
+}
+push 0
+push $Nffaed440
+Reformat {
+ type scale
+ scale 0.9
+ name Reformat6
+ xpos -2350
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence2
+ xpos -2350
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat6.scale i}}
+ name Reformat7
+ xpos -2350
+ ypos 86
+}
+push $Nffaed440
+Reformat {
+ type scale
+ resize none
+ name Reformat4
+ xpos -2460
+ ypos 31
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence1
+ selected true
+ xpos -2460
+ ypos 60
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat4.scale i}}
+ name Reformat5
+ xpos -2460
+ ypos 86
+}
+Merge2 {
+ inputs 17+1
+ operation average
+ Achannels {forward.u forward.v none -backward.v}
+ Bchannels {forward.u forward.v none -backward.v}
+ output {forward.u forward.v none -backward.v}
+ name Merge3
+ xpos -1580
+ ypos 370
+}
+Output {
+ name Output1
+ xpos -1580
+ ypos 518
+}
+end_group
+Dot {
+name Dot2
+xpos 40
+ypos 231
+}
+push $Nffaecd60
+MergeExpression {
+inputs 2
+temp_name0 gradX
+temp_expr0 ((Au(x+1,y)-Au(x-1,y)))*0.5
+temp_name1 gradY
+temp_expr1 ((Au(x,y+1)-Au(x,y-1)))*0.5
+channel0 {forward.u -forward.v none -backward.v}
+expr0 Bu-1*gradX
+channel1 {-forward.u forward.v none -backward.v}
+expr1 Bv-1*gradY
+channel2 none
+channel3 none
+name subtract_pressureGradient_fromVel
+xpos -182
+ypos 227
+}
+set Nff209ed0 [stack 0]
+IDistort {
+uv motion
+uv_scale {{-parent.timeStep}}
+name advect1
+xpos -53
+ypos 297
+}
+Blur {
+channels motion
+name viscocity
+selected true
+xpos -53
+ypos 335
+}
+push $Nff209ed0
+Merge2 {
+inputs 2
+operation average
+Achannels {forward.u forward.v none -backward.v}
+Bchannels {forward.u forward.v none -backward.v}
+output {forward.u forward.v none -backward.v}
+name Merge3
+xpos -184
+ypos 335
+}
+IDistort {
+uv motion
+uv_scale {{parent.timeStep}}
+name advect
+xpos -182
+ypos 407
+}
+Crop {
+box {0 0 {width} {height}}
+name Crop1
+xpos -182
+ypos 452
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+add {{-parent.directionalForce.r x68 0} {-parent.directionalForce.g x68 0} 0 0}
+black_clamp false
+name Grade1
+xpos -182
+ypos 476
+}
+Write {
+channels all
+file "\[ value parent.cache ]"
+raw true
+file_type exr
+"Standard layer name format" true
+version 63100
+name writeOut
+xpos -182
+ypos 525
+}
+end_group
+Grade {
+white 0.092
+gamma 0.2
+name Grade38
+selected true
+xpos -17911
+ypos 8043
+}
+push $N2137de20
+Viewer {
+frame 31
+frame_range 0-100
+frame_range_lock true
+input_process false
+name Viewer2
+selected true
+xpos -16228
+ypos 8273
+}
+push $cut_paste_input
+Group {
+name sprutSolver_
+help "SprutSolver v1.0\n(c) 2012-2014 theo@euahuba.com\n\nWritten by theodor groeneboom\nBased on Jos Stam's 1999 siggraph paper \"Stable Fluids\"\n\nUnder GPL/GNU License.\nPaypal donations to theo@euqahuba.com"
+tile_color 0x2098ffff
+gl_color 0x2098ffff
+note_font_size 30
+note_font_color 0xfffcffff
+selected true
+xpos -20125
+ypos 7853
+addUserKnob {20 sprutSolver l "Sprut Solver"}
+addUserKnob {26 about l About t "SprutSolver v1.0\n(c) 2012-2014 theo@euqahuba.com\n\nAdditional contributions and inspiration from\nAndre Hitsoy,Lucien Fostier, Vincen Houze and Jos Stam." T "SprutSolver v1.0\n(c) 2012-2014 theo@euqahuba.com"}
+addUserKnob {20 solverTab l "Solver Setup" n 1}
+addUserKnob {26 ""}
+addUserKnob {7 timeStep l TimeStep t "The amount the velocity field is projecting the fluid forward pr timestep. A value of 2 would double the speed of the motion, and a value of 0.5 would half the speed." R 0 2}
+timeStep 1
+addUserKnob {3 frameStart l Start}
+addUserKnob {3 frameEnd l End -STARTLINE}
+frameEnd 100
+addUserKnob {2 cache l "Cache Files" t "Folder to store the cached EXR files."}
+cache /mnt/tmp/sprut_simulation_%04d.exr
+addUserKnob {41 reload l "Reload Cache" -STARTLINE T readIn.reload}
+addUserKnob {26 ""}
+addUserKnob {22 executeSim l "Run Simulation" t "Executes the simulation." T "## Sprut by theodor groeneboom (theo@euqahuba.com)\n## (c) 2012-2014 - GPL\n## v0.15\n\n\nimport threading\nimport nuke\nimport time\n\nn = nuke.thisNode()\nframeStart = int(n.knob('frameStart').getValue())\nframeEnd = int(n.knob('frameEnd').getValue())\nwriteOut = n.node('writeOut')\nreadIn = n.node('readIn')\ntask = nuke.ProgressTask(\"Sprut:Simulating.\")\nreadIn.knob('reload').execute()\n\ndef render():\n    for renderRange in range(frameStart,frameEnd+1):\n      readIn.knob('reload').execute()\n      nuke.execute(writeOut,renderRange,renderRange)\n      progressTotal = frameEnd-frameStart\n      progress = ((renderRange-frameStart)/progressTotal)*100\n      task.setProgress(int(progress))\n      nuke.frame(renderRange)\n      ##nuke.Root().setFrame( renderRange )\n      ##nuke.updateUI\n      if task.isCancelled():\n\tnuke.executeInMainThread( nuke.message, args=( \"Aborted!\" ) )\n\tbreak;\n\n##threading.Thread( None, render ).start()\nrender()\ndel task\n\n##nuke.execute(writeOut,frameStart,frameEnd)\nreadIn.knob('reload').execute()\n" +STARTLINE}
+addUserKnob {20 endGroup n -1}
+addUserKnob {20 fluid l Fluid n 1}
+fluid 0
+addUserKnob {41 size_1 l Viscocity T viscocity.size}
+addUserKnob {26 ""}
+addUserKnob {7 veloctyDissipation l "Velocity Dissipation" t "Velocity dissipation is how much motion the velocity looses pr timestep/frame. \nA value of 0.1 will cause a slight drag and slow down, while a value of 1 will cause the fluid to stop instantly." R 0 0.1}
+veloctyDissipation 0.1
+addUserKnob {7 velocityDiffusion l "Velocity Diffusion" t "Velocity diffusion is how blurry or viscous the fluid should get pr timestep. The blurrier the more blobby the fluid motion gets." R 0 8}
+addUserKnob {26 ""}
+addUserKnob {7 densityDissipation l "Density Dissipation" t "Density dissipation is the amount of which the fluid fades away after emission." R 0 0.1}
+addUserKnob {7 densityDiffusion l "Density Diffusion" t "Density dissipation preforms a blur on the density and colour on each timestep. " R 0 8}
+addUserKnob {26 ""}
+addUserKnob {41 amount l "Vorticity Amount" T vorticity_calc.amount}
+addUserKnob {41 size_2 l "Vorticity Diffusion" T vorticity_blur.size}
+addUserKnob {20 endGroup_1 l endGroup n -1}
+addUserKnob {20 forces_1 l Forces n 1}
+forces_1 0
+addUserKnob {26 forces l Forces}
+addUserKnob {18 directionalForce l "Directional Force" t "This adds a constant directional force to the overall fluid field." R -1 1}
+directionalForce {0 0 0}
+addUserKnob {6 directionalForce_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+addUserKnob {20 endGroup_2 l endGroup n -1}
+addUserKnob {20 postSim l "Post Simulation"}
+addUserKnob {6 addToOriginal l "Add source to output" +STARTLINE}
+addToOriginal true
+addUserKnob {26 ""}
+addUserKnob {41 size l "Pre Blur Velocity" T Blur1.size}
+addUserKnob {41 scale l "Motion Blur" T VectorBlur2.scale}
+addUserKnob {41 offset l "Motion Blur offset" T VectorBlur2.offset}
+addUserKnob {41 grow_bbox l "grow bbox" T VectorBlur2.grow_bbox}
+addUserKnob {41 method T VectorBlur2.method}
+}
+Input {
+inputs 0
+name emitter
+xpos -61
+ypos -505
+}
+set Nff20bdc0 [stack 0]
+Dot {
+name Dot3
+xpos -148
+ypos -501
+}
+set Nff20c130 [stack 0]
+Read {
+inputs 0
+file "\[ value parent.cache ]"
+format "256 256 0 0 256 256 1 square_256"
+first {{parent.frameStart}}
+last {{parent.frameEnd}}
+origfirst 0
+origlast 10
+origset true
+on_error black
+version 63168
+raw true
+name readIn
+xpos -399
+ypos -424
+}
+set Nff20c4a0 [stack 0]
+Merge2 {
+inputs 2
+operation plus
+name Merge2
+xpos -399
+ypos -302
+disable {{1-parent.addToOriginal}}
+}
+Blur {
+channels motion
+size 1
+name Blur1
+xpos -399
+ypos -190
+}
+VectorBlur {
+channels rgba
+uv motion
+name VectorBlur2
+xpos -399
+ypos -152
+}
+Output {
+name Output1
+xpos -399
+ypos -117
+}
+push $Nff20bdc0
+Dot {
+name Dot1
+xpos -27
+ypos -344
+}
+push $Nff20c4a0
+FrameHold {
+first_frame {{frame-1}}
+name FrameHold1
+help "This nodes fetches the previous state of the simulation."
+xpos -289
+ypos -395
+}
+push $Nff20c130
+Merge2 {
+inputs 2
+operation plus
+also_merge all
+name Merge1
+help "Adds the previous and the current fields together."
+xpos -182
+ypos -389
+}
+Switch {
+inputs 2
+which {{frame==frameStart?1:0}}
+name Switch1
+help "A switch is happening on the first frame to avoid residual simulation elements from previous sims."
+xpos -182
+ypos -348
+}
+Expression {
+temp_name0 curl
+temp_expr0 ((forward.u(x,y+1)-forward.u(x,y-1))*0.5)-((forward.v(x+1,y)-forward.v(x-1,y))*0.5)
+channel0 {backward.u -backward.v}
+expr0 curl
+channel1 {-backward.u backward.v}
+expr1 curl
+channel2 none
+name vorticity_curl
+xpos -182
+ypos -272
+}
+Expression {
+temp_name0 curlDx
+temp_expr0 (backward.u(x+1,y)-backward.u(x-1,y))*.5
+temp_name1 curlDy
+temp_expr1 (backward.u(x,y+1)-backward.u(x,y-1))*.5
+temp_name2 length
+temp_expr2 sqrt(pow2(curlDx)+pow2(curlDy))+0.00001
+channel0 {backward.u -backward.v}
+expr0 (backward.u*(curlDx/length))*amount
+channel1 {-backward.u backward.v}
+expr1 (backward.v*(curlDy/length))*amount
+channel2 backward
+expr2 0
+channel3 backward
+expr3 0
+name vorticity_calc
+xpos -182
+ypos -246
+addUserKnob {20 User}
+addUserKnob {7 amount}
+amount 0.05
+}
+Blur {
+channels backward
+quality 45
+name vorticity_blur
+xpos -182
+ypos -220
+}
+Blur {
+channels {forward.u forward.v none -backward.v}
+size {{velocityDiffusion}}
+filter box
+name veloctyDiffusion
+xpos -182
+ypos -108
+}
+Blur {
+channels rgba
+size {{densityDiffusion}}
+name densityDiffusion
+xpos -182
+ypos -70
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+multiply {{1-veloctyDissipation}}
+add {{parent.directionalForce.r} {parent.directionalForce.g} 0 0}
+black_clamp false
+name velocity
+xpos -182
+ypos -46
+}
+Grade {
+channels rgba
+white {{1-parent.densityDissipation}}
+black_clamp false
+name density
+xpos -182
+ypos -8
+}
+Expression {
+channel0 {forward.u -forward.v none -backward.v}
+expr0 backward.u+forward.u
+channel1 {-forward.u forward.v none -backward.v}
+expr1 backward.v+forward.v
+channel2 backward
+expr2 0
+channel3 backward
+expr3 0
+name Expression1
+label add_vorticity
+xpos -182
+ypos 31
+}
+Dot {
+name Dot4
+xpos -148
+ypos 180
+}
+set Nff20f830 [stack 0]
+Group {
+name divergence_and_pressure_solving
+xpos 6
+ypos 176
+addUserKnob {20 User}
+addUserKnob {3 val}
+val -1
+}
+Input {
+ inputs 0
+ name Input1
+ xpos -1580
+ ypos -285
+}
+Dot {
+ name Dot2
+ xpos -1546
+ ypos -118
+}
+set Nff20ff10 [stack 0]
+Reformat {
+ type scale
+ scale 0.15
+ name Reformat33
+ xpos -700
+ ypos 32
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence17
+ xpos -700
+ ypos 56
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat33.scale i}}
+ name Reformat34
+ xpos -700
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.2
+ name Reformat31
+ xpos -810
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence16
+ xpos -810
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat31.scale i}}
+ name Reformat32
+ xpos -810
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.25
+ name Reformat29
+ xpos -920
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence15
+ xpos -920
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat29.scale i}}
+ name Reformat30
+ xpos -920
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.3
+ name Reformat27
+ xpos -1030
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence14
+ xpos -1030
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat27.scale i}}
+ name Reformat28
+ xpos -1030
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.35
+ name Reformat25
+ xpos -1140
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence13
+ xpos -1140
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat25.scale i}}
+ name Reformat26
+ xpos -1140
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.4
+ name Reformat3
+ xpos -1250
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence12
+ xpos -1250
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat3.scale i}}
+ name Reformat24
+ xpos -1250
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.45
+ name Reformat1
+ xpos -1360
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence11
+ xpos -1360
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat1.scale i}}
+ name Reformat2
+ xpos -1360
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.5
+ name Reformat22
+ xpos -1470
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence10
+ xpos -1470
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat22.scale i}}
+ name Reformat23
+ xpos -1470
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.55
+ name Reformat20
+ xpos -1580
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence9
+ xpos -1580
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat20.scale i}}
+ name Reformat21
+ xpos -1580
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.6
+ name Reformat18
+ xpos -1690
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence8
+ xpos -1690
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat18.scale i}}
+ name Reformat19
+ xpos -1690
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.65
+ name Reformat16
+ xpos -1800
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence7
+ xpos -1800
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat16.scale i}}
+ name Reformat17
+ xpos -1800
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.7
+ name Reformat14
+ xpos -1910
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence6
+ xpos -1910
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat14.scale i}}
+ name Reformat15
+ xpos -1910
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.75
+ name Reformat12
+ xpos -2020
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence5
+ xpos -2020
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat12.scale i}}
+ name Reformat13
+ xpos -2020
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.8
+ name Reformat10
+ xpos -2130
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence4
+ xpos -2130
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat10.scale i}}
+ name Reformat11
+ xpos -2130
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.85
+ name Reformat8
+ xpos -2240
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence3
+ xpos -2240
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat8.scale i}}
+ name Reformat9
+ xpos -2240
+ ypos 86
+}
+push 0
+push $Nff20ff10
+Reformat {
+ type scale
+ scale 0.9
+ name Reformat6
+ xpos -2350
+ ypos 34
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence2
+ xpos -2350
+ ypos 58
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat6.scale i}}
+ name Reformat7
+ xpos -2350
+ ypos 86
+}
+push $Nff20ff10
+Reformat {
+ type scale
+ resize none
+ name Reformat4
+ xpos -2460
+ ypos 31
+}
+Expression {
+ temp_name0 div
+ temp_expr0 "(u(x+1,y)-u(x-1,y)+v(x,y+1)-v(x,y-1)) * (val)"
+ channel0 {forward.u forward.v none -backward.v}
+ expr0 div
+ channel1 {forward.u forward.v none -backward.v}
+ expr1 div
+ channel2 none
+ name divergence1
+ selected true
+ xpos -2460
+ ypos 60
+ addUserKnob {20 User}
+ addUserKnob {3 val}
+ val {{parent.val}}
+}
+Reformat {
+ type scale
+ scale {{1/Reformat4.scale i}}
+ name Reformat5
+ xpos -2460
+ ypos 86
+}
+Merge2 {
+ inputs 17+1
+ operation average
+ Achannels {forward.u forward.v none -backward.v}
+ Bchannels {forward.u forward.v none -backward.v}
+ output {forward.u forward.v none -backward.v}
+ name Merge3
+ xpos -1580
+ ypos 370
+}
+Output {
+ name Output1
+ xpos -1580
+ ypos 518
+}
+end_group
+Dot {
+name Dot2
+xpos 40
+ypos 231
+}
+push $Nff20f830
+MergeExpression {
+inputs 2
+temp_name0 gradX
+temp_expr0 ((Au(x+1,y)-Au(x-1,y)))*0.5
+temp_name1 gradY
+temp_expr1 ((Au(x,y+1)-Au(x,y-1)))*0.5
+channel0 {forward.u -forward.v none -backward.v}
+expr0 Bu-1*gradX
+channel1 {-forward.u forward.v none -backward.v}
+expr1 Bv-1*gradY
+channel2 none
+channel3 none
+name subtract_pressureGradient_fromVel
+xpos -182
+ypos 227
+}
+set Nff21bc20 [stack 0]
+IDistort {
+uv motion
+uv_scale {{-parent.timeStep}}
+name advect1
+xpos -53
+ypos 297
+}
+Blur {
+channels motion
+name viscocity
+xpos -53
+ypos 335
+}
+push $Nff21bc20
+Merge2 {
+inputs 2
+operation average
+Achannels {forward.u forward.v none -backward.v}
+Bchannels {forward.u forward.v none -backward.v}
+output {forward.u forward.v none -backward.v}
+name Merge3
+xpos -184
+ypos 335
+}
+IDistort {
+uv motion
+uv_scale {{parent.timeStep}}
+name advect
+xpos -182
+ypos 407
+}
+Crop {
+box {0 0 {width} {height}}
+name Crop1
+xpos -182
+ypos 452
+}
+Grade {
+channels {forward.u forward.v none -backward.v}
+add {{-parent.directionalForce.r x68 0} {-parent.directionalForce.g x68 0} 0 0}
+black_clamp false
+name Grade1
+xpos -182
+ypos 476
+}
+Write {
+channels all
+file "\[ value parent.cache ]"
+raw true
+file_type exr
+"Standard layer name format" true
+version 62898
+name writeOut
+xpos -182
+ypos 525
+}
+end_group
