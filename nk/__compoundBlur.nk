@@ -1,5 +1,6 @@
 #! C:/Program Files/Nuke7.0v4/Nuke7.0.exe -nx
 #http://bjorkvisuals.com/tools/the-foundrys-nuke/gizmos
+#zDefocus too expensive for a compound blur method
 version 7.0 v4
 Group {
  name sb_CompoundBlur
