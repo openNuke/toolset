@@ -1,7 +1,7 @@
 {
 "type": "node",
 "category": "3.5D",
-"file": "pTracker.nk",
+"file": "PTracker.nk",
 "tooltip": "This gizmo allows you to sample color values from a World Position pass and convert the values to 2d tracking data. The following output options are available:\n*CornerPin (match-move & stabilize)\n*Tracker\n*RotoPaint\n*GridWarp\nSplineWarp",
 "originalAuthor": "Simon Björk",
 "dateCreated": "2014-10-09",
