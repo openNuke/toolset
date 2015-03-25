@@ -56,8 +56,16 @@ NoOp {
  gain_b 0.23
  addUserKnob {3 octaves_b l octaves}
  octaves_b 10
- addUserKnob {20 info}
- addUserKnob {26 author l "author: " T "Rafal Kaniewski,David Emeny, Cameron Carson"}
+ addUserKnob {20 Info}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open('http://opennuke.github.io/CurveGenerator_nk/')" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 version l version: T 1.0}
+ addUserKnob {26 createdDate l created T 01/01/2015}
+ addUserKnob {26 created l by -STARTLINE T "Rafal Kaniewski"}
+ addUserKnob {26 sourceVersion l source T 1}
+ addUserKnob {26 source l : -STARTLINE T "<a href=\\\"http://www.https://github.com/vfxwiki\\\">vfxwiki github</a>"}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
+ addUserKnob {26 note l "note: " T "credits David Emeny & Cameron Carson"}
  addUserKnob {20 expressions l INVISIBLE +INVISIBLE n 1}
  expressions 0
  addUserKnob {7 square l INVISIBLE +INVISIBLE}
