@@ -1,0 +1,17 @@
+{
+"type": "node",
+"category": "Other",
+"file": "/nk/SphericalNoise.nk",
+"tooltip": "Generate curves from various maths functions. i.e camera shake, light flicker etc. Features\n* 12 curve types inc. fbn\n* Mixing a seperate B curve with 11 math calcs\n* Friendly and responsive in the curve editor",
+"originalAuthor": "Mads Hagbarth Lund",
+"dateCreated": "2015-01-18",
+"status": "stable",
+"documentation": "http://opennuke.github.io/SphericalNoise_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "http://hagbarth.net/?p=883",
+"originalVersion": "1",
+"call": "",
+"label": "Spherical Noise",
+"note": "",
+"icon": ""
+}
