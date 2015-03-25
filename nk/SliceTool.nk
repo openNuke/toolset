@@ -3,6 +3,7 @@ version 8.0 v5
 push $cut_paste_input
 Group {
  name SliceTool
+ help "Slice tool ala Sir Steve Wright with features:\n* On screen scanline over picturen\n* Wallpaper scanline\n* Node sampler tab"
  selected true
  xpos 4296
  ypos 14198
