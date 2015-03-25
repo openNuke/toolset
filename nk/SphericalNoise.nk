@@ -1,0 +1,101 @@
+#! C:/Program Files/Nuke8.0v4/nuke-8.0.v4.dll -nx
+# http://hagbarth.net/?p=883
+set cut_paste_input [stack 0]
+version 8.0 v5
+push $cut_paste_input
+Group {
+ name SphericalNoise
+ help "Here is a little expression that is usefull when you have to put noise on spheres that doesn’t have any seams."
+ addUserKnob {20 User}
+ addUserKnob {26 info l "" +STARTLINE T "Spherical Noise"}
+ addUserKnob {26 ""}
+ addUserKnob {13 offset l Offset}
+ addUserKnob {13 scale l Scale}
+ scale {1 1 1}
+ addUserKnob {26 NoiseSettings l "Noise Settings"}
+ addUserKnob {7 octaves R 0 10}
+ octaves 10
+ addUserKnob {7 lacunarity R 0 10}
+ lacunarity 2.35
+ addUserKnob {7 gain}
+ gain 0.555
+ addUserKnob {3 FormatX l "Resolution X"}
+ FormatX 1920
+ addUserKnob {3 Y -STARTLINE}
+ Y 1080
+ addUserKnob {20 Info}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open('http://opennuke.github.io/SphericalNoisel_nk/')" +STARTLINE}
+ 
+ addUserKnob {26 ""}
+ addUserKnob {26 version l version: T 1.0}
+ addUserKnob {26 createdDate l created T 18/01/2015}
+ addUserKnob {26 created l by -STARTLINE T "Mads Hagbarth Lund"}
+ addUserKnob {26 sourceVersion l source T 1.0}
+ addUserKnob {26 source l : -STARTLINE T "<a href=\\\"http://hagbarth.net/?p=883\\\">http://hagbarth.net/?p=883</a>"}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
+
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 384
+  ypos -218
+ }
+ Crop {
+  box {0 0 {parent.FormatX} {parent.Y}}
+  reformat true
+  name Crop2
+  xpos 384
+  ypos -110
+ }
+ Expression {
+  temp_name0 lat
+  temp_expr0 "y / parent.Y * 180- 90"
+  temp_name1 lon
+  temp_expr1 "x / parent.FormatX * 360-180"
+  temp_name2 r
+  temp_expr2 "cos(0.017453292519943295769236907684886 *  lat)"
+  expr0 "(r * cos (0.017453292519943295769236907684886 * lon) +1)*0.5"
+  expr1 "(sin (0.017453292519943295769236907684886 * lat)+1)*.5"
+  expr2 "(r * sin(0.017453292519943295769236907684886 * lon)+1)*.5"
+  name Expression9
+  xpos 384
+  ypos -86
+ }
+set N60dfbf70 [stack 0]
+ Grade {
+  multiply {{parent.scale} {parent.scale} {parent.scale} 1}
+  multiply_panelDropped true
+  name Grade1
+  xpos 384
+  ypos -62
+ }
+ Expression {
+  expr0 fBm(r+parent.offset.x,g+parent.offset.y,b+parent.offset.z,parent.octaves,parent.lacunarity,parent.gain)*.5+0.5
+  expr1 fBm(r+parent.offset.x,g+parent.offset.y,b+parent.offset.z,parent.octaves,parent.lacunarity,parent.gain)*.5+0.5
+  expr2 fBm(r+parent.offset.x,g+parent.offset.y,b+parent.offset.z,parent.octaves,parent.lacunarity,parent.gain)*.5+0.5
+  name Expression10
+  xpos 384
+  ypos -38
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha blue
+  name Shuffle1
+  xpos 384
+  ypos -14
+ }
+ Output {
+  name Output1
+  xpos 384
+  ypos 95
+ }
+push $N60dfbf70
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos 549
+  ypos -86
+ }
+end_group
