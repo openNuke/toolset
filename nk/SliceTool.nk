@@ -42,7 +42,7 @@ Group {
  addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open('http://opennuke.github.io/ScanLine_nk/')" +STARTLINE}
  addUserKnob {26 ""}
  addUserKnob {26 version l version: T 1.0}
- addUserKnob {26 createdDate l created T 25/01/2010}
+ addUserKnob {26 createdDate l created T "2010-01-25"}
  addUserKnob {26 created l by -STARTLINE T "Theodor Groeneboom"}
  addUserKnob {26 sourceVersion l source T 0.4}
  addUserKnob {26 source l : -STARTLINE T "<a href=\\\"http://euqahuba.com/blog/?p=121\\\">http://euqahuba.com/blog/?p=121</a>"}
