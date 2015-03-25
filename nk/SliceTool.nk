@@ -39,7 +39,7 @@ Group {
  addUserKnob {26 ""}
  addUserKnob {41 lut_1 l "" -STARTLINE T Group2.lut}
  addUserKnob {20 Info}
- addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open('http://opennuke.github.io/ScanLine_nk/')" +STARTLINE}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open('http://opennuke.github.io/SliceTool_nk/')" +STARTLINE}
  addUserKnob {26 ""}
  addUserKnob {26 version l version: T 1.0}
  addUserKnob {26 createdDate l created T "2010-01-25"}
