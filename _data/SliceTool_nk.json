@@ -1,0 +1,17 @@
+{
+"type": "node",
+"category": "Other",
+"file": "/nk/SliceTool.nk",
+"tooltip": "Slice tool ala Sir Steve Wright with features:\n* On screen scanline over picturen\n* Wallpaper scanline\n* sampler tab"
+"originalAuthor": "Theodor Groeneboomk",
+"dateCreated": "2010-01-25",
+"status": "stable",
+"documentation": "http://opennuke.github.io/SliceTool_nk/",
+"licence": "https://github.com/openNuke/toolkit/blob/master/LICENCE",
+"source": "http://euqahuba.com/blog/?p=121",
+"originalVersion": "0.2",
+"call": "",
+"label": "Slice Tool",
+"note": "Scanline node implementation by Deke Kincaid & Andre/djdeluxe76\nWallpaper by michaelATyawpitchrollDOTcom",
+"icon": ""
+}
