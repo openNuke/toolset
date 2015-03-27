@@ -1,0 +1,1456 @@
+set cut_paste_input [stack 0]
+version 8.0 v5
+push 0
+push $cut_paste_input
+Group {
+ inputs 2
+ name BlurExponential
+ selected true
+ xpos 3943
+ ypos 14839
+ addUserKnob {20 User l BlurExponential}
+ addUserKnob {41 blendType -STARTLINE T MASTER.blendType}
+ addUserKnob {41 filterType -STARTLINE T MASTER.filterType}
+ addUserKnob {41 source -STARTLINE T MASTER.source}
+ addUserKnob {26 space01 l "" +STARTLINE}
+ addUserKnob {41 value T MASTER.value}
+ addUserKnob {41 valueGrad l gradient t "This is the expodential value between filter stack. i.e. 5 is half (*0.5)" T MASTER.valueGrad}
+ addUserKnob {26 ""}
+ addUserKnob {26 text l "" +STARTLINE}
+ addUserKnob {41 maskRange_1 l maskRange T MASTER.maskRange}
+ addUserKnob {41 maskRangeMax l "" -STARTLINE T MASTER.maskRangeMax}
+ addUserKnob {41 from0 l mask T CopyMASTER.from0}
+ addUserKnob {26 ""}
+ addUserKnob {20 grade}
+ addUserKnob {41 exposure T MASTER.exposure}
+ addUserKnob {41 gamma T MASTER.gamma}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 edgeExposure l outerExposure T MASTER.edgeExposure}
+ addUserKnob {41 innerExposure T MASTER.innerExposure}
+ addUserKnob {41 gradEdge l edgeGradient T MASTER.gradEdge}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode8
+  tile_color 0x64646400
+  label MASTERS
+  note_font_size 42
+  xpos 647
+  ypos 325
+  bdwidth 577
+  bdheight 390
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x64646400
+  label "use this one"
+  note_font_size 42
+  xpos 636
+  ypos 756
+  bdwidth 456
+  bdheight 441
+ }
+ Blur {
+  inputs 0
+  channels rgba
+  name BlurMASTER
+  xpos 828
+  ypos 499
+  dope_sheet true
+ }
+ StickyNote {
+  inputs 0
+  name toDo
+  label "TODO:\n1) build script to iritirate this function to desired step\n......its all set up to work like that"
+  xpos 906
+  ypos 358
+ }
+ Input {
+  inputs 0
+  name Input
+  xpos 701
+  ypos 419
+ }
+set N3d37f970 [stack 0]
+ NoOp {
+  name image
+  xpos 701
+  ypos 614
+ }
+set N3d37fce0 [stack 0]
+ Dot {
+  name Dot1
+  xpos 327
+  ypos 617
+ }
+ Dot {
+  name Dot2
+  xpos 327
+  ypos 1332
+ }
+ Dot {
+  name Dot4
+  xpos 6782
+  ypos 1456
+ }
+set N3d380730 [stack 0]
+ Input {
+  inputs 0
+  name mask
+  xpos 1002
+  ypos 424
+  number 1
+ }
+set N3d380aa0 [stack 0]
+push $N3d380aa0
+ Shuffle {
+  name Shuffle10
+  xpos 1090
+  ypos 537
+  dope_sheet true
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name CopyMASTER
+  xpos 1002
+  ypos 595
+  dope_sheet true
+ }
+ Dot {
+  name Dot100
+  xpos 1008
+  ypos 747
+ }
+set N3d3814f0 [stack 0]
+ Dot {
+  name Dot26
+  xpos 1619
+  ypos 754
+ }
+set N3d381860 [stack 0]
+ Dot {
+  name Dot27
+  xpos 2182
+  ypos 740
+ }
+set N3d381bd0 [stack 0]
+ Dot {
+  name Dot10
+  xpos 2809
+  ypos 742
+ }
+set N3d381f40 [stack 0]
+ Dot {
+  name Dot28
+  xpos 3386
+  ypos 734
+ }
+set N3d3822b0 [stack 0]
+ Dot {
+  name Dot29
+  xpos 3970
+  ypos 738
+ }
+set N3d382620 [stack 0]
+ Dot {
+  name Dot17
+  xpos 4572
+  ypos 777
+ }
+set N3d382990 [stack 0]
+ Dot {
+  name Dot30
+  xpos 5152
+  ypos 766
+ }
+set N3d382d00 [stack 0]
+ Dot {
+  name Dot31
+  xpos 5732
+  ypos 784
+ }
+set N3d383070 [stack 0]
+ Dot {
+  name Dot32
+  xpos 6334
+  ypos 784
+ }
+set N3d3833e0 [stack 0]
+ Dot {
+  name Dot36
+  xpos 6922
+  ypos 797
+ }
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade10
+  label "\[value position]"
+  xpos 6888
+  ypos 1004
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 10
+ }
+push $N3d37fce0
+ Dot {
+  name Dot101
+  xpos 735
+  ypos 836
+ }
+set N3d383e30 [stack 0]
+ Dot {
+  name Dot6
+  xpos 1318
+  ypos 840
+ }
+set N3d3841a0 [stack 0]
+ Dot {
+  name Dot8
+  xpos 1900
+  ypos 855
+ }
+set N3d384510 [stack 0]
+ Dot {
+  name Dot11
+  xpos 2508
+  ypos 870
+ }
+set N3d384880 [stack 0]
+ Dot {
+  name Dot13
+  xpos 3091
+  ypos 874
+ }
+set N3d384bf0 [stack 0]
+ Dot {
+  name Dot15
+  xpos 3673
+  ypos 889
+ }
+set N3d384f60 [stack 0]
+ Dot {
+  name Dot18
+  xpos 4271
+  ypos 927
+ }
+set N3d3852d0 [stack 0]
+ Dot {
+  name Dot20
+  xpos 4854
+  ypos 931
+ }
+set N3d385640 [stack 0]
+ Dot {
+  name Dot22
+  xpos 5436
+  ypos 946
+ }
+set N3d3859b0 [stack 0]
+ Dot {
+  name Dot24
+  xpos 6033
+  ypos 935
+ }
+set N3d385d20 [stack 0]
+ Dot {
+  name Dot34
+  xpos 6621
+  ypos 918
+ }
+set N3d386090 [stack 0]
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus10
+  label "\[value position]"
+  xpos 6642
+  ypos 997
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 10
+ }
+push $N3d386090
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur10
+  label "\[value position]"
+  xpos 6532
+  ypos 997
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 10
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch22
+  xpos 6581
+  ypos 1077
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade22
+  label "\[value position]"
+  xpos 6581
+  ypos 1129
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 10
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1}}
+  multiply_panelDropped true
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade12
+  label "\[value position]"
+  xpos 6581
+  ypos 1171
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 10
+ }
+set N3d387530 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy10
+  xpos 6888
+  ypos 1071
+ }
+ Premult {
+  name Premult10
+  xpos 6888
+  ypos 1118
+ }
+push $N3d387530
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch23
+  xpos 6888
+  ypos 1177
+ }
+push $N3d3833e0
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade9
+  label "\[value position]"
+  xpos 6300
+  ypos 1024
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 9
+ }
+push $N3d385d20
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus9
+  label "\[value position]"
+  xpos 6053
+  ypos 1014
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 9
+ }
+push $N3d385d20
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur9
+  label "\[value position]"
+  xpos 5944
+  ypos 1014
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 9
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch20
+  xpos 5993
+  ypos 1094
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade24
+  label "\[value position]"
+  xpos 5991
+  ypos 1133
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 9
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1}}
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade21
+  label "\[value position]"
+  xpos 5993
+  ypos 1188
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 9
+ }
+set N3d388d40 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy9
+  xpos 6300
+  ypos 1088
+ }
+ Premult {
+  name Premult9
+  xpos 6300
+  ypos 1135
+ }
+push $N3d388d40
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch21
+  xpos 6300
+  ypos 1194
+ }
+push $N3d383070
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade8
+  label "\[value position]"
+  xpos 5703
+  ypos 1035
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 8
+ }
+push $N3d3859b0
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus8
+  label "\[value position]"
+  xpos 5456
+  ypos 1025
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 8
+ }
+push $N3d3859b0
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur8
+  label "\[value position]"
+  xpos 5347
+  ypos 1025
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 8
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch18
+  xpos 5396
+  ypos 1105
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade25
+  label "\[value position]"
+  xpos 5400
+  ypos 1148
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 8
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1}}
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade23
+  label "\[value position]"
+  xpos 5400
+  ypos 1199
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 8
+ }
+set N3d38a550 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy8
+  xpos 5703
+  ypos 1099
+ }
+ Premult {
+  name Premult8
+  xpos 5703
+  ypos 1146
+ }
+push $N3d38a550
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch19
+  xpos 5703
+  ypos 1205
+ }
+push $N3d382d00
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade7
+  label "\[value position]"
+  xpos 5121
+  ypos 1020
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 7
+ }
+push $N3d385640
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus7
+  label "\[value position]"
+  xpos 4874
+  ypos 1010
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 7
+ }
+push $N3d385640
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur7
+  label "\[value position]"
+  xpos 4767
+  ypos 1009
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 7
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch16
+  xpos 4814
+  ypos 1090
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade26
+  label "\[value position]"
+  xpos 4814
+  ypos 1133
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 7
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1}}
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade20
+  label "\[value position]"
+  xpos 4814
+  ypos 1184
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 7
+ }
+set N3d38bd60 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy7
+  xpos 5129
+  ypos 1084
+ }
+ Premult {
+  name Premult7
+  xpos 5121
+  ypos 1131
+ }
+push $N3d38bd60
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch17
+  xpos 5121
+  ypos 1190
+ }
+push $N3d382990
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade6
+  label "\[value position]"
+  xpos 4538
+  ypos 1015
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 6
+ }
+push $N3d3852d0
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus6
+  label "\[value position]"
+  xpos 4290
+  ypos 1006
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 6
+ }
+push $N3d3852d0
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur6
+  label "\[value position]"
+  xpos 4183
+  ypos 1003
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 6
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch13
+  xpos 4231
+  ypos 1086
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade27
+  label "\[value position]"
+  xpos 4227
+  ypos 1121
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 6
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1}}
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade19
+  label "\[value position]"
+  xpos 4231
+  ypos 1180
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 6
+ }
+set N3d38d570 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy6
+  xpos 4549
+  ypos 1080
+ }
+ Premult {
+  name Premult6
+  xpos 4538
+  ypos 1127
+ }
+push $N3d38d570
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch14
+  xpos 4538
+  ypos 1186
+ }
+push $N3d382620
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade5
+  label "\[value position]"
+  xpos 3940
+  ypos 978
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 5
+ }
+push $N3d384f60
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus5
+  label "\[value position]"
+  xpos 3693
+  ypos 968
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 5
+ }
+push $N3d384f60
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur5
+  label "\[value position]"
+  xpos 3584
+  ypos 968
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 5
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch11
+  xpos 3633
+  ypos 1048
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade28
+  label "\[value position]"
+  xpos 3633
+  ypos 1087
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 5
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1}}
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade18
+  label "\[value position]"
+  xpos 3633
+  ypos 1142
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 5
+ }
+set N3d38ed80 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy5
+  xpos 3950
+  ypos 1033
+ }
+ Premult {
+  name Premult5
+  xpos 3940
+  ypos 1089
+ }
+push $N3d38ed80
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch12
+  xpos 3940
+  ypos 1148
+ }
+push $N3d3822b0
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade4
+  label "\[value position]"
+  xpos 3358
+  ypos 962
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 4
+ }
+push $N3d384bf0
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus4
+  label "\[value position]"
+  xpos 3111
+  ypos 953
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 4
+ }
+push $N3d384bf0
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur4
+  label "\[value position]"
+  xpos 3002
+  ypos 952
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 4
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch9
+  xpos 3051
+  ypos 1033
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade29
+  label "\[value position]"
+  xpos 3048
+  ypos 1072
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 4
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1}}
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade17
+  label "\[value position]"
+  xpos 3051
+  ypos 1127
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 4
+ }
+set N3d390590 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy4
+  xpos 3358
+  ypos 1027
+ }
+ Premult {
+  name Premult4
+  xpos 3358
+  ypos 1074
+ }
+push $N3d390590
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch10
+  xpos 3358
+  ypos 1133
+ }
+push $N3d381f40
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade3
+  label "\[value position]"
+  xpos 2775
+  ypos 959
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 3
+ }
+push $N3d384880
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus3
+  label "\[value position]"
+  xpos 2528
+  ypos 949
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 3
+ }
+push $N3d384880
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur3
+  label "\[value position]"
+  xpos 2417
+  ypos 949
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 3
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch7
+  xpos 2468
+  ypos 1029
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade30
+  label "\[value position]"
+  xpos 2459
+  ypos 1067
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 3
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1}}
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade16
+  label "\[value position]"
+  xpos 2459
+  ypos 1123
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 3
+ }
+set N3d391da0 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy3
+  xpos 2775
+  ypos 1023
+ }
+ Premult {
+  name Premult3
+  xpos 2775
+  ypos 1070
+ }
+push $N3d391da0
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch8
+  xpos 2775
+  ypos 1129
+ }
+push $N3d381bd0
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade2
+  label "\[value position]"
+  xpos 2167
+  ypos 946
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 2
+ }
+push $N3d384510
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus2
+  label "\[value position]"
+  xpos 1920
+  ypos 932
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 2
+ }
+push $N3d384510
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur2
+  label "\[value position]"
+  xpos 1811
+  ypos 934
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 2
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch5
+  xpos 1860
+  ypos 1014
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade31
+  label "\[value position]"
+  xpos 1852
+  ypos 1057
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 2
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1}}
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade15
+  label "\[value position]"
+  xpos 1848
+  ypos 1108
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 2
+ }
+set N3d3935b0 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 2167
+  ypos 1008
+ }
+ Premult {
+  name Premult2
+  xpos 2167
+  ypos 1055
+ }
+push $N3d3935b0
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch6
+  xpos 2167
+  ypos 1114
+ }
+push $N3d381860
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade1
+  label "\[value position]"
+  xpos 1585
+  ypos 929
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 1
+ }
+push $N3d3841a0
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus1
+  label "\[value position]"
+  xpos 1338
+  ypos 919
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 1
+ }
+push $N3d3841a0
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur1
+  label "\[value position]"
+  xpos 1228
+  ypos 919
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 1
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch3
+  xpos 1278
+  ypos 999
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade32
+  label "\[value position]"
+  xpos 1280
+  ypos 1038
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 1
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1}}
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade14
+  label "\[value position]"
+  xpos 1278
+  ypos 1093
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+  position 1
+ }
+set N3d394a50 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 1585
+  ypos 993
+ }
+ Premult {
+  name Premult1
+  xpos 1585
+  ypos 1040
+ }
+push $N3d394a50
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch4
+  xpos 1585
+  ypos 1099
+ }
+push $N3d3814f0
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
+  whitepoint {{(1-(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position)))*MASTER.maskRange+(MASTER.maskRange/(MASTER.maskRange*MASTER.maxPosition/position))}}
+  white_clamp true
+  name Grade36
+  label "\[value position]"
+  xpos 1002
+  ypos 925
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+ }
+push $N3d383e30
+ Defocus {
+  channels {{{parent.BlurMASTER.channels}}}
+  defocus {{position==0?(MASTER.value*(MASTER.valueGrad*0.1))*((MASTER.valueGrad*0.1)/MASTER.maxPosition):(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Defocus14
+  label "\[value position]"
+  xpos 755
+  ypos 915
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+ }
+push $N3d383e30
+ Blur {
+  channels {{{parent.BlurMASTER.channels}}}
+  size {{position==0?(MASTER.value*(MASTER.valueGrad*0.1))*((MASTER.valueGrad*0.1)/MASTER.maxPosition):(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
+  name Blur26
+  label "\[value position]"
+  xpos 646
+  ypos 915
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.switchChoice}}
+  name Switch15
+  xpos 695
+  ypos 995
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1} {(MASTER.innerExposure) x122 1}}
+  white_clamp true
+  mix {{1-((MASTER.gradEdge)*(position/MASTER.maxPosition)*0.1)}}
+  name Grade33
+  label "\[value position]"
+  xpos 698
+  ypos 1034
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  multiply {{(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1} {(MASTER.edgeExposure) x122 1}}
+  white_clamp true
+  mix {{((MASTER.gradEdge))*(position/MASTER.maxPosition)*0.1}}
+  name Grade13
+  label "\[value position]"
+  xpos 695
+  ypos 1089
+  addUserKnob {20 User}
+  addUserKnob {3 position}
+ }
+set N3d395ef0 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy19
+  xpos 1002
+  ypos 989
+ }
+ Premult {
+  name Premult20
+  xpos 1002
+  ypos 1036
+ }
+push $N3d395ef0
+ Switch {
+  inputs 2
+  which {{CopyMASTER.from0}}
+  name Switch2
+  xpos 1002
+  ypos 1095
+ }
+ Merge2 {
+  inputs 2
+  operation {{MASTER.mergeChoice}}
+  name Merge5
+  xpos 1585
+  ypos 1172
+ }
+ Merge2 {
+  inputs 2
+  operation {{MASTER.mergeChoice}}
+  name Merge6
+  xpos 2167
+  ypos 1187
+ }
+ Merge2 {
+  inputs 2
+  operation {{MASTER.mergeChoice}}
+  name Merge7
+  xpos 2775
+  ypos 1202
+ }
+ Merge2 {
+  inputs 2
+  operation {{MASTER.mergeChoice}}
+  name Merge8
+  xpos 3358
+  ypos 1206
+ }
+ Merge2 {
+  inputs 2
+  operation {{MASTER.mergeChoice}}
+  name Merge9
+  xpos 3940
+  ypos 1221
+ }
+ Merge2 {
+  inputs 2
+  operation {{MASTER.mergeChoice}}
+  name Merge10
+  xpos 4538
+  ypos 1259
+ }
+ Merge2 {
+  inputs 2
+  operation {{MASTER.mergeChoice}}
+  name Merge11
+  xpos 5121
+  ypos 1259
+ }
+ Merge2 {
+  inputs 2
+  operation {{MASTER.mergeChoice}}
+  name Merge12
+  xpos 5703
+  ypos 1278
+ }
+ Merge2 {
+  inputs 2
+  operation {{MASTER.mergeChoice}}
+  name Merge13
+  xpos 6300
+  ypos 1267
+ }
+ Merge2 {
+  inputs 2
+  operation {{MASTER.mergeChoice}}
+  name Merge14
+  xpos 6896
+  ypos 1267
+ }
+ Grade {
+  channels {{{parent.BlurMASTER.channels}}}
+  white {{MASTER.blendType==0?1:1/MASTER.maxPosition}}
+  multiply {{parent.MASTER.exposure}}
+  gamma {{parent.MASTER.gamma}}
+  name Grade11
+  xpos 6896
+  ypos 1326
+ }
+ Dot {
+  name Dot3
+  xpos 6939
+  ypos 1398
+ }
+set N3d398830 [stack 0]
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge4
+  xpos 7171
+  ypos 1510
+ }
+push $N3d380730
+push $N3d398830
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos 7051
+  ypos 1512
+ }
+push $N3d380730
+push $N3d398830
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge2
+  xpos 6930
+  ypos 1514
+ }
+push $N3d380730
+push $N3d398830
+ Merge2 {
+  inputs 2
+  operation max
+  name Merge1
+  xpos 6820
+  ypos 1514
+ }
+ Switch {
+  inputs 4
+  which {{MASTER.source}}
+  name Switch1
+  xpos 6997
+  ypos 1595
+ }
+ Output {
+  name Output1
+  xpos 6997
+  ypos 1691
+ }
+ Viewer {
+  frame 119
+  freezeGuiWhenPlayBack true
+  input_process false
+  name Viewer2
+  xpos 1139
+  ypos 224
+ }
+push $N3d37f970
+ NoOp {
+  name MASTER
+  selected true
+  xpos 811
+  ypos 419
+  addUserKnob {20 User}
+  addUserKnob {4 filterType M {blur defocus ""}}
+  addUserKnob {26 space01 l "" -STARTLINE T " "}
+  addUserKnob {4 blendType -STARTLINE M {Normal Glow ""}}
+  addUserKnob {7 value R 0 300}
+  value 50
+  addUserKnob {4 source M {max plus over "effect only" ""}}
+  addUserKnob {6 cropToFormat -STARTLINE}
+  addUserKnob {26 text l Grade}
+  addUserKnob {4 valueGrad l grad -STARTLINE M {1 2 3 4 5 6 7 8 9 10 ""}}
+  valueGrad 5
+  addUserKnob {19 exposure R 0 3}
+  exposure 1
+  addUserKnob {6 exposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 sideExposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  sideExposure_panelDropped true
+  addUserKnob {19 gamma R 0 3}
+  gamma 1
+  addUserKnob {6 gamma_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {19 edgeExposure l outerExposure R 0 3}
+  edgeExposure {1 1 1 1}
+  addUserKnob {6 edgeExposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {19 innerExposure R 0 3}
+  innerExposure {1 1 1 1}
+  addUserKnob {6 innerExposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {4 gradEdge M {10 11 12 13 14 15 16 17 18 19 20 "" "" "" "" "" "" "" ""}}
+  gradEdge 15
+  addUserKnob {7 maskRange R 0 0.5}
+  maskRange 0.25
+  addUserKnob {7 maskRangeMax l "" -STARTLINE R 0.5 1}
+  maskRangeMax 0.9
+  addUserKnob {6 blacks_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {26 ""}
+  addUserKnob {3 maxPosition}
+  maxPosition 10
+  addUserKnob {26 ""}
+  addUserKnob {3 switchChoice -STARTLINE}
+  switchChoice {{filterType x122 10}}
+  addUserKnob {3 mergeChoice -STARTLINE}
+  mergeChoice {{blendType==0?17:24}}
+ }
+end_group
