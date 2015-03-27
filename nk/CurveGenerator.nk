@@ -63,8 +63,8 @@ NoOp {
  addUserKnob {26 version l version: T 1.0}
  addUserKnob {26 createdDate l created T 01/01/2015}
  addUserKnob {26 created l by -STARTLINE T "Rafal Kaniewski"}
- addUserKnob {26 sourceVersion l source T 1}
- addUserKnob {26 source l : -STARTLINE T "<a href=\\\"http://www.https://github.com/vfxwiki\\\">vfxwiki github</a>"}
+ addUserKnob {26 sourceVersion l "source: v" T 1}
+ addUserKnob {26 source l "" -STARTLINE T "<a href=\\\"http://www.https://github.com/vfxwiki\\\">vfxwiki github</a>"}
  addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
  addUserKnob {26 note l "note: " T "credits David Emeny & Cameron Carson"}
  addUserKnob {20 expressions l INVISIBLE +INVISIBLE n 1}
