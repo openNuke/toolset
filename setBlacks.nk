@@ -1,103 +1,204 @@
 set cut_paste_input [stack 0]
-version 9.0 v2
+version 8.0 v5
 push $cut_paste_input
 Group {
  name setBlacks
  selected true
- xpos 2145
- ypos 335
+ xpos 135
+ ypos -15
  addUserKnob {20 User}
  addUserKnob {41 source T Add1.source}
  addUserKnob {41 destination T Add1.destination}
- addUserKnob {41 rollOffMax T Add1.rollOffMax}
-addUserKnob {20 Info}
-addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/setBlacks_nk/\")" +STARTLINE}
-addUserKnob {26 ""}
-addUserKnob {26 version l version: T "0.1 Stable"}
-addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
-addUserKnob {26 modified l "modified: " T " "}
-addUserKnob {26 source l source: T "<a href='https://github.com/openNuke/toolset/blob/master/setBlacks.nk'> Github.com</a>"}
-addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
+ addUserKnob {18 rolloff R 0.1 2}
+ rolloff 0.9
+ addUserKnob {6 rolloff_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {41 rollOffMax +DISABLED T Add1.rollOffMax}
+ addUserKnob {26 ""}
+ addUserKnob {41 go l " Sample Min Value " t "This returns the minimum pixel value of the full frame. If premult is on, it ignores alpha zero values. Normaly you copy this value into the 'source'" T CurveTool1.go}
+ addUserKnob {41 minlumapixvalue l "sample value" T CurveTool1.minlumapixvalue}
+ addUserKnob {26 ""}
+ addUserKnob {26 Check -STARTLINE T " "}
+ addUserKnob {41 blackCheck l "" -STARTLINE T Clamp1.blackCheck}
+ addUserKnob {41 min_ l "min value" -STARTLINE T Clamp1.min_}
+ addUserKnob {26 ""}
+ addUserKnob {41 unpremult l "(un)premult by" T Add1.unpremult}
+ addUserKnob {41 invert_unpremult l invert -STARTLINE T Add1.invert_unpremult}
+ addUserKnob {20 Info}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/setBlacks_nk/\")" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 version l version: T "0.2 Stable"}
+ addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
+ addUserKnob {26 modified l "modified: " T " "}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  Input {
   inputs 0
   name Input1
-  xpos 430
-  ypos 439
+  xpos 684
+  ypos 354
  }
  Dot {
   name Dot11
-  selected true
-  xpos 506
-  ypos 481
+  xpos 718
+  ypos 459
  }
-set N363562c0 [stack 0]
+set N18e77b40 [stack 0]
+ Dot {
+  name Dot8
+  xpos 506
+  ypos 459
+ }
+set N18072de0 [stack 0]
+ Dot {
+  name Dot6
+  xpos 363
+  ypos 459
+ }
+set N18073150 [stack 0]
  Grade {
-  blackpoint {{Add1.rollOffMax}}
-  whitepoint {{Add1.source}}
+  blackpoint {{Add1.rollOffMax} {Add1.rollOffMax} {Add1.rollOffMax} 0}
+  whitepoint {{Add1.source} {Add1.source} {Add1.source} 0}
   white_clamp true
   name makeMatte
-  selected true
-  xpos 335
-  ypos 604
+  xpos 329
+  ypos 598
  }
-push $N363562c0
+ Dot {
+  name Dot7
+  xpos 363
+  ypos 665
+ }
+push $N18072de0
  Shuffle {
   red black
   green black
   blue black
-  alpha black
   name Shuffle1
-  selected true
-  xpos 493
-  ypos 558
+  xpos 472
+  ypos 555
  }
  Add {
   channels rgb
   value {{destination-source} {destination-source} {destination-source} {destination-source}}
   maskChannelMask rgba.red
   invert_mask true
+  unpremult -rgba.alpha
   name Add1
   label "match blacks of plate"
-  selected true
-  xpos 473
-  ypos 589
+  xpos 472
+  ypos 579
   addUserKnob {20 User}
   addUserKnob {18 source R 0 20}
-  source {0 0 0}
   addUserKnob {6 source_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {18 destination R 0.006 15.203}
-  destination {0 0 0}
+  destination 0.006
   addUserKnob {6 destination_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
-  addUserKnob {18 rollOffMax R 0 0.1}
-  rollOffMax {{pow(Add1.destination,0.85)} {pow(Add1.destination,0.85)} {pow(Add1.destination,0.85)}}
+  addUserKnob {18 rollOffMax +DISABLED R 0 0.1}
   addUserKnob {6 rollOffMax_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  }
  Merge2 {
   inputs 2
   operation multiply
   name Merge12
-  selected true
-  xpos 473
-  ypos 661
+  xpos 472
+  ypos 662
  }
-push $N363562c0
+push $N18e77b40
  Merge2 {
   inputs 2
   operation plus
   name Merge13
-  selected true
-  xpos 626
-  ypos 661
+  xpos 684
+  ypos 662
  }
- Dot {
-  name Dot12
-  xpos 551
-  ypos 725
+ Clamp {
+  channels rgb
+  minimum {{min_}}
+  maximum {1000000 1000000 1000000 0}
+  maximum_enable false
+  MinClampTo {1 0 0 0}
+  MinClampTo_enable true
+  name Clamp1
+  xpos 684
+  ypos 840
+  disable {{!blackCheck}}
+  addUserKnob {20 User}
+  addUserKnob {7 min_ R -0.01 0.01}
+  addUserKnob {6 blackCheck +STARTLINE}
+ }
+ Premult {
+  alpha {{{parent.Add1.unpremult}}}
+  name Premult1
+  xpos 684
+  ypos 889
  }
  Output {
   name Output1
-  xpos 507
-  ypos 771
+  xpos 684
+  ypos 956
+ }
+push $N18073150
+ Crop {
+  box {0 0 {width} {height}}
+  name Crop1
+  xpos 161
+  ypos 456
+ }
+ Dot {
+  name Dot2
+  xpos 195
+  ypos 494
+ }
+set N18075720 [stack 0]
+ Dot {
+  name Dot3
+  xpos 195
+  ypos 573
+ }
+push $N18075720
+ Dot {
+  name Dot1
+  xpos 85
+  ypos 494
+ }
+set N18f8eaf0 [stack 0]
+ Dot {
+  name Dot4
+  xpos -46
+  ypos 494
+ }
+ Dot {
+  name Dot5
+  xpos -46
+  ypos 573
+ }
+push $N18f8eaf0
+ Add {
+  channels rgb
+  value 0.1
+  name Add2
+  xpos 51
+  ypos 523
+ }
+ Keymix {
+  inputs 3
+  channels rgb
+  maskChannel {{{parent.Add1.unpremult}}}
+  name Keymix1
+  xpos 51
+  ypos 570
+ }
+ CurveTool {
+  operation "Max Luma Pixel"
+  ROI {0 0 {width} {height}}
+  autocropdata {480 270 1440 810}
+  maxlumapixdata {{curve x1 960} {curve x1 539}}
+  maxlumapixvalue {{curve x1 1} {curve x1 0.9992720485} {curve x1 0.9970898032}}
+  minlumapixdata {{curve x1 691} {curve x1 1006}}
+  minlumapixvalue {0 0 0}
+  name CurveTool1
+  selected true
+  xpos 51
+  ypos 621
  }
 end_group
