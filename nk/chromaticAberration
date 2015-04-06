@@ -1,0 +1,303 @@
+set cut_paste_input [stack 0]
+version 8.0 v5
+push $cut_paste_input
+Group {
+ name Chromatic_Aberration
+ selected true
+ xpos 4501
+ ypos 15335
+ addUserKnob {20 ChromaticAberration l Chromatic_Aberration}
+ addUserKnob {26 Chromatic_Aberration}
+ addUserKnob {41 Red T Red_Aberration.distortion1}
+ addUserKnob {41 Green T Green_Aberration.distortion1}
+ addUserKnob {41 Blue T Blue_Aberration.distortion1}
+ addUserKnob {41 invertDistortion l Remove T Red_Aberration.invertDistortion}
+ addUserKnob {26 Blur_Aberration l Blur_Edge}
+ addUserKnob {41 blur_ l blur T Blur1.blur_}
+ addUserKnob {41 blurArea T Grade1.blurArea}
+ addUserKnob {26 ""}
+ addUserKnob {41 mix_ l mix T Blend1.mix_}
+ addUserKnob {20 About}
+ addUserKnob {26 ChromaticAberration_1 l "" +STARTLINE T "Created By:\nFabio Luongo\nfabioluongo.com"}
+ addUserKnob {26 ""}
+}
+ Expression {
+  inputs 0
+  expr0 x/width
+  expr1 y/height
+  name Expression1
+  xpos -720
+  ypos 68
+ }
+set Nd7fb7d20 [stack 0]
+ LensDistortion1_0 {
+  serializeKnob ""
+  serialiseKnob "22 serialization::archive 9 0 0 0 0 0 0 0 0 0 0 0 0"
+  distortion2 {{max(parent.Red_Aberration.distortion2.main,parent.Green_Aberration.distortion2.main,parent.Blue_Aberration.distortion2.main)}}
+  invertDistortion {{parent.Red_Aberration.invertDistortion.main}}
+  cardScale {0.9989110231 0.9989110231 1}
+  a 0.002460372867
+  b -0.001106350101
+  c -0.0006659222418
+  name max_Aberration2
+  xpos -849
+  ypos 102
+ }
+push $Nd7fb7d20
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge2
+  xpos -829
+  ypos 209
+ }
+push $Nd7fb7d20
+push $Nd7fb7d20
+ LensDistortion1_0 {
+  serializeKnob ""
+  serialiseKnob "22 serialization::archive 9 0 0 0 0 0 0 0 0 0 0 0 0"
+  distortion2 {{min(parent.Red_Aberration.distortion2.main,parent.Green_Aberration.distortion2.main,parent.Blue_Aberration.distortion2.main)}}
+  invertDistortion {{parent.Red_Aberration.invertDistortion.main}}
+  cardScale {0.9989110231 0.9989110231 1}
+  a 0.002460372867
+  b -0.001106350101
+  c -0.0006659222418
+  name MinAberration1
+  xpos -720
+  ypos 117
+ }
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge1
+  xpos -685
+  ypos 204
+ }
+ Merge2 {
+  inputs 2
+  operation max
+  name Max
+  xpos -725
+  ypos 272
+ }
+ Saturation {
+  saturation 0
+  mode Average
+  name Saturation1
+  xpos -725
+  ypos 296
+ }
+ Grade {
+  whitepoint {{blurArea/100}}
+  multiply 0.95
+  gamma {{blurArea*10}}
+  white_clamp true
+  name Grade1
+  selected true
+  xpos -725
+  ypos 361
+  addUserKnob {20 User}
+  addUserKnob {7 blurArea R 0.01 0.3}
+  blurArea 0.1
+ }
+ Blur {
+  channels {rgba.red rgba.green -rgba.blue none}
+  size {{width/25}}
+  name Blur2
+  xpos -725
+  ypos 396
+ }
+ Input {
+  inputs 0
+  name Src
+  xpos -428
+  ypos -250
+ }
+ Remove {
+  channels alpha
+  name Remove2
+  xpos -428
+  ypos -175
+ }
+set N35e05660 [stack 0]
+ Remove {
+  channels {rgba.red rgba.green -rgba.blue none}
+  name Blue
+  xpos -282
+  ypos -114
+ }
+ Shuffle {
+  black blue
+  out2 alpha
+  name Blue_Alpha
+  xpos -282
+  ypos -10
+ }
+ AdjBBox {
+  numpixels -1
+  name AdjBBox3
+  xpos -282
+  ypos 14
+ }
+ LensDistortion1_0 {
+  serializeKnob ""
+  serialiseKnob "22 serialization::archive 9 0 0 0 0 0 0 0 0 0 0 0 0"
+  distortion2 {{parent.Red_Aberration.distortion2.main}}
+  invertDistortion {{parent.Red_Aberration.invertDistortion.main}}
+  cardScale {1.005102873 1.005102873 1}
+  a -0.01392426062
+  b 0.01001844276
+  c 8.660675121e-006
+  name Blue_Aberration
+  xpos -282
+  ypos 115
+ }
+push $N35e05660
+ Remove {
+  channels {rgba.red -rgba.green rgba.blue none}
+  name Green
+  xpos -428
+  ypos -114
+ }
+ Shuffle {
+  black green
+  out2 alpha
+  name Green_Alpha
+  xpos -428
+  ypos -13
+ }
+ AdjBBox {
+  numpixels -1
+  name AdjBBox2
+  xpos -428
+  ypos 11
+ }
+ LensDistortion1_0 {
+  serializeKnob ""
+  serialiseKnob "22 serialization::archive 9 0 0 0 0 0 0 0 0 0 0 0 0"
+  distortion1 0.000875
+  distortion2 {{parent.Red_Aberration.distortion2.main}}
+  invertDistortion {{parent.Red_Aberration.invertDistortion.main}}
+  cardScale {0.9997819066 0.9997819066 1}
+  a 0.002270119032
+  b -0.00153489958
+  c -0.0009401577408
+  name Green_Aberration
+  xpos -428
+  ypos 59
+ }
+push $N35e05660
+ Remove {
+  channels {-rgba.red rgba.green rgba.blue none}
+  name Red
+  xpos -563
+  ypos -114
+ }
+ Shuffle {
+  black red
+  out2 alpha
+  name Red_Alpha
+  xpos -563
+  ypos -14
+ }
+ AdjBBox {
+  numpixels -1
+  name AdjBBox1
+  xpos -563
+  ypos 21
+ }
+ LensDistortion1_0 {
+  serializeKnob ""
+  serialiseKnob "22 serialization::archive 9 0 0 0 0 0 0 0 0 0 0 0 0"
+  distortion1 -0.000875
+  distortion2 {{(distortion1.main)/0.8}}
+  "Card Parameters" 1
+  cardScale {0.9980431795 0.9980431795 1}
+  a 0.002544743475
+  b -0.0004013750004
+  c -0.0006257106434
+  name Red_Aberration
+  xpos -563
+  ypos 90
+ }
+set N35e08d60 [stack 0]
+ Merge2 {
+  inputs 2
+  operation screen
+  name Red_and_Green
+  xpos -502
+  ypos 179
+ }
+ Merge2 {
+  inputs 2
+  operation screen
+  name Red_and_Green_and_Blue
+  xpos -379
+  ypos 179
+ }
+ Remove {
+  channels alpha
+  name Remove1
+  xpos -379
+  ypos 246
+ }
+ Colorspace {
+  colorspace_out sRGB
+  name Colorspace1
+  xpos -379
+  ypos 319
+ }
+ Blur {
+  inputs 1+1
+  size {{blur_}}
+  maskChannelMask rgba.red
+  name Blur1
+  xpos -379
+  ypos 343
+  addUserKnob {20 User}
+  addUserKnob {7 blur_ l blur R 0 10}
+  blur_ 4
+ }
+ Colorspace {
+  colorspace_in sRGB
+  name Colorspace2
+  xpos -379
+  ypos 390
+ }
+push $N35e05660
+ Dot {
+  name Dot2
+  xpos 4
+  ypos -166
+ }
+ Dot {
+  name Dot3
+  xpos -32
+  ypos 474
+ }
+ Blend {
+  inputs 2
+  weight0 {{1-mix_}}
+  weight1 {{mix_}}
+  name Blend1
+  xpos -379
+  ypos 465
+  addUserKnob {20 User}
+  addUserKnob {7 mix_ l mix}
+  mix_ 1
+ }
+ Output {
+  name Out
+  xpos -379
+  ypos 543
+ }
+push $N35e08d60
+ Viewer {
+  frame 101
+  colour_sample_bbox {-0.8666666746 0.453125 -0.8656250238 0.4541666806}
+  input_process false
+  name Viewer1
+  xpos -391
+  ypos 614
+ }
+end_group
