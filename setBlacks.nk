@@ -4,8 +4,8 @@ push $cut_paste_input
 Group {
  name setBlacks
  selected true
- xpos -448
- ypos 159
+ xpos -441
+ ypos 149
  addUserKnob {20 User}
  addUserKnob {41 source T Add1.source}
  addUserKnob {41 destination T Add1.destination}
@@ -63,7 +63,9 @@ set N35b08d40 [stack 0]
  Grade {
   blackpoint {{Add1.rollOffMax} {Add1.rollOffMax} {Add1.rollOffMax} 0}
   whitepoint {{Add1.source} {Add1.source} {Add1.source} 0}
+  white_clamp true
   name makeMatte
+  selected true
   xpos 329
   ypos 600
  }
@@ -116,7 +118,6 @@ push $N35b08660
   Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
   output {rgba.red rgba.green rgba.blue -rgba.alpha}
   name Merge13
-  selected true
   xpos 684
   ypos 711
  }
