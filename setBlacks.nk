@@ -4,8 +4,8 @@ push $cut_paste_input
 Group {
  name setBlacks
  selected true
- xpos -441
- ypos 149
+ xpos 4482
+ ypos 3168
  addUserKnob {20 User}
  addUserKnob {41 source T Add1.source}
  addUserKnob {41 destination T Add1.destination}
@@ -47,25 +47,24 @@ Group {
   xpos 718
   ypos 459
  }
-set N35b08660 [stack 0]
+set N3b4e6ca0 [stack 0]
  Dot {
   name Dot8
   xpos 506
   ypos 459
  }
-set N35b089d0 [stack 0]
+set N3b4e7010 [stack 0]
  Dot {
   name Dot6
   xpos 363
   ypos 459
  }
-set N35b08d40 [stack 0]
+set N3b4e7380 [stack 0]
  Grade {
   blackpoint {{Add1.rollOffMax} {Add1.rollOffMax} {Add1.rollOffMax} 0}
   whitepoint {{Add1.source} {Add1.source} {Add1.source} 0}
   white_clamp true
   name makeMatte
-  selected true
   xpos 329
   ypos 600
  }
@@ -74,7 +73,7 @@ set N35b08d40 [stack 0]
   xpos 363
   ypos 716
  }
-push $N35b089d0
+push $N3b4e7010
  Shuffle {
   red black
   green black
@@ -101,6 +100,7 @@ push $N35b089d0
   destination {0 0 0}
   addUserKnob {6 destination_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {18 rollOffMax +DISABLED R 0 0.1}
+  rollOffMax {0 0 0}
   addUserKnob {6 rollOffMax_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  }
  Merge2 {
@@ -110,7 +110,7 @@ push $N35b089d0
   xpos 472
   ypos 711
  }
-push $N35b08660
+push $N3b4e6ca0
  Merge2 {
   inputs 2
   operation plus
@@ -136,7 +136,7 @@ push $N35b08660
   addUserKnob {7 min_ R -0.01 0.01}
   addUserKnob {6 blackCheck +STARTLINE}
  }
-set N35840410 [stack 0]
+set N3b4e8b90 [stack 0]
  Premult {
   alpha {{{parent.Unpremult1.alpha}}}
   name Premult1
@@ -148,7 +148,14 @@ set N35840410 [stack 0]
   xpos 684
   ypos 956
  }
-push $N35b08d40
+push $N3b4e8b90
+ Viewer {
+  input_process false
+  name Viewer1
+  xpos 875
+  ypos 919
+ }
+push $N3b4e7380
  Crop {
   box {0 0 {width} {height}}
   name Crop1
@@ -160,19 +167,19 @@ push $N35b08d40
   xpos 195
   ypos 494
  }
-set N35c0e290 [stack 0]
+set N3b4e9950 [stack 0]
  Dot {
   name Dot3
   xpos 195
   ypos 573
  }
-push $N35c0e290
+push $N3b4e9950
  Dot {
   name Dot1
   xpos 85
   ypos 494
  }
-set N35c0e970 [stack 0]
+set N3b4ea030 [stack 0]
  Dot {
   name Dot4
   xpos -46
@@ -183,7 +190,7 @@ set N35c0e970 [stack 0]
   xpos -46
   ypos 573
  }
-push $N35c0e970
+push $N3b4ea030
  Add {
   channels rgb
   value 0.1
@@ -202,19 +209,13 @@ push $N35c0e970
  CurveTool {
   operation "Max Luma Pixel"
   ROI {0 0 {width} {height}}
-  autocropdata {480 270 1440 813}
+  autocropdata {0 0 {width} {height}}
   maxlumapixdata {{curve x1 960 x101 1150 x102 1150 1150 1113 1150} {curve x1 539 x101 350 x102 350 350 141 350}}
   maxlumapixvalue {{curve x1 1 x101 3.240477562 x102 3.226916552 3.421586514 3.193758011 3.10234046} {curve x1 0.9992720485 x101 2.70352459 x102 2.716766357 2.839576721 2.590033293 2.578319311} {curve x1 0.9970898032 x101 2.204370499 x102 2.272990704 2.321112156 2.101770401 2.123953819}}
   minlumapixdata {{curve x1 691 x101 621 x102 621 622 621 621} {curve x1 1006 x101 927 x102 926 928 927 927}}
   name CurveTool1
+  selected true
   xpos 51
   ypos 621
- }
-push $N35840410
- Viewer {
-  input_process false
-  name Viewer1
-  xpos 875
-  ypos 919
  }
 end_group
