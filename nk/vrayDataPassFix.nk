@@ -10,7 +10,7 @@ Group {
  name VrayDataPassFix
  selected true
  xpos 716
- ypos 218
+ ypos 187
  addUserKnob {20 VrayPosition}
  addUserKnob {41 in l pObject T ShufflePObj.in}
  addUserKnob {41 premult -STARTLINE T PremultPO.premult}
@@ -25,6 +25,7 @@ Group {
  addUserKnob {41 in_2 l "Z channel" T ShuffleZ.in}
  addUserKnob {41 premult_4 l premult -STARTLINE T PremultZ.premult}
  addUserKnob {41 zInput T Switch1.zInput}
+ addUserKnob {41 clamp_ l clamp -STARTLINE T Clamp1.clamp_}
  addUserKnob {26 ""}
  addUserKnob {26 text l Note: T "This adjusts Vray defaults to nuke defaults \nfor using zDefocus; zMerge; pMatte; relight etc.\n"}
 }
@@ -79,7 +80,6 @@ set Nd63d1d00 [stack 0]
   blackpoint 0.5
   black_clamp false
   name Grade4
-  selected true
   xpos -401
   ypos 277
  }
@@ -89,11 +89,17 @@ set Nd63d1d00 [stack 0]
   xpos -401
   ypos 327
  }
-set Nd63d2ac0 [stack 0]
+ Grade {
+  white 100
+  name Grade1
+  xpos -401
+  ypos 351
+ }
+set Nd5cda2d0 [stack 0]
  Premult {
   name PremultV
   xpos -401
-  ypos 378
+  ypos 428
   disable {{!premult}}
   addUserKnob {20 User}
   addUserKnob {6 premult +STARTLINE}
@@ -180,10 +186,22 @@ push $Nd63d4640
   addUserKnob {20 User}
   addUserKnob {4 zInput M {"(1/z) Camera at 1 & infinity at 0" "(z) Camera at 0 & infinity > 0" "(focalPoint) Camera >0 & infinity < 0" "" "" "" ""}}
  }
+ Clamp {
+  channels rgb
+  maximum 99999999
+  name Clamp1
+  selected true
+  xpos -87
+  ypos 387
+  disable {{!clamp_}}
+  addUserKnob {20 User}
+  addUserKnob {6 clamp_ l clamp +STARTLINE}
+  clamp_ true
+ }
  Premult {
   name PremultZ
   xpos -87
-  ypos 387
+  ypos 418
   disable {{!premult}}
   addUserKnob {20 User}
   addUserKnob {6 premult +STARTLINE}
@@ -192,7 +210,7 @@ push $Nd63d4640
  Dot {
   name Dot2
   xpos -53
-  ypos 429
+  ypos 442
  }
 push $Nd63d1620
  Shuffle {
@@ -292,7 +310,7 @@ add_layer {pWorld pWorld.red pWorld.green pWorld.blue pWorld.alpha}
   out2 depth
   name ShuffleCopy2
   xpos 263
-  ypos 426
+  ypos 439
  }
 add_layer {nWorld nWorld.red nWorld.green nWorld.blue}
  ShuffleCopy {
@@ -324,9 +342,9 @@ add_layer {nWorld nWorld.red nWorld.green nWorld.blue}
   xpos 266
   ypos 643
  }
-push $Nd63d2ac0
+push $Nd5cda2d0
  Viewer {
-  frame 144
+  frame 101
   colour_sample_bbox {-0.5416666865 -0.01041666698 -0.5406249762 -0.009375000373}
   input_process false
   name Viewer1
