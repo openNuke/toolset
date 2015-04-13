@@ -4,8 +4,8 @@ push $cut_paste_input
 Group {
  name setBlacks
  selected true
- xpos 4482
- ypos 3168
+ xpos 6294
+ ypos 2390
  addUserKnob {20 User}
  addUserKnob {41 source T Add1.source}
  addUserKnob {41 destination T Add1.destination}
@@ -14,15 +14,15 @@ Group {
  addUserKnob {6 rolloff_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  addUserKnob {41 rollOffMax +DISABLED T Add1.rollOffMax}
  addUserKnob {26 ""}
- addUserKnob {41 go l " Sample Min Value " t "This returns the minimum pixel value of the full frame. If premult is on, it ignores alpha zero values. Normaly you copy this value into the 'source'" T CurveTool1.go}
- addUserKnob {41 minlumapixvalue l "sample value" T CurveTool1.minlumapixvalue}
+ addUserKnob {41 sampleMinValue l " Sample Min Value This Frame " T CurveTool1.sampleMinValue}
+ addUserKnob {41 minlumapixvalue l "sample value" t "This ignores blacks premult" T CurveTool1.minlumapixvalue}
  addUserKnob {26 ""}
  addUserKnob {26 Check l "Check min Value" t "show values below slider as red" -STARTLINE T ""}
  addUserKnob {41 blackCheck l "" t "show values below slider as red" -STARTLINE T Clamp1.blackCheck}
  addUserKnob {41 min_ l "" -STARTLINE T Clamp1.min_}
  addUserKnob {26 ""}
- addUserKnob {41 unpremult l "(un)premult by" T Add1.unpremult}
- addUserKnob {41 invert_unpremult l invert -STARTLINE T Add1.invert_unpremult}
+ addUserKnob {41 alpha l premult T Unpremult1.alpha}
+ addUserKnob {41 invert -STARTLINE T Unpremult1.invert}
  addUserKnob {20 Info}
  addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/setBlacks_nk/\")" +STARTLINE}
  addUserKnob {26 ""}
@@ -47,19 +47,19 @@ Group {
   xpos 718
   ypos 459
  }
-set N3b4e6ca0 [stack 0]
+set Nbb0f3d50 [stack 0]
  Dot {
   name Dot8
   xpos 506
   ypos 459
  }
-set N3b4e7010 [stack 0]
+set Nbb0f5c40 [stack 0]
  Dot {
   name Dot6
   xpos 363
   ypos 459
  }
-set N3b4e7380 [stack 0]
+set Nbb0f5fb0 [stack 0]
  Grade {
   blackpoint {{Add1.rollOffMax} {Add1.rollOffMax} {Add1.rollOffMax} 0}
   whitepoint {{Add1.source} {Add1.source} {Add1.source} 0}
@@ -73,7 +73,7 @@ set N3b4e7380 [stack 0]
   xpos 363
   ypos 716
  }
-push $N3b4e7010
+push $Nbb0f5c40
  Shuffle {
   red black
   green black
@@ -100,7 +100,7 @@ push $N3b4e7010
   destination {0 0 0}
   addUserKnob {6 destination_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {18 rollOffMax +DISABLED R 0 0.1}
-  rollOffMax {0 0 0}
+  rollOffMax {{pow(Add1.destination,rolloff)} {pow(Add1.destination,rolloff)} {pow(Add1.destination,rolloff)}}
   addUserKnob {6 rollOffMax_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  }
  Merge2 {
@@ -110,7 +110,7 @@ push $N3b4e7010
   xpos 472
   ypos 711
  }
-push $N3b4e6ca0
+push $Nbb0f3d50
  Merge2 {
   inputs 2
   operation plus
@@ -136,7 +136,6 @@ push $N3b4e6ca0
   addUserKnob {7 min_ R -0.01 0.01}
   addUserKnob {6 blackCheck +STARTLINE}
  }
-set N3b4e8b90 [stack 0]
  Premult {
   alpha {{{parent.Unpremult1.alpha}}}
   name Premult1
@@ -148,14 +147,7 @@ set N3b4e8b90 [stack 0]
   xpos 684
   ypos 956
  }
-push $N3b4e8b90
- Viewer {
-  input_process false
-  name Viewer1
-  xpos 875
-  ypos 919
- }
-push $N3b4e7380
+push $Nbb0f5fb0
  Crop {
   box {0 0 {width} {height}}
   name Crop1
@@ -167,19 +159,19 @@ push $N3b4e7380
   xpos 195
   ypos 494
  }
-set N3b4e9950 [stack 0]
+set Nebca1720 [stack 0]
  Dot {
   name Dot3
   xpos 195
   ypos 573
  }
-push $N3b4e9950
+push $Nebca1720
  Dot {
   name Dot1
   xpos 85
   ypos 494
  }
-set N3b4ea030 [stack 0]
+set Nebca1e00 [stack 0]
  Dot {
   name Dot4
   xpos -46
@@ -190,32 +182,45 @@ set N3b4ea030 [stack 0]
   xpos -46
   ypos 573
  }
-push $N3b4ea030
+push $Nebca1e00
  Add {
   channels rgb
   value 0.1
   name Add2
   xpos 51
   ypos 523
+  disable {{!Unpremult1.alpha x105 1}}
  }
  Keymix {
   inputs 3
   channels rgb
-  maskChannel {{{parent.Add1.unpremult}}}
+  maskChannel {{{parent.Unpremult1.unpremult}}}
   name Keymix1
   xpos 51
   ypos 570
  }
+set Nebca2bc0 [stack 0]
+ Viewer {
+  frame 101
+  input_process false
+  name Viewer1
+  xpos 51
+  ypos 690
+ }
+push $Nebca2bc0
  CurveTool {
   operation "Max Luma Pixel"
   ROI {0 0 {width} {height}}
   autocropdata {0 0 {width} {height}}
-  maxlumapixdata {{curve x1 960 x101 1150 x102 1150 1150 1113 1150} {curve x1 539 x101 350 x102 350 350 141 350}}
-  maxlumapixvalue {{curve x1 1 x101 3.240477562 x102 3.226916552 3.421586514 3.193758011 3.10234046} {curve x1 0.9992720485 x101 2.70352459 x102 2.716766357 2.839576721 2.590033293 2.578319311} {curve x1 0.9970898032 x101 2.204370499 x102 2.272990704 2.321112156 2.101770401 2.123953819}}
-  minlumapixdata {{curve x1 691 x101 621 x102 621 622 621 621} {curve x1 1006 x101 927 x102 926 928 927 927}}
+  maxlumapixdata {{curve x1 960 x101 1595 x102 1150 1150 1113 1644} {curve x1 539 x101 251 x102 350 350 141 255}}
+  maxlumapixvalue {{curve x1 1 x101 4.049150467 x102 3.226916552 3.421586514 3.193758011 6.091597557} {curve x1 0.9992720485 x101 3.506826639 x102 2.716766357 2.839576721 2.590033293 5.395604134} {curve x1 0.9970898032 x101 2.941747665 x102 2.272990704 2.321112156 2.101770401 4.610759735}}
+  minlumapixdata {{curve x1 691 x101 1880 x102 621 622 621 835} {curve x1 1006 x101 220 x102 926 928 927 301}}
+  minlumapixvalue {0 0 0}
   name CurveTool1
   selected true
   xpos 51
   ypos 621
+  addUserKnob {20 User}
+  addUserKnob {22 sampleMinValue l " Sample Min Value This Frame " T "n=nuke.thisNode()\nf=nuke.frame()\nnuke.execute( n, f, f )" +STARTLINE}
  }
 end_group
