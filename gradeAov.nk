@@ -4,10 +4,10 @@ push $cut_paste_input
 Group {
  name AOVGrade
  help "Colour correct the CG beauty using the secondary(aov) passes.with a subtractive process.\nto be used when:\n * the CG is good and only a few passes need adjusting\n * the secondaries don't add up to the beauty\n * rgb saturation (luminance mix on)\n * rgb contrast (with pivot)\n * matting with external mask input or main channel input or both with an operation.\n The order of correction is: Grade Node>Contrast Node>Saturation."
- label " \[value in]"
+ label " \[value in]\n"
  selected true
- xpos 2261
- ypos 3101
+ xpos 5362
+ ypos -7581
  addUserKnob {20 User l AOVGrade}
  addUserKnob {41 in l "Channel to use" T Shuffle.in}
  addUserKnob {41 out T Switch3.output}
@@ -63,7 +63,7 @@ Group {
  Input {
   inputs 0
   name In
-  xpos -217
+  xpos -220
   ypos -722
  }
  Dot {
@@ -71,7 +71,7 @@ Group {
   xpos -186
   ypos -633
  }
-set N23e6d7e0 [stack 0]
+set Na4fb72c0 [stack 0]
  Dot {
   name Dot5
   xpos -135
@@ -86,7 +86,7 @@ set N23e6d7e0 [stack 0]
   xpos -169
   ypos -587
  }
-set N23e6dec0 [stack 0]
+set Na4fb79a0 [stack 0]
  Multiply {
   value 0
   name Multiply1
@@ -107,8 +107,9 @@ set N23e6dec0 [stack 0]
   disable {{!mask_1}}
   addUserKnob {20 User}
   addUserKnob {6 mask_1 l mask +STARTLINE}
+  mask_1 true
  }
-push $N23e6dec0
+push $Na4fb79a0
  Invert {
   name InvertChannel
   xpos -169
@@ -164,24 +165,24 @@ push $N23e6dec0
   blue black
   name Shuffle1
   xpos -20
-  ypos -289
-  disable {{!ChannelMerge.off K x22 1}}
+  ypos -296
+  disable {{!Group1.ChannelMerge.off K x22 1}}
  }
-push $N23e6d7e0
+push $Na4fb72c0
  Dot {
   name Dot2
   xpos -189
   ypos -321
  }
-set Na75d9f90 [stack 0]
+set Na4fb9890 [stack 0]
  Dot {
   name Dot3
   xpos -319
   ypos -321
  }
-push $N23e6d7e0
+push $Na4fb72c0
  Unpremult {
-  alpha -rgba.alpha
+  alpha none
   name Unpremult1
   xpos -488
   ypos -633
@@ -193,20 +194,20 @@ push $N23e6d7e0
   xpos -457
   ypos -473
  }
-set Na75da9e0 [stack 0]
+set Na4fba2e0 [stack 0]
  Dot {
   name Dot26
   xpos -649
   ypos -473
  }
  Shuffle {
-  in _bulldozer_VRayLighting
+  in rgb
   out rgb
   name Shuffle
   xpos -680
   ypos -419
  }
-set Na75db0c0 [stack 0]
+set Na4fba9c0 [stack 0]
  Grade {
   channels all
   enable_mix_luminance false
@@ -235,9 +236,9 @@ set Na75db0c0 [stack 0]
   xpos -680
   ypos -273
  }
-set Na75dbb10 [stack 0]
-push $Na75db0c0
-push $Na75da9e0
+set Na4fbb410 [stack 0]
+push $Na4fba9c0
+push $Na4fba2e0
  Merge2 {
   inputs 2
   operation from
@@ -281,7 +282,7 @@ push $Na75da9e0
   addUserKnob {7 mixBlend}
   mixBlend 1
  }
-set Na75dcc40 [stack 0]
+set Na4fbc540 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -295,7 +296,7 @@ set Na75dcc40 [stack 0]
   xpos -20
   ypos -88
  }
-set Na75dd320 [stack 0]
+set Na4fbcc20 [stack 0]
  Shuffle {
   red alpha
   green alpha
@@ -304,7 +305,7 @@ set Na75dd320 [stack 0]
   xpos -18
   ypos -13
  }
-push $Na75db0c0
+push $Na4fba9c0
  Dot {
   name Dot4
   xpos -833
@@ -326,27 +327,28 @@ push $Na75db0c0
   output "preview channel"
   addUserKnob {6 viewchannelonly l "view channel only" +STARTLINE}
  }
-push $Na75dbb10
+push $Na4fbb410
  Dot {
   name Dot6
   xpos -649
   ypos 89
  }
-push $Na75dd320
-push $Na75d9f90
+push $Na4fbcc20
+push $Na4fb9890
  Merge2 {
   inputs 2
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
   name Merge1
-  xpos -220
+  xpos -223
   ypos -88
  }
-push $Na75dcc40
+push $Na4fbc540
  Switch {
   inputs 2
   which {{Group1.A|Group1.B>0?1:0}}
   name Switch1
   xpos -268
-  ypos 25
+  ypos 23
  }
  ShuffleCopy {
   inputs 2
@@ -368,22 +370,21 @@ push $Na75dcc40
   which {{output?1:0}}
   name Switch3
   xpos -268
-  ypos 163
+  ypos 164
   addUserKnob {20 User}
   addUserKnob {4 output M {"rgb graded by channel" "preview channel" "preview mask" "" ""}}
   addUserKnob {6 viewchannelonly l "view channel only" +STARTLINE}
  }
  Output {
   name Output1
-  xpos -269
-  ypos 261
+  xpos -268
+  ypos 262
  }
-push $Na75dbb10
  Viewer {
   input_process false
   name Viewer1
   selected true
-  xpos -474
-  ypos -96
+  xpos -20
+  ypos -272
  }
 end_group
