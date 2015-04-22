@@ -1,0 +1,1845 @@
+set cut_paste_input [stack 0]
+version 8.0 v5
+push $cut_paste_input
+Group {
+ name smokeDeep1
+ selected true
+ xpos 13688
+ ypos 3631
+ addUserKnob {20 DeepSmoke}
+ addUserKnob {41 format l "output format" T ReformatMASTER.format}
+ addUserKnob {41 cardScale T MASTER.cardScale}
+ addUserKnob {41 sceneScale T MASTER.sceneScale}
+ addUserKnob {26 ""}
+ addUserKnob {26 text01 l doNotUse:}
+ addUserKnob {41 lens_inFocal T MASTER.lens_inFocal}
+ addUserKnob {41 pickCardToFit T MASTER.pickCardToFit}
+ addUserKnob {41 textureOverscan T MASTER.textureOverscan}
+ addUserKnob {20 deepTab l deep}
+ addUserKnob {41 in l "in 1" T Shuffle12.in}
+ addUserKnob {41 premulted -STARTLINE T MASTER.premulted}
+ addUserKnob {26 depthInput}
+ addUserKnob {41 depthOffset l offset T MASTER.depthOffset}
+ addUserKnob {41 depthScale T MASTER.depthScale}
+ addUserKnob {26 cardInput l card}
+ addUserKnob {41 cardOffset T MASTER.cardOffset}
+ addUserKnob {41 cardScale_1 l cardScale T MASTER.cardScale_1}
+ addUserKnob {26 ""}
+ addUserKnob {41 blend T MASTER.blend}
+ addUserKnob {20 noise}
+ addUserKnob {41 alphaMult T MASTER.alphaMult}
+ addUserKnob {41 alphaGamma T MASTER.alphaGamma}
+ addUserKnob {20 defocus_2 l defocus}
+ addUserKnob {41 defocus T MASTER.defocus}
+ addUserKnob {41 depthOfField T MASTER.depthOfField}
+ addUserKnob {41 focalPlane T MASTER.focalPlane}
+ addUserKnob {26 ""}
+ addUserKnob {20 card}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {41 card1 T MASTER.card1}
+ addUserKnob {41 card2 l "  | card2" -STARTLINE T MASTER.card2}
+ addUserKnob {26 ""}
+ addUserKnob {26 text02 l cards T :}
+ addUserKnob {41 p01 l 1| -STARTLINE T MASTER.p01}
+ addUserKnob {41 p02 l 2| -STARTLINE T MASTER.p02}
+ addUserKnob {41 p03 l 3| -STARTLINE T MASTER.p03}
+ addUserKnob {41 p04 l 4| -STARTLINE T MASTER.p04}
+ addUserKnob {41 p05 l 5| -STARTLINE T MASTER.p05}
+ addUserKnob {41 p06 l 6| -STARTLINE T MASTER.p06}
+ addUserKnob {41 p07 l 7| -STARTLINE T MASTER.p07}
+ addUserKnob {41 p08 l 8| -STARTLINE T MASTER.p08}
+ addUserKnob {41 p09 l 9| -STARTLINE T MASTER.p09}
+ addUserKnob {41 p10 l 10 -STARTLINE T MASTER.p10}
+ addUserKnob {20 position n 1}
+ addUserKnob {26 position00}
+ addUserKnob {41 position01 T MASTER.position01}
+ addUserKnob {41 pNorm01 l normal -STARTLINE T MASTER.pNorm01}
+ addUserKnob {41 position02 T MASTER.position02}
+ addUserKnob {41 pNorm02 l normal -STARTLINE T MASTER.pNorm02}
+ addUserKnob {41 position03 T MASTER.position03}
+ addUserKnob {41 pNorm03 l normal -STARTLINE T MASTER.pNorm03}
+ addUserKnob {41 position04 T MASTER.position04}
+ addUserKnob {41 pNorm04 l normal -STARTLINE T MASTER.pNorm04}
+ addUserKnob {41 position05 T MASTER.position05}
+ addUserKnob {41 pNorm05 l normal -STARTLINE T MASTER.pNorm05}
+ addUserKnob {41 position06 T MASTER.position06}
+ addUserKnob {41 pNorm06 l normal -STARTLINE T MASTER.pNorm06}
+ addUserKnob {41 position07 T MASTER.position07}
+ addUserKnob {41 pNorm07 l normal -STARTLINE T MASTER.pNorm07}
+ addUserKnob {41 position08 T MASTER.position08}
+ addUserKnob {41 pNorm08 l normal -STARTLINE T MASTER.pNorm08}
+ addUserKnob {41 position09 T MASTER.position09}
+ addUserKnob {41 pNorm09 l normal -STARTLINE T MASTER.pNorm09}
+ addUserKnob {41 position10 T MASTER.position10}
+ addUserKnob {41 pNorm10 l normal -STARTLINE T MASTER.pNorm10}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 fades}
+ addUserKnob {41 fade l "fade depth" T MASTER.fade}
+ addUserKnob {26 text03 l left}
+ addUserKnob {41 leftPosition l Position T MASTER.leftPosition}
+ addUserKnob {41 leftBlur l blur T MASTER.leftBlur}
+ addUserKnob {26 text04 l right}
+ addUserKnob {41 rightPosition l Position T MASTER.rightPosition}
+ addUserKnob {41 rightBlur l "Right Blur" T MASTER.rightBlur}
+ addUserKnob {26 text05 l top}
+ addUserKnob {41 topPosition l Position T MASTER.topPosition}
+ addUserKnob {41 topBlur l blur T MASTER.topBlur}
+ addUserKnob {26 text06 l bottom}
+ addUserKnob {41 bottomPosition l Position T MASTER.bottomPosition}
+ addUserKnob {41 BottomBlur l blur T MASTER.BottomBlur}
+ addUserKnob {20 cardDistortTAB l distort}
+ addUserKnob {41 cardDistort T MASTER.cardDistort}
+ addUserKnob {41 dNoiseX T MASTER.dNoiseX}
+ addUserKnob {41 dNoiseY T MASTER.dNoiseY}
+ addUserKnob {41 dNoiseXoffset T MASTER.dNoiseXoffset}
+ addUserKnob {41 dNoiseYoffset T MASTER.dNoiseYoffset}
+ addUserKnob {41 dNoiseVariancy T MASTER.dNoiseVariancy}
+ addUserKnob {41 dNoiseLacunarity T MASTER.dNoiseLacunarity}
+ addUserKnob {41 dNoiseGain T MASTER.dNoiseGain}
+ addUserKnob {41 dNoiseSpeed T MASTER.dNoiseSpeed}
+ addUserKnob {41 dNoiseOctaves T MASTER.dNoiseOctaves}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  tile_color 0x64646400
+  label MASTERS
+  note_font_size 42
+  xpos 183
+  ypos 300
+  bdwidth 229
+  bdheight 178
+ }
+ Input {
+  inputs 0
+  name depth
+  xpos -1214
+  ypos 2161
+  number 3
+ }
+ Shuffle {
+  in depth
+  alpha black
+  out depth
+  name Shuffle12
+  xpos 149
+  ypos 2450
+ }
+ DeepFromImage {
+  z 1
+  name DeepFromImage2
+  xpos 245
+  ypos 2500
+ }
+ DeepReformat {
+  format {{{parent.ReformatMASTER.format}}}
+  scale 0.25
+  name DeepReformat3
+  xpos 245
+  ypos 2535
+ }
+ DeepExpression {
+  chans1 deep
+  deep.front deep.front*0.09
+  deep.back deep.back*0.09
+  name DeepExpression1
+  xpos 245
+  ypos 2567
+ }
+set Nb7fe8260 [stack 0]
+ DeepTransform {
+  translate {0 0 {parent.MASTER.depthOffset}}
+  zscale {{parent.MASTER.depthScale}}
+  name DeepTransformZ
+  xpos 234
+  ypos 2613
+ }
+ Input {
+  inputs 0
+  name Camera
+  xpos -1189
+  ypos 2031
+ }
+ Dot {
+  name Dot12
+  xpos 125
+  ypos 2225
+ }
+set Nb7fe8cb0 [stack 0]
+push $Nb7fe8cb0
+ Reformat {
+  inputs 0
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat4
+  xpos -1014
+  ypos 1309
+  addUserKnob {20 User}
+ }
+set Nb7fe9020 [stack 0]
+ Dot {
+  name Dot2
+  xpos -1073
+  ypos 1312
+ }
+set Nb7fe9390 [stack 0]
+ Dot {
+  name Dot5
+  xpos -1183
+  ypos 1307
+ }
+set Nb7fe9700 [stack 0]
+ Dot {
+  name Dot3
+  xpos -1285
+  ypos 1308
+ }
+ Ramp {
+  p0 {{(width*((yOffset*-1)+1))} 0}
+  p1 {0 0}
+  name RampY_right1
+  xpos -1319
+  ypos 1335
+  addUserKnob {20 User}
+  addUserKnob {7 yOffset R -1 1}
+  yOffset {{parent.MASTER.rightPosition}}
+ }
+ Clamp {
+  channels rgba
+  maximum 1e-006
+  MaxClampTo_enable true
+  name Clamp4
+  xpos -1319
+  ypos 1359
+ }
+ Blur {
+  channels rgba
+  size {{MASTER.rightBlur*1000} 0}
+  name BlurR
+  xpos -1319
+  ypos 1405
+ }
+push $Nb7fe9700
+ Ramp {
+  p0 {{width+(width*(yOffset-1))-1} 0}
+  p1 {{width+1} 0}
+  name RampY_left
+  xpos -1212
+  ypos 1337
+  addUserKnob {20 User}
+  addUserKnob {7 yOffset R -1 1}
+  yOffset {{parent.MASTER.leftPosition}}
+ }
+ Clamp {
+  channels rgba
+  maximum 1e-006
+  MaxClampTo_enable true
+  name Clamp3
+  xpos -1212
+  ypos 1361
+ }
+ Blur {
+  channels rgba
+  size {{MASTER.leftBlur*1000} 0}
+  name BlurL
+  xpos -1212
+  ypos 1404
+ }
+push 0
+push $Nb7fe9390
+ Ramp {
+  p0 {0 {(height*((yOffset)))-1}}
+  p1 {0 {height+1}}
+  name RampY_btm
+  xpos -1107
+  ypos 1338
+  addUserKnob {20 User}
+  addUserKnob {7 yOffset R -1 1}
+  yOffset {{parent.MASTER.bottomPosition}}
+ }
+ Clamp {
+  channels rgba
+  maximum 1e-006
+  MaxClampTo_enable true
+  name Clamp2
+  xpos -1107
+  ypos 1362
+ }
+ Blur {
+  channels rgba
+  size {0 {MASTER.BottomBlur*1000 x101 -0.1}}
+  name BlurB
+  xpos -1107
+  ypos 1406
+ }
+push $Nb7fe9020
+ Ramp {
+  p0 {0 {(height*((yOffset*-1+1)))+1 x101 1280}}
+  p1 {0 -1e-007}
+  name RampY_top
+  xpos -1014
+  ypos 1340
+  addUserKnob {20 User}
+  addUserKnob {7 yOffset R -1 1}
+  yOffset {{parent.MASTER.topPosition}}
+ }
+ Clamp {
+  channels rgba
+  maximum 1e-006
+  MaxClampTo_enable true
+  name Clamp1
+  xpos -1014
+  ypos 1364
+ }
+ Blur {
+  channels rgba
+  size {0 {MASTER.topBlur*1000}}
+  name BlurT
+  xpos -1014
+  ypos 1409
+ }
+ Merge2 {
+  inputs 4+1
+  operation min
+  name Merge1
+  xpos -1014
+  ypos 1471
+ }
+set Nb7fec720 [stack 0]
+ Input {
+  inputs 0
+  name card1
+  xpos -1267
+  ypos 1211
+  number 1
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat1
+  xpos -1267
+  ypos 1235
+  addUserKnob {20 User}
+ }
+ Reformat {
+  inputs 0
+  format "1920 1280 0 0 1920 1280 1 "
+  name ReformatMASTER
+  xpos 258
+  ypos 445
+ }
+ Reformat {
+  type scale
+  scale 11
+  name Reformat18
+  xpos 261
+  ypos 493
+ }
+ Noise {
+  size 580
+  zoffset 1
+  lacunarity 2.5
+  gamma 0.8
+  center {960 540}
+  name Noise4
+  xpos 258
+  ypos 529
+ }
+ Grade {
+  channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  white {{parent.MASTER.alphaMult}}
+  gamma {{parent.MASTER.alphaGamma x105 1.35}}
+  white_clamp true
+  unpremult -rgba.alpha
+  name Grade14
+  xpos 258
+  ypos 595
+ }
+ Premult {
+  name Premult2
+  xpos 258
+  ypos 631
+ }
+ Dot {
+  name Dot9
+  xpos 292
+  ypos 878
+ }
+set Nf9301010 [stack 0]
+ Transform {
+  scale {{MASTER.tileScale/(position*10)}}
+  center {{width/2} {height/2}}
+  filter Impulse
+  black_outside false
+  name Transform21
+  label "\[value position]"
+  xpos -891
+  ypos 1115
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position01}}
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat11
+  xpos -891
+  ypos 1151
+  addUserKnob {20 User}
+ }
+ Crop {
+  box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+  name Crop12
+  xpos -891
+  ypos 1175
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.card1}}
+  name Switch3
+  xpos -893
+  ypos 1245
+ }
+ Multiply {
+  channels rgba
+  value {{((position/1)*MASTER.fade-position)+1 x101 2}}
+  name Multiply8
+  label "\[value position]"
+  xpos -891
+  ypos 1301
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position 0.1
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  name Merge2
+  xpos -891
+  ypos 1471
+  disable true
+ }
+ Defocus {
+  channels rgba
+  defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+  name Defocus1
+  label "\[value position]"
+  xpos -891
+  ypos 1609
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position01}}
+ }
+ Card2 {
+  cast_shadow false
+  receive_shadow false
+  lens_in_focal {{position==0?1:1/position}}
+  translate {0 0 {position}}
+  uniform_scale {{MASTER.cardScale}}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card12
+  label "\[value position]"
+  xpos -891
+  ypos 1698
+  disable {{!MASTER.p01}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position01}}
+ }
+ Normals {
+  action set
+  normal {180 180 180}
+  threshold 0
+  name Normals2
+  xpos -891
+  ypos 1767
+  disable {{!MASTER.pNorm01 x101 1}}
+ }
+ ProcGeo {
+  x_size {{MASTER.dNoiseX}}
+  x_offset {{MASTER.dNoiseXoffset+(random(position))*MASTER.dNoiseVariancy}}
+  y_size {{MASTER.dNoiseY x105 0}}
+  y_offset {{MASTER.dNoiseYoffset+(random(position))*MASTER.dNoiseVariancy}}
+  Octaves {{MASTER.dNoiseOctaves}}
+  Lacunarity {{MASTER.dNoiseLacunarity}}
+  Gain {{MASTER.dNoiseGain}}
+  Speed {{MASTER.dNoiseSpeed}}
+  name sub_10_ProcGeo10
+  label "\[value position]"
+  xpos -906
+  ypos 1810
+  disable {{!MASTER.cardDistort x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position01}}
+ }
+push $Nb7fec720
+ Input {
+  inputs 0
+  name card2
+  xpos -1270
+  ypos 1135
+  number 2
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat2
+  xpos -1270
+  ypos 1159
+  addUserKnob {20 User}
+ }
+ Dot {
+  name Dot4
+  xpos -697
+  ypos 1234
+ }
+set Nf9304030 [stack 0]
+push $Nf9301010
+ Transform {
+  scale {{MASTER.tileScale/(position*10)}}
+  center {{width/2} {height/2}}
+  filter Impulse
+  black_outside false
+  name Transform29
+  label "\[value position]"
+  xpos -610
+  ypos 1115
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position02}}
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat10
+  xpos -610
+  ypos 1151
+  addUserKnob {20 User}
+ }
+ Crop {
+  box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+  name Crop11
+  xpos -610
+  ypos 1175
+ }
+ Switch {
+  inputs 2
+  which {{MASTER.card2}}
+  name Switch4
+  xpos -610
+  ypos 1249
+ }
+ Multiply {
+  channels rgba
+  value {{((position/1)*MASTER.fade-position)+1}}
+  name Multiply2
+  label "\[value position]"
+  xpos -610
+  ypos 1301
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position 0.2
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  name Merge3
+  xpos -610
+  ypos 1503
+ }
+ Grade {
+  white 4
+  name Grade9
+  xpos -610
+  ypos 1527
+ }
+ Defocus {
+  channels rgba
+  defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+  name Defocus2
+  label "\[value position]"
+  xpos -610
+  ypos 1610
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position02}}
+ }
+ Card2 {
+  cast_shadow false
+  receive_shadow false
+  lens_in_focal {{position==0?1:1/position}}
+  translate {0 0 {position}}
+  uniform_scale {{MASTER.cardScale}}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card21
+  label "\[value position]"
+  xpos -610
+  ypos 1702
+  disable {{!MASTER.p02}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position02}}
+ }
+ Normals {
+  action set
+  normal {180 180 180}
+  threshold 0
+  name Normals3
+  xpos -610
+  ypos 1750
+  disable {{!MASTER.pNorm02 x101 1}}
+ }
+ ProcGeo {
+  x_size {{MASTER.dNoiseX}}
+  x_offset {{MASTER.dNoiseXoffset+(random(position))*MASTER.dNoiseVariancy}}
+  y_size {{MASTER.dNoiseY x105 0}}
+  y_offset {{MASTER.dNoiseYoffset+(random(position))*MASTER.dNoiseVariancy}}
+  Octaves {{MASTER.dNoiseOctaves}}
+  Lacunarity {{MASTER.dNoiseLacunarity}}
+  Gain {{MASTER.dNoiseGain}}
+  Speed {{MASTER.dNoiseSpeed}}
+  name sub_10_ProcGeo11
+  label "\[value position]"
+  xpos -619
+  ypos 1811
+  disable {{!MASTER.cardDistort x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position01}}
+ }
+push $Nb7fec720
+push $Nf9304030
+ Mirror {
+  Horizontal true
+  Vertical true
+  name Mirror1
+  xpos -742
+  ypos 1288
+ }
+push $Nf9301010
+ Transform {
+  scale {{MASTER.tileScale/(position*10)}}
+  center {{width/2} {height/2}}
+  filter Impulse
+  black_outside false
+  name Transform28
+  label "\[value position]"
+  xpos -328
+  ypos 1115
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position03 x105 0.1}}
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat3
+  xpos -328
+  ypos 1151
+  addUserKnob {20 User}
+ }
+ Crop {
+  box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+  name Crop10
+  xpos -328
+  ypos 1175
+ }
+ Mirror {
+  Horizontal true
+  Vertical true
+  name Mirror6
+  xpos -328
+  ypos 1211
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{"\[value this.input0.position]"}}
+ }
+ Switch {
+  inputs 2
+  name Switch1
+  xpos -328
+  ypos 1259
+ }
+ Multiply {
+  channels rgba
+  value {{((position/1)*MASTER.fade-position)+1}}
+  name Multiply3
+  label "\[value position]"
+  xpos -328
+  ypos 1301
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position 0.3
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  name Merge4
+  xpos -328
+  ypos 1483
+ }
+ Grade {
+  white 0.17
+  name Grade8
+  xpos -328
+  ypos 1507
+ }
+ Defocus {
+  channels rgba
+  defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+  name Defocus10
+  label "\[value position]"
+  xpos -328
+  ypos 1557
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position03}}
+ }
+ Card2 {
+  cast_shadow false
+  receive_shadow false
+  lens_in_focal {{position==0?1:1/position}}
+  translate {0 0 {position}}
+  uniform_scale {{MASTER.cardScale}}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card20
+  label "\[value position]"
+  xpos -328
+  ypos 1674
+  disable {{!MASTER.p03 x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position03}}
+ }
+ Normals {
+  action set
+  normal {180 180 180}
+  threshold 0
+  name Normals4
+  xpos -328
+  ypos 1738
+  disable {{!MASTER.pNorm03 x101 1}}
+ }
+ ProcGeo {
+  x_size {{MASTER.dNoiseX}}
+  x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+  y_size {{MASTER.dNoiseY x105 0}}
+  y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+  Octaves {{MASTER.dNoiseOctaves}}
+  Lacunarity {{MASTER.dNoiseLacunarity}}
+  Gain {{MASTER.dNoiseGain}}
+  Speed {{MASTER.dNoiseSpeed}}
+  name sub_10_ProcGeo8
+  label "\[value position]"
+  xpos -328
+  ypos 1795
+  disable {{!MASTER.cardDistort x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position03}}
+ }
+push $Nb7fec720
+push $Nf9301010
+ Transform {
+  scale {{MASTER.tileScale/(position*10)}}
+  center {{width/2} {height/2}}
+  filter Impulse
+  black_outside false
+  name Transform27
+  label "\[value position]"
+  xpos -47
+  ypos 1115
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position04}}
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat9
+  xpos -47
+  ypos 1151
+  addUserKnob {20 User}
+ }
+ Crop {
+  box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+  name Crop9
+  xpos -47
+  ypos 1175
+ }
+ Multiply {
+  channels rgba
+  value {{((position/1)*MASTER.fade-position)+1}}
+  name Multiply4
+  label "\[value position]"
+  xpos -47
+  ypos 1301
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position 0.4
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  name Merge5
+  xpos -48
+  ypos 1471
+ }
+ Defocus {
+  channels rgba
+  defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+  name Defocus9
+  label "\[value position]"
+  xpos -47
+  ypos 1612
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position04 x105 0}}
+ }
+ Card2 {
+  cast_shadow false
+  receive_shadow false
+  lens_in_focal {{position==0?1:1/position}}
+  translate {0 0 {position}}
+  uniform_scale {{MASTER.cardScale}}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card19
+  label "\[value position]"
+  xpos -47
+  ypos 1679
+  disable {{!MASTER.p04}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position04}}
+ }
+ Normals {
+  action set
+  normal {180 180 180}
+  threshold 0
+  name Normals5
+  xpos -47
+  ypos 1738
+  disable {{!MASTER.pNorm04 x101 1}}
+ }
+ ProcGeo {
+  x_size {{MASTER.dNoiseX}}
+  x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+  y_size {{MASTER.dNoiseY x105 0}}
+  y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+  Octaves {{MASTER.dNoiseOctaves}}
+  Lacunarity {{MASTER.dNoiseLacunarity}}
+  Gain {{MASTER.dNoiseGain}}
+  Speed {{MASTER.dNoiseSpeed}}
+  name sub_10_ProcGeo7
+  label "\[value position]"
+  xpos -47
+  ypos 1795
+  disable {{!MASTER.cardDistort x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position04}}
+ }
+push $Nb7fec720
+push $Nf9301010
+ Transform {
+  scale {{MASTER.tileScale/(position*10)}}
+  center {{width/2} {height/2}}
+  filter Impulse
+  black_outside false
+  name Transform26
+  label "\[value position]"
+  xpos 235
+  ypos 1115
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position05}}
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  name Reformat12
+  xpos 235
+  ypos 1151
+  addUserKnob {20 User}
+ }
+ Crop {
+  box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+  name Crop8
+  xpos 235
+  ypos 1175
+ }
+ Mirror {
+  Horizontal true
+  name Mirror7
+  xpos 235
+  ypos 1216
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{"\[value this.input0.position]"}}
+ }
+ Multiply {
+  channels rgba
+  value {{((position/1)*MASTER.fade-position)+1}}
+  name Multiply7
+  label "\[value position]"
+  xpos 235
+  ypos 1301
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position 0.5
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  name Merge7
+  xpos 236
+  ypos 1471
+ }
+ Defocus {
+  channels rgba
+  defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+  name Defocus8
+  label "\[value position]"
+  xpos 235
+  ypos 1610
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position05}}
+ }
+ Card2 {
+  cast_shadow false
+  receive_shadow false
+  lens_in_focal {{position==0?1:1/position}}
+  translate {0 0 {position}}
+  uniform_scale {{MASTER.cardScale}}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card18
+  label "\[value position]"
+  xpos 235
+  ypos 1702
+  disable {{!MASTER.p05}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position05}}
+ }
+ Normals {
+  action set
+  normal {180 180 180}
+  threshold 0
+  name Normals1
+  xpos 235
+  ypos 1738
+  disable {{!MASTER.pNorm05 x101 1}}
+ }
+ ProcGeo {
+  x_size {{MASTER.dNoiseX}}
+  x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+  y_size {{MASTER.dNoiseY x105 0}}
+  y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+  Octaves {{MASTER.dNoiseOctaves}}
+  Lacunarity {{MASTER.dNoiseLacunarity}}
+  Gain {{MASTER.dNoiseGain}}
+  Speed {{MASTER.dNoiseSpeed}}
+  name sub_10_ProcGeo6
+  label "\[value position]"
+  xpos 235
+  ypos 1795
+  disable {{!MASTER.cardDistort x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position05}}
+ }
+push $Nb7fec720
+push $Nf9301010
+ Transform {
+  scale {{MASTER.tileScale/(position*10)}}
+  center {{width/2} {height/2}}
+  filter Impulse
+  black_outside false
+  name Transform25
+  label "\[value position]"
+  xpos 517
+  ypos 1116
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position06}}
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat13
+  xpos 517
+  ypos 1152
+  addUserKnob {20 User}
+ }
+ Crop {
+  box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+  name Crop7
+  xpos 517
+  ypos 1176
+ }
+ Multiply {
+  channels rgba
+  value {{((position/1)*MASTER.fade-position)+1}}
+  name Multiply9
+  label "\[value position]"
+  xpos 517
+  ypos 1301
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position 0.6
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  name Merge6
+  xpos 512
+  ypos 1471
+ }
+ Defocus {
+  channels rgba
+  defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+  name Defocus7
+  label "\[value position]"
+  xpos 517
+  ypos 1610
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position06}}
+ }
+ Card2 {
+  cast_shadow false
+  receive_shadow false
+  lens_in_focal {{position==0?1:1/position}}
+  translate {0 0 {position}}
+  uniform_scale {{MASTER.cardScale}}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card17
+  label "\[value position]"
+  xpos 517
+  ypos 1702
+  disable {{!MASTER.p06}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position06}}
+ }
+ Normals {
+  action set
+  normal {180 180 180}
+  threshold 0
+  name Normals6
+  xpos 517
+  ypos 1738
+  disable {{!MASTER.pNorm06 x101 1}}
+ }
+ ProcGeo {
+  x_size {{MASTER.dNoiseX}}
+  x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+  y_size {{MASTER.dNoiseY x105 0}}
+  y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+  Octaves {{MASTER.dNoiseOctaves}}
+  Lacunarity {{MASTER.dNoiseLacunarity}}
+  Gain {{MASTER.dNoiseGain}}
+  Speed {{MASTER.dNoiseSpeed}}
+  name sub_10_ProcGeo5
+  label "\[value position]"
+  xpos 517
+  ypos 1795
+  disable {{!MASTER.cardDistort x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position06}}
+ }
+push $Nb7fec720
+push $Nf9301010
+ Transform {
+  scale {{MASTER.tileScale/(position*10)}}
+  center {{width/2} {height/2}}
+  filter Impulse
+  black_outside false
+  name Transform24
+  label "\[value position]"
+  xpos 798
+  ypos 1115
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position07}}
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  name Reformat14
+  xpos 798
+  ypos 1151
+  addUserKnob {20 User}
+ }
+ Crop {
+  box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+  name Crop6
+  xpos 798
+  ypos 1175
+ }
+ Mirror {
+  Horizontal true
+  Vertical true
+  name Mirror8
+  xpos 798
+  ypos 1199
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{"\[value this.input0.position]"}}
+ }
+ Multiply {
+  channels rgba
+  value {{((position/1)*MASTER.fade-position)+1}}
+  name Multiply10
+  label "\[value position]"
+  xpos 798
+  ypos 1301
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position 0.7
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  name Merge8
+  xpos 798
+  ypos 1471
+ }
+ Defocus {
+  channels rgba
+  defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+  name Defocus6
+  label "\[value position]"
+  xpos 798
+  ypos 1608
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position07}}
+ }
+ Card2 {
+  cast_shadow false
+  receive_shadow false
+  lens_in_focal {{position==0?1:1/position}}
+  translate {0 0 {position}}
+  uniform_scale {{MASTER.cardScale}}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card16
+  label "\[value position]"
+  xpos 798
+  ypos 1702
+  disable {{!MASTER.p07}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position07}}
+ }
+ Normals {
+  action set
+  normal {180 180 180}
+  threshold 0
+  name Normals7
+  xpos 798
+  ypos 1738
+  disable {{!MASTER.pNorm07 x101 1}}
+ }
+ ProcGeo {
+  x_size {{MASTER.dNoiseX}}
+  x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+  y_size {{MASTER.dNoiseY x105 0}}
+  y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+  Octaves {{MASTER.dNoiseOctaves}}
+  Lacunarity {{MASTER.dNoiseLacunarity}}
+  Gain {{MASTER.dNoiseGain}}
+  Speed {{MASTER.dNoiseSpeed}}
+  name sub_10_ProcGeo4
+  label "\[value position]"
+  xpos 798
+  ypos 1795
+  disable {{!MASTER.cardDistort x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position07}}
+ }
+push $Nb7fec720
+push $Nf9301010
+ Transform {
+  scale {{MASTER.tileScale/(position*10)}}
+  center {{width/2} {height/2}}
+  filter Impulse
+  black_outside false
+  name Transform23
+  label "\[value position]"
+  xpos 1080
+  ypos 1115
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position08}}
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  name Reformat15
+  xpos 1080
+  ypos 1151
+  addUserKnob {20 User}
+ }
+ Crop {
+  box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+  name Crop5
+  xpos 1080
+  ypos 1175
+ }
+ Multiply {
+  channels rgba
+  value {{((position/1)*MASTER.fade-position)+1}}
+  name Multiply11
+  label "\[value position]"
+  xpos 1080
+  ypos 1301
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position 0.8
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  name Merge9
+  xpos 1081
+  ypos 1471
+ }
+ Defocus {
+  channels rgba
+  defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+  name Defocus5
+  label "\[value position]"
+  xpos 1080
+  ypos 1610
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position08}}
+ }
+ Card2 {
+  cast_shadow false
+  receive_shadow false
+  lens_in_focal {{position==0?1:1/position}}
+  translate {0 0 {position}}
+  uniform_scale {{MASTER.cardScale}}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card15
+  label "\[value position]"
+  xpos 1080
+  ypos 1701
+  disable {{!MASTER.p08}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position08}}
+ }
+ Normals {
+  action set
+  normal {180 180 180}
+  threshold 0
+  name Normals8
+  xpos 1080
+  ypos 1737
+  disable {{!MASTER.pNorm08 x101 1}}
+ }
+ ProcGeo {
+  x_size {{MASTER.dNoiseX}}
+  x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+  y_size {{MASTER.dNoiseY x105 0}}
+  y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+  Octaves {{MASTER.dNoiseOctaves}}
+  Lacunarity {{MASTER.dNoiseLacunarity}}
+  Gain {{MASTER.dNoiseGain}}
+  Speed {{MASTER.dNoiseSpeed}}
+  name sub_10_ProcGeo3
+  label "\[value position]"
+  xpos 1080
+  ypos 1795
+  disable {{!MASTER.cardDistort x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position08}}
+ }
+push $Nb7fec720
+push $Nf9301010
+ Dot {
+  name Dot1
+  xpos 1117
+  ypos 1065
+ }
+ Transform {
+  scale {{MASTER.tileScale/(position*10)}}
+  center {{width/2} {height/2}}
+  filter Impulse
+  black_outside false
+  name Transform22
+  label "\[value position]"
+  xpos 1361
+  ypos 1115
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position09}}
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat16
+  xpos 1361
+  ypos 1151
+  addUserKnob {20 User}
+ }
+ Crop {
+  box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+  name Crop3
+  xpos 1361
+  ypos 1175
+ }
+ Mirror {
+  Horizontal true
+  Vertical true
+  name Mirror5
+  xpos 1361
+  ypos 1204
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{"\[value this.input0.position]"}}
+ }
+ Multiply {
+  channels rgba
+  value {{((position/1)*MASTER.fade-position)+1}}
+  name Multiply18
+  label "\[value position]"
+  xpos 1361
+  ypos 1301
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position 0.9
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  name Merge10
+  xpos 1361
+  ypos 1471
+ }
+ Defocus {
+  channels rgba
+  defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+  name Defocus4
+  label "\[value position]"
+  xpos 1361
+  ypos 1610
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position09}}
+ }
+ Card2 {
+  cast_shadow false
+  receive_shadow false
+  lens_in_focal {{position==0?1:1/position}}
+  translate {0 0 {position}}
+  uniform_scale {{MASTER.cardScale}}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card14
+  label "\[value position]"
+  xpos 1361
+  ypos 1702
+  disable {{!MASTER.p09}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position09}}
+ }
+ Normals {
+  action set
+  normal {180 180 180}
+  threshold 0
+  name Normals9
+  xpos 1361
+  ypos 1738
+  disable {{!MASTER.pNorm09 x101 1}}
+ }
+ ProcGeo {
+  x_size {{MASTER.dNoiseX}}
+  x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+  y_size {{MASTER.dNoiseY x105 0}}
+  y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+  Octaves {{MASTER.dNoiseOctaves}}
+  Lacunarity {{MASTER.dNoiseLacunarity}}
+  Gain {{MASTER.dNoiseGain}}
+  Speed {{MASTER.dNoiseSpeed}}
+  name sub_10_ProcGeo1
+  label "\[value position]"
+  xpos 1361
+  ypos 1792
+  disable {{!MASTER.cardDistort x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position09}}
+ }
+push $Nb7fec720
+push $Nf9301010
+ Transform {
+  scale {{MASTER.tileScale/(position*10)}}
+  center {{width/2} {height/2}}
+  filter Impulse
+  black_outside false
+  name Transform2
+  label "\[value position]"
+  xpos 1643
+  ypos 1115
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position10}}
+ }
+ Reformat {
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat17
+  xpos 1643
+  ypos 1168
+  addUserKnob {20 User}
+ }
+ Crop {
+  box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+  name Crop1
+  xpos 1643
+  ypos 1192
+ }
+ Multiply {
+  channels rgba
+  value {{((position/1)*MASTER.fade-position)+1}}
+  name Multiply19
+  label "\[value position]"
+  xpos 1643
+  ypos 1301
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position 1
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  bbox B
+  name Merge11
+  xpos 1643
+  ypos 1471
+ }
+ Defocus {
+  channels rgba
+  defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+  name Defocus3
+  label "\[value position]"
+  xpos 1643
+  ypos 1610
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position10}}
+ }
+ Card2 {
+  cast_shadow false
+  receive_shadow false
+  lens_in_focal {{position==0?1:1/position}}
+  translate {0 0 {position}}
+  uniform_scale {{MASTER.cardScale}}
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card13
+  label "\[value position]"
+  xpos 1643
+  ypos 1702
+  disable {{!MASTER.p10}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position10}}
+ }
+ Normals {
+  action set
+  normal {180 180 180}
+  threshold 0
+  name Normals10
+  xpos 1643
+  ypos 1738
+  disable {{!MASTER.pNorm10 x101 1}}
+ }
+ ProcGeo {
+  x_size {{MASTER.dNoiseX}}
+  x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+  y_size {{MASTER.dNoiseY x105 0}}
+  y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+  Octaves {{MASTER.dNoiseOctaves}}
+  Lacunarity {{MASTER.dNoiseLacunarity}}
+  Gain {{MASTER.dNoiseGain}}
+  Speed {{MASTER.dNoiseSpeed}}
+  name sub_10_ProcGeo2
+  label "\[value position]"
+  xpos 1643
+  ypos 1795
+  disable {{!MASTER.cardDistort x101 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 position}
+  position {{MASTER.position10}}
+ }
+ Scene {
+  inputs 10
+  shadow_override "override inputs"
+  cast_shadow false
+  receive_shadow false
+  name Scene1
+  xpos 275
+  ypos 1982
+ }
+ TransformGeo {
+  scaling {1 1 -1}
+  name TransformGeo3
+  xpos 315
+  ypos 2089
+ }
+ TransformGeo {
+  inputs 2
+  uniform_scale {{parent.MASTER.sceneScale}}
+  name TransformGeo_Global
+  xpos 324
+  ypos 2155
+  addUserKnob {20 User}
+  addUserKnob {7 scaleOffset R -2 2}
+  addUserKnob {7 zOffset R -500 500}
+ }
+ Scene {
+  cast_shadow false
+  receive_shadow false
+  name PUT
+  label "LIGHTS\nHERE"
+  xpos 343
+  ypos 2219
+  disable true
+ }
+ Reformat {
+  inputs 0
+  format {{{ReformatMASTER.format}}}
+  filter Impulse
+  pbb true
+  name Reformat19
+  selected true
+  xpos 467
+  ypos 2335
+  addUserKnob {20 User}
+ }
+ ScanlineRender {
+  inputs 3
+  filter Impulse
+  motion_vectors_type distance
+  name ScanlineRender2
+  xpos 333
+  ypos 2344
+ }
+ DeepTransform {
+  zscale {{parent.MASTER.sceneScale}}
+  mask_channel -rgba.alpha
+  name DeepTransform2
+  xpos 355
+  ypos 2414
+ }
+ DeepTransform {
+  translate {0 0 {parent.MASTER.cardOffset-0.1}}
+  zscale {{parent.MASTER.cardScale_1}}
+  name DeepTransform4
+  xpos 355
+  ypos 2476
+  disable true
+ }
+ DeepExpression {
+  chans1 deep
+  deep.back "deep.front + \[value blend]"
+  name DeepExpression3
+  label blend
+  xpos 355
+  ypos 2561
+  addUserKnob {20 User}
+  addUserKnob {7 blend R 0 0.3}
+  blend {{parent.MASTER.blend}}
+ }
+ DeepHoldout2 {
+  inputs 2
+  name DeepHoldout1
+  xpos 355
+  ypos 2613
+ }
+ Output {
+  name Output2
+  xpos 365
+  ypos 2784
+ }
+ NoOp {
+  inputs 0
+  name MASTER
+  xpos 265
+  ypos 371
+  addUserKnob {20 User}
+  addUserKnob {7 lens_inFocal R 0 10}
+  lens_inFocal 1
+  addUserKnob {7 cardScale R 0 100}
+  cardScale 1.86
+  addUserKnob {7 sceneScale R 0 10000}
+  sceneScale 1000
+  addUserKnob {26 ""}
+  addUserKnob {3 tileScale}
+  tileScale 11
+  addUserKnob {3 pickCardToFit}
+  pickCardToFit 1
+  addUserKnob {7 textureOverscan R 0 100}
+  addUserKnob {20 deepTab l deep}
+  addUserKnob {6 premulted +STARTLINE}
+  premulted true
+  addUserKnob {26 depthInput}
+  addUserKnob {7 depthOffset l offset R -1 1}
+  addUserKnob {7 depthScale}
+  depthScale 1
+  addUserKnob {26 cardInput l card}
+  addUserKnob {7 cardOffset R -1 1}
+  addUserKnob {7 cardScale_1 l cardScale}
+  cardScale_1 1
+  addUserKnob {26 ""}
+  addUserKnob {7 blend R 0 0.3}
+  blend 0.01
+  addUserKnob {20 noise}
+  addUserKnob {7 alphaMult R 1 0}
+  alphaMult 0.08
+  addUserKnob {7 alphaGamma R -2 5}
+  alphaGamma 1.05
+  addUserKnob {20 defocus_2 l defocus}
+  addUserKnob {7 defocus R 0 100}
+  defocus 22
+  addUserKnob {7 depthOfField}
+  depthOfField 0.645
+  addUserKnob {7 focalPlane t "0 is the camera frameHold popsition)\n0.1 is the nearest card, 1 is the furthest card"}
+  focalPlane 0.1
+  addUserKnob {26 ""}
+  addUserKnob {20 endGroup n -1}
+  addUserKnob {20 cards}
+  addUserKnob {4 card1 M {noise input}}
+  card1 input
+  addUserKnob {4 card2 l " | card2" t "This needs to be a larger scale than card one" -STARTLINE M {noise input "" ""}}
+  card2 input
+  addUserKnob {26 ""}
+  addUserKnob {6 p01 l 1| -STARTLINE}
+  p01 true
+  addUserKnob {6 p02 l 2| -STARTLINE}
+  p02 true
+  addUserKnob {6 p03 l 3| -STARTLINE}
+  p03 true
+  addUserKnob {6 p04 l 4| -STARTLINE}
+  p04 true
+  addUserKnob {6 p05 l 5| -STARTLINE}
+  addUserKnob {6 p06 l 6| -STARTLINE}
+  addUserKnob {6 p07 l 7| -STARTLINE}
+  p07 true
+  addUserKnob {6 p08 l 8| -STARTLINE}
+  addUserKnob {6 p09 l 9| -STARTLINE}
+  p09 true
+  addUserKnob {6 p10 l 10 -STARTLINE}
+  p10 true
+  addUserKnob {26 position00 -STARTLINE T "This is the camera"}
+  addUserKnob {7 position01}
+  position01 0.03
+  addUserKnob {6 pNorm01 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+  pNorm01 true
+  addUserKnob {7 position02}
+  position02 0.08
+  addUserKnob {6 pNorm02 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+  pNorm02 true
+  addUserKnob {7 position03}
+  position03 0.091
+  addUserKnob {6 pNorm03 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+  pNorm03 true
+  addUserKnob {7 position04}
+  position04 0.4
+  addUserKnob {6 pNorm04 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+  addUserKnob {7 position05}
+  position05 0.3
+  addUserKnob {6 pNorm05 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+  pNorm05 true
+  addUserKnob {7 position06}
+  position06 0.6
+  addUserKnob {6 pNorm06 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+  pNorm06 true
+  addUserKnob {7 position07}
+  position07 0.7
+  addUserKnob {6 pNorm07 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+  pNorm07 true
+  addUserKnob {7 position08}
+  position08 0.8
+  addUserKnob {6 pNorm08 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+  pNorm08 true
+  addUserKnob {7 position09}
+  position09 0.9
+  addUserKnob {6 pNorm09 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+  pNorm09 true
+  addUserKnob {7 position10}
+  position10 1
+  addUserKnob {6 pNorm10 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+  pNorm10 true
+  addUserKnob {20 grads}
+  addUserKnob {7 fade l "depth falloff"}
+  fade 0.69
+  addUserKnob {7 depthHaze}
+  addUserKnob {26 ""}
+  addUserKnob {7 leftBlur l "Left: Blur"}
+  leftBlur 0.4
+  addUserKnob {7 leftPosition l Position -STARTLINE}
+  leftPosition 0.4
+  addUserKnob {7 rightBlur l "Right Blur" t " "}
+  addUserKnob {7 rightPosition l Position -STARTLINE}
+  addUserKnob {7 topBlur l "Top Blur"}
+  topBlur 0.42
+  addUserKnob {7 topPosition l Position -STARTLINE}
+  topPosition 0.63
+  addUserKnob {7 BottomBlur l "Bottom Blur"}
+  addUserKnob {7 bottomPosition l Position -STARTLINE}
+  addUserKnob {20 cardDistortTAB l cardDistort}
+  addUserKnob {6 cardDistort +STARTLINE}
+  addUserKnob {7 dNoiseX R 0 20}
+  dNoiseX 6.1
+  addUserKnob {7 dNoiseY R 0 20}
+  dNoiseY 6.1
+  addUserKnob {7 dNoiseXoffset R 0 100}
+  addUserKnob {7 dNoiseYoffset}
+  addUserKnob {7 dNoiseVariancy}
+  dNoiseVariancy 0.385
+  addUserKnob {7 dNoiseLacunarity R 0 5}
+  dNoiseLacunarity 1
+  addUserKnob {7 dNoiseGain R -0.5 0.5}
+  dNoiseGain 0.12
+  addUserKnob {7 dNoiseSpeed R 0 10}
+  dNoiseSpeed 1.1
+  addUserKnob {3 dNoiseOctaves}
+  dNoiseOctaves 5
+ }
+push $Nb7fe8260
+ DeepSample {
+  pos {1002 736}
+  name DeepSample1
+  xpos 117
+  ypos 2567
+ }
+end_group
