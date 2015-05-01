@@ -4,12 +4,13 @@ push $cut_paste_input
 Group {
  name BlurExponential
  selected true
- xpos 5381
- ypos 3623
+ xpos 6256
+ ypos 17059
  addUserKnob {20 User l BlurExponential}
  addUserKnob {41 operation l Merge t "use plus for a glow or over for normal iblur/compound blur" T MergeMaster.operation}
  addUserKnob {41 filterType -STARTLINE T MASTER.filterType}
- addUserKnob {41 source -STARTLINE T MASTER.source}
+ addUserKnob {41 source T MASTER.source}
+ addUserKnob {41 sourceMult l " mult" -STARTLINE T MASTER.sourceMult}
  addUserKnob {26 space01 l "" +STARTLINE}
  addUserKnob {41 valueUI l value T MASTER.valueUI}
  addUserKnob {41 valueGrad l gradient t "This is the expodential value between filter stack. i.e. 5 is half (*0.5)" -STARTLINE T MASTER.valueGrad}
@@ -49,6 +50,14 @@ Group {
   bdwidth 456
   bdheight 441
  }
+ Blur {
+  inputs 0
+  channels rgba
+  name BlurMASTER
+  xpos 828
+  ypos 499
+  dope_sheet true
+ }
  StickyNote {
   inputs 0
   name toDo
@@ -58,42 +67,13 @@ Group {
  }
  Input {
   inputs 0
-  name Input
-  xpos 701
-  ypos 390
- }
-set N9237cb80 [stack 0]
- NoOp {
-  name image
-  xpos 701
-  ypos 587
- }
-set N9237cef0 [stack 0]
- Dot {
-  name Dot1
-  xpos 327
-  ypos 617
- }
- Dot {
-  name Dot2
-  xpos 327
-  ypos 1332
- }
- Dot {
-  name Dot4
-  xpos 9936
-  ypos 1728
- }
-set N9237d940 [stack 0]
- Input {
-  inputs 0
   name mask
   xpos 1002
   ypos 397
   number 1
  }
-set N9237dcb0 [stack 0]
-push $N9237dcb0
+set N84a1f260 [stack 0]
+push $N84a1f260
  Shuffle {
   name Shuffle10
   xpos 1090
@@ -114,91 +94,91 @@ push $N9237dcb0
   xpos 1008
   ypos 720
  }
-set N9237e700 [stack 0]
+set N84a1fcb0 [stack 0]
  Dot {
   name Dot26
   xpos 1619
   ypos 727
  }
-set N9237ea70 [stack 0]
+set N84a20020 [stack 0]
  Dot {
   name Dot27
   xpos 2182
   ypos 713
  }
-set N9237ede0 [stack 0]
+set N84a20390 [stack 0]
  Dot {
   name Dot10
   xpos 2809
   ypos 742
  }
-set N9237f150 [stack 0]
+set N84a20700 [stack 0]
  Dot {
   name Dot28
   xpos 3386
   ypos 734
  }
-set N9237f4c0 [stack 0]
+set N84a20a70 [stack 0]
  Dot {
   name Dot29
   xpos 3970
   ypos 738
  }
-set N9237f830 [stack 0]
+set N84a20de0 [stack 0]
  Dot {
   name Dot17
   xpos 4572
   ypos 777
  }
-set N9237fba0 [stack 0]
+set N84a21150 [stack 0]
  Dot {
   name Dot30
   xpos 5152
   ypos 766
  }
-set N9237ff10 [stack 0]
+set N84a214c0 [stack 0]
  Dot {
   name Dot31
   xpos 5732
   ypos 784
  }
-set N92380280 [stack 0]
+set N84a21830 [stack 0]
  Dot {
   name Dot32
   xpos 6334
   ypos 784
  }
-set N923805f0 [stack 0]
+set N84a21ba0 [stack 0]
  Dot {
   name Dot36
   xpos 6858
   ypos 797
  }
-set N92380960 [stack 0]
+set N84a21f10 [stack 0]
  Dot {
   name Dot5
   xpos 7477
   ypos 814
  }
-set N92380cd0 [stack 0]
+set N84a22280 [stack 0]
  Dot {
   name Dot9
   xpos 8035
   ypos 839
  }
-set N92381040 [stack 0]
+set N84a225f0 [stack 0]
  Dot {
   name Dot14
   xpos 8694
   ypos 840
  }
-set N923813b0 [stack 0]
+set N84a22960 [stack 0]
  Dot {
   name Dot19
   xpos 9346
   ypos 855
  }
-set N92381720 [stack 0]
+set N84a22cd0 [stack 0]
  Dot {
   name Dot23
   xpos 10076
@@ -217,103 +197,115 @@ set N92381720 [stack 0]
   addUserKnob {3 position}
   position 15
  }
-push $N9237cef0
+ Input {
+  inputs 0
+  name Input
+  xpos 701
+  ypos 390
+ }
+set N84a23720 [stack 0]
+ NoOp {
+  name image
+  xpos 701
+  ypos 587
+ }
+set N84a23a90 [stack 0]
  Dot {
   name Dot101
   xpos 735
   ypos 809
  }
-set N92382170 [stack 0]
+set N84a23e00 [stack 0]
  Dot {
   name Dot6
   xpos 1318
   ypos 813
  }
-set N923824e0 [stack 0]
+set N84a24170 [stack 0]
  Dot {
   name Dot8
   xpos 1900
   ypos 828
  }
-set N92382850 [stack 0]
+set N84a244e0 [stack 0]
  Dot {
   name Dot11
   xpos 2508
   ypos 870
  }
-set N92382bc0 [stack 0]
+set N84a24850 [stack 0]
  Dot {
   name Dot13
   xpos 3091
   ypos 874
  }
-set N92382f30 [stack 0]
+set N84a24bc0 [stack 0]
  Dot {
   name Dot15
   xpos 3673
   ypos 889
  }
-set N923832a0 [stack 0]
+set N84a24f30 [stack 0]
  Dot {
   name Dot18
   xpos 4271
   ypos 927
  }
-set N92383610 [stack 0]
+set N84a252a0 [stack 0]
  Dot {
   name Dot20
   xpos 4854
   ypos 931
  }
-set N92383980 [stack 0]
+set N84a25610 [stack 0]
  Dot {
   name Dot22
   xpos 5436
   ypos 946
  }
-set N92383cf0 [stack 0]
+set N84a25980 [stack 0]
  Dot {
   name Dot24
   xpos 6033
   ypos 935
  }
-set N92384060 [stack 0]
+set N84a25cf0 [stack 0]
  Dot {
   name Dot34
   xpos 6621
   ypos 918
  }
-set N923843d0 [stack 0]
+set N84a26060 [stack 0]
  Dot {
   name Dot7
   xpos 7240
   ypos 935
  }
-set N92384740 [stack 0]
+set N84a263d0 [stack 0]
  Dot {
   name Dot12
   xpos 7798
   ypos 960
  }
-set N92384ab0 [stack 0]
+set N84a26740 [stack 0]
  Dot {
   name Dot16
   xpos 8457
   ypos 961
  }
-set N92384e20 [stack 0]
+set N84a26ab0 [stack 0]
  Dot {
   name Dot21
   xpos 9109
   ypos 976
  }
-set N92385190 [stack 0]
+set N84a26e20 [stack 0]
  Dot {
   name Dot25
   xpos 9839
   ypos 956
  }
-set N92385500 [stack 0]
+set N84a27190 [stack 0]
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -326,7 +318,7 @@ set N92385500 [stack 0]
   addUserKnob {3 position}
   position 15
  }
-push $N92385500
+push $N84a27190
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -372,7 +364,7 @@ push $N92385500
   addUserKnob {3 position}
   position 15
  }
-set N923862c0 [stack 0]
+set N84a27f50 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -393,7 +385,7 @@ set N923862c0 [stack 0]
   xpos 10042
   ypos 1179
  }
-push $N923862c0
+push $N84a27f50
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -401,7 +393,7 @@ push $N923862c0
   xpos 10042
   ypos 1215
  }
-push $N92381720
+push $N84a22cd0
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -415,7 +407,7 @@ push $N92381720
   addUserKnob {3 position}
   position 14
  }
-push $N92385190
+push $N84a26e20
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -428,7 +420,7 @@ push $N92385190
   addUserKnob {3 position}
   position 14
  }
-push $N92385190
+push $N84a26e20
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -474,7 +466,7 @@ push $N92385190
   addUserKnob {3 position}
   position 14
  }
-set N92387e40 [stack 0]
+set N84a29ad0 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -495,7 +487,7 @@ set N92387e40 [stack 0]
   xpos 9312
   ypos 1199
  }
-push $N92387e40
+push $N84a29ad0
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -503,7 +495,7 @@ push $N92387e40
   xpos 9312
   ypos 1235
  }
-push $N923813b0
+push $N84a22960
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -517,7 +509,7 @@ push $N923813b0
   addUserKnob {3 position}
   position 13
  }
-push $N92384e20
+push $N84a26ab0
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -530,7 +522,7 @@ push $N92384e20
   addUserKnob {3 position}
   position 13
  }
-push $N92384e20
+push $N84a26ab0
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -576,7 +568,7 @@ push $N92384e20
   addUserKnob {3 position}
   position 13
  }
-set N923899c0 [stack 0]
+set N84a2b650 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -597,7 +589,7 @@ set N923899c0 [stack 0]
   xpos 8660
   ypos 1184
  }
-push $N923899c0
+push $N84a2b650
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -605,7 +597,7 @@ push $N923899c0
   xpos 8660
   ypos 1220
  }
-push $N92381040
+push $N84a225f0
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -619,7 +611,7 @@ push $N92381040
   addUserKnob {3 position}
   position 12
  }
-push $N92384ab0
+push $N84a26740
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -632,7 +624,7 @@ push $N92384ab0
   addUserKnob {3 position}
   position 12
  }
-push $N92384ab0
+push $N84a26740
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -678,7 +670,7 @@ push $N92384ab0
   addUserKnob {3 position}
   position 12
  }
-set N9238b540 [stack 0]
+set N84a2d1d0 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -699,7 +691,7 @@ set N9238b540 [stack 0]
   xpos 8001
   ypos 1183
  }
-push $N9238b540
+push $N84a2d1d0
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -707,7 +699,7 @@ push $N9238b540
   xpos 8001
   ypos 1219
  }
-push $N92380cd0
+push $N84a22280
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -721,7 +713,7 @@ push $N92380cd0
   addUserKnob {3 position}
   position 11
  }
-push $N92384740
+push $N84a263d0
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -734,7 +726,7 @@ push $N92384740
   addUserKnob {3 position}
   position 11
  }
-push $N92384740
+push $N84a263d0
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -780,7 +772,7 @@ push $N92384740
   addUserKnob {3 position}
   position 11
  }
-set N9238d0c0 [stack 0]
+set N84a2ed50 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -801,7 +793,7 @@ set N9238d0c0 [stack 0]
   xpos 7443
   ypos 1158
  }
-push $N9238d0c0
+push $N84a2ed50
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -809,7 +801,7 @@ push $N9238d0c0
   xpos 7443
   ypos 1194
  }
-push $N92380960
+push $N84a21f10
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -823,7 +815,7 @@ push $N92380960
   addUserKnob {3 position}
   position 10
  }
-push $N923843d0
+push $N84a26060
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -836,7 +828,7 @@ push $N923843d0
   addUserKnob {3 position}
   position 10
  }
-push $N923843d0
+push $N84a26060
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -882,7 +874,7 @@ push $N923843d0
   addUserKnob {3 position}
   position 10
  }
-set N9238ec40 [stack 0]
+set N84a308d0 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -903,7 +895,7 @@ set N9238ec40 [stack 0]
   xpos 6824
   ypos 1141
  }
-push $N9238ec40
+push $N84a308d0
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -911,7 +903,7 @@ push $N9238ec40
   xpos 6824
   ypos 1177
  }
-push $N923805f0
+push $N84a21ba0
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -925,7 +917,7 @@ push $N923805f0
   addUserKnob {3 position}
   position 9
  }
-push $N92384060
+push $N84a25cf0
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -938,7 +930,7 @@ push $N92384060
   addUserKnob {3 position}
   position 9
  }
-push $N92384060
+push $N84a25cf0
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -983,7 +975,7 @@ push $N92384060
   addUserKnob {3 position}
   position 9
  }
-set N923907c0 [stack 0]
+set N8b5e1150 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -1004,7 +996,7 @@ set N923907c0 [stack 0]
   xpos 6300
   ypos 1191
  }
-push $N923907c0
+push $N8b5e1150
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -1012,7 +1004,7 @@ push $N923907c0
   xpos 6300
   ypos 1224
  }
-push $N92380280
+push $N84a21830
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -1026,7 +1018,7 @@ push $N92380280
   addUserKnob {3 position}
   position 8
  }
-push $N92383cf0
+push $N84a25980
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1039,7 +1031,7 @@ push $N92383cf0
   addUserKnob {3 position}
   position 8
  }
-push $N92383cf0
+push $N84a25980
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1084,7 +1076,7 @@ push $N92383cf0
   addUserKnob {3 position}
   position 8
  }
-set N92392340 [stack 0]
+set N8b5e2cd0 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -1105,7 +1097,7 @@ set N92392340 [stack 0]
   xpos 5703
   ypos 1146
  }
-push $N92392340
+push $N8b5e2cd0
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -1113,8 +1105,7 @@ push $N92392340
   xpos 5703
   ypos 1205
  }
-set N28a383d0 [stack 0]
-push $N9237ff10
+push $N84a214c0
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -1128,7 +1119,7 @@ push $N9237ff10
   addUserKnob {3 position}
   position 7
  }
-push $N92383980
+push $N84a25610
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1141,7 +1132,7 @@ push $N92383980
   addUserKnob {3 position}
   position 7
  }
-push $N92383980
+push $N84a25610
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1186,7 +1177,7 @@ push $N92383980
   addUserKnob {3 position}
   position 7
  }
-set N92393ec0 [stack 0]
+set N8b5e4850 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -1207,7 +1198,7 @@ set N92393ec0 [stack 0]
   xpos 5121
   ypos 1131
  }
-push $N92393ec0
+push $N8b5e4850
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -1215,7 +1206,7 @@ push $N92393ec0
   xpos 5121
   ypos 1190
  }
-push $N9237fba0
+push $N84a21150
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -1229,7 +1220,7 @@ push $N9237fba0
   addUserKnob {3 position}
   position 6
  }
-push $N92383610
+push $N84a252a0
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1242,7 +1233,7 @@ push $N92383610
   addUserKnob {3 position}
   position 6
  }
-push $N92383610
+push $N84a252a0
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1287,7 +1278,7 @@ push $N92383610
   addUserKnob {3 position}
   position 6
  }
-set N92395a40 [stack 0]
+set N8b5e63d0 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -1308,7 +1299,7 @@ set N92395a40 [stack 0]
   xpos 4538
   ypos 1127
  }
-push $N92395a40
+push $N8b5e63d0
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -1316,7 +1307,7 @@ push $N92395a40
   xpos 4538
   ypos 1186
  }
-push $N9237f830
+push $N84a20de0
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -1330,7 +1321,7 @@ push $N9237f830
   addUserKnob {3 position}
   position 5
  }
-push $N923832a0
+push $N84a24f30
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1343,7 +1334,7 @@ push $N923832a0
   addUserKnob {3 position}
   position 5
  }
-push $N923832a0
+push $N84a24f30
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1388,7 +1379,7 @@ push $N923832a0
   addUserKnob {3 position}
   position 5
  }
-set N923975c0 [stack 0]
+set N8b5e7f50 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -1409,7 +1400,7 @@ set N923975c0 [stack 0]
   xpos 3940
   ypos 1089
  }
-push $N923975c0
+push $N8b5e7f50
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -1417,7 +1408,7 @@ push $N923975c0
   xpos 3940
   ypos 1148
  }
-push $N9237f4c0
+push $N84a20a70
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -1431,7 +1422,7 @@ push $N9237f4c0
   addUserKnob {3 position}
   position 4
  }
-push $N92382f30
+push $N84a24bc0
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1444,7 +1435,7 @@ push $N92382f30
   addUserKnob {3 position}
   position 4
  }
-push $N92382f30
+push $N84a24bc0
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1489,7 +1480,7 @@ push $N92382f30
   addUserKnob {3 position}
   position 4
  }
-set N92399140 [stack 0]
+set N8b5e9ad0 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -1510,7 +1501,7 @@ set N92399140 [stack 0]
   xpos 3358
   ypos 1074
  }
-push $N92399140
+push $N8b5e9ad0
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -1518,7 +1509,7 @@ push $N92399140
   xpos 3358
   ypos 1133
  }
-push $N9237f150
+push $N84a20700
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -1532,7 +1523,7 @@ push $N9237f150
   addUserKnob {3 position}
   position 3
  }
-push $N92382bc0
+push $N84a24850
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1545,7 +1536,7 @@ push $N92382bc0
   addUserKnob {3 position}
   position 3
  }
-push $N92382bc0
+push $N84a24850
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1590,7 +1581,7 @@ push $N92382bc0
   addUserKnob {3 position}
   position 3
  }
-set N9239acc0 [stack 0]
+set N8b5eb650 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -1611,7 +1602,7 @@ set N9239acc0 [stack 0]
   xpos 2775
   ypos 1070
  }
-push $N9239acc0
+push $N8b5eb650
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -1619,7 +1610,7 @@ push $N9239acc0
   xpos 2775
   ypos 1129
  }
-push $N9237ede0
+push $N84a20390
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -1633,7 +1624,7 @@ push $N9237ede0
   addUserKnob {3 position}
   position 2
  }
-push $N92382850
+push $N84a244e0
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1646,7 +1637,7 @@ push $N92382850
   addUserKnob {3 position}
   position 2
  }
-push $N92382850
+push $N84a244e0
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1691,7 +1682,7 @@ push $N92382850
   addUserKnob {3 position}
   position 2
  }
-set N9239c840 [stack 0]
+set N8b5ed1d0 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -1712,7 +1703,7 @@ set N9239c840 [stack 0]
   xpos 2167
   ypos 1079
  }
-push $N9239c840
+push $N8b5ed1d0
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -1720,7 +1711,7 @@ push $N9239c840
   xpos 2167
   ypos 1114
  }
-push $N9237ea70
+push $N84a20020
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -1734,7 +1725,7 @@ push $N9237ea70
   addUserKnob {3 position}
   position 1
  }
-push $N923824e0
+push $N84a24170
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1747,7 +1738,7 @@ push $N923824e0
   addUserKnob {3 position}
   position 1
  }
-push $N923824e0
+push $N84a24170
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1792,7 +1783,7 @@ push $N923824e0
   addUserKnob {3 position}
   position 1
  }
-set N9239e3c0 [stack 0]
+set N8b5eed50 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -1813,7 +1804,7 @@ set N9239e3c0 [stack 0]
   xpos 1585
   ypos 1065
  }
-push $N9239e3c0
+push $N8b5eed50
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -1821,7 +1812,7 @@ push $N9239e3c0
   xpos 1585
   ypos 1099
  }
-push $N9237e700
+push $N84a1fcb0
  Grade {
   channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
   blackpoint {{MASTER.maskRangeMax*(position/MASTER.maxPosition)}}
@@ -1834,7 +1825,7 @@ push $N9237e700
   addUserKnob {20 User}
   addUserKnob {3 position}
  }
-push $N92382170
+push $N84a23e00
  Defocus {
   channels {{{parent.BlurMASTER.channels}}}
   defocus {{position==0?(MASTER.valueUI*(MASTER.valueGrad*0.1))*((MASTER.valueGrad*0.1)/MASTER.maxPosition):(MASTER.valueUI*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)}}
@@ -1846,7 +1837,7 @@ push $N92382170
   addUserKnob {20 User}
   addUserKnob {3 position}
  }
-push $N92382170
+push $N84a23e00
  Blur {
   channels {{{parent.BlurMASTER.channels}}}
   size {{position==0?(MASTER.value*(MASTER.valueGrad*0.1))*((MASTER.valueGrad*0.1)/MASTER.maxPosition):(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition)} {position==0?(MASTER.value*(MASTER.valueGrad*0.1))*((MASTER.valueGrad*0.1)/MASTER.maxPosition):(MASTER.value*(MASTER.valueGrad*0.1))*(position/MASTER.maxPosition) x119 1.9}}
@@ -1888,7 +1879,7 @@ push $N92382170
   addUserKnob {20 User}
   addUserKnob {3 position}
  }
-set N9239ff40 [stack 0]
+set N8b5f08d0 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -1909,7 +1900,7 @@ set N9239ff40 [stack 0]
   xpos 1002
   ypos 1064
  }
-push $N9239ff40
+push $N8b5f08d0
  Switch {
   inputs 2
   which {{CopyMASTER.from0}}
@@ -1998,7 +1989,7 @@ push $N9239ff40
   inputs 2
   operation {{MASTER.mergeChoice}}
   name Merge16
-  xpos 8012
+  xpos 8018
   ypos 1310
  }
  Merge2 {
@@ -2012,8 +2003,8 @@ push $N9239ff40
   inputs 2
   operation {{MASTER.mergeChoice}}
   name Merge18
-  xpos 9322
-  ypos 1325
+  xpos 9320
+  ypos 1326
  }
  Merge2 {
   inputs 2
@@ -2029,49 +2020,92 @@ push $N9239ff40
   gamma {{parent.MASTER.gamma}}
   name Grade11
   xpos 10050
-  ypos 1598
+  ypos 1596
  }
  Dot {
   name Dot3
   xpos 10093
   ypos 1670
  }
-set N923a4400 [stack 0]
+set N8b5f4d90 [stack 0]
+ Dot {
+  name Dot33
+  xpos 10425
+  ypos 1697
+ }
+set N8b5f5100 [stack 0]
+ Dot {
+  name Dot35
+  xpos 10639
+  ypos 1702
+ }
+ Dot {
+  name Dot37
+  xpos 10639
+  ypos 1824
+ }
+push $N84a23a90
+ Dot {
+  name Dot1
+  xpos 327
+  ypos 617
+ }
+ Dot {
+  name Dot2
+  xpos 327
+  ypos 1332
+ }
+ Multiply {
+  channels rgb
+  value {{parent.MASTER.sourceMult}}
+  name MultiplySource
+  selected true
+  xpos 9778
+  ypos 1703
+ }
+ Dot {
+  name Dot4
+  xpos 9937
+  ypos 1729
+ }
+set N8b5f65a0 [stack 0]
+push $N8b5f5100
  Merge2 {
   inputs 2
   operation from
   name Merge4
-  xpos 10325
-  ypos 1782
+  xpos 10391
+  ypos 1779
  }
-push $N9237d940
-push $N923a4400
+set N8b5f6910 [stack 0]
+push $N8b5f65a0
+push $N8b5f4d90
  Merge2 {
   inputs 2
   name Merge3
-  xpos 10205
-  ypos 1784
+  xpos 10204
+  ypos 1783
  }
-push $N9237d940
-push $N923a4400
+push $N8b5f65a0
+push $N8b5f4d90
  Merge2 {
   inputs 2
   operation plus
   name Merge2
-  xpos 10084
-  ypos 1786
+  xpos 10078
+  ypos 1789
  }
-push $N9237d940
-push $N923a4400
+push $N8b5f65a0
+push $N8b5f4d90
  Merge2 {
   inputs 2
   operation max
   name Merge1
-  xpos 9974
-  ypos 1786
+  xpos 9971
+  ypos 1788
  }
  Switch {
-  inputs 4
+  inputs 5
   which {{MASTER.source}}
   name Switch1
   xpos 10151
@@ -2082,7 +2116,13 @@ push $N923a4400
   xpos 10151
   ypos 1963
  }
-push $N28a383d0
+ Merge2 {
+  inputs 0
+  name MergeMaster
+  xpos 734
+  ypos 453
+ }
+push $N8b5f6910
  Viewer {
   freezeGuiWhenPlayBack true
   input_process false
@@ -2090,18 +2130,22 @@ push $N28a383d0
   xpos 1139
   ypos 224
  }
-push $N9237cb80
+push $N84a23720
  NoOp {
   name MASTER
-  xpos 808
-  ypos 416
+  xpos 809
+  ypos 415
   addUserKnob {20 User}
   addUserKnob {4 filterType M {blur defocus "" "" ""}}
+  filterType defocus
   addUserKnob {26 space01 l "" -STARTLINE T " "}
   addUserKnob {4 blendType -STARTLINE M {Normal Glow Max "" ""}}
-  addUserKnob {4 source M {max plus over "effect only" ""}}
+  addUserKnob {4 source M {max plus over "effect only" off "" ""}}
+  source "effect only"
+  addUserKnob {7 sourceMult}
+  sourceMult 1
   addUserKnob {7 valueUI R 0 400}
-  valueUI 50
+  valueUI 138
   addUserKnob {14 value R 0 100}
   value {{spread<=0?valueUI:valueUI+-valueUI*spread} {spread>=0?valueUI:valueUI+valueUI*spread}}
   addUserKnob {7 spread R -1 1}
@@ -2110,19 +2154,21 @@ push $N9237cb80
   addUserKnob {4 valueGrad l grad -STARTLINE M {1 2 3 4 5 6 7 8 9 10 ""}}
   valueGrad 5
   addUserKnob {19 exposure R 0 3}
-  exposure 1
+  exposure 0.21
   addUserKnob {6 exposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {6 sideExposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   sideExposure_panelDropped true
   addUserKnob {19 gamma R 0 3}
-  gamma 1
+  gamma 1.3
   addUserKnob {6 gamma_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {19 edgeExposure l outerExposure R 0 3}
-  edgeExposure {1 1 1 1}
+  edgeExposure {1 1 1 0}
   addUserKnob {6 edgeExposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  edgeExposure_panelDropped true
   addUserKnob {19 innerExposure R 0 3}
-  innerExposure {1 1 1 1}
+  innerExposure {2.233334 1.482648 1.477341 1}
   addUserKnob {6 innerExposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  innerExposure_panelDropped true
   addUserKnob {4 gradEdge M {10 11 12 13 14 15 16 17 18 19 20 "" "" "" "" "" "" "" ""}}
   gradEdge 15
   addUserKnob {7 maskRange R 0 0.5}
@@ -2138,21 +2184,5 @@ push $N9237cb80
   switchChoice {{filterType x122 10}}
   addUserKnob {3 mergeChoice -STARTLINE}
   mergeChoice {{MergeMaster.operation x119 17}}
- }
- Merge2 {
-  inputs 0
-  name MergeMaster
-  xpos 750
-  ypos 463
-  hide_input true
- }
- Blur {
-  inputs 0
-  channels rgba
-  name BlurMASTER
-  selected true
-  xpos 822
-  ypos 497
-  hide_input true
  }
 end_group
