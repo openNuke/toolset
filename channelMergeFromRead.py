@@ -34,8 +34,8 @@ class channelMergeFromRead():
             p = nuke.Panel('ExrMerge by Zabander')
             p.addEnumerationPulldown('BeautyLayer', self.dic.values()+['noBeauty'])
             p.addSingleLineInput('self.splitString', '_')
-            p.addEnumerationPulldown('self.removeFront', '4 0 1 2 3 4 5 6 7')
-            p.addEnumerationPulldown('self.removeBack', '2 0 1 2 3 4 5 6 7')
+            p.addEnumerationPulldown('self.removeFront', '4 0 1 2 3 4 5 6 7 8 9 10')
+            p.addEnumerationPulldown('self.removeBack', '2 0 1 2 3 4 5 6 7 8 9 10')
             ret = p.show()
             c = p.value('BeautyLayer')
             self.splitString =p.value('self.splitString')
@@ -83,11 +83,9 @@ class channelMergeFromRead():
 
     def name(self,node):
         path = node["file"].value()
-        pathsplited =  path.split("/") 
-        extentionsplited = pathsplited[-1].split(".")
-        extentionsplited2 = extentionsplited[0].split("%")
-        nameLayer = extentionsplited2[0]
-        self.currentlayerName = str(nameLayer)
+        filename = os.path.basename(path)
+        filenamesplit = filename.split(".")
+        self.currentlayerName = str(self.splitString.join(filenamesplit[0:len(filenamesplit)-2]))
 
 
     #Generar Shuffle y transferir atributos
@@ -165,4 +163,5 @@ class channelMergeFromRead():
         else:
             print "Process Stopped"
             pass
-        
+     
+channelMergeFromRead().executeScript()
