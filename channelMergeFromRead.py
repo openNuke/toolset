@@ -1,8 +1,9 @@
-#ExrMerge v1.0
+#ExrMerge v1.0 from nukepedia
 #Desarrollado por Jose A. Enriquez (Zabander) 21-11-2014.
 #hacked by Rafal 1)removed the write node 2)added stringSplit to tidy the name to remove version, show, shot; 3) changed into class
 #todo , do noBeauty, make gui, new group name, bring back option to create write, fix error traps (i.e. if read not selected); backStringSplit, clean ui
-
+import os
+import nuke
 class channelMergeFromRead():
     def __init__(self):
     
@@ -22,6 +23,7 @@ class channelMergeFromRead():
         self.splitString =''
         self.removeFront=''
         self.removeBack=''
+        self.readNodes=[]
 
 
     #Permite seleccionar al passe beauty
@@ -31,10 +33,10 @@ class channelMergeFromRead():
             for nodes in self.lista:
                 self.dic[nodes] = os.path.split(nodes.knob('file').value())[1]
             
-            p = nuke.Panel('ExrMerge by Zabander')
-            p.addEnumerationPulldown('BeautyLayer', self.dic.values()+['noBeauty'])
+            p = nuke.Panel('channel merge read nodes')
+            p.addEnumerationPulldown('BeautyLayer', self.dic.values())#+['noBeauty']
             p.addSingleLineInput('self.splitString', '_')
-            p.addEnumerationPulldown('self.removeFront', '4 0 1 2 3 4 5 6 7 8 9 10')
+            p.addEnumerationPulldown('self.removeFront', '6 0 1 2 3 4 5 6 7 8 9 10')
             p.addEnumerationPulldown('self.removeBack', '2 0 1 2 3 4 5 6 7 8 9 10')
             ret = p.show()
             c = p.value('BeautyLayer')
@@ -52,9 +54,13 @@ class channelMergeFromRead():
            #pass
 
     #Agrega los read nodes a la self.lista
-    def readNodes(self):
+    def getReadNodes(self):
             #try:
-            sNodes = nuke.selectedNodes()
+            if self.readNodes ==0:
+                sNodes = nuke.selectedNodes()
+                self.readNodes = sNodes
+            else:
+                sNodes = self.readNodes
             len(sNodes)
             if len(sNodes) >= 2:
                 for node in sNodes:
@@ -128,8 +134,6 @@ class channelMergeFromRead():
     def selector(self):
         for item in self.lista[1:]:
             self.node2 = self.lista[self.add]
-
-
             self.exrCompile(self.node, self.node2)
             if self.add < len(self.lista):
                 self.add =+ self.add + 1        
@@ -144,6 +148,8 @@ class channelMergeFromRead():
         if len(self.lista) >= 2:
             for shuffleknob in self.sGroup:
                 shuffleknob['selected'].setValue(True) 
+            #for shuffleknob in self.readNodes:
+                #shuffleknob['selected'].setValue(True) 
             node = nuke.collapseToGroup(show=False)
             node.autoplace()
             gName = node.name()
@@ -154,8 +160,12 @@ class channelMergeFromRead():
             pass
 
 
-    def executeScript(self):
-        self.readNodes()
+    def run(self,readNodes=0):
+        self.readNodes = readNodes
+        #nuke.message(str(self.readNodes))
+        self.getReadNodes()
+
+
         if len(self.lista) >= 2 and self.isGroup == True:
             self.selector()
             self.makeGroup()
@@ -163,5 +173,4 @@ class channelMergeFromRead():
         else:
             print "Process Stopped"
             pass
-     
-channelMergeFromRead().executeScript()
+   
