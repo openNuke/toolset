@@ -1,6 +1,6 @@
 #ExrMerge v1.0 from nukepedia
 #Desarrollado por Jose A. Enriquez (Zabander) 21-11-2014.
-#hacked by Rafal 1)removed the write node 2)added stringSplit to tidy the name to remove version, show, shot; 3) changed into class
+#hacked by Rafal 1)removed the write node 2)added stringSplit to tidy the name to remove version, show, shot; 3) changed into class 4) added folder method
 #todo , do noBeauty, make gui, new group name, bring back option to create write, fix error traps (i.e. if read not selected); backStringSplit, clean ui
 import os
 import nuke
@@ -24,6 +24,7 @@ class channelMergeFromRead():
         self.removeFront=''
         self.removeBack=''
         self.readNodes=[]
+        self.folderCount='2'
 
 
     #Permite seleccionar al passe beauty
@@ -31,18 +32,24 @@ class channelMergeFromRead():
     def mainBeauty(self):
             #try:
             for nodes in self.lista:
-                self.dic[nodes] = os.path.split(nodes.knob('file').value())[1]
-            
+                self.dic[nodes] = os.path.split(nodes.knob('file').value())[1]          
+            readNames = self.dic.values()
+            readNames.sort()
+            readNames.sort(key=len)
             p = nuke.Panel('channel merge read nodes')
-            p.addEnumerationPulldown('BeautyLayer', self.dic.values())#+['noBeauty']
-            p.addSingleLineInput('self.splitString', '_')
-            p.addEnumerationPulldown('self.removeFront', '6 0 1 2 3 4 5 6 7 8 9 10')
-            p.addEnumerationPulldown('self.removeBack', '2 0 1 2 3 4 5 6 7 8 9 10')
+            p.addEnumerationPulldown('BeautyLayer', readNames)
+            p.addEnumerationPulldown('nameMethod', 'from_folder_name from_file_name')
+            p.addEnumerationPulldown('folderCount', '2 0 1 2 3 4')
+            p.addSingleLineInput('splitStringFileName', '_')
+            p.addEnumerationPulldown('removeFrontFileName', '6 0 1 2 3 4 5 6 7 8 9 10')
+            p.addEnumerationPulldown('removeBackFileName', '2 0 1 2 3 4 5 6 7 8 9 10')
             ret = p.show()
             c = p.value('BeautyLayer')
-            self.splitString =p.value('self.splitString')
-            self.removeFront=p.value('self.removeFront')
-            self.removeBack=p.value('self.removeBack')
+            self.folderCount =p.value('folderCount')
+            self.nameMethod =p.value('nameMethod')
+            self.splitString =p.value('splitStringFileName')
+            self.removeFront=p.value('removeFrontFileName')
+            self.removeBack=p.value('removeBackFileName')
             result = c.split("'")[1]
             for mKey, name in self.dic.items():
                 if result == name:
@@ -69,17 +76,17 @@ class channelMergeFromRead():
                        nodeName = node 
                        self.lista.append(nodeName)         
                     else:
-                         nuke.message("One of your nodes is not a read node: %s, it will be excluded." % node.self.name()) 
+                         pass#nuke.message("One of your nodes is not a read node: %s, it will be excluded." % node.self.name()) 
                 self.mainBeauty()
                 if self.mainBeautyLayer=='0':
                     nuke.ask('err broken.. sorry')
                 else:
                     beautyIndex = self.lista.index(self.mainBeautyLayer)
-                self.lista[beautyIndex], self.lista[0] = self.lista[0], self.lista[beautyIndex]   
+                self.lista[beautyIndex], self.lista[0] = self.lista[0], self.lista[beautyIndex]                 
                 self.node = self.lista[0]  
                 self.node.knob("selected").setValue(False)
             else:
-                nuke.message ("Please select more than 1 node")
+                nuke.message ("Please select more than 1 node__")
             #except:
             # self.isGroup = False
             
@@ -91,7 +98,17 @@ class channelMergeFromRead():
         path = node["file"].value()
         filename = os.path.basename(path)
         filenamesplit = filename.split(".")
-        self.currentlayerName = str(self.splitString.join(filenamesplit[0:len(filenamesplit)-2]))
+        folderCount = int(self.folderCount)
+        if self.nameMethod=='from_folder_name':
+                filePathSplit = path.split("/")
+                self.currentlayerName= ''.join(filePathSplit[len(filePathSplit)-(folderCount+1):-folderCount])
+        if self.nameMethod=='from_file_name':
+            del filenamesplit[-1]
+            filenamesplit = '_'.join(filenamesplit)
+            filenamesplit = filenamesplit.split(self.splitString) 
+            self.currentlayerName = str(self.splitString.join(filenamesplit[int(self.removeFront):len(filenamesplit)-int(self.removeBack)]))
+            nuke.tprint(filenamesplit)
+            nuke.tprint(self.currentlayerName)
 
 
     #Generar Shuffle y transferir atributos
@@ -111,9 +128,12 @@ class channelMergeFromRead():
             self.name(self.node2)
             nameTemp=''
             listTemp=[]
-            listTemp=str.split(self.currentlayerName,'_')
-            for x in range(int(float(self.removeFront)),len(listTemp)-int(float(self.removeBack)),1):
-                nameTemp= nameTemp+'_'+listTemp[x]
+            #listTemp=str.split(self.currentlayerName,'_')
+            listTemp=self.currentlayerName
+            #for x in range(int(float(self.removeFront)),len(listTemp)-int(float(self.removeBack)),1):
+                #nameTemp= nameTemp+'_'+listTemp[x]
+            nameTemp="_"+listTemp
+            nuke.tprint(nameTemp)
             currentlayerNameRed = str(nameTemp) + ".red"
             currentlayerNameGreen = str(nameTemp) + ".green"
             currentlayerNameBlue = str(nameTemp) + ".blue"
@@ -146,15 +166,20 @@ class channelMergeFromRead():
         
     def makeGroup(self): 
         if len(self.lista) >= 2:
+            nuke.selectAll()
+            nuke.invertSelection()
             for shuffleknob in self.sGroup:
                 shuffleknob['selected'].setValue(True) 
             #for shuffleknob in self.readNodes:
                 #shuffleknob['selected'].setValue(True) 
             node = nuke.collapseToGroup(show=False)
-            node.autoplace()
-            gName = node.name()
-            nuke.toNode(gName)["name"].setValue("Exr Merge %s" %self.nIncrement)
-            self.nIncrement += 1
+            node['xpos'].setValue(self.mainBeautyLayer.xpos())
+            node['ypos'].setValue(self.mainBeautyLayer.ypos()+100)
+            #node.autoplace()
+            #gName = node.name()
+            #nuke.tprint((self.mainBeautyLayer))
+            #nuke.toNode(gName)["name"].setValue("Exr Merge %s" %'hello')
+            #self.nIncrement += 1
             #node.lock_connections(True)
         else:
             pass
@@ -162,6 +187,7 @@ class channelMergeFromRead():
 
     def run(self,readNodes=0):
         self.readNodes = readNodes
+        self.readNodes =0
         #nuke.message(str(self.readNodes))
         self.getReadNodes()
 
@@ -173,4 +199,4 @@ class channelMergeFromRead():
         else:
             print "Process Stopped"
             pass
-   
+channelMergeFromRead().run()
