@@ -1,6 +1,6 @@
 #ExrMerge v1.0 from nukepedia
 #Desarrollado por Jose A. Enriquez (Zabander) 21-11-2014.
-#hacked by Rafal 1)removed the write node 2)added stringSplit to tidy the name to remove version, show, shot; 3) changed into class 4) added folder method
+#hacked by Rafal 1)removed the write node 2)added stringSplit to tidy the name to remove version, show, shot; 3) changed into class
 #todo , do noBeauty, make gui, new group name, bring back option to create write, fix error traps (i.e. if read not selected); backStringSplit, clean ui
 import os
 import nuke
@@ -37,19 +37,22 @@ class channelMergeFromRead():
             readNames.sort()
             readNames.sort(key=len)
             p = nuke.Panel('channel merge read nodes')
+            #p.addSingleLineInput( 'Path', os.path.split(nodes.knob('file').value())[0] )
             p.addEnumerationPulldown('BeautyLayer', readNames)
             p.addEnumerationPulldown('nameMethod', 'from_folder_name from_file_name')
+            #p.Divider('from_folderNameMethod')
             p.addEnumerationPulldown('folderCount', '2 0 1 2 3 4')
-            p.addSingleLineInput('splitStringFileName', '_')
-            p.addEnumerationPulldown('removeFrontFileName', '6 0 1 2 3 4 5 6 7 8 9 10')
-            p.addEnumerationPulldown('removeBackFileName', '2 0 1 2 3 4 5 6 7 8 9 10')
+            #p.Divider('from_fileNameMethod')
+            p.addSingleLineInput('splitString', '_')
+            p.addEnumerationPulldown('removeFront', '8 0 1 2 3 4 5 6 7 8 9 10')
+            p.addEnumerationPulldown('removeBack', '1 0 1 2 3 4 5 6 7 8 9 10')
             ret = p.show()
             c = p.value('BeautyLayer')
             self.folderCount =p.value('folderCount')
             self.nameMethod =p.value('nameMethod')
-            self.splitString =p.value('splitStringFileName')
-            self.removeFront=p.value('removeFrontFileName')
-            self.removeBack=p.value('removeBackFileName')
+            self.splitString =p.value('splitString')
+            self.removeFront=p.value('removeFront')
+            self.removeBack=p.value('removeBack')
             result = c.split("'")[1]
             for mKey, name in self.dic.items():
                 if result == name:
@@ -132,7 +135,7 @@ class channelMergeFromRead():
             listTemp=self.currentlayerName
             #for x in range(int(float(self.removeFront)),len(listTemp)-int(float(self.removeBack)),1):
                 #nameTemp= nameTemp+'_'+listTemp[x]
-            nameTemp="_"+listTemp
+            nameTemp=listTemp
             nuke.tprint(nameTemp)
             currentlayerNameRed = str(nameTemp) + ".red"
             currentlayerNameGreen = str(nameTemp) + ".green"
@@ -199,4 +202,4 @@ class channelMergeFromRead():
         else:
             print "Process Stopped"
             pass
-channelMergeFromRead().run()
+   
