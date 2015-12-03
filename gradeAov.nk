@@ -1,13 +1,13 @@
 set cut_paste_input [stack 0]
-version 8.0 v5
+version 9.0 v7
 push $cut_paste_input
 Group {
- name AOVGrade
+ name AOV_Grade
  help "Colour correct the CG beauty using the secondary(aov) passes.with a subtractive process.\nto be used when:\n * the CG is good and only a few passes need adjusting\n * the secondaries don't add up to the beauty\n * rgb saturation (luminance mix on)\n * rgb contrast (with pivot)\n * matting with external mask input or main channel input or both with an operation.\n The order of correction is: Grade Node>Contrast Node>Saturation."
- label " \[value in]\n"
+ label " \[value in]"
  selected true
- xpos 5362
- ypos -7581
+ xpos 6193
+ ypos 6679
  addUserKnob {20 User l AOVGrade}
  addUserKnob {41 in l "Channel to use" T Shuffle.in}
  addUserKnob {41 out T Switch3.output}
@@ -36,10 +36,10 @@ Group {
  addUserKnob {41 enable_mix_luminance_1 l "" -STARTLINE T ColorCorrect6.enable_mix_luminance}
  addUserKnob {41 mix_luminance_1 l "" -STARTLINE T ColorCorrect6.mix_luminance}
  addUserKnob {26 ""}
- addUserKnob {41 A_1 l mask T Group1.A}
+ addUserKnob {41 from0_1 l mask T CopyMASK.from0}
  addUserKnob {41 mask_1 l invert -STARTLINE T InverMask.mask_1}
  addUserKnob {41 operation_1 l operation T Group1.operation}
- addUserKnob {41 B_1 l channel T Group1.B}
+ addUserKnob {41 from0 l channel T CopyCHANNEL.from0}
  addUserKnob {41 mask_1_1 l invert -STARTLINE T InvertChannel.mask_1}
  addUserKnob {26 ""}
  addUserKnob {41 alpha l "(un)premult by" T Unpremult1.alpha}
@@ -47,35 +47,113 @@ Group {
  addUserKnob {20 Info}
  addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/gradeAov_nkV/\")" +STARTLINE}
  addUserKnob {26 ""}
- addUserKnob {26 version l version: T "0.1 Stable"}
+ addUserKnob {26 version l version: T "0.4 Stable"}
  addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
- addUserKnob {26 modified l "modified: " T " "}
+ addUserKnob {26 modified l "modified: " T "14/10/2015 : added layerContact and preview channel\n& shows grade change by Rafal_Kan"}
  addUserKnob {26 source l source: T "<a href='https://github.com/vfxwiki/gradeAOV/'> Github.com</a>"}
  addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  Input {
   inputs 0
-  name mask
-  xpos -20
-  ypos -710
-  number 1
- }
- Input {
-  inputs 0
   name In
-  xpos -220
+  xpos -217
   ypos -722
  }
+set N51fee800 [stack 0]
  Dot {
-  name Dot1
-  xpos -186
-  ypos -633
+  name Dot8
+  xpos -995
+  ypos -718
  }
-set Na4fb72c0 [stack 0]
+ Dot {
+  name Dot9
+  xpos -995
+  ypos 217
+ }
+ LayerContactSheet {
+  width {{width*6}}
+  height {{height*6}}
+  showLayerNames true
+  name LayerContactSheet1
+  xpos -633
+  ypos 213
+ }
+push $N51fee800
  Dot {
   name Dot5
-  xpos -135
-  ypos -633
+  xpos 343
+  ypos -724
+ }
+set N8daa3800 [stack 0]
+push $N8daa3800
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 302
+  ypos -666
+ }
+set N8daa3400 [stack 0]
+ Input {
+  inputs 0
+  name mask
+  xpos 511
+  ypos -672
+  number 1
+ }
+ Dot {
+  name Dot11
+  xpos 545
+  ypos -635
+ }
+set N8daa2c00 [stack 0]
+push $N8daa2c00
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 rgba.alpha
+  name CopyMASK
+  xpos 511
+  ypos -605
+  addUserKnob {20 User}
+  addUserKnob {6 on +STARTLINE}
+  on {{from0}}
+ }
+set N8daa2800 [stack 0]
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge3
+  xpos 374
+  ypos -457
+  disable {{InverMask.disable x1062 1}}
+ }
+push $N8daa3400
+push $N8daa2800
+ Invert {
+  channels alpha
+  name InverMask
+  xpos 531
+  ypos -544
+  disable {{!mask_1}}
+  addUserKnob {20 User}
+  addUserKnob {6 mask_1 l mask +STARTLINE}
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge1
+  xpos 520
+  ypos -481
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge5
+  xpos 520
+  ypos -424
+  disable {{InverMask.disable}}
  }
  Shuffle {
   red black
@@ -83,131 +161,182 @@ set Na4fb72c0 [stack 0]
   blue black
   alpha black
   name Shuffle2
-  xpos -169
-  ypos -587
+  xpos 494
+  ypos -380
+  disable {{CopyMASK.on x1062 1}}
  }
-set Na4fb79a0 [stack 0]
- Multiply {
-  value 0
-  name Multiply1
-  xpos 76
-  ypos -593
+ Dot {
+  name Dot15
+  xpos 552
+  ypos -331
  }
- Switch {
+push $N8daa3400
+push $N51fee800
+ Dot {
+  name Dot12
+  xpos 191
+  ypos -672
+ }
+set N8c300c00 [stack 0]
+push $N8c300c00
+ Copy {
   inputs 2
-  which {{"\[exists parent.input1.name]" x45 1}}
-  name Switch2
-  xpos -20
-  ypos -497
- }
- Invert {
-  name InverMask
-  xpos -20
-  ypos -441
-  disable {{!mask_1}}
+  to0 rgba.alpha
+  name CopyCHANNEL
+  xpos 157
+  ypos -638
   addUserKnob {20 User}
-  addUserKnob {6 mask_1 l mask +STARTLINE}
-  mask_1 true
+  addUserKnob {6 on +STARTLINE}
+  on {{from0}}
  }
-push $Na4fb79a0
+set N8c300800 [stack 0]
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge2
+  xpos 256
+  ypos -477
+  disable {{InvertChannel.disable x1062 1}}
+ }
+push $N8daa3400
+push $N8c300800
  Invert {
+  channels alpha
   name InvertChannel
-  xpos -169
-  ypos -379
+  xpos 157
+  ypos -578
   disable {{!mask_1}}
   addUserKnob {20 User}
   addUserKnob {6 mask_1 l mask +STARTLINE}
  }
- Group {
+ Merge2 {
   inputs 2
-  name Group1
-  xpos -20
-  ypos -373
-  addUserKnob {20 User}
-  addUserKnob {41 A l "A channel" T ChannelMerge.A}
-  addUserKnob {41 operation T ChannelMerge.operation}
-  addUserKnob {41 B l "B channel" T ChannelMerge.B}
+  operation mask
+  name Merge6
+  xpos 101
+  ypos -489
  }
-  Input {
-   inputs 0
-   name Input2
-   xpos -5
-   ypos -195
-   number 1
-  }
-  Input {
-   inputs 0
-   name Input1
-   xpos -5
-   ypos -195
-  }
-  ChannelMerge {
-   inputs 2
-   A none
-   operation max
-   B none
-   name ChannelMerge
-   xpos -5
-   ypos -155
-   addUserKnob {20 User}
-   addUserKnob {6 off +STARTLINE}
-   off {{"\[python nuke.thisNode()\\\['A'\\].value()\\ ==\\ 'none'\\ and\\ nuke.thisNode()\\\['B'\\].value()\\ ==\\ 'none']"}}
-  }
-  Output {
-   name Output1
-   xpos -5
-   ypos -55
-  }
- end_group
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge7
+  xpos 163
+  ypos -419
+  disable {{InvertChannel.disable}}
+ }
  Shuffle {
   red black
   green black
   blue black
+  alpha black
   name Shuffle1
-  xpos -20
-  ypos -296
-  disable {{!Group1.ChannelMerge.off K x22 1}}
+  xpos 157
+  ypos -380
+  disable {{CopyCHANNEL.on x1062 1}}
  }
-push $Na4fb72c0
+ Group {
+  inputs 2
+  name Group1
+  xpos 150
+  ypos -335
+  addUserKnob {20 User}
+  addUserKnob {41 operation T ChannelMerge.operation}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos 162
+   ypos -468
+  }
+  Input {
+   inputs 0
+   name Input2
+   xpos -146
+   ypos -383
+   number 1
+  }
+  ChannelMerge {
+   inputs 2
+   operation max
+   name ChannelMerge
+   xpos 109
+   ypos -430
+   addUserKnob {20 User}
+  }
+  Dot {
+   name Dot5
+   xpos 143
+   ypos -297
+  }
+  Output {
+   name Output1
+   xpos 324
+   ypos -355
+  }
+ end_group
+set N6097d680 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue black
+  name Shuffle5
+  xpos 150
+  ypos -270
+ }
+push $N51fee800
+ Dot {
+  name Dot1
+  xpos -186
+  ypos -633
+ }
+set Na6679800 [stack 0]
  Dot {
   name Dot2
-  xpos -189
+  xpos -186
   ypos -321
  }
-set Na4fb9890 [stack 0]
  Dot {
   name Dot3
-  xpos -319
+  xpos -284
   ypos -321
  }
-push $Na4fb72c0
+push $N6097d680
+push $Na6679800
  Unpremult {
-  alpha none
+  alpha -rgba.alpha
   name Unpremult1
-  xpos -488
-  ypos -633
+  xpos -491
+  ypos -637
   disable {{!alpha x9 0}}
   addUserKnob {20 User}
  }
  Dot {
   name Dot27
   xpos -457
-  ypos -473
+  ypos -515
  }
-set Na4fba2e0 [stack 0]
+set Na6678800 [stack 0]
  Dot {
   name Dot26
-  xpos -649
-  ypos -473
+  xpos -646
+  ypos -515
  }
  Shuffle {
   in rgb
   out rgb
   name Shuffle
   xpos -680
-  ypos -419
+  ypos -497
  }
-set Na4fba9c0 [stack 0]
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge4
+  xpos -680
+  ypos -440
+  disable {{CopyCHANNEL.on|CopyMASK.on?0:1}}
+ }
+set Na6699c00 [stack 0]
  Grade {
   channels all
   enable_mix_luminance false
@@ -226,19 +355,18 @@ set Na4fba9c0 [stack 0]
   addUserKnob {7 grey}
   grey 0.18
   addUserKnob {18 value R -1 1}
-  value {0 0 0}
   addUserKnob {6 value_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  }
  ColorCorrect {
   channels all
-  mix_luminance 1
+  enable_mix_luminance false
   name ColorCorrect6
   xpos -680
   ypos -273
  }
-set Na4fbb410 [stack 0]
-push $Na4fba9c0
-push $Na4fba2e0
+set Na6698c00 [stack 0]
+push $Na6699c00
+push $Na6678800
  Merge2 {
   inputs 2
   operation from
@@ -247,7 +375,7 @@ push $Na4fba2e0
   output rgb
   name From
   xpos -491
-  ypos -419
+  ypos -440
  }
  Merge2 {
   inputs 2
@@ -257,18 +385,13 @@ push $Na4fba2e0
   output rgb
   name Merge34
   xpos -491
-  ypos -269
- }
- Dot {
-  name Dot29
-  xpos -457
-  ypos -231
+  ypos -267
  }
  Premult {
   alpha {{{parent.Unpremult1.alpha}}}
   name Premult4
-  xpos -488
-  ypos -195
+  xpos -491
+  ypos -197
   disable {{parent.Unpremult1.disable x9 0}}
  }
  Blend {
@@ -276,80 +399,57 @@ push $Na4fba2e0
   weight0 {{mixBlend}}
   weight1 {{1-weight0}}
   name Blend1
-  xpos -350
-  ypos -199
+  xpos -318
+  ypos -203
   addUserKnob {20 User}
   addUserKnob {7 mixBlend}
   mixBlend 1
  }
-set Na4fbc540 [stack 0]
+set Nb5d4dc00 [stack 0]
  Copy {
   inputs 2
   from0 rgba.alpha
   to0 rgba.alpha
   name Copy1
-  xpos -20
-  ypos -199
+  xpos 150
+  ypos -203
  }
  Premult {
   name Premult1
-  xpos -20
-  ypos -88
+  xpos 150
+  ypos -116
  }
-set Na4fbcc20 [stack 0]
  Shuffle {
   red alpha
   green alpha
   blue alpha
   name Shuffle3
-  xpos -18
+  xpos 152
   ypos -13
  }
-push $Na4fba9c0
+push $Na6698c00
  Dot {
   name Dot4
   xpos -833
-  ypos -411
+  ypos -263
  }
  Dot {
   name Dot7
   xpos -833
-  ypos 149
+  ypos 140
  }
- Switch {
-  inputs 2
-  which {{Switch3.output==2?1:0}}
-  name Switch4
-  xpos -25
-  ypos 128
-  addUserKnob {20 User}
-  addUserKnob {4 output M {"rgb graded by channel" "preview channel" "preview mask" "" ""}}
-  output "preview channel"
-  addUserKnob {6 viewchannelonly l "view channel only" +STARTLINE}
+ Dot {
+  name Dot10
+  xpos -402
+  ypos 140
  }
-push $Na4fbb410
+push $Na6698c00
  Dot {
   name Dot6
-  xpos -649
+  xpos -699
   ypos 89
  }
-push $Na4fbcc20
-push $Na4fb9890
- Merge2 {
-  inputs 2
-  output {rgba.red rgba.green rgba.blue -rgba.alpha}
-  name Merge1
-  xpos -223
-  ypos -88
- }
-push $Na4fbc540
- Switch {
-  inputs 2
-  which {{Group1.A|Group1.B>0?1:0}}
-  name Switch1
-  xpos -268
-  ypos 23
- }
+push $Nb5d4dc00
  ShuffleCopy {
   inputs 2
   in {{{Shuffle.in}}}
@@ -359,32 +459,32 @@ push $Na4fbc540
   red2 blue
   out2 {{{Shuffle.in}}}
   name ShuffleCopy1
-  xpos -268
+  xpos -318
   ypos 101
   disable {{!AlsoGradeChannel}}
   addUserKnob {20 User}
   addUserKnob {6 AlsoGradeChannel l "Also Grade Channel" +STARTLINE}
  }
  Switch {
-  inputs 2
-  which {{output?1:0}}
+  inputs 4
+  which {{output}}
   name Switch3
-  xpos -268
-  ypos 164
+  xpos -318
+  ypos 207
   addUserKnob {20 User}
-  addUserKnob {4 output M {"rgb graded by channel" "preview channel" "preview mask" "" ""}}
+  addUserKnob {4 output M {"rgb graded by channel" "preview channel" "preview mask" "channel contact sheet" "" "" ""}}
   addUserKnob {6 viewchannelonly l "view channel only" +STARTLINE}
  }
  Output {
   name Output1
-  xpos -268
-  ypos 262
+  xpos -318
+  ypos 385
  }
+push $Nb5d4dc00
  Viewer {
-  input_process false
+  frame_range 1001-1062
   name Viewer1
-  selected true
-  xpos -20
-  ypos -272
+  xpos -796
+  ypos -457
  }
 end_group
