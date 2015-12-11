@@ -1,10 +1,6 @@
 set cut_paste_input [stack 0]
 version 9.0 v7
 push $cut_paste_input
-add_layer {VRay_POBJECT VRay_POBJECT.red VRay_POBJECT.green VRay_POBJECT.blue VRay_POBJECT.alpha}
-add_layer {VRay_PWORLD VRay_PWORLD.red VRay_PWORLD.green VRay_PWORLD.blue VRay_PWORLD.alpha}
-add_layer {VRayBumpNormals VRayBumpNormals.X VRayBumpNormals.Y VRayBumpNormals.Z VRayBumpNormals.red VRayBumpNormals.green VRayBumpNormals.blue VRayBumpNormals.alpha}
-add_layer {VRayVelocity VRayVelocity.X VRayVelocity.Y VRayVelocity.Z VRayVelocity.red VRayVelocity.green VRayVelocity.blue VRayVelocity.alpha}
 Group {
  name VrayDataPass
  label V02
@@ -89,7 +85,7 @@ set Nf80adc00 [stack 0]
   ypos 152
  }
  Shuffle {
-  in {VRayVelocity.X VRayVelocity.Y VRayVelocity.Z -VRayVelocity.red}
+  in none
   blue black
   alpha black
   name ShuffleNormVely
@@ -123,7 +119,7 @@ set Nf80adc00 [stack 0]
  }
 push $Nf80adc00
  Shuffle {
-  in {VRayBumpNormals.X VRayBumpNormals.Y VRayBumpNormals.Z -VRayBumpNormals.red}
+  in none
   name ShuffleNorm
   xpos -215
   ypos 198
@@ -148,7 +144,7 @@ push $Nf80adc00
  }
 push $Nf80ad800
  Shuffle {
-  in depth
+  in none
   name ShuffleZ
   xpos -87
   ypos 208
@@ -252,7 +248,7 @@ push $N95097400
 set N95096800 [stack 0]
 push $Nf80ac400
  Shuffle {
-  in {VRay_PWORLD.red VRay_PWORLD.green VRay_PWORLD.blue -VRay_PWORLD.alpha}
+  in none
   name ShufflePwrld
   xpos 34
   ypos 208
@@ -277,7 +273,7 @@ push $Nf80ac400
  }
 push $Nf80ac000
  Shuffle {
-  in VRay_POBJECT
+  in none
   name ShufflePObj
   xpos 145
   ypos 208
