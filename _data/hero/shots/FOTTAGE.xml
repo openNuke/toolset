@@ -1,0 +1,98 @@
+<root presetname="FOTTAGE" tasktype="hiero.exporters.FnShotProcessor.ShotProcessor">
+    <startFrameIndex valuetype="int">1001</startFrameIndex>
+    <exportRoot valuetype="str">//JUPITER/Render/23158_TBWA_LA_Slack_SF/sq_60sec/</exportRoot>
+    <versionIndex valuetype="int">4</versionIndex>
+    <cutUseHandles valuetype="bool">True</cutUseHandles>
+    <versionPadding valuetype="int">3</versionPadding>
+    <exportTemplate valuetype="list">
+        <SequenceItem valuetype="tuple">
+            <SequenceItem valuetype="str">{shot}/3D/</SequenceItem>
+            <SequenceItem valuetype="NoneType">None</SequenceItem>
+        </SequenceItem>
+        <SequenceItem valuetype="tuple">
+            <SequenceItem valuetype="str">{shot}/COMP/main/</SequenceItem>
+            <SequenceItem valuetype="NoneType">None</SequenceItem>
+        </SequenceItem>
+        <SequenceItem valuetype="tuple">
+            <SequenceItem valuetype="str">{shot}/FOOTAGE/offline/</SequenceItem>
+            <SequenceItem valuetype="NoneType">None</SequenceItem>
+        </SequenceItem>
+        <SequenceItem valuetype="tuple">
+            <SequenceItem valuetype="str">{shot}/FOOTAGE/plate/dpx/{track}/{version}/{shot}_{track}_{version}.#.dpx</SequenceItem>
+            <SequenceItem valuetype="hiero.exporters.FnTranscodeExporter.TranscodePreset">
+                <root presetname="hiero.exporters.FnTranscodeExporter.TranscodeExporter" tasktype="hiero.exporters.FnTranscodeExporter.TranscodeExporter">
+                    <colourspace valuetype="unicode">Cineon</colourspace>
+                    <file_type valuetype="str">dpx</file_type>
+                    <channels valuetype="str">rgb</channels>
+                    <burninDataEnabled valuetype="bool">False</burninDataEnabled>
+                    <additionalNodesEnabled valuetype="bool">False</additionalNodesEnabled>
+                    <additionalNodesData valuetype="list" />
+                    <dpx valuetype="dict" />
+                    <burninData valuetype="dict">
+                        <burnIn_bottomRight valuetype="NoneType">None</burnIn_bottomRight>
+                        <burnIn_topLeft valuetype="NoneType">None</burnIn_topLeft>
+                        <burnIn_topMiddle valuetype="NoneType">None</burnIn_topMiddle>
+                        <burnIn_padding valuetype="NoneType">None</burnIn_padding>
+                        <burnIn_topRight valuetype="NoneType">None</burnIn_topRight>
+                        <burnIn_textSize valuetype="NoneType">None</burnIn_textSize>
+                        <burnIn_bottomLeft valuetype="NoneType">None</burnIn_bottomLeft>
+                        <burnIn_bottomMiddle valuetype="NoneType">None</burnIn_bottomMiddle>
+                        <burnIn_font valuetype="NoneType">None</burnIn_font>
+                    </burninData>
+                    <writeNodeName valuetype="str">Write_{ext}</writeNodeName>
+                    <reformat valuetype="dict">
+                        <to_type valuetype="str">None</to_type>
+                    </reformat>
+                    <keepNukeScript valuetype="bool">False</keepNukeScript>
+                    <method valuetype="str">Blend</method>
+                </root>
+            </SequenceItem>
+        </SequenceItem>
+        <SequenceItem valuetype="tuple">
+            <SequenceItem valuetype="str">{shot}/FOOTAGE/plate/raw/{track}/{version}/{filename}</SequenceItem>
+            <SequenceItem valuetype="hiero.exporters.FnCopyExporter.CopyPreset">
+                <root presetname="hiero.exporters.FnCopyExporter.CopyExporter" tasktype="hiero.exporters.FnCopyExporter.CopyExporter" />
+            </SequenceItem>
+        </SequenceItem>
+        <SequenceItem valuetype="tuple">
+            <SequenceItem valuetype="str">{shot}/FOOTAGE/plate/jpeg/{track}/{version}/{shot}_{track}_{version}.#.jpg</SequenceItem>
+            <SequenceItem valuetype="hiero.exporters.FnTranscodeExporter.TranscodePreset">
+                <root presetname="hiero.exporters.FnTranscodeExporter.TranscodeExporter" tasktype="hiero.exporters.FnTranscodeExporter.TranscodeExporter">
+                    <colourspace valuetype="str">default</colourspace>
+                    <file_type valuetype="unicode">jpeg</file_type>
+                    <jpeg valuetype="dict">
+                        <_jpeg_quality valuetype="float">0.95</_jpeg_quality>
+                    </jpeg>
+                    <channels valuetype="str">rgb</channels>
+                    <burninDataEnabled valuetype="bool">False</burninDataEnabled>
+                    <additionalNodesEnabled valuetype="bool">False</additionalNodesEnabled>
+                    <additionalNodesData valuetype="list" />
+                    <dpx valuetype="dict" />
+                    <burninData valuetype="dict">
+                        <burnIn_bottomRight valuetype="NoneType">None</burnIn_bottomRight>
+                        <burnIn_topLeft valuetype="NoneType">None</burnIn_topLeft>
+                        <burnIn_topMiddle valuetype="NoneType">None</burnIn_topMiddle>
+                        <burnIn_padding valuetype="NoneType">None</burnIn_padding>
+                        <burnIn_topRight valuetype="NoneType">None</burnIn_topRight>
+                        <burnIn_bottomMiddle valuetype="NoneType">None</burnIn_bottomMiddle>
+                        <burnIn_bottomLeft valuetype="NoneType">None</burnIn_bottomLeft>
+                        <burnIn_textSize valuetype="NoneType">None</burnIn_textSize>
+                        <burnIn_font valuetype="NoneType">None</burnIn_font>
+                    </burninData>
+                    <writeNodeName valuetype="str">Write_{ext}</writeNodeName>
+                    <reformat valuetype="dict">
+                        <to_type valuetype="str">None</to_type>
+                    </reformat>
+                    <keepNukeScript valuetype="bool">False</keepNukeScript>
+                    <method valuetype="str">Blend</method>
+                </root>
+            </SequenceItem>
+        </SequenceItem>
+    </exportTemplate>
+    <excludeTags valuetype="list" />
+    <includeTags valuetype="list" />
+    <includeRetimes valuetype="bool">False</includeRetimes>
+    <startFrameSource valuetype="str">Custom</startFrameSource>
+    <cutLength valuetype="bool">True</cutLength>
+    <cutHandles valuetype="int">12</cutHandles>
+</root>
