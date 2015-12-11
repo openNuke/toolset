@@ -1,0 +1,214 @@
+set cut_paste_input [stack 0]
+version 9.0 v7
+push $cut_paste_input
+Group {
+ name AOV_shadow
+ label "v2 - adding shadow broken with saturation"
+ selected true
+ xpos -587
+ ypos 12563
+ addUserKnob {20 User l AOVshadow}
+ addUserKnob {41 in_1 l shadow T ShuffleShadow.in}
+ addUserKnob {41 in l difuseFilter T ShuffleDiffuseFilter.in}
+ addUserKnob {41 value T master.value}
+ addUserKnob {41 premult T master.premult}
+ addUserKnob {41 alpha l by -STARTLINE T Unpremult.alpha}
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannel l "mask channel" T Keymix1.maskChannel}
+ addUserKnob {41 invertMask l invert -STARTLINE T Keymix1.invertMask}
+ addUserKnob {41 mix T Keymix1.mix}
+ addUserKnob {41 bbox l "Set BBox to" T Keymix1.bbox}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos 518
+  ypos 78
+  number 1
+ }
+ Invert {
+  name Invert6
+  xpos 501
+  ypos 212
+ }
+ Input {
+  inputs 0
+  name in
+  xpos 292
+  ypos -558
+ }
+ Dot {
+  name Dot1
+  xpos 326
+  ypos -490
+ }
+set N94e7400 [stack 0]
+ Dot {
+  name Dot24
+  xpos -495
+  ypos -490
+ }
+ Dot {
+  name Dot20
+  xpos -495
+  ypos -305
+ }
+set N94e6c00 [stack 0]
+ Dot {
+  name Dot23
+  xpos -504
+  ypos 222
+ }
+push $N94e6c00
+ Dot {
+  name Dot21
+  xpos -213
+  ypos -305
+ }
+set N94e6400 [stack 0]
+ Shuffle {
+  in none
+  in2 rgba
+  alpha alpha2
+  name ShuffleShadow
+  label "\[value in]"
+  xpos -247
+  ypos -246
+ }
+ Unpremult {
+  name Unpremult3
+  xpos -247
+  ypos -196
+  disable {{!master.premult}}
+ }
+set N72d05c00 [stack 0]
+ Multiply {
+  channels rgb
+  value {{1-master.value}}
+  name Multiply3
+  label "tweak here"
+  xpos -247
+  ypos -147
+ }
+ Dot {
+  name Dot22
+  xpos -213
+  ypos 58
+ }
+push $N72d05c00
+push $N94e6400
+ Shuffle {
+  in none
+  in2 rgba
+  alpha alpha2
+  name ShuffleDiffuseFilter
+  label "\[value in]"
+  xpos -60
+  ypos -315
+ }
+ Unpremult {
+  name Unpremult2
+  xpos -60
+  ypos -277
+  disable {{!master.premult}}
+ }
+ Merge2 {
+  inputs 2
+  operation divide
+  name Merge10
+  xpos -60
+  ypos -196
+ }
+ Multiply {
+  channels rgb
+  value {{master.value-1}}
+  name Multiply4
+  label "tweak here"
+  xpos -60
+  ypos -145
+ }
+ Invert {
+  channels rgb
+  name Invert5
+  xpos -60
+  ypos -91
+ }
+ Clamp {
+  channels rgb
+  minimum 1e-008
+  name Clamp2
+  xpos -60
+  ypos -51
+ }
+push $N94e7400
+ Unpremult {
+  alpha -rgba.alpha
+  name Unpremult
+  xpos 292
+  ypos -349
+  disable {{!master.premult}}
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge11
+  label "Double Shadow"
+  xpos 292
+  ypos -64
+  disable {{master.value<=1 x1001 0}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge12
+  label "Remove Shadow"
+  xpos 292
+  ypos 48
+  disable {{master.value>=1 x1001 0}}
+ }
+ Premult {
+  alpha {{{parent.Unpremult.alpha}}}
+  name Premult3
+  xpos 292
+  ypos 124
+  disable {{!master.premult K x1001 0}}
+ }
+ Keymix {
+  inputs 3
+  maskChannel -rgba.alpha
+  name Keymix1
+  xpos 286
+  ypos 212
+ }
+ NoOp {
+  name out
+  xpos 286
+  ypos 323
+ }
+set Nfed14400 [stack 0]
+ Output {
+  name Output1
+  xpos 286
+  ypos 423
+ }
+ NoOp {
+  inputs 0
+  name master
+  xpos 519
+  ypos -213
+  addUserKnob {20 User}
+  addUserKnob {6 premult +STARTLINE}
+  addUserKnob {7 value R 0 2}
+  value 0.99
+ }
+push $Nfed14400
+ Viewer {
+  frame_range 1001-1098
+  gain 0.049
+  name Viewer1
+  selected true
+  xpos 292
+  ypos -532
+ }
+end_group
