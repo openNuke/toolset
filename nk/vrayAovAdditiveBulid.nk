@@ -1,0 +1,1071 @@
+set cut_paste_input [stack 0]
+version 9.0 v7
+StickyNote {
+ inputs 0
+ name StickyNote4
+ tile_color 0x5e5e5eff
+ label "__AOV__\n_BUILD__\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+ note_font_size 21
+ selected true
+ xpos 26266
+ ypos 12590
+}
+StickyNote {
+ inputs 0
+ name StickyNote6
+ tile_color 0x5e5e5eff
+ label "__Light __\n_Selects_\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+ note_font_size 21
+ selected true
+ xpos 26266
+ ypos 14950
+}
+StickyNote {
+ inputs 0
+ name StickyNote7
+ tile_color 0x5e5e5eff
+ label "_Ambient _\n_Occlusion_\n\n\n\n\n\n\n\n"
+ note_font_size 21
+ selected true
+ xpos 26256
+ ypos 15625
+}
+push $cut_paste_input
+Roto {
+ curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097152}
+    {t x448ab000 x4432a000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Bezier1 512 bezier
+     {{cc
+       {f 8192}
+       {px x44820000
+        {xbf800000 0}
+        {x44ac8000 x443b8000}
+        {1 0}
+        {xc0400000 0}
+        {x449a0000 x44238000}
+        {x40400000 0}
+        {0 xc0400000}
+        {x44afc000 x440f8000}
+        {0 x40400000}}}
+      {cc
+       {f 8192}
+       {px x44820000
+        {xbf800000 0}
+        {x42cc3c10 x43192d10}
+        {1 0}
+        {xc0400000 0}
+        {0 0}
+        {x40400000 0}
+        {0 xc0400000}
+        {x427f4b20 xc2cf123c}
+        {0 x40400000}}}}
+     {tx x44820000 x44a76aab x4424d555}
+     {a r x3eee147b g x3eee147b b x3eee147b osw x41200000 osf 0 str 1 spx x448ab000 spy x4432a000 sb 1 ltn x44820000 ltm x44820000 tt x40800000}}}}}}
+ toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+ toolbar_brush_hardness 0.200000003
+ toolbar_source_transform_scale {1 1}
+ toolbar_source_transform_center {1109.5 714.5}
+ color {0.4650000036 0.4650000036 0.4650000036 1}
+ colorOverlay {0 0 0 0}
+ lifetime_type "all frames"
+ lifetime_start 1040
+ lifetime_end 1040
+ motionblur_shutter_offset_type centred
+ source_black_outside true
+ name Roto25
+ selected true
+ xpos 25428
+ ypos 15594
+}
+Invert {
+ name Invert14
+ selected true
+ xpos 25428
+ ypos 15620
+}
+Dot {
+ inputs 0
+ name Dot267
+ label AO
+ note_font_size 41
+ selected true
+ xpos 25086
+ ypos 11578
+}
+Dot {
+ inputs 0
+ name Dot268
+ label "multichannel AOV"
+ note_font_size 41
+ selected true
+ xpos 25299
+ ypos 11387
+}
+add_layer {_AmbientOcc _AmbientOcc.red _AmbientOcc.green _AmbientOcc.blue _AmbientOcc.alpha}
+ShuffleCopy {
+ inputs 2
+ alpha alpha2
+ black red
+ white green
+ red2 blue
+ out2 _AmbientOcc
+ name ShuffleCopy28
+ selected true
+ xpos 25265
+ ypos 11560
+}
+Reformat {
+ format "2219 1429 0 0 2219 1429 1 WorkRez_LaSlack"
+ black_outside true
+ pbb true
+ name Reformat41
+ label WorkRez_LaSlack
+ selected true
+ xpos 25265
+ ypos 11806
+}
+add_layer {_VRay_POBJECT _VRay_POBJECT.red _VRay_POBJECT.green _VRay_POBJECT.blue _VRay_POBJECT.alpha}
+add_layer {_VRay_PWORLD _VRay_PWORLD.red _VRay_PWORLD.green _VRay_PWORLD.blue _VRay_PWORLD.alpha}
+add_layer {_VRayBumpNormals _VRayBumpNormals.red _VRayBumpNormals.green _VRayBumpNormals.blue _VRayBumpNormals.alpha}
+add_layer {_VRayVelocity _VRayVelocity.red _VRayVelocity.green _VRayVelocity.blue _VRayVelocity.alpha}
+add_layer {_VRayZDepth _VRayZDepth.red _VRayZDepth.green _VRayZDepth.blue _VRayZDepth.alpha}
+Group {
+ name VrayDataPass8
+ selected true
+ xpos 25265
+ ypos 12039
+ addUserKnob {20 VrayPosition}
+ addUserKnob {41 in l pObject T ShufflePObj.in}
+ addUserKnob {41 in_1 l pWorld T ShufflePwrld.in}
+ addUserKnob {41 in_3 l nWorld T ShuffleNorm.in}
+ addUserKnob {26 ""}
+ addUserKnob {41 in_4 l velocity T ShuffleNormVely.in}
+ addUserKnob {26 ""}
+ addUserKnob {41 in_2 l "Z channel" T ShuffleZ.in}
+ addUserKnob {41 zInput T Switch1.zInput}
+ addUserKnob {26 ""}
+ addUserKnob {26 text l Note: T "This adjusts Vray defaults to nuke defaults \nfor using zDefocus; zMerge; pMatte; relight etc.\n"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 263
+  ypos 114
+ }
+ NoOp {
+  name IN
+  xpos 263
+  ypos 149
+ }
+set N75151400 [stack 0]
+ Dot {
+  name Dot3
+  xpos 179
+  ypos 152
+ }
+set N75151000 [stack 0]
+ Dot {
+  name Dot6
+  xpos 69
+  ypos 152
+ }
+set N75150c00 [stack 0]
+ Dot {
+  name Dot4
+  xpos -56
+  ypos 152
+ }
+set N75150800 [stack 0]
+ Dot {
+  name Dot5
+  xpos -181
+  ypos 152
+ }
+set N75150400 [stack 0]
+ Dot {
+  name Dot8
+  xpos -367
+  ypos 152
+ }
+ Shuffle {
+  in _VRayVelocity
+  name ShuffleNormVely
+  xpos -401
+  ypos 194
+ }
+ Grade {
+  blackpoint 0.5
+  black_clamp false
+  name Grade4
+  xpos -401
+  ypos 277
+ }
+ Invert {
+  channels {rgba.red rgba.green -rgba.blue none}
+  name Invert2
+  xpos -401
+  ypos 305
+ }
+ Dot {
+  name Dot9
+  xpos -367
+  ypos 546
+ }
+push $N75150400
+ Shuffle {
+  in _VRayBumpNormals
+  name ShuffleNorm
+  xpos -215
+  ypos 198
+ }
+ Invert {
+  channels rgb
+  name Invert1
+  xpos -215
+  ypos 237
+ }
+ Add {
+  channels rgb
+  value -0.5
+  name Add1
+  xpos -215
+  ypos 263
+ }
+ Dot {
+  name Dot7
+  xpos -181
+  ypos 478
+ }
+push $N75150800
+ Shuffle {
+  in _VRayZDepth
+  name ShuffleZ
+  xpos -87
+  ypos 209
+ }
+set N3fab9c00 [stack 0]
+ Expression {
+  channel0 rgb
+  expr0 (1/(-r))>0?1/(-r):(r)+1
+  name Expression2
+  xpos -170
+  ypos 341
+ }
+push $N3fab9c00
+ Expression {
+  channel0 rgb
+  expr0 1/(r)
+  name Expression1
+  xpos -14
+  ypos 349
+ }
+push $N3fab9c00
+ Expression {
+  channel0 {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+  expr0 isinf(r)?0:r
+  expr1 isinf(g)?0:g
+  expr2 isinf(b)?0:b
+  channel3 {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  expr3 isinf(a)?0:a
+  name Expression5
+  xpos -87
+  ypos 316
+ }
+ Switch {
+  inputs 3
+  which {{zInput}}
+  name Switch1
+  xpos -87
+  ypos 386
+  addUserKnob {20 User}
+  addUserKnob {4 zInput M {"(1/z) Camera at 1 & infinity at 0" "(z) Camera at 0 & infinity > 0" "(focalPoint) Camera >0 & infinity < 0" "" "" "" ""}}
+ }
+ Dot {
+  name Dot2
+  xpos -53
+  ypos 429
+ }
+push $N75150c00
+ Shuffle {
+  in _VRay_PWORLD
+  name ShufflePwrld
+  xpos 34
+  ypos 208
+ }
+ Shuffle {
+  green blue
+  blue green
+  name Shuffle6
+  xpos 34
+  ypos 258
+ }
+ Expression {
+  expr2 -B
+  name Expression4
+  selected true
+  xpos 34
+  ypos 284
+ }
+ Dot {
+  name Dot1
+  xpos 68
+  ypos 355
+ }
+push $N75151000
+ Shuffle {
+  in _VRay_POBJECT
+  name ShufflePObj
+  xpos 145
+  ypos 208
+ }
+ Shuffle {
+  green blue
+  blue green
+  name Shuffle4
+  xpos 145
+  ypos 258
+ }
+ Expression {
+  expr2 -B
+  name Expression3
+  xpos 145
+  ypos 282
+ }
+push $N75151400
+add_layer {pObject pObject.red pObject.green pObject.blue pObject.alpha}
+ ShuffleCopy {
+  inputs 2
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 pObject
+  name ShuffleCopy13
+  xpos 263
+  ypos 282
+ }
+add_layer {pWorld pWorld.red pWorld.green pWorld.blue pWorld.alpha}
+ ShuffleCopy {
+  inputs 2
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 pWorld
+  name ShuffleCopy1
+  xpos 263
+  ypos 352
+ }
+ ShuffleCopy {
+  inputs 2
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 depth
+  name ShuffleCopy2
+  xpos 263
+  ypos 426
+ }
+add_layer {nWorld nWorld.red nWorld.green nWorld.blue}
+ ShuffleCopy {
+  inputs 2
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 nWorld
+  name ShuffleCopy3
+  xpos 263
+  ypos 474
+ }
+ ShuffleCopy {
+  inputs 2
+  in {{{parent.ShuffleNormVely.in}}}
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 forward
+  name ShuffleCopy4
+  xpos 263
+  ypos 542
+ }
+ Output {
+  name Output1
+  xpos 263
+  ypos 581
+ }
+end_group
+Dot {
+ name Dot238
+ label "exr merge in"
+ note_font_size 41
+ selected true
+ xpos 25299
+ ypos 12461
+}
+Unpremult {
+ channels all
+ name Unpremult14
+ selected true
+ xpos 25265
+ ypos 12519
+}
+Dot {
+ name Dot239
+ selected true
+ xpos 25299
+ ypos 12607
+}
+set N9f7a5400 [stack 0]
+Dot {
+ name Dot242
+ selected true
+ xpos 25299
+ ypos 12963
+}
+set N9f7a5000 [stack 0]
+Dot {
+ name Dot243
+ selected true
+ xpos 25299
+ ypos 13356
+}
+set N9f7a4c00 [stack 0]
+Dot {
+ name Dot244
+ selected true
+ xpos 25299
+ ypos 13829
+}
+set N9f7a4800 [stack 0]
+Dot {
+ name Dot245
+ selected true
+ xpos 25299
+ ypos 14187
+}
+set N9f7a4400 [stack 0]
+Dot {
+ name Dot246
+ selected true
+ xpos 25300
+ ypos 14707
+}
+set N9f7a4000 [stack 0]
+Dot {
+ name Dot247
+ selected true
+ xpos 25300
+ ypos 14890
+}
+set Ne7601c00 [stack 0]
+Dot {
+ name Dot248
+ selected true
+ xpos 25300
+ ypos 15220
+}
+set Ne7601800 [stack 0]
+Dot {
+ name Dot249
+ selected true
+ xpos 25300
+ ypos 15532
+}
+set Ne7601400 [stack 0]
+Dot {
+ name Dot250
+ selected true
+ xpos 25300
+ ypos 15762
+}
+set Ne7601000 [stack 0]
+Dot {
+ name Dot251
+ selected true
+ xpos 25300
+ ypos 15987
+}
+set Ne7600c00 [stack 0]
+Dot {
+ name Dot252
+ selected true
+ xpos 25300
+ ypos 16791
+}
+push $Ne7600c00
+Dot {
+ name Dot253
+ selected true
+ xpos 25582
+ ypos 15987
+}
+set Ne7600400 [stack 0]
+add_layer {_VRayShadows _VRayShadows.red _VRayShadows.green _VRayShadows.blue _VRayShadows.alpha}
+Shuffle {
+ in _VRayShadows
+ in2 rgba
+ alpha alpha2
+ name Shuffle34
+ label "\[value in]"
+ selected true
+ xpos 25548
+ ypos 16029
+}
+set Ne7600000 [stack 0]
+Multiply {
+ channels rgb
+ name Multiply1
+ label "tweak here"
+ selected true
+ xpos 25548
+ ypos 16067
+}
+Dot {
+ name Dot254
+ selected true
+ xpos 25582
+ ypos 16289
+}
+push $Ne7600000
+push $Ne7600400
+add_layer {_VRayDiffuseFilter _VRayDiffuseFilter.red _VRayDiffuseFilter.green _VRayDiffuseFilter.blue _VRayDiffuseFilter.alpha}
+Shuffle {
+ in _VRayDiffuseFilter
+ in2 rgba
+ alpha alpha2
+ name Shuffle35
+ label "\[value in]"
+ selected true
+ xpos 25735
+ ypos 15977
+}
+Merge2 {
+ inputs 2
+ operation divide
+ name Merge46
+ selected true
+ xpos 25735
+ ypos 16035
+}
+Multiply {
+ channels rgb
+ value {1 1 1 1}
+ value_panelDropped true
+ name Multiply4
+ label "tweak here"
+ selected true
+ xpos 25735
+ ypos 16087
+}
+Invert {
+ channels rgb
+ name Invert15
+ selected true
+ xpos 25735
+ ypos 16140
+}
+Clamp {
+ channels rgb
+ minimum 1e-008
+ name Clamp14
+ selected true
+ xpos 25735
+ ypos 16180
+}
+push $Ne7601000
+Shuffle {
+ in _AmbientOcc
+ in2 rgba
+ name Shuffle36
+ label "AO\n\[value in]"
+ selected true
+ xpos 25410
+ ypos 15745
+}
+Premult {
+ name Premult26
+ selected true
+ xpos 25410
+ ypos 15797
+}
+push $Ne7601400
+Dot {
+ name Dot255
+ selected true
+ xpos 25468
+ ypos 15532
+}
+add_layer {_VRayGlobalIllumination _VRayGlobalIllumination.red _VRayGlobalIllumination.green _VRayGlobalIllumination.blue _VRayGlobalIllumination.alpha}
+add_layer {_BeautyCheck _BeautyCheck.red _BeautyCheck.green _BeautyCheck.blue _BeautyCheck.alpha}
+Shuffle {
+ in _VRayGlobalIllumination
+ in2 rgba
+ alpha alpha2
+ black red
+ white green
+ red2 blue
+ out2 _BeautyCheck
+ name Shuffle37
+ label "\[value in]"
+ note_font Verdana
+ selected true
+ xpos 25578
+ ypos 15523
+}
+set N76091400 [stack 0]
+Dot {
+ name Dot256
+ selected true
+ xpos 25612
+ ypos 15674
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ name Merge62
+ selected true
+ xpos 25578
+ ypos 15797
+}
+push $N76091400
+Dot {
+ name Dot257
+ selected true
+ xpos 25830
+ ypos 15532
+}
+Merge2 {
+ inputs 2
+ operation minus
+ name Merge98
+ selected true
+ xpos 25796
+ ypos 15797
+}
+push $Ne7601800
+add_layer {_VRayLightSelect_SPOTLIGHT _VRayLightSelect_SPOTLIGHT.red _VRayLightSelect_SPOTLIGHT.green _VRayLightSelect_SPOTLIGHT.blue _VRayLightSelect_SPOTLIGHT.alpha}
+Shuffle {
+ in _VRayLightSelect_SPOTLIGHT
+ in2 rgba
+ alpha alpha2
+ black red
+ white green
+ red2 blue
+ name Shuffle38
+ label "\[value in]"
+ note_font Verdana
+ selected true
+ xpos 25559
+ ypos 15211
+}
+Grade {
+ name Grade93
+ selected true
+ xpos 25559
+ ypos 15317
+ disable true
+}
+push $Ne7601c00
+add_layer {_VRayLightSelect _VRayLightSelect.red _VRayLightSelect.green _VRayLightSelect.blue _VRayLightSelect.alpha}
+Shuffle {
+ in _VRayLightSelect
+ in2 rgba
+ alpha alpha2
+ black red
+ white green
+ red2 blue
+ name Shuffle39
+ label "\[value in]"
+ note_font Verdana
+ selected true
+ xpos 25560
+ ypos 14881
+}
+Grade {
+ name Grade94
+ selected true
+ xpos 25560
+ ypos 15003
+ disable true
+}
+push $N9f7a4000
+NoOp {
+ name NoOp1
+ label Beauty
+ selected true
+ xpos 25601
+ ypos 14697
+}
+push $N9f7a4400
+add_layer {_VRayReflection _VRayReflection.red _VRayReflection.green _VRayReflection.blue _VRayReflection.alpha}
+Shuffle {
+ in _VRayReflection
+ in2 rgba
+ alpha alpha2
+ black red
+ white green
+ red2 blue
+ out2 _BeautyCheck
+ name Shuffle40
+ label "\[value in]"
+ note_font Verdana
+ selected true
+ xpos 25599
+ ypos 14178
+}
+Grade {
+ name Grade95
+ selected true
+ xpos 25599
+ ypos 14302
+ disable true
+}
+Dot {
+ name Dot258
+ selected true
+ xpos 25633
+ ypos 14407
+}
+push $N9f7a4800
+add_layer {_VRayRefraction _VRayRefraction.red _VRayRefraction.green _VRayRefraction.blue _VRayRefraction.alpha}
+Shuffle {
+ in _VRayRefraction
+ in2 rgba
+ alpha alpha2
+ black red
+ white green
+ red2 blue
+ out2 _BeautyCheck
+ name Shuffle41
+ label "\[value in]"
+ note_font Verdana
+ selected true
+ xpos 25597
+ ypos 13820
+}
+Grade {
+ name Grade96
+ selected true
+ xpos 25597
+ ypos 13921
+ disable true
+}
+Dot {
+ name Dot259
+ selected true
+ xpos 25631
+ ypos 14001
+}
+push $N9f7a4c00
+Shuffle {
+ in _VRayGlobalIllumination
+ in2 rgba
+ alpha alpha2
+ black red
+ white green
+ red2 blue
+ out2 _BeautyCheck
+ name Shuffle42
+ label "\[value in]"
+ note_font Verdana
+ selected true
+ xpos 25582
+ ypos 13347
+}
+Grade {
+ name Grade97
+ selected true
+ xpos 25582
+ ypos 13457
+ disable true
+}
+Dot {
+ name Dot260
+ selected true
+ xpos 25616
+ ypos 13573
+}
+Dot {
+ name Dot261
+ selected true
+ xpos 25933
+ ypos 13573
+}
+push $N9f7a5000
+add_layer {_VRaySpecular _VRaySpecular.red _VRaySpecular.green _VRaySpecular.blue _VRaySpecular.alpha}
+Shuffle {
+ in _VRaySpecular
+ in2 rgba
+ alpha alpha2
+ black red
+ white green
+ red2 blue
+ out2 _BeautyCheck
+ name Shuffle43
+ label "\[value in]"
+ note_font Verdana
+ selected true
+ xpos 25606
+ ypos 12954
+}
+Grade {
+ name Grade98
+ selected true
+ xpos 25606
+ ypos 13047
+ disable true
+}
+Dot {
+ name Dot262
+ selected true
+ xpos 25640
+ ypos 13152
+}
+push $N9f7a5400
+add_layer {_VRayLighting _VRayLighting.red _VRayLighting.green _VRayLighting.blue _VRayLighting.alpha}
+Shuffle {
+ in _VRayLighting
+ in2 rgba
+ alpha alpha2
+ black red
+ white green
+ red2 blue
+ out2 _BeautyCheck
+ name Shuffle44
+ label "\[value in]"
+ note_font Verdana
+ selected true
+ xpos 25601
+ ypos 12598
+}
+Grade {
+ name Grade99
+ selected true
+ xpos 25601
+ ypos 12696
+ disable true
+}
+Dot {
+ name Dot263
+ selected true
+ xpos 25635
+ ypos 12776
+}
+Dot {
+ name Dot264
+ selected true
+ xpos 26120
+ ypos 12776
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ also_merge {_BeautyCheck.red _BeautyCheck.green _BeautyCheck.blue -_BeautyCheck.alpha}
+ name Merge99
+ label spec
+ selected true
+ xpos 26086
+ ypos 13148
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ also_merge {_BeautyCheck.red _BeautyCheck.green _BeautyCheck.blue -_BeautyCheck.alpha}
+ name Merge100
+ label GI
+ selected true
+ xpos 26086
+ ypos 13563
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ also_merge {_BeautyCheck.red _BeautyCheck.green _BeautyCheck.blue -_BeautyCheck.alpha}
+ name Merge101
+ label refraction
+ selected true
+ xpos 26086
+ ypos 13991
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ also_merge {_BeautyCheck.red _BeautyCheck.green _BeautyCheck.blue -_BeautyCheck.alpha}
+ name Plus1
+ label reflection
+ selected true
+ xpos 26086
+ ypos 14397
+}
+Dot {
+ name Dot265
+ selected true
+ xpos 26121
+ ypos 14651
+}
+set N2297b800 [stack 0]
+Shuffle {
+ in _BeautyCheck
+ name Shuffle45
+ label "\[value in]"
+ selected true
+ xpos 26004
+ ypos 14641
+}
+Merge2 {
+ inputs 2
+ operation divide
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ also_merge _BeautyCheck
+ name Merge102
+ selected true
+ xpos 26004
+ ypos 14703
+}
+Dot {
+ name Dot266
+ selected true
+ xpos 26038
+ ypos 14781
+}
+push $N2297b800
+Merge2 {
+ inputs 2
+ operation multiply
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ also_merge {_BeautyCheck.red _BeautyCheck.green _BeautyCheck.blue -_BeautyCheck.alpha}
+ name Plus3
+ label "sanity fix"
+ selected true
+ xpos 26086
+ ypos 14771
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ also_merge {_BeautyCheck.red _BeautyCheck.green _BeautyCheck.blue -_BeautyCheck.alpha}
+ name Plus4
+ label "Light selects"
+ selected true
+ xpos 26086
+ ypos 14997
+}
+Merge2 {
+ inputs 2
+ operation plus
+ output {rgba.red rgba.green rgba.blue -rgba.alpha}
+ also_merge {_BeautyCheck.red _BeautyCheck.green _BeautyCheck.blue -_BeautyCheck.alpha}
+ name Plus5
+ label "Light selects"
+ selected true
+ xpos 26086
+ ypos 15311
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge103
+ label AO
+ selected true
+ xpos 26086
+ ypos 15791
+ disable true
+}
+Merge2 {
+ inputs 2
+ operation multiply
+ name Merge104
+ label "Double Shadow"
+ selected true
+ xpos 26087
+ ypos 16174
+ disable true
+}
+Merge2 {
+ inputs 2
+ operation plus
+ name Merge105
+ label "Remove Shadow"
+ selected true
+ xpos 26087
+ ypos 16279
+ disable true
+}
+Copy {
+ inputs 2
+ from0 rgba.alpha
+ to0 rgba.alpha
+ name Copy23
+ selected true
+ xpos 26087
+ ypos 16781
+}
+Premult {
+ name Premult27
+ selected true
+ xpos 26087
+ ypos 16865
+}
+Remove {
+ operation keep
+ channels rgba
+ name Remove14
+ selected true
+ xpos 26087
+ ypos 16922
+}
+add_layer {matte_grain matte_grain.alpha}
+Shuffle {
+ red alpha
+ out matte_grain
+ name Shuffle46
+ label matte_Grain
+ selected true
+ xpos 26087
+ ypos 16967
+}
+StickyNote {
+ inputs 0
+ name StickyNote8
+ tile_color 0x5e5e5eff
+ label "__Shadow__\n\n\n\n\n\n\n\n"
+ note_font_size 21
+ selected true
+ xpos 26248
+ ypos 16118
+}
