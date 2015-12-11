@@ -1,0 +1,291 @@
+set cut_paste_input [stack 0]
+version 9.0 v7
+push $cut_paste_input
+Group {
+ name MultiMatt
+ selected true
+ xpos 1863
+ ypos 17278
+ addUserKnob {20 User l MultiMatt}
+ addUserKnob {41 Output T Switch1.Output}
+ addUserKnob {26 ""}
+ addUserKnob {41 A l "A channel" T ChannelMerge3.A}
+ addUserKnob {41 operation -STARTLINE T ChannelMerge3.operation}
+ addUserKnob {41 mix_6 l mix T ChannelMerge3.mix}
+ addUserKnob {41 A_1 l "A channel" T ChannelMerge4.A}
+ addUserKnob {41 operation_1 l operation -STARTLINE T ChannelMerge4.operation}
+ addUserKnob {41 mix_4 l mix T ChannelMerge4.mix}
+ addUserKnob {41 A_2 l "A channel" T ChannelMerge5.A}
+ addUserKnob {41 operation_2 l operation -STARTLINE T ChannelMerge5.operation}
+ addUserKnob {41 mix_3 l mix T ChannelMerge5.mix}
+ addUserKnob {41 A_3 l "A channel" T ChannelMerge7.A}
+ addUserKnob {41 operation_3 l operation -STARTLINE T ChannelMerge7.operation}
+ addUserKnob {41 mix_2 l mix T ChannelMerge7.mix}
+ addUserKnob {41 A_4 l "A channel" T ChannelMerge8.A}
+ addUserKnob {41 operation_4 l operation -STARTLINE T ChannelMerge8.operation}
+ addUserKnob {41 mix_1 l mix T ChannelMerge8.mix}
+ addUserKnob {41 A_5 l "A channel" T ChannelMerge9.A}
+ addUserKnob {41 operation_5 l operation -STARTLINE T ChannelMerge9.operation}
+ addUserKnob {41 mix T ChannelMerge9.mix}
+ addUserKnob {41 A_6 l "A channel" T ChannelMerge10.A}
+ addUserKnob {41 operation_6 l operation -STARTLINE T ChannelMerge10.operation}
+ addUserKnob {41 mix_5 l mix T ChannelMerge10.mix}
+ addUserKnob {41 A_7 l "A channel" T ChannelMerge6.A}
+ addUserKnob {41 operation_7 l operation -STARTLINE T ChannelMerge6.operation}
+ addUserKnob {41 mix_7 l mix T ChannelMerge6.mix}
+ addUserKnob {41 A_8 l "A channel" T ChannelMerge2.A}
+ addUserKnob {41 operation_8 l operation -STARTLINE T ChannelMerge2.operation}
+ addUserKnob {41 mix_8 l mix T ChannelMerge2.mix}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 516
+  ypos 393
+ }
+ NoOp {
+  name master
+  xpos 516
+  ypos 433
+ }
+set N12f1f000 [stack 0]
+ Dot {
+  name Dot49
+  xpos 550
+  ypos 634
+ }
+set N12f1ec00 [stack 0]
+ Dot {
+  name Dot87
+  xpos 550
+  ypos 710
+ }
+set N12f1e800 [stack 0]
+ Dot {
+  name Dot88
+  xpos 550
+  ypos 782
+ }
+set N12f1e400 [stack 0]
+ Dot {
+  name Dot96
+  xpos 550
+  ypos 858
+ }
+set N12f1e000 [stack 0]
+ Dot {
+  name Dot97
+  xpos 550
+  ypos 932
+ }
+set N57723c00 [stack 0]
+ Dot {
+  name Dot98
+  xpos 550
+  ypos 1008
+ }
+set N57723800 [stack 0]
+ Dot {
+  name Dot99
+  xpos 550
+  ypos 1080
+ }
+set N57723400 [stack 0]
+ Dot {
+  name Dot100
+  xpos 550
+  ypos 1156
+ }
+set N57723000 [stack 0]
+ Dot {
+  name Dot101
+  xpos 550
+  ypos 1236
+ }
+set N57722c00 [stack 0]
+ Dot {
+  name Dot102
+  xpos 550
+  ypos 1312
+ }
+set N57722800 [stack 0]
+ Dot {
+  name Dot103
+  xpos 378
+  ypos 1312
+ }
+ LayerContactSheet {
+  showLayerNames true
+  name LayerContactSheet1
+  xpos 344
+  ypos 1439
+ }
+push $N57722800
+push $N57722c00
+push $N57723000
+push $N57723400
+push $N57723800
+push $N57723c00
+push $N12f1e000
+push $N12f1e400
+push $N12f1e800
+push $N12f1ec00
+push $N12f1f000
+ Dot {
+  name Dot48
+  xpos 755
+  ypos 437
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle22
+  xpos 721
+  ypos 567
+ }
+ Group {
+  inputs 2
+  name Group2
+  xpos 721
+  ypos 630
+ }
+  Input {
+   inputs 0
+   name Input2
+   xpos 516
+   ypos 393
+   number 1
+  }
+  Input {
+   inputs 0
+   name Input1
+   xpos 516
+   ypos 393
+  }
+  ChannelMerge {
+   inputs 2
+   A none
+   name ChannelMerge1
+   xpos 516
+   ypos 433
+  }
+  Output {
+   name Output1
+   xpos 516
+   ypos 533
+  }
+ end_group
+ ChannelMerge {
+  inputs 2
+  A none
+  operation plus
+  name ChannelMerge2
+  xpos 721
+  ypos 693
+ }
+ ChannelMerge {
+  inputs 2
+  A none
+  operation plus
+  name ChannelMerge3
+  xpos 721
+  ypos 765
+ }
+ ChannelMerge {
+  inputs 2
+  A none
+  operation plus
+  name ChannelMerge4
+  xpos 721
+  ypos 841
+ }
+ ChannelMerge {
+  inputs 2
+  A none
+  operation plus
+  name ChannelMerge5
+  xpos 721
+  ypos 915
+ }
+ ChannelMerge {
+  inputs 2
+  A none
+  operation plus
+  name ChannelMerge6
+  xpos 721
+  ypos 991
+ }
+ ChannelMerge {
+  inputs 2
+  A none
+  operation plus
+  name ChannelMerge7
+  xpos 721
+  ypos 1063
+ }
+ ChannelMerge {
+  inputs 2
+  A none
+  operation plus
+  name ChannelMerge8
+  xpos 721
+  ypos 1139
+ }
+ ChannelMerge {
+  inputs 2
+  A none
+  operation plus
+  name ChannelMerge9
+  xpos 721
+  ypos 1219
+ }
+ ChannelMerge {
+  inputs 2
+  A none
+  operation plus
+  name ChannelMerge10
+  xpos 721
+  ypos 1295
+ }
+set N4cc64400 [stack 0]
+push $N57722800
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 516
+  ypos 1374
+ }
+ Premult {
+  name Premult1
+  xpos 516
+  ypos 1439
+ }
+push $N4cc64400
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  name Shuffle34
+  xpos 721
+  ypos 1445
+ }
+ Switch {
+  inputs 3
+  which {{Output==2?2:Output==1?1:0}}
+  name Switch1
+  selected true
+  xpos 516
+  ypos 1509
+  addUserKnob {20 User}
+  addUserKnob {68 Output M {Alpha Premult Contact}}
+ }
+ Output {
+  name Output1
+  xpos 516
+  ypos 1608
+ }
+end_group
