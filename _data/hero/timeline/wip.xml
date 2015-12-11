@@ -1,0 +1,60 @@
+<root presetname="Nexus_WIP - COMP2" tasktype="hiero.exporters.FnTimelineProcessor.TimelineProcessor">
+    <exportTemplate valuetype="list">
+        <SequenceItem valuetype="tuple">
+            <SequenceItem valuetype="str">Studio/{project}/WIP/{YY}{MM}{DD}/{YY}{MM}{DD}_LaSlack_{sequence}_WIP_comp_{version}.#####.{ext}</SequenceItem>
+            <SequenceItem valuetype="hiero.exporters.FnTranscodeExporter.TranscodePreset">
+                <root presetname="hiero.exporters.FnTranscodeExporter.TranscodeExporter" tasktype="hiero.exporters.FnTranscodeExporter.TranscodeExporter">
+                    <colourspace valuetype="unicode">sRGB</colourspace>
+                    <file_type valuetype="unicode">mov</file_type>
+                    <mov valuetype="dict">
+                        <settings valuetype="str">0000000000000000000000000000019a7365616e0000000100000001000000000000018676696465000000010000000e00000000000000227370746c0000000100000000000000006176633100000000001800000400000000207470726c000000010000000000000000000004000018000000000001000000246472617400000001000000000000000000000000000000530000010000000100000000156d70736f00000001000000000000000000000000186d66726100000001000000000000000000000000000000187073667200000001000000000000000000000000000000156266726100000001000000000000000000000000166d70657300000001000000000000000001000000002868617264000000010000000000000000000000000000000000000000000000000000000000000016656e647300000001000000000000000000000000001663666c67000000010000000000000000004400000018636d66720000000100000000000000006170706c00000014636c75740000000100000000000000000000001c766572730000000100000000000000000003001c00010000</settings>
+                        <deleteaudiofile valuetype="bool">True</deleteaudiofile>
+                        <settingsString valuetype="str">H.264, Lossless</settingsString>
+                        <encoder valuetype="unicode">mov32</encoder>
+                        <codec valuetype="str">avc1&#x09;H.264</codec>
+                        <keyframerate valuetype="int">1</keyframerate>
+                        <quality valuetype="int">5</quality>
+                        <audiofile valuetype="bool">True</audiofile>
+                    </mov>
+                    <jpeg valuetype="dict">
+                        <_jpeg_quality valuetype="float">0.95</_jpeg_quality>
+                        <audiofile valuetype="bool">False</audiofile>
+                    </jpeg>
+                    <channels valuetype="unicode">rgb</channels>
+                    <burninDataEnabled valuetype="bool">True</burninDataEnabled>
+                    <additionalNodesEnabled valuetype="bool">False</additionalNodesEnabled>
+                    <additionalNodesData valuetype="list" />
+                    <dpx valuetype="dict" />
+                    <burninData valuetype="dict">
+                        <burnIn_bottomRight valuetype="unicode">{shot}  ([lrange [split [basename [metadata input/filename]] .] 1 1])</burnIn_bottomRight>
+                        <burnIn_topLeft valuetype="unicode">{sequence} ([frame])</burnIn_topLeft>
+                        <burnIn_topMiddle valuetype="unicode">{clip}</burnIn_topMiddle>
+                        <burnIn_padding valuetype="int">100</burnIn_padding>
+                        <burnIn_topRight valuetype="unicode">{shot} ([lrange [split [basename [metadata input/filename]] .] 1 1])</burnIn_topRight>
+                        <burnIn_bottomMiddle valuetype="unicode">{project}</burnIn_bottomMiddle>
+                        <burnIn_bottomLeft valuetype="unicode">{sequence} ([frame])</burnIn_bottomLeft>
+                        <burnIn_textSize valuetype="NoneType">None</burnIn_textSize>
+                        <burnIn_font valuetype="NoneType">None</burnIn_font>
+                    </burninData>
+                    <writeNodeName valuetype="str">Write_{ext}</writeNodeName>
+                    <reformat valuetype="dict">
+                        <pixelAspect valuetype="float">1.0</pixelAspect>
+                        <name valuetype="str">HD_1080</name>
+                        <to_type valuetype="unicode">to format</to_type>
+                        <height valuetype="int">1080</height>
+                        <width valuetype="int">1920</width>
+                        <resize valuetype="unicode">width</resize>
+                    </reformat>
+                    <keepNukeScript valuetype="bool">False</keepNukeScript>
+                    <method valuetype="unicode">Blend</method>
+                </root>
+            </SequenceItem>
+        </SequenceItem>
+    </exportTemplate>
+    <startFrameIndex valuetype="int">0</startFrameIndex>
+    <exportRoot valuetype="str">//JUPITER/</exportRoot>
+    <versionIndex valuetype="int">1</versionIndex>
+    <startFrameSource valuetype="str">Sequence</startFrameSource>
+    <versionPadding valuetype="int">2</versionPadding>
+    <inOutTrim valuetype="bool">False</inOutTrim>
+</root>
