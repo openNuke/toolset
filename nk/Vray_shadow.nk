@@ -1,15 +1,20 @@
 set cut_paste_input [stack 0]
 version 9.0 v7
+push 0
 push $cut_paste_input
+add_layer {VRayShadows VRayShadows.red VRayShadows.green VRayShadows.blue VRayShadows.alpha}
+add_layer {VRayDiffuseFilter VRayDiffuseFilter.red VRayDiffuseFilter.green VRayDiffuseFilter.blue VRayDiffuseFilter.alpha}
 Group {
- name AOV_shadow
- label "v2 - adding shadow broken with saturation"
+ inputs 2
+ name AOV_shadow9
+ label v3
  selected true
- xpos -587
- ypos 12563
+ xpos 2496
+ ypos 17400
  addUserKnob {20 User l AOVshadow}
  addUserKnob {41 in_1 l shadow T ShuffleShadow.in}
  addUserKnob {41 in l difuseFilter T ShuffleDiffuseFilter.in}
+ addUserKnob {41 which l diffuseMix T Dissolve1.which}
  addUserKnob {41 value T master.value}
  addUserKnob {41 premult T master.premult}
  addUserKnob {41 alpha l by -STARTLINE T Unpremult.alpha}
@@ -42,7 +47,7 @@ Group {
   xpos 326
   ypos -490
  }
-set N94e7400 [stack 0]
+set N6db0c800 [stack 0]
  Dot {
   name Dot24
   xpos -495
@@ -53,21 +58,21 @@ set N94e7400 [stack 0]
   xpos -495
   ypos -305
  }
-set N94e6c00 [stack 0]
+set N6db0c000 [stack 0]
  Dot {
   name Dot23
   xpos -504
   ypos 222
  }
-push $N94e6c00
+push $N6db0c000
  Dot {
   name Dot21
   xpos -213
   ypos -305
  }
-set N94e6400 [stack 0]
+set N6db47800 [stack 0]
  Shuffle {
-  in none
+  in VRayShadows
   in2 rgba
   alpha alpha2
   name ShuffleShadow
@@ -81,24 +86,24 @@ set N94e6400 [stack 0]
   ypos -196
   disable {{!master.premult}}
  }
-set N72d05c00 [stack 0]
+set N6db47000 [stack 0]
  Multiply {
   channels rgb
   value {{1-master.value}}
   name Multiply3
   label "tweak here"
   xpos -247
-  ypos -147
+  ypos -170
  }
  Dot {
   name Dot22
   xpos -213
   ypos 58
  }
-push $N72d05c00
-push $N94e6400
+push $N6db47000
+push $N6db47800
  Shuffle {
-  in none
+  in VRayDiffuseFilter
   in2 rgba
   alpha alpha2
   name ShuffleDiffuseFilter
@@ -119,28 +124,37 @@ push $N94e6400
   xpos -60
   ypos -196
  }
+push $N6db47000
+ Dissolve {
+  inputs 2
+  which 0.26
+  name Dissolve1
+  selected true
+  xpos -60
+  ypos -128
+ }
  Multiply {
   channels rgb
   value {{master.value-1}}
   name Multiply4
   label "tweak here"
   xpos -60
-  ypos -145
+  ypos -85
  }
  Invert {
   channels rgb
   name Invert5
   xpos -60
-  ypos -91
+  ypos -47
  }
  Clamp {
   channels rgb
   minimum 1e-008
   name Clamp2
   xpos -60
-  ypos -51
+  ypos -21
  }
-push $N94e7400
+push $N6db0c800
  Unpremult {
   alpha -rgba.alpha
   name Unpremult
@@ -157,6 +171,7 @@ push $N94e7400
   ypos -64
   disable {{master.value<=1 x1001 0}}
  }
+set N6db6e800 [stack 0]
  Merge2 {
   inputs 2
   operation plus
@@ -176,7 +191,6 @@ push $N94e7400
  }
  Keymix {
   inputs 3
-  maskChannel -rgba.alpha
   name Keymix1
   xpos 286
   ypos 212
@@ -186,7 +200,6 @@ push $N94e7400
   xpos 286
   ypos 323
  }
-set Nfed14400 [stack 0]
  Output {
   name Output1
   xpos 286
@@ -200,15 +213,22 @@ set Nfed14400 [stack 0]
   addUserKnob {20 User}
   addUserKnob {6 premult +STARTLINE}
   addUserKnob {7 value R 0 2}
-  value 0.99
+  value 1.33
  }
-push $Nfed14400
+push $N6db47000
  Viewer {
-  frame_range 1001-1098
+  frame 1001
+  frame_range 1001-1092
   gain 0.049
   name Viewer1
-  selected true
   xpos 292
   ypos -532
+ }
+push $N6db6e800
+ Viewer {
+  frame_range 1001-1092
+  name Viewer2
+  xpos 690
+  ypos -31
  }
 end_group
