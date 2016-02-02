@@ -1,0 +1,256 @@
+set cut_paste_input [stack 0]
+version 9.0 v7
+push $cut_paste_input
+Group {
+ name nxLut_dmp1
+ selected true
+ xpos 3701
+ ypos 622
+ addUserKnob {20 User l nxLut_dmp}
+ addUserKnob {41 lut T SwitchType.lut}
+ addUserKnob {41 direction T SwitchlutSeven.direction}
+ addUserKnob {41 colorspace_out l out T ColorspaceMaster.colorspace_out}
+ addUserKnob {26 txt4 l " (use sRGB)" -STARTLINE T " "}
+ addUserKnob {20 exportLuts}
+ addUserKnob {41 generate l "Generate and Write LUT File 7" T GenerateLUT7.generate}
+ addUserKnob {41 generate_1 l "Generate and Write LUT File 3" T GenerateLUT3.generate}
+ addUserKnob {26 ""}
+ addUserKnob {41 FilePath T GenerateLUT7.FilePath}
+ addUserKnob {26 tex1 l " " T "- the file path is the path to the folder - the file will be named using a default name:"}
+ addUserKnob {26 text2 l "" +STARTLINE T "\"nxLut*_rec709_viewer.cube\""}
+ addUserKnob {20 notes}
+ addUserKnob {26 version l version: T 1.0}
+ addUserKnob {26 t01 l create: T "rafal Kaniewski 1/2/2016"}
+ addUserKnob {26 t02 l modified: T " "}
+ addUserKnob {26 txt3 l todo T "- test other colourSpaces aprt from rec709 and see if they work\n-test lut 3\n- add other ranges of luts"}
+ addUserKnob {26 ""}
+ addUserKnob {26 instructions l instructions: T "- Deside wheter you need 3 (1.5 stops) or 7(just under 4 stops)\n- In nuke Export a 16bit file (i.e. tiff) with rec709.\n-In Ps Assign profile of rec709\n-In Ps import .cube Lut as a colour lookup layer adjustment\n-In Ps turn off viewer Lut and export as psd\n-In nuke open psd and set colourspace to rec709"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -470
+  ypos -492
+ }
+set N7ac78800 [stack 0]
+ Dot {
+  name Dot1
+  xpos -607
+  ypos -269
+ }
+set N7ac78400 [stack 0]
+ Colorspace {
+  colorspace_out {{parent.ColorspaceMaster.colorspace_out}}
+  name Colorspace9
+  xpos -589
+  ypos -155
+ }
+ ColorLookup {
+  range 16
+  lut {master {curve L 0 x0.75 0.75 x0.8960003853 0.7902173996 x1.239130497 0.824000001 x1.777173758 0.8630000353 x2.364130497 0.8990000486 x3.048913002 0.92900002 x3.635869503 0.9450000525 x4.36956501 0.9650000334 x5.445652008 0.9830000401 R x7 1}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name ColorLookup7
+  label "to psd"
+  xpos -544
+  ypos -85
+ }
+ Colorspace {
+  colorspace_in {{parent.ColorspaceMaster.colorspace_out}}
+  name ColorspaceMasterB1
+  xpos -593
+  ypos -22
+ }
+push $N7ac78400
+ Colorspace {
+  colorspace_out {{parent.ColorspaceMaster.colorspace_out}}
+  name Colorspace1
+  xpos -719
+  ypos -193
+ }
+ ColorLookup {
+  range 16
+  lut {master {curve L 0 x0.75 0.75 x0.7902173996 0.8960003853 x0.824000001 1.239130497 x0.8630000353 1.777173758 x0.8990000486 2.364130497 x0.92900002 3.048913002 x0.9450000525 3.635869503 x0.9650000334 4.36956501 x0.9830000401 5.445652008 R x1 7}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name ColorLookup9
+  label fromPSD
+  xpos -761
+  ypos -88
+ }
+ Colorspace {
+  colorspace_in {{parent.ColorspaceMaster.colorspace_out}}
+  name ColorspaceMasterB2
+  xpos -711
+  ypos -18
+ }
+ Switch {
+  inputs 2
+  which {{direction}}
+  name SwitchlutSeven
+  xpos -651
+  ypos 42
+  addUserKnob {20 User}
+  addUserKnob {4 direction M {"from psd" "to psd" "" ""}}
+  direction "to psd"
+ }
+push $N7ac78800
+ Dot {
+  name Dot2
+  xpos -233
+  ypos -189
+ }
+set Na0a26400 [stack 0]
+ Colorspace {
+  colorspace_out {{parent.ColorspaceMaster.colorspace_out}}
+  name Colorspace2
+  xpos -319
+  ypos -132
+ }
+ ColorLookup {
+  range 16
+  lut {master {curve L 0 x0.75 0.75 x0.7902173996 0.8025561817 x0.824000001 0.9260737223 x0.8630000353 1.119754714 x0.8990000486 1.331043232 x0.92900002 1.577546374 x0.9450000525 1.788834807 x0.9650000334 2.052945304 x0.9830000401 2.440307459 R x1 2.99983061}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name ColorLookup2
+  label fromPsd
+  xpos -340
+  ypos -91
+ }
+ Colorspace {
+  colorspace_in {{parent.ColorspaceMaster.colorspace_out}}
+  name ColorspaceMasterB
+  xpos -313
+  ypos -18
+ }
+push $Na0a26400
+ Colorspace {
+  colorspace_out {{parent.ColorspaceMaster.colorspace_out}}
+  name Colorspace6
+  xpos -239
+  ypos -152
+ }
+ ColorLookup {
+  range 16
+  lut {master {curve L 0 x0.75 0.75 x0.8025634289 0.7902173996 x0.9260991812 0.824000001 x1.119808435 0.8630000353 x1.331127644 0.8990000486 x1.577665329 0.92900002 x1.788983583 0.9450000525 x2.053133249 0.9650000334 x2.440551281 0.9830000401 R x3.000156879 1}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name ColorLookup3
+  label toPsd
+  xpos -218
+  ypos -92
+ }
+ Colorspace {
+  colorspace_in {{parent.ColorspaceMaster.colorspace_out}}
+  name ColorspaceMasterB3
+  selected true
+  xpos -203
+  ypos -25
+ }
+ Switch {
+  inputs 2
+  which {{SwitchlutSeven.direction 0}}
+  name Switch_lutThree
+  xpos -274
+  ypos 46
+  addUserKnob {20 User}
+  addUserKnob {6 reverse +STARTLINE}
+  reverse true
+ }
+ Switch {
+  inputs 2
+  which {{lut}}
+  name SwitchType
+  xpos -436
+  ypos 608
+  addUserKnob {20 User}
+  addUserKnob {4 lut M {3 7}}
+  lut 7
+ }
+ Output {
+  name Output1
+  xpos -436
+  ypos 690
+ }
+ CMSTestPattern {
+  inputs 0
+  cube_size 64
+  name CMSTestPattern2
+  xpos -453
+  ypos 761
+ }
+set N8cf9fc00 [stack 0]
+ ColorLookup {
+  range 16
+  lut {master {curve L 0 x0.75 0.75 x0.7902173996 0.8960003853 x0.824000001 1.239130497 x0.8630000353 1.777173758 x0.8990000486 2.364130497 x0.92900002 3.048913002 x0.9450000525 3.635869503 x0.9650000334 4.36956501 x0.9830000401 5.445652008 R x1 7}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name ColorLookup4
+  label "viewer / from psd"
+  xpos -693
+  ypos 961
+ }
+ Clamp {
+  name Clamp1
+  xpos -693
+  ypos 1035
+ }
+ GenerateLUT {
+  file "\[value GenerateLUT7.FilePath]nxLut7_rec709_viewer.cube"
+  file_type .cube
+  name GenerateLUT7
+  xpos -693
+  ypos 1094
+  addUserKnob {20 User}
+  addUserKnob {2 FilePath}
+  FilePath //JUPITER/Studio/23237_Android_Droga_CF/Artwork/rafal/
+ }
+push $N8cf9fc00
+ ColorLookup {
+  range 16
+  lut {master {curve L 0 x0.75 0.75 x0.7902173996 0.8025561817 x0.824000001 0.9260737223 x0.8630000353 1.119754714 x0.8990000486 1.331043232 x0.92900002 1.577546374 x0.9450000525 1.788834807 x0.9650000334 2.052945304 x0.9830000401 2.440307459 R x1 2.99983061}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name ColorLookup5
+  label "viewer / from psd"
+  xpos -251
+  ypos 969
+ }
+ Clamp {
+  name Clamp2
+  xpos -251
+  ypos 1034
+ }
+ GenerateLUT {
+  file "\[value GenerateLUT7.FilePath]nxLut3_rec709_viewer.cube"
+  file_type .cube
+  name GenerateLUT3
+  xpos -251
+  ypos 1093
+ }
+ Colorspace {
+  inputs 0
+  name Colorspace5
+  xpos -912
+  ypos -201
+ }
+ Colorspace {
+  inputs 0
+  colorspace_out sRGB
+  name ColorspaceMaster
+  xpos -901
+  ypos -128
+ }
+end_group
