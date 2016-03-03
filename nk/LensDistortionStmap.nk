@@ -7,8 +7,8 @@ Group {
  gl_color 0x4fffb3ff
  label "\[value DistortionType]"
  selected true
- xpos 10614
- ypos -823
+ xpos 8088
+ ypos -2667
  addUserKnob {20 User}
  addUserKnob {52 onCreation T "nuke.createNode( \"Read\", \"file \" + filepath )" +STARTLINE}
  addUserKnob {41 channels T STMap1.channels}
@@ -23,7 +23,7 @@ Group {
  addUserKnob {26 ""}
  addUserKnob {41 padding l Padding t "Will only work when applying distortion, by default apply a crop to format but could be padded if needed." -STARTLINE T Crop_Padded_v1_.padding}
  addUserKnob {26 ""}
- addUserKnob {22 reloadFrames l "    reload frames   " T "g=nuke.thisGroup()\ng.begin()\n\nreadD  = nuke.toNode(\"ReadDistort\")\nreadDFileExp=readD\['file'].getValue()\nreadDFile= nuke.filename(readD) #this resolves the tcl in text knob\nreadFileDir=os.path.dirname(os.path.abspath(readFile))\nreadDFileL = nuke.getFileNameList(readFileDir) # this gets framerange\nreadDFile=str.split(\[s for s in readDFileL if \"_distort.\" in s]\[0])\nif len(readDFile)==2:\n readDFilePath=os.path.join(readFileDir,readDFile\[0]+\" \"+readDFile\[1])\nelse:\n readDFilePath=os.path.join(readFileDir,readDFile\[0])\nreadD\['file'].fromUserText(readDFilePath) # this forces nuke to evalute format and frame range\nreadD\[\"reload\"].execute()\n#nuke.callbacks.updateUI()\n#readD\['file'].setValue(readDFileExp)\n\n\nreadD  = nuke.toNode(\"ReadUndistort\")\nreadDFileExp=readD\['file'].getValue()\nreadDFile= nuke.filename(readD) #this resolves the tcl in text knob\nreadFileDir=os.path.dirname(os.path.abspath(readFile))\nreadDFileL = nuke.getFileNameList(readFileDir) # this gets framerange\nnuke.tprint(readDFileL)\nreadDFile=str.split(\[s for s in readDFileL if \"_undistort.\" in s]\[0])\nif len(readDFile)==2:\n readDFilePath=os.path.join(readFileDir,readDFile\[0]+\" \"+readDFile\[1])\nelse:\n readDFilePath=os.path.join(readFileDir,readDFile\[0])\nnuke.tprint(os.path.join(readFileDir,readDFile\[0]))\nreadD\['file'].fromUserText(readDFilePath) # this forces nuke to evalute format and frame range\nreadD\[\"reload\"].execute()\n#nuke.callbacks.updateUI()\n#readD\['file'].setValue(readDFileExp)\n\n\n\n\n\ng.end()" +STARTLINE}
+ addUserKnob {22 reloadFrames l "    reload frames   " T "g=nuke.thisGroup()\ng.begin()\n\nreadD  = nuke.toNode(\"ReadDistort\")\nreadDFileExp=readD\['file'].getValue()\nreadDFile= nuke.filename(readD) #this resolves the tcl in text knob\nreadFileDir=os.path.dirname(os.path.abspath(readDFile))\nreadDFileL = nuke.getFileNameList(readFileDir) # this gets framerange\nreadDFile=str.split(\[s for s in readDFileL if \"_distort.\" in s]\[0])\nif len(readDFile)==2:\n readDFilePath=os.path.join(readFileDir,readDFile\[0]+\" \"+readDFile\[1])\nelse:\n readDFilePath=os.path.join(readFileDir,readDFile\[0])\nreadD\['file'].fromUserText(readDFilePath) # this forces nuke to evalute format and frame range\nreadD\[\"reload\"].execute()\n#nuke.callbacks.updateUI()\n#readD\['file'].setValue(readDFileExp)\n\n\nreadD  = nuke.toNode(\"ReadUndistort\")\nreadDFileExp=readD\['file'].getValue()\nreadDFile= nuke.filename(readD) #this resolves the tcl in text knob\nreadFileDir=os.path.dirname(os.path.abspath(readDFile))\nreadDFileL = nuke.getFileNameList(readFileDir) # this gets framerange\nnuke.tprint(readDFileL)\nreadDFile=str.split(\[s for s in readDFileL if \"_undistort.\" in s]\[0])\nif len(readDFile)==2:\n readDFilePath=os.path.join(readFileDir,readDFile\[0]+\" \"+readDFile\[1])\nelse:\n readDFilePath=os.path.join(readFileDir,readDFile\[0])\nnuke.tprint(os.path.join(readFileDir,readDFile\[0]))\nreadD\['file'].fromUserText(readDFilePath) # this forces nuke to evalute format and frame range\nreadD\[\"reload\"].execute()\n#nuke.callbacks.updateUI()\n#readD\['file'].setValue(readDFileExp)\n\n\n\n\n\ng.end()" +STARTLINE}
  addUserKnob {41 file l undistort T ReadUndistort.file}
  addUserKnob {41 first l "frame range" T ReadUndistort.first}
  addUserKnob {41 last l "" -STARTLINE T ReadUndistort.last}
@@ -117,7 +117,7 @@ Group {
   xpos -905
   ypos -947
  }
-set N23eef800 [stack 0]
+set N9675dc00 [stack 0]
  Dot {
   name Dot6
   xpos -989
@@ -131,7 +131,7 @@ set N23eef800 [stack 0]
   xpos -1040
   ypos -895
  }
-push $N23eef800
+push $N9675dc00
  Dot {
   name Dot4
   xpos -805
@@ -158,7 +158,7 @@ push $N23eef800
   xpos -905
   ypos -664
  }
-set Ndde53800 [stack 0]
+set Na910dc00 [stack 0]
  STMap {
   inputs 2
   channels {{{parent.STMap1.channels}}}
@@ -179,14 +179,14 @@ set Ndde53800 [stack 0]
   xpos -599
   ypos -636
  }
-set Ndde53000 [stack 0]
+set Na910d400 [stack 0]
  Dot {
   name DotUndistort
   label "\[value input.width]x\[value input.height]"
   xpos -565
   ypos -519
  }
-push $Ndde53800
+push $Na910dc00
  STMap {
   inputs 2
   channels rgba
@@ -204,7 +204,7 @@ push $Ndde53800
   xpos -935
   ypos -377
  }
-set Ndde52400 [stack 0]
+set Na910c800 [stack 0]
  Reformat {
   filter Mitchell
   pbb true
@@ -212,7 +212,7 @@ set Ndde52400 [stack 0]
   xpos -1040
   ypos -295
  }
-push $Ndde52400
+push $Na910c800
  Reformat {
   filter {{parent.ReformatMasterFilter.filter}}
   pbb true
@@ -235,7 +235,7 @@ push $Ndde52400
   xpos -912
   ypos -13
  }
-set N34ef0c00 [stack 0]
+set N384cf000 [stack 0]
  Group {
   name Crop_Padded_v1_
   tile_color 0xbc81b5ff
@@ -276,7 +276,7 @@ set N34ef0c00 [stack 0]
   xpos -722
   ypos 53
  }
-push $N34ef0c00
+push $N384cf000
  Switch {
   inputs 2
   which {{ActiveCrop}}
@@ -362,7 +362,7 @@ push $N34ef0c00
   h2 {{h/2}}
   addUserKnob {26 infos l "" +STARTLINE T "marc czerwiec 01.2016 / "}
  }
-push $Ndde53000
+push $Na910d400
  Viewer {
   frame_range 101-172
   name Viewer1
