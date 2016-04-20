@@ -1,0 +1,178 @@
+set cut_paste_input [stack 0]
+version 9.0 v7
+push $cut_paste_input
+Group {
+ name CineSpace1D_LutGenerator
+ tile_color 0x40ff0cff
+ note_font_color 0xf800c4ff
+ selected true
+ xpos 14319
+ ypos -9442
+ addUserKnob {20 User l "CineSpace 1D Lut"}
+ addUserKnob {41 lut l "" -STARTLINE T ColorLookup4.lut}
+ addUserKnob {7 lutRed l INVISIBLE +INVISIBLE}
+ lutRed {{lut.red(lut.master(frame)) i}}
+ addUserKnob {7 lutGreen l INVISIBLE +INVISIBLE}
+ lutGreen {{lut.green(lut.master(frame)) i}}
+ addUserKnob {7 lutBlue l INVISIBLE +INVISIBLE}
+ lutBlue {{lut.blue(lut.master(frame)) i}}
+ addUserKnob {26 prelutHeader l "lut bounds"}
+ addUserKnob {1 metadata l METADATA}
+ metadata "Optional Header MetaData goes here."
+ addUserKnob {7 rLowIn l "LUT lower bound" R -0.5 0.5}
+ addUserKnob {7 rHighIn l "LUT upper bound" R 1 20}
+ rHighIn 13
+ addUserKnob {3 lutSteps l "Lut Steps"}
+ lutSteps 1024
+ addUserKnob {26 ""}
+ addUserKnob {2 cspOut l "csp Out" t "1D csp LUT output path"}
+ cspOut //JUPITER/Studio/23238_WK_Halls_SF/COMP/00_nuke/00_luts/neutral/NeutralPreLutForward_1dlut_v001.csp
+ addUserKnob {22 cspGen l "create .csp" T "\n\nmainNode = nuke.thisNode()\n\n\nlowPoint = float(mainNode.knob('rLowIn').getValue())\nhighPoint = float(mainNode.knob('rHighIn').getValue())\nsteps = float(mainNode.knob('lutSteps').getValue())\nincrement = (highPoint - lowPoint)  / (steps - 1)\n\nredValues = \[]\nposition = lowPoint\nwhile position < (highPoint+ increment):\n  redValues.append(mainNode.knob('lutRed').getValueAt(position))\n  position += increment\n\ngreenValues = \[]\nposition = lowPoint\nwhile position < (highPoint+ increment):\n  greenValues.append(mainNode.knob('lutGreen').getValueAt(position))\n  position += increment\n\nblueValues = \[]\nposition = lowPoint\nwhile position < (highPoint+ increment):\n  blueValues.append(mainNode.knob('lutBlue').getValueAt(position))\n  position += increment\n\nlen(redValues)\nprint redValues\nprint greenValues\nprint blueValues\n\n\ncsp =  'CSPLUTV100\\n1D\\n\\nBEGIN METADATA\\n'\ncsp += str(mainNode.knob('metadata').getValue())\ncsp += \"\\nThis LUT was created using Nuke Lookup -> CineSpace1D \" + str(mainNode.knob('version').getValue()) + \"\\nContact alexfry@gmail.com\"\ncsp += '\\nEND METADATA\\n'\n\ncsp += '\\n2\\n' \ncsp += str(lowPoint) + \" \" + str(highPoint) + \"\\n\"\ncsp += \"0.0  1.0\\n\"\n\ncsp += '\\n2\\n' \ncsp += str(lowPoint) + \" \" + str(highPoint) + \"\\n\"\ncsp += \"0.0  1.0\\n\"\n\ncsp += '\\n2\\n' \ncsp += str(lowPoint) + \" \" + str(highPoint) + \"\\n\"\ncsp += \"0.0  1.0\\n\"\n\ncsp += \"\\n\"\n\ncsp += str(len(redValues)) + \"\\n\"\n\nlutStep = 0\nwhile lutStep < len(redValues):\n  csp += str(redValues\[lutStep]) + \" \" + str(greenValues\[lutStep]) + \" \" + str(blueValues\[lutStep]) + \"\\n\"\n  lutStep += 1\n\n\ntempLut = mainNode.knob('cspOut').getValue()\noutf = open(tempLut,'w')\noutf.write(csp)\noutf.close()\n\n\n\n\n\n\n\n\n\n\n" +STARTLINE}
+ addUserKnob {20 Notes}
+ addUserKnob {26 versio l version T 2.0}
+ addUserKnob {26 created T alexfry@gmail.com}
+ addUserKnob {26 source T "https://www.dropbox.com/s/u3ykx7b8b92k50e/cinespaceLutGen_v002.nk\n\nhttp://community.thefoundry.co.uk/discussion/topic.aspx?f=189&t=99592"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 462
+  ypos 277
+ }
+ ColorLookup {
+  lut {master {curve 0 R x0.2206159979 0.1140536842 x0.4080570042 0.204665184 x0.6546829939 0.3165595531 x0.9212340117 0.3922529221 x1.390890002 0.5041474104 x2.004499912 0.6259149313 x3.008229971 0.7992939949 S x4.003029823 0.9261900063 x20 1.7 s0.02600000054}
+    red {}
+    green {}
+    blue {}
+    alpha {}}
+  name ColorLookup4
+  xpos 462
+  ypos 317
+ }
+ Output {
+  name Output1
+  xpos 462
+  ypos 417
+ }
+end_group
+push $cut_paste_input
+Group {
+ name CineSpace3D_LutGenerator
+ tile_color 0x40ff0cff
+ note_font_size 10
+ note_font_color 0xf800c4ff
+ selected true
+ xpos 14325
+ ypos -9392
+ mapsize {0.15 0.15}
+ addUserKnob {20 User l CineSpace3D_LutGenerator}
+ addUserKnob {26 cinespaceSection l "CineSpace 3D LUT output"}
+ addUserKnob {41 which l INVISIBLE +INVISIBLE T Switch1.which}
+ addUserKnob {7 saturation l INVISIBLE +INVISIBLE}
+ saturation 1
+ addUserKnob {7 flut l INVISIBLE +INVISIBLE}
+ flut 0.7
+ addUserKnob {7 shadow l INVISIBLE +INVISIBLE R -1 1}
+ addUserKnob {1 RMDpath l INVISIBLE +INVISIBLE}
+ RMDpath /jobs/alfx/gatsby/assets/received/client/general/gatsby_received_client_general_v157/RMD/A002_R002_0615QF.RMD
+ addUserKnob {7 lutRed l INVISIBLE +INVISIBLE}
+ lutRed {{lut.red(lut.master(frame)) i}}
+ addUserKnob {7 lutGreen l INVISIBLE +INVISIBLE}
+ lutGreen {{lut.green(lut.master(frame)) i}}
+ addUserKnob {7 lutBlue l INVISIBLE +INVISIBLE}
+ lutBlue {{lut.blue(lut.master(frame)) i}}
+ addUserKnob {7 lutDestination l INVISIBLE +INVISIBLE}
+ lutDestination {{lut.alpha(frame)}}
+ addUserKnob {1 metadata l Metadata t "Section for additional header metadata"}
+ metadata "Optional Header MetaData goes here."
+ addUserKnob {20 preLutGroup l "1D PreLut" n 1}
+ preLutGroup 0
+ addUserKnob {41 lut l "" +STARTLINE T preLut.lut}
+ addUserKnob {7 rLowIn l "preLut input lower bound" R -0.5 0.5}
+ addUserKnob {7 rHighIn l "preLut input upper bound" R 1 20}
+ rHighIn 1
+ addUserKnob {7 rLowOut l "preLut output lower bound"}
+ addUserKnob {7 rHighOut l "preLut output upper bound"}
+ rHighOut 1
+ addUserKnob {3 lutSteps l "PreLut Steps"}
+ lutSteps 2048
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 BasicGrades l "Basic Grades" n 1}
+ BasicGrades 0
+ addUserKnob {41 blackpoint T Grade.blackpoint}
+ addUserKnob {41 whitepoint T Grade.whitepoint}
+ addUserKnob {41 black l lift T Grade.black}
+ addUserKnob {41 white l gain T Grade.white}
+ addUserKnob {41 multiply T Grade.multiply}
+ addUserKnob {41 add l offset T Grade.add}
+ addUserKnob {41 gamma T Grade.gamma}
+ addUserKnob {41 saturation_1 l saturation T Saturation.saturation}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {41 file l INVISIBLE +INVISIBLE T GenerateLUT2.file}
+ addUserKnob {41 generate l INVISIBLE +INVISIBLE T GenerateLUT2.generate}
+ addUserKnob {2 cspPath}
+ cspPath ~/3dlut_v001.csp
+ addUserKnob {22 generateLookLut l "Generate .csp" T "\n\n\nmainNode = nuke.thisNode()\n\n\nmainNode.knob('which').setValue(1)\nmainNode.knob('generate').execute()\n\n\n## PreLut gen\n\nlowPoint = float(mainNode.knob('rLowIn').getValue())\nhighPoint = float(mainNode.knob('rHighIn').getValue())\nsteps = float(mainNode.knob('lutSteps').getValue())\nincrement = (highPoint - lowPoint)  / (steps - 1)\n\nredValues = \[]\nposition = lowPoint\ncurrStep =  0\nwhile currStep < (steps):\n  redValues.append(mainNode.knob('lutRed').getValueAt(position))\n  position += increment\n  currStep += 1\n\ngreenValues = \[]\nposition = lowPoint\ncurrStep =  0\nwhile currStep < (steps):\n  greenValues.append(mainNode.knob('lutGreen').getValueAt(position))\n  position += increment\n  currStep += 1\n\nblueValues = \[]\nposition = lowPoint\ncurrStep =  0\nwhile currStep < (steps):\n  blueValues.append(mainNode.knob('lutBlue').getValueAt(position))\n  position += increment\n  currStep += 1\n\n\noutLowPoint = float(mainNode.knob('rLowOut').getValue())\noutHighPoint = float(mainNode.knob('rHighOut').getValue())\noutIncrement = (outHighPoint - outLowPoint)  / (steps -1)\n\ndestValues = \[]\nposition = outLowPoint\ncurrStep =  0\nwhile currStep < (steps):\n  destValues.append(mainNode.knob('lutDestination').getValueAt(position))\n  position += outIncrement\n  currStep += 1\n\nlen(redValues)\nprint redValues\nprint greenValues\nprint blueValues\n\n\ncspHeader =  'CSPLUTV100\\n3D\\n\\nBEGIN METADATA\\n'\ncspHeader += str(mainNode.knob('metadata').getValue())\ncspHeader += \"\\nThis LUT was created using Nuke Lookup -> CineSpace3D \" + str(mainNode.knob('version').getValue()) + \"\\nContact alexfry@gmail.com\"\ncspHeader += '\\nEND METADATA\\n'\n\ncspPreLut = '\\n' + str(int(len(redValues))) + '\\n' \ncspPreLut += \" \".join(\[ str(x) for x in redValues ]) + \"\\n\"\ncspPreLut += \" \".join(\[ str(x) for x in destValues ]) + \"\\n\"\n\ncspPreLut += '\\n' + str(int(len(greenValues))) + '\\n' \ncspPreLut += \" \".join(\[ str(x) for x in redValues ]) + \"\\n\"\ncspPreLut += \" \".join(\[ str(x) for x in destValues ]) + \"\\n\"\n\ncspPreLut += '\\n' + str(int(len(blueValues))) + '\\n' \ncspPreLut += \" \".join(\[ str(x) for x in redValues ]) + \"\\n\"\ncspPreLut += \" \".join(\[ str(x) for x in destValues ]) + \"\\n\\n\"\nprint cspPreLut\n\n\n##############\n\nlutDestination = mainNode\['cspPath'].value()\ntempBaseLut = mainNode\['file'].value()\n\n\nbaseLUT = open(tempBaseLut, 'r')\ntempBaseLutLines = baseLUT.readlines()\nbaseLUT.close()\ntempBaseLutLines3D = tempBaseLutLines\[17:]\n\nfinalLutContents = cspHeader + cspPreLut + str(\"\".join(tempBaseLutLines3D))\nfinalLutPath = mainNode\['cspPath'].value()\n\ncsp3DLUT = open(finalLutPath, 'w')\ncsp3DLUT.write(finalLutContents)\ncsp3DLUT.close()\n\n\nmainNode.knob('which').setValue(0)\n\n" +STARTLINE}
+ addUserKnob {20 notes}
+ addUserKnob {26 version l v2 T alexfry@gmail.com}
+ addUserKnob {26 source T "https://www.dropbox.com/s/u3ykx7b8b92k50e/cinespaceLutGen_v002.nk\n\nhttp://community.thefoundry.co.uk/discussion/topic.aspx?f=189&t=99592"}
+}
+ CMSTestPattern {
+  inputs 0
+  name CMSTestPattern1
+  xpos 565
+  ypos 213
+ }
+ ColorLookup {
+  lut {master {(pow(10,(1023*x-685)/300)-.0108)/(1-.0108) C 0 1}
+    red {}
+    green {}
+    blue {}
+    alpha {x}}
+  name preLut
+  xpos 565
+  ypos 340
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 376
+  ypos 265
+ }
+ Switch {
+  inputs 2
+  name Switch1
+  xpos 376
+  ypos 340
+ }
+ Grade {
+  name Grade
+  xpos 376
+  ypos 464
+ }
+ Saturation {
+  name Saturation
+  xpos 376
+  ypos 502
+ }
+ Dot {
+  name outPath
+  label outPath
+  xpos 410
+  ypos 645
+ }
+set N5f16f800 [stack 0]
+ Output {
+  name Output1
+  xpos 376
+  ypos 764
+ }
+push $N5f16f800
+ GenerateLUT {
+  file /tmp/rvLookLutTMP.csp
+  file_type .csp
+  name GenerateLUT2
+  xpos 517
+  ypos 760
+ }
+end_group
