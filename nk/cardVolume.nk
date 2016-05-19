@@ -1,0 +1,2128 @@
+set cut_paste_input [stack 0]
+version 9.0 v7
+push 0
+push 0
+push 0
+push 0
+push 0
+push $cut_paste_input
+Group {
+inputs 6
+name cardVolume
+selected true
+xpos -5310
+ypos 20087
+addUserKnob {20 DeepSmoke}
+addUserKnob {41 format l "output format" T ReformatMASTER.format}
+addUserKnob {41 cardScale T MASTER.cardScale}
+addUserKnob {41 sceneScale T MASTER.sceneScale}
+addUserKnob {26 ""}
+addUserKnob {26 text01 l doNotUse:}
+addUserKnob {41 lens_inFocal T MASTER.lens_inFocal}
+addUserKnob {41 pickCardToFit T MASTER.pickCardToFit}
+addUserKnob {41 textureOverscan T MASTER.textureOverscan}
+addUserKnob {20 noise}
+addUserKnob {41 alphaMult T MASTER.alphaMult}
+addUserKnob {41 alphaGamma T MASTER.alphaGamma}
+addUserKnob {26 ""}
+addUserKnob {41 type T Noise4.type}
+addUserKnob {41 size l x/ysize T Noise4.size}
+addUserKnob {41 zoffset l z T Noise4.zoffset}
+addUserKnob {41 octaves T Noise4.octaves}
+addUserKnob {41 nyquist l "clip at Nyquist limit" -STARTLINE T Noise4.nyquist}
+addUserKnob {41 lacunarity T Noise4.lacunarity}
+addUserKnob {41 gain T Noise4.gain}
+addUserKnob {41 gamma T Noise4.gamma}
+addUserKnob {26 ""}
+addUserKnob {41 transform T Noise4.transform}
+addUserKnob {41 translate T Noise4.translate}
+addUserKnob {41 rotate T Noise4.rotate}
+addUserKnob {41 scale T Noise4.scale}
+addUserKnob {41 skewX l "skew X" T Noise4.skewX}
+addUserKnob {41 skewY l "skew Y" T Noise4.skewY}
+addUserKnob {41 skew_order l "skew order" T Noise4.skew_order}
+addUserKnob {41 center T Noise4.center}
+addUserKnob {41 xrotate T Noise4.xrotate}
+addUserKnob {41 yrotate T Noise4.yrotate}
+addUserKnob {20 defocus_2 l defocus}
+addUserKnob {41 defocus T MASTER.defocus}
+addUserKnob {41 depthOfField T MASTER.depthOfField}
+addUserKnob {41 focalPlane T MASTER.focalPlane}
+addUserKnob {26 ""}
+addUserKnob {20 card}
+addUserKnob {20 endGroup n -1}
+addUserKnob {26 position00 l Card T "positions & inputs"}
+addUserKnob {26 text l card01 T ""}
+addUserKnob {41 p01 l " " -STARTLINE T MASTER.p01}
+addUserKnob {41 card1 l "" -STARTLINE T MASTER.card1}
+addUserKnob {41 xy1 l "" -STARTLINE T MASTER.xy1}
+addUserKnob {41 position01 l z -STARTLINE T MASTER.position01}
+addUserKnob {41 pNorm01 l normal -STARTLINE T MASTER.pNorm01}
+addUserKnob {26 text_1 l card02 T ""}
+addUserKnob {41 p02 l " " -STARTLINE T MASTER.p02}
+addUserKnob {41 card2 l "" -STARTLINE T MASTER.card2}
+addUserKnob {41 xy2 l "" -STARTLINE T MASTER.xy2}
+addUserKnob {41 position02 l z -STARTLINE T MASTER.position02}
+addUserKnob {41 pNorm02 l normal -STARTLINE T MASTER.pNorm02}
+addUserKnob {26 text_2 l card03 T ""}
+addUserKnob {41 p03 l " " -STARTLINE T MASTER.p03}
+addUserKnob {41 card3 l "" -STARTLINE T MASTER.card3}
+addUserKnob {41 xy3 l "" -STARTLINE T MASTER.xy3}
+addUserKnob {41 position03 l z -STARTLINE T MASTER.position03}
+addUserKnob {41 pNorm03 l normal -STARTLINE T MASTER.pNorm03}
+addUserKnob {26 text_3 l card04 T ""}
+addUserKnob {41 p04 l " " -STARTLINE T MASTER.p04}
+addUserKnob {41 card4 l "" -STARTLINE T MASTER.card4}
+addUserKnob {41 xy4 l "" -STARTLINE T MASTER.xy4}
+addUserKnob {41 position04 l z -STARTLINE T MASTER.position04}
+addUserKnob {41 pNorm04 l normal -STARTLINE T MASTER.pNorm04}
+addUserKnob {26 text_4 l card05 T ""}
+addUserKnob {41 p05 l " " -STARTLINE T MASTER.p05}
+addUserKnob {41 card5 l "" -STARTLINE T MASTER.card5}
+addUserKnob {41 xy5 l "" -STARTLINE T MASTER.xy5}
+addUserKnob {41 position05 l z -STARTLINE T MASTER.position05}
+addUserKnob {41 pNorm05 l normal -STARTLINE T MASTER.pNorm05}
+addUserKnob {26 text_5 l card06 T ""}
+addUserKnob {41 p06 l " " -STARTLINE T MASTER.p06}
+addUserKnob {41 card6 l "" -STARTLINE T MASTER.card6}
+addUserKnob {41 xy6 l "" -STARTLINE T MASTER.xy6}
+addUserKnob {41 position06 l z -STARTLINE T MASTER.position06}
+addUserKnob {41 pNorm06 l normal -STARTLINE T MASTER.pNorm06}
+addUserKnob {26 text_6 l card07 T ""}
+addUserKnob {41 p07 l " " -STARTLINE T MASTER.p07}
+addUserKnob {41 card7 l "" -STARTLINE T MASTER.card7}
+addUserKnob {41 xy7 l "" -STARTLINE T MASTER.xy7}
+addUserKnob {41 position07 l z -STARTLINE T MASTER.position07}
+addUserKnob {41 pNorm07 l normal -STARTLINE T MASTER.pNorm07}
+addUserKnob {26 text_7 l card08 T ""}
+addUserKnob {41 p08 l " " -STARTLINE T MASTER.p08}
+addUserKnob {41 card8 l "" -STARTLINE T MASTER.card8}
+addUserKnob {41 xy8 l "" -STARTLINE T MASTER.xy8}
+addUserKnob {41 position08 l z -STARTLINE T MASTER.position08}
+addUserKnob {41 pNorm08 l normal -STARTLINE T MASTER.pNorm08}
+addUserKnob {26 text_8 l card09 T ""}
+addUserKnob {41 p09 l " " -STARTLINE T MASTER.p09}
+addUserKnob {41 card9 l "" -STARTLINE T MASTER.card9}
+addUserKnob {41 xy9 l "" -STARTLINE T MASTER.xy9}
+addUserKnob {41 position09 l z -STARTLINE T MASTER.position09}
+addUserKnob {41 pNorm09 l normal -STARTLINE T MASTER.pNorm09}
+addUserKnob {26 card10_1 l card10 T ""}
+addUserKnob {41 p10 l " " -STARTLINE T MASTER.p10}
+addUserKnob {41 card10 l "" -STARTLINE T MASTER.card10}
+addUserKnob {41 xy10 l "" -STARTLINE T MASTER.xy10}
+addUserKnob {41 position10 l z -STARTLINE T MASTER.position10}
+addUserKnob {41 pNorm10 l normal -STARTLINE T MASTER.pNorm10}
+addUserKnob {20 fades}
+addUserKnob {41 fade l "fade depth" T MASTER.fade}
+addUserKnob {26 text03 l left}
+addUserKnob {41 leftPosition l Position T MASTER.leftPosition}
+addUserKnob {41 leftBlur l blur T MASTER.leftBlur}
+addUserKnob {26 text04 l right}
+addUserKnob {41 rightPosition l Position T MASTER.rightPosition}
+addUserKnob {41 rightBlur l "Right Blur" T MASTER.rightBlur}
+addUserKnob {26 text05 l top}
+addUserKnob {41 topPosition l Position T MASTER.topPosition}
+addUserKnob {41 topBlur l blur T MASTER.topBlur}
+addUserKnob {26 text06 l bottom}
+addUserKnob {41 bottomPosition l Position T MASTER.bottomPosition}
+addUserKnob {41 BottomBlur l blur T MASTER.BottomBlur}
+addUserKnob {20 cardDistortTAB l distort}
+addUserKnob {41 cardDistort T MASTER.cardDistort}
+addUserKnob {41 dNoiseX T MASTER.dNoiseX}
+addUserKnob {41 dNoiseY T MASTER.dNoiseY}
+addUserKnob {41 dNoiseXoffset T MASTER.dNoiseXoffset}
+addUserKnob {41 dNoiseYoffset T MASTER.dNoiseYoffset}
+addUserKnob {41 dNoiseVariancy T MASTER.dNoiseVariancy}
+addUserKnob {41 dNoiseLacunarity T MASTER.dNoiseLacunarity}
+addUserKnob {41 dNoiseGain T MASTER.dNoiseGain}
+addUserKnob {41 dNoiseSpeed T MASTER.dNoiseSpeed}
+addUserKnob {41 dNoiseOctaves T MASTER.dNoiseOctaves}
+}
+BackdropNode {
+inputs 0
+name BackdropNode5
+tile_color 0x64646400
+label MASTERS
+note_font_size 42
+xpos 183
+ypos 300
+bdwidth 229
+bdheight 178
+}
+Input {
+inputs 0
+name Camera
+xpos -1189
+ypos 2031
+}
+Dot {
+name Dot12
+xpos 125
+ypos 2225
+}
+set N69124000 [stack 0]
+push $N69124000
+Reformat {
+inputs 0
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat4
+xpos -1014
+ypos 1288
+addUserKnob {20 User}
+}
+set N69157c00 [stack 0]
+Dot {
+name Dot2
+xpos -1073
+ypos 1312
+}
+set N69157400 [stack 0]
+Dot {
+name Dot5
+xpos -1183
+ypos 1307
+}
+set N69157000 [stack 0]
+Dot {
+name Dot3
+xpos -1285
+ypos 1308
+}
+Ramp {
+p0 {{(width*((yOffset*-1)+1))} 0}
+p1 {0 0}
+name RampY_right1
+xpos -1319
+ypos 1335
+addUserKnob {20 User}
+addUserKnob {7 yOffset R -1 1}
+yOffset {{parent.MASTER.rightPosition}}
+}
+Clamp {
+channels rgba
+maximum 1e-006
+MaxClampTo_enable true
+name Clamp4
+xpos -1319
+ypos 1359
+}
+Blur {
+channels rgba
+size {{MASTER.rightBlur*1000} 0}
+name BlurR
+xpos -1319
+ypos 1405
+}
+push $N69157000
+Ramp {
+p0 {{width+(width*(yOffset-1))-1} 0}
+p1 {{width+1} 0}
+name RampY_left
+xpos -1212
+ypos 1337
+addUserKnob {20 User}
+addUserKnob {7 yOffset R -1 1}
+yOffset {{parent.MASTER.leftPosition}}
+}
+Clamp {
+channels rgba
+maximum 1e-006
+MaxClampTo_enable true
+name Clamp3
+xpos -1212
+ypos 1361
+}
+Blur {
+channels rgba
+size {{MASTER.leftBlur*1000} 0}
+name BlurL
+xpos -1212
+ypos 1404
+}
+push 0
+push $N69157400
+Ramp {
+p0 {0 {(height*((yOffset)))-1}}
+p1 {0 {height+1}}
+name RampY_btm
+xpos -1107
+ypos 1338
+addUserKnob {20 User}
+addUserKnob {7 yOffset R -1 1}
+yOffset {{parent.MASTER.bottomPosition}}
+}
+Clamp {
+channels rgba
+maximum 1e-006
+MaxClampTo_enable true
+name Clamp2
+xpos -1107
+ypos 1362
+}
+Blur {
+channels rgba
+size {0 {MASTER.BottomBlur*1000 x101 -0.1}}
+name BlurB
+xpos -1107
+ypos 1406
+}
+push $N69157c00
+Ramp {
+p0 {0 {(height*((yOffset*-1+1)))+1 x101 1280}}
+p1 {0 -1e-007}
+name RampY_top
+xpos -1014
+ypos 1340
+addUserKnob {20 User}
+addUserKnob {7 yOffset R -1 1}
+yOffset {{parent.MASTER.topPosition}}
+}
+Clamp {
+channels rgba
+maximum 1e-006
+MaxClampTo_enable true
+name Clamp1
+xpos -1014
+ypos 1364
+}
+Blur {
+channels rgba
+size {0 {MASTER.topBlur*1000}}
+name BlurT
+xpos -1014
+ypos 1409
+}
+Merge2 {
+inputs 4+1
+operation min
+name Merge1
+xpos -1014
+ypos 1471
+}
+set N691d1800 [stack 0]
+Input {
+inputs 0
+name plate7
+xpos 1058
+ypos 100
+number 7
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat20
+xpos 1058
+ypos 135
+addUserKnob {20 User}
+}
+set N691d1000 [stack 0]
+Input {
+inputs 0
+name plate6
+xpos 912
+ypos 107
+number 6
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat8
+xpos 904
+ypos 148
+addUserKnob {20 User}
+}
+set N691d0400 [stack 0]
+Input {
+inputs 0
+name plate5
+xpos 765
+ypos 100
+number 5
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat7
+xpos 765
+ypos 135
+addUserKnob {20 User}
+}
+set N691fd800 [stack 0]
+Input {
+inputs 0
+name plate4
+xpos 609
+ypos 96
+number 4
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat6
+xpos 609
+ypos 131
+addUserKnob {20 User}
+}
+set N691fcc00 [stack 0]
+Input {
+inputs 0
+name plate3
+xpos 485
+ypos 94
+number 3
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat5
+xpos 485
+ypos 129
+addUserKnob {20 User}
+}
+set N691fc000 [stack 0]
+Input {
+inputs 0
+name plate2
+xpos 351
+ypos 87
+number 2
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat2
+xpos 351
+ypos 124
+addUserKnob {20 User}
+}
+set N69217400 [stack 0]
+Input {
+inputs 0
+name plate1
+xpos 235
+ypos 74
+number 1
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat1
+xpos 235
+ypos 121
+addUserKnob {20 User}
+}
+set N69216800 [stack 0]
+Reformat {
+inputs 0
+format "2010 1294 0 0 2010 1294 1 Halls CG A"
+name ReformatMASTER
+xpos 258
+ypos 445
+}
+Reformat {
+type scale
+scale 11
+name Reformat18
+xpos 261
+ypos 493
+}
+Noise {
+size {400 40}
+zoffset {{frame/10 x103 0 x158 10}}
+lacunarity 2.5
+gain 0.78
+gamma 0.755
+translate {{-curve x101 0 x158 88} {0 x101 0 x158 -32}}
+rotate 22
+center {960 540}
+p1 {92 1276}
+p0 {90 30}
+name Noise4
+xpos 258
+ypos 529
+}
+Grade {
+channels {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+white {{parent.MASTER.alphaMult}}
+gamma {{parent.MASTER.alphaGamma x105 1.35}}
+white_clamp true
+unpremult -rgba.alpha
+name Grade14
+xpos 258
+ypos 583
+}
+Premult {
+name Premult2
+xpos 258
+ypos 631
+}
+Dot {
+name Dot9
+xpos 292
+ypos 878
+}
+set N69236400 [stack 0]
+Dot {
+name Dot4
+xpos -857
+ypos 1003
+}
+Switch {
+inputs 8
+which {{MASTER.card1}}
+name Switch1
+xpos -891
+ypos 1071
+}
+Transform {
+scale {{MASTER.tileScale/(position*10)}}
+center {{width/2} {height/2}}
+filter Impulse
+black_outside false
+name Transform21
+label "\[value position]"
+xpos -891
+ypos 1115
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position01}}
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat11
+xpos -891
+ypos 1151
+addUserKnob {20 User}
+}
+Crop {
+box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+name Crop12
+xpos -891
+ypos 1175
+}
+Mirror2 {
+flip true
+flop true
+name Mirror2_1
+xpos -891
+ypos 1201
+disable true
+}
+Multiply {
+channels rgba
+value {{((position/1)*MASTER.fade-position)+1 x101 2}}
+name Multiply8
+label "\[value position]"
+xpos -891
+ypos 1301
+addUserKnob {20 User}
+addUserKnob {7 position}
+position 0.1
+}
+Multiply {
+channels alpha
+value 0.5
+unpremult -rgba.alpha
+name Multiply1
+xpos -891
+ypos 1351
+disable true
+}
+Merge2 {
+inputs 2
+operation multiply
+bbox B
+name Merge2
+xpos -891
+ypos 1471
+}
+Defocus {
+channels rgba
+defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+name Defocus1
+label "\[value position]"
+xpos -891
+ypos 1609
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position01}}
+}
+Card2 {
+cast_shadow false
+receive_shadow false
+lens_in_focal {{position==0?1:1/position}}
+translate {{MASTER.xy1} {MASTER.xy1} {position}}
+uniform_scale {{MASTER.cardScale}}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card12
+label "\[value position]"
+xpos -891
+ypos 1647
+disable {{!MASTER.p01}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position01}}
+}
+Normals {
+action set
+normal {180 180 180}
+threshold 0
+name Normals2
+xpos -891
+ypos 1762
+disable {{!MASTER.pNorm01 x101 1}}
+}
+ProcGeo {
+x_size {{MASTER.dNoiseX}}
+x_offset {{MASTER.dNoiseXoffset+(random(position))*MASTER.dNoiseVariancy}}
+y_size {{MASTER.dNoiseY x105 0}}
+y_offset {{MASTER.dNoiseYoffset+(random(position))*MASTER.dNoiseVariancy}}
+Octaves {{MASTER.dNoiseOctaves}}
+Lacunarity {{MASTER.dNoiseLacunarity}}
+Gain {{MASTER.dNoiseGain}}
+Speed {{MASTER.dNoiseSpeed}}
+name sub_10_ProcGeo10
+label "\[value position]"
+xpos -906
+ypos 1810
+disable {{!MASTER.cardDistort x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position01}}
+}
+push $N691d1800
+push $N691d1000
+push $N691d0400
+push $N691fd800
+push $N691fcc00
+push $N691fc000
+push $N69217400
+push $N69216800
+push $N69236400
+Dot {
+name Dot7
+xpos -581
+ypos 1006
+}
+Switch {
+inputs 8
+which {{MASTER.card2}}
+name Switch2
+xpos -615
+ypos 1074
+}
+Transform {
+rotate 7.726021767
+scale {{MASTER.tileScale/(position*10) x101 0}}
+center {{width/2 x101 0} {height/2 x101 0}}
+filter Impulse
+black_outside false
+name Transform29
+label "\[value position]"
+xpos -610
+ypos 1115
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position02}}
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat10
+xpos -610
+ypos 1151
+addUserKnob {20 User}
+}
+Crop {
+box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+name Crop11
+xpos -610
+ypos 1175
+}
+Mirror2 {
+flip true
+flop true
+name Mirror2_4
+xpos -610
+ypos 1201
+disable true
+}
+Multiply {
+channels rgba
+value {{((position/1)*MASTER.fade-position)+1}}
+name Multiply2
+label "\[value position]"
+xpos -610
+ypos 1301
+addUserKnob {20 User}
+addUserKnob {7 position}
+position 0.2
+}
+Multiply {
+channels alpha
+value 0.5
+name Multiply5
+xpos -610
+ypos 1339
+disable true
+}
+Merge2 {
+inputs 2
+operation multiply
+bbox B
+name Merge3
+xpos -610
+ypos 1503
+}
+Grade {
+white 4
+name Grade9
+xpos -610
+ypos 1527
+}
+Defocus {
+channels rgba
+defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+name Defocus2
+label "\[value position]"
+xpos -610
+ypos 1610
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position02}}
+}
+Card2 {
+cast_shadow false
+receive_shadow false
+lens_in_focal {{position==0?1:1/position}}
+translate {{MASTER.xy2} {MASTER.xy2} {position}}
+uniform_scale {{MASTER.cardScale}}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card21
+label "\[value position]"
+xpos -610
+ypos 1648
+disable {{!MASTER.p02}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position02}}
+}
+Normals {
+action set
+normal {180 180 180}
+threshold 0
+name Normals3
+xpos -610
+ypos 1766
+disable {{!MASTER.pNorm02 x101 1}}
+}
+ProcGeo {
+x_size {{MASTER.dNoiseX}}
+x_offset {{MASTER.dNoiseXoffset+(random(position))*MASTER.dNoiseVariancy}}
+y_size {{MASTER.dNoiseY x105 0}}
+y_offset {{MASTER.dNoiseYoffset+(random(position))*MASTER.dNoiseVariancy}}
+Octaves {{MASTER.dNoiseOctaves}}
+Lacunarity {{MASTER.dNoiseLacunarity}}
+Gain {{MASTER.dNoiseGain}}
+Speed {{MASTER.dNoiseSpeed}}
+name sub_10_ProcGeo11
+label "\[value position]"
+xpos -619
+ypos 1811
+disable {{!MASTER.cardDistort x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position01}}
+}
+push $N691d1800
+push $N691d1000
+push $N691d0400
+push $N691fd800
+push $N691fcc00
+push $N691fc000
+push $N69217400
+push $N69216800
+push $N69236400
+Dot {
+name Dot8
+xpos -294
+ypos 983
+}
+Switch {
+inputs 8
+which {{MASTER.card3}}
+name Switch3
+xpos -338
+ypos 1059
+}
+Transform {
+rotate 8
+scale {{MASTER.tileScale/(position*10)}}
+center {{width/2} {height/2}}
+filter Impulse
+black_outside false
+name Transform28
+label "\[value position]"
+xpos -328
+ypos 1115
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position03 x105 0.1}}
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat3
+xpos -328
+ypos 1151
+addUserKnob {20 User}
+}
+Crop {
+box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+name Crop10
+xpos -328
+ypos 1175
+}
+Mirror2 {
+flip true
+flop true
+name Mirror2_8
+xpos -328
+ypos 1201
+disable true
+}
+Multiply {
+channels rgba
+value {{((position/1)*MASTER.fade-position)+1}}
+name Multiply3
+label "\[value position]"
+xpos -328
+ypos 1301
+addUserKnob {20 User}
+addUserKnob {7 position}
+position 0.3
+}
+Merge2 {
+inputs 2
+operation multiply
+bbox B
+name Merge4
+xpos -328
+ypos 1483
+}
+Grade {
+white 0.17
+name Grade8
+xpos -328
+ypos 1507
+}
+Defocus {
+channels rgba
+defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+name Defocus10
+label "\[value position]"
+xpos -328
+ypos 1598
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position03}}
+}
+Card2 {
+cast_shadow false
+receive_shadow false
+lens_in_focal {{position==0?1:1/position}}
+translate {{MASTER.xy3} {MASTER.xy3} {position}}
+uniform_scale {{MASTER.cardScale}}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card20
+label "\[value position]"
+xpos -328
+ypos 1636
+disable {{!MASTER.p03 x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position03}}
+}
+Normals {
+action set
+normal {180 180 180}
+threshold 0
+name Normals4
+xpos -328
+ypos 1738
+disable {{!MASTER.pNorm03 x101 1}}
+}
+ProcGeo {
+x_size {{MASTER.dNoiseX}}
+x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+y_size {{MASTER.dNoiseY x105 0}}
+y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+Octaves {{MASTER.dNoiseOctaves}}
+Lacunarity {{MASTER.dNoiseLacunarity}}
+Gain {{MASTER.dNoiseGain}}
+Speed {{MASTER.dNoiseSpeed}}
+name sub_10_ProcGeo8
+label "\[value position]"
+xpos -328
+ypos 1795
+disable {{!MASTER.cardDistort x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position03}}
+}
+push $N691d1800
+push $N691d1000
+push $N691d0400
+push $N691fd800
+push $N691fcc00
+push $N691fc000
+push $N69217400
+push $N69216800
+push $N69236400
+Dot {
+name Dot10
+xpos -14
+ypos 950
+}
+Switch {
+inputs 8
+which {{MASTER.card4}}
+name Switch4
+xpos -55
+ypos 1053
+}
+Transform {
+scale {{MASTER.tileScale/(position*10)}}
+center {{width/2} {height/2}}
+filter Impulse
+black_outside false
+name Transform27
+label "\[value position]"
+xpos -47
+ypos 1115
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position04}}
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat9
+xpos -47
+ypos 1151
+addUserKnob {20 User}
+}
+Crop {
+box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+name Crop9
+xpos -47
+ypos 1175
+}
+Mirror2 {
+flip true
+flop true
+name Mirror2_9
+xpos -47
+ypos 1201
+disable true
+}
+Multiply {
+channels rgba
+value {{((position/1)*MASTER.fade-position)+1}}
+name Multiply4
+label "\[value position]"
+xpos -47
+ypos 1301
+addUserKnob {20 User}
+addUserKnob {7 position}
+position 0.4
+}
+Merge2 {
+inputs 2
+operation multiply
+bbox B
+name Merge5
+xpos -48
+ypos 1471
+}
+Defocus {
+channels rgba
+defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+name Defocus9
+label "\[value position]"
+xpos -48
+ypos 1591
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position04 x105 0}}
+}
+Card2 {
+cast_shadow false
+receive_shadow false
+lens_in_focal {{position==0?1:1/position}}
+translate {{MASTER.xy4} {MASTER.xy4} {position}}
+uniform_scale {{MASTER.cardScale}}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card19
+label "\[value position]"
+xpos -47
+ypos 1651
+disable {{!MASTER.p04}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position04}}
+}
+Normals {
+action set
+normal {180 180 180}
+threshold 0
+name Normals5
+xpos -47
+ypos 1743
+disable {{!MASTER.pNorm04 x101 1}}
+}
+ProcGeo {
+x_size {{MASTER.dNoiseX}}
+x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+y_size {{MASTER.dNoiseY x105 0}}
+y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+Octaves {{MASTER.dNoiseOctaves}}
+Lacunarity {{MASTER.dNoiseLacunarity}}
+Gain {{MASTER.dNoiseGain}}
+Speed {{MASTER.dNoiseSpeed}}
+name sub_10_ProcGeo7
+label "\[value position]"
+xpos -47
+ypos 1795
+disable {{!MASTER.cardDistort x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position04}}
+}
+push $N691d1800
+push $N691d1000
+push $N691d0400
+push $N691fd800
+push $N691fcc00
+push $N691fc000
+push $N69217400
+push $N69216800
+push $N69236400
+Dot {
+name Dot11
+xpos 280
+ypos 985
+}
+Switch {
+inputs 8
+which {{MASTER.card5}}
+name Switch5
+xpos 249
+ypos 1046
+}
+Transform {
+scale {{MASTER.tileScale/(position*10)}}
+center {{width/2} {height/2}}
+filter Impulse
+black_outside false
+name Transform26
+label "\[value position]"
+xpos 249
+ypos 1093
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position05}}
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+name Reformat12
+xpos 235
+ypos 1151
+addUserKnob {20 User}
+}
+Crop {
+box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+name Crop8
+xpos 235
+ypos 1175
+}
+Mirror2 {
+flip true
+flop true
+name Mirror2_5
+xpos 235
+ypos 1201
+disable true
+}
+Multiply {
+channels rgba
+value {{((position/1)*MASTER.fade-position)+1}}
+name Multiply7
+label "\[value position]"
+xpos 235
+ypos 1301
+addUserKnob {20 User}
+addUserKnob {7 position}
+position 0.5
+}
+Merge2 {
+inputs 2
+operation multiply
+bbox B
+name Merge7
+xpos 236
+ypos 1471
+}
+Defocus {
+channels rgba
+defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+name Defocus8
+label "\[value position]"
+xpos 235
+ypos 1610
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position05}}
+}
+Card2 {
+cast_shadow false
+receive_shadow false
+lens_in_focal {{position==0?1:1/position}}
+translate {{MASTER.xy5} {MASTER.xy5} {position}}
+uniform_scale {{MASTER.cardScale}}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card18
+label "\[value position]"
+xpos 235
+ypos 1648
+disable {{!MASTER.p05}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position05}}
+}
+Normals {
+action set
+normal {180 180 180}
+threshold 0
+name Normals1
+xpos 235
+ypos 1744
+disable {{!MASTER.pNorm05 x101 1}}
+}
+ProcGeo {
+x_size {{MASTER.dNoiseX}}
+x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+y_size {{MASTER.dNoiseY x105 0}}
+y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+Octaves {{MASTER.dNoiseOctaves}}
+Lacunarity {{MASTER.dNoiseLacunarity}}
+Gain {{MASTER.dNoiseGain}}
+Speed {{MASTER.dNoiseSpeed}}
+name sub_10_ProcGeo6
+label "\[value position]"
+xpos 235
+ypos 1795
+disable {{!MASTER.cardDistort x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position05}}
+}
+push $N691d1800
+push $N691d1000
+push $N691d0400
+push $N691fd800
+push $N691fcc00
+push $N691fc000
+push $N69217400
+push $N69216800
+push $N69236400
+Dot {
+name Dot13
+xpos 537
+ypos 989
+}
+Switch {
+inputs 8
+which {{MASTER.card6}}
+name Switch6
+xpos 503
+ypos 1059
+}
+Transform {
+scale {{MASTER.tileScale/(position*10)}}
+center {{width/2} {height/2}}
+filter Impulse
+black_outside false
+name Transform25
+label "\[value position]"
+xpos 517
+ypos 1116
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position06}}
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat13
+xpos 517
+ypos 1152
+addUserKnob {20 User}
+}
+Crop {
+box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+name Crop7
+xpos 517
+ypos 1176
+}
+Mirror2 {
+flip true
+flop true
+name Mirror2_3
+xpos 517
+ypos 1202
+disable true
+}
+Multiply {
+channels rgba
+value {{((position/1)*MASTER.fade-position)+1}}
+name Multiply9
+label "\[value position]"
+xpos 517
+ypos 1301
+addUserKnob {20 User}
+addUserKnob {7 position}
+position 0.6
+}
+Merge2 {
+inputs 2
+operation multiply
+bbox B
+name Merge6
+xpos 512
+ypos 1471
+}
+Defocus {
+channels rgba
+defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+name Defocus7
+label "\[value position]"
+xpos 517
+ypos 1610
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position06}}
+}
+Card2 {
+cast_shadow false
+receive_shadow false
+lens_in_focal {{position==0?1:1/position}}
+translate {{MASTER.xy6} {MASTER.xy6} {position}}
+uniform_scale {{MASTER.cardScale}}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card17
+label "\[value position]"
+xpos 517
+ypos 1648
+disable {{!MASTER.p06}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position06}}
+}
+Normals {
+action set
+normal {180 180 180}
+threshold 0
+name Normals6
+xpos 517
+ypos 1764
+disable {{!MASTER.pNorm06 x101 1}}
+}
+ProcGeo {
+x_size {{MASTER.dNoiseX}}
+x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+y_size {{MASTER.dNoiseY x105 0}}
+y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+Octaves {{MASTER.dNoiseOctaves}}
+Lacunarity {{MASTER.dNoiseLacunarity}}
+Gain {{MASTER.dNoiseGain}}
+Speed {{MASTER.dNoiseSpeed}}
+name sub_10_ProcGeo5
+label "\[value position]"
+xpos 517
+ypos 1795
+disable {{!MASTER.cardDistort x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position06}}
+}
+push $N691d1800
+push $N691d1000
+push $N691d0400
+push $N691fd800
+push $N691fcc00
+push $N691fc000
+push $N69217400
+push $N69216800
+push $N69236400
+Dot {
+name Dot14
+xpos 832
+ypos 945
+}
+Switch {
+inputs 8
+which {{MASTER.card7}}
+name Switch7
+xpos 798
+ypos 1062
+}
+Transform {
+scale {{MASTER.tileScale/(position*10)}}
+center {{width/2} {height/2}}
+filter Impulse
+black_outside false
+name Transform24
+label "\[value position]"
+xpos 798
+ypos 1115
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position07}}
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+name Reformat14
+xpos 798
+ypos 1151
+addUserKnob {20 User}
+}
+Crop {
+box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+name Crop6
+xpos 798
+ypos 1175
+}
+Mirror2 {
+flip true
+flop true
+name Mirror2_11
+xpos 798
+ypos 1214
+disable true
+}
+Multiply {
+channels rgba
+value {{((position/1)*MASTER.fade-position)+1}}
+name Multiply10
+label "\[value position]"
+xpos 798
+ypos 1301
+addUserKnob {20 User}
+addUserKnob {7 position}
+position 0.7
+}
+Merge2 {
+inputs 2
+operation multiply
+bbox B
+name Merge8
+xpos 798
+ypos 1471
+}
+Defocus {
+channels rgba
+defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+name Defocus6
+label "\[value position]"
+xpos 798
+ypos 1618
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position07}}
+}
+Card2 {
+cast_shadow false
+receive_shadow false
+lens_in_focal {{position==0?1:1/position}}
+translate {{MASTER.xy7} {MASTER.xy7} {position}}
+uniform_scale {{MASTER.cardScale}}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card16
+label "\[value position]"
+xpos 798
+ypos 1656
+disable {{!MASTER.p07}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position07}}
+}
+Normals {
+action set
+normal {180 180 180}
+threshold 0
+name Normals7
+xpos 798
+ypos 1766
+disable {{!MASTER.pNorm07 x101 1}}
+}
+ProcGeo {
+x_size {{MASTER.dNoiseX}}
+x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+y_size {{MASTER.dNoiseY x105 0}}
+y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+Octaves {{MASTER.dNoiseOctaves}}
+Lacunarity {{MASTER.dNoiseLacunarity}}
+Gain {{MASTER.dNoiseGain}}
+Speed {{MASTER.dNoiseSpeed}}
+name sub_10_ProcGeo4
+label "\[value position]"
+xpos 798
+ypos 1795
+disable {{!MASTER.cardDistort x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position07}}
+}
+push $N691d1800
+push $N691d1000
+push $N691d0400
+push $N691fd800
+push $N691fcc00
+push $N691fc000
+push $N69217400
+push $N69216800
+push $N69236400
+Dot {
+name Dot15
+xpos 1114
+ypos 945
+}
+Switch {
+inputs 8
+which {{MASTER.card8}}
+name Switch8
+xpos 1080
+ypos 1007
+}
+Transform {
+scale {{MASTER.tileScale/(position*10)}}
+center {{width/2} {height/2}}
+filter Impulse
+black_outside false
+name Transform23
+label "\[value position]"
+xpos 1080
+ypos 1115
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position08}}
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+name Reformat15
+xpos 1080
+ypos 1151
+addUserKnob {20 User}
+}
+Crop {
+box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+name Crop5
+xpos 1080
+ypos 1175
+}
+Mirror2 {
+flip true
+flop true
+name Mirror2_10
+xpos 1080
+ypos 1201
+disable true
+}
+Multiply {
+channels rgba
+value {{((position/1)*MASTER.fade-position)+1}}
+name Multiply11
+label "\[value position]"
+xpos 1080
+ypos 1301
+addUserKnob {20 User}
+addUserKnob {7 position}
+position 0.8
+}
+Merge2 {
+inputs 2
+operation multiply
+bbox B
+name Merge9
+xpos 1081
+ypos 1471
+}
+Defocus {
+channels rgba
+defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+name Defocus5
+label "\[value position]"
+xpos 1080
+ypos 1610
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position08}}
+}
+Card2 {
+cast_shadow false
+receive_shadow false
+lens_in_focal {{position==0?1:1/position}}
+translate {{MASTER.xy8} {MASTER.xy8} {position}}
+uniform_scale {{MASTER.cardScale}}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card15
+label "\[value position]"
+xpos 1080
+ypos 1648
+disable {{!MASTER.p08}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position08}}
+}
+Normals {
+action set
+normal {180 180 180}
+threshold 0
+name Normals8
+xpos 1080
+ypos 1765
+disable {{!MASTER.pNorm08 x101 1}}
+}
+ProcGeo {
+x_size {{MASTER.dNoiseX}}
+x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+y_size {{MASTER.dNoiseY x105 0}}
+y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+Octaves {{MASTER.dNoiseOctaves}}
+Lacunarity {{MASTER.dNoiseLacunarity}}
+Gain {{MASTER.dNoiseGain}}
+Speed {{MASTER.dNoiseSpeed}}
+name sub_10_ProcGeo3
+label "\[value position]"
+xpos 1080
+ypos 1795
+disable {{!MASTER.cardDistort x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position08}}
+}
+push $N691d1800
+push $N691d1000
+push $N691d0400
+push $N691fd800
+push $N691fcc00
+push $N691fc000
+push $N69217400
+push $N69216800
+push $N69236400
+Dot {
+name Dot1
+xpos 1395
+ypos 938
+}
+Switch {
+inputs 8
+which {{MASTER.card9}}
+name Switch9
+xpos 1361
+ypos 1016
+}
+Transform {
+scale {{MASTER.tileScale/(position*10)}}
+center {{width/2} {height/2}}
+filter Impulse
+black_outside false
+name Transform22
+label "\[value position]"
+xpos 1361
+ypos 1115
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position09}}
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat16
+xpos 1361
+ypos 1151
+addUserKnob {20 User}
+}
+Crop {
+box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+name Crop3
+xpos 1361
+ypos 1175
+}
+Mirror2 {
+flip true
+flop true
+name Mirror2_7
+xpos 1361
+ypos 1201
+disable true
+}
+Multiply {
+channels rgba
+value {{((position/1)*MASTER.fade-position)+1}}
+name Multiply18
+label "\[value position]"
+xpos 1361
+ypos 1301
+addUserKnob {20 User}
+addUserKnob {7 position}
+position 0.9
+}
+Merge2 {
+inputs 2
+operation multiply
+bbox B
+name Merge10
+xpos 1361
+ypos 1471
+}
+Defocus {
+channels rgba
+defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+name Defocus4
+label "\[value position]"
+xpos 1361
+ypos 1610
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position09}}
+}
+Card2 {
+cast_shadow false
+receive_shadow false
+lens_in_focal {{position==0?1:1/position}}
+translate {{MASTER.xy9} {MASTER.xy9} {position}}
+uniform_scale {{MASTER.cardScale}}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+name Card14
+label "\[value position]"
+xpos 1361
+ypos 1648
+disable {{!MASTER.p09}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position09}}
+}
+Normals {
+action set
+normal {180 180 180}
+threshold 0
+name Normals9
+xpos 1361
+ypos 1766
+disable {{!MASTER.pNorm09 x101 1}}
+}
+ProcGeo {
+x_size {{MASTER.dNoiseX}}
+x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+y_size {{MASTER.dNoiseY x105 0}}
+y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+Octaves {{MASTER.dNoiseOctaves}}
+Lacunarity {{MASTER.dNoiseLacunarity}}
+Gain {{MASTER.dNoiseGain}}
+Speed {{MASTER.dNoiseSpeed}}
+name sub_10_ProcGeo1
+label "\[value position]"
+xpos 1361
+ypos 1792
+disable {{!MASTER.cardDistort x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position09}}
+}
+push $N691d1800
+push $N691d1000
+push $N691d0400
+push $N691fd800
+push $N691fcc00
+push $N691fc000
+push $N69217400
+push $N69216800
+push $N69236400
+Dot {
+name Dot16
+xpos 1699
+ypos 917
+}
+Switch {
+inputs 8
+which {{MASTER.card10}}
+name Switch10
+xpos 1643
+ypos 1036
+}
+set N696cb800 [stack 0]
+Transform {
+scale {{MASTER.tileScale/(position*10)}}
+center {{width/2} {height/2}}
+filter Impulse
+black_outside false
+name Transform2
+label "\[value position]"
+xpos 1643
+ypos 1115
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position10 x112 1}}
+}
+Reformat {
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat17
+xpos 1643
+ypos 1161
+addUserKnob {20 User}
+}
+Crop {
+box {{-(MASTER.textureOverscan*0.5)} {-(MASTER.textureOverscan*0.5)} {width+(MASTER.textureOverscan*0.5)} {height+(MASTER.textureOverscan*0.5)}}
+name Crop1
+xpos 1643
+ypos 1199
+}
+Mirror2 {
+flip true
+flop true
+name Mirror2_2
+xpos 1643
+ypos 1225
+disable true
+}
+Multiply {
+channels rgba
+value {{((position/1)*MASTER.fade-position)+1}}
+name Multiply19
+label "\[value position]"
+xpos 1643
+ypos 1301
+addUserKnob {20 User}
+addUserKnob {7 position}
+position 1
+}
+Merge2 {
+inputs 2
+operation multiply
+bbox B
+name Merge11
+xpos 1643
+ypos 1471
+}
+Defocus {
+channels rgba
+defocus {{int(abs(((position-(min(0,MASTER.focalPlane))-0.1))*(1-MASTER.depthOfField))*(MASTER.defocus))}}
+name Defocus3
+label "\[value position]"
+xpos 1643
+ypos 1610
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position10}}
+}
+Card2 {
+cast_shadow false
+receive_shadow false
+lens_in_focal {{position==0?1:1/position}}
+translate {{MASTER.xy10} {MASTER.xy10} {position}}
+uniform_scale {{MASTER.cardScale}}
+lens_in_power 3
+uv_position {0.3525638878 0.3525638878}
+control_points {3 3 3 6 
+
+1 {-0.5 -0.321890533 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1072968543 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.321890533 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1072968543 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.321890533 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1072968543 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1072968468 0} 0 {0 -0.1072968468 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1072968468 0} 0 {0 -0.1072968468 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1072968468 0} 0 {0 -0.1072968468 0} 0 {1 0.5 0} 
+1 {-0.5 0.321890533 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1072968543 0} 0 {0 1 0} 
+1 {0 0.321890533 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1072968543 0} 0 {0.5 1 0} 
+1 {0.5 0.321890533 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1072968543 0} 0 {1 1 0} }
+drawPosition {-0.147436142 -0.09491659701 0}
+name Card13
+label "\[value position]"
+xpos 1643
+ypos 1648
+disable {{!MASTER.p10}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position10}}
+}
+Normals {
+action set
+normal {180 180 180}
+threshold 0
+name Normals10
+xpos 1643
+ypos 1766
+disable {{!MASTER.pNorm10 x101 1}}
+}
+ProcGeo {
+x_size {{MASTER.dNoiseX}}
+x_offset {{MASTER.dNoiseXoffset+(position*10)*MASTER.dNoiseVariancy}}
+y_size {{MASTER.dNoiseY x105 0}}
+y_offset {{MASTER.dNoiseYoffset+(position*10)*MASTER.dNoiseVariancy}}
+Octaves {{MASTER.dNoiseOctaves}}
+Lacunarity {{MASTER.dNoiseLacunarity}}
+Gain {{MASTER.dNoiseGain}}
+Speed {{MASTER.dNoiseSpeed}}
+name sub_10_ProcGeo2
+label "\[value position]"
+xpos 1643
+ypos 1795
+disable {{!MASTER.cardDistort x101 1}}
+addUserKnob {20 User}
+addUserKnob {7 position}
+position {{MASTER.position10}}
+}
+Scene {
+inputs 10
+shadow_override "override inputs"
+cast_shadow false
+receive_shadow false
+name Scene1
+xpos 275
+ypos 1981
+}
+TransformGeo {
+scaling {1 1 -1}
+name TransformGeo3
+xpos 315
+ypos 2089
+}
+TransformGeo {
+inputs 2
+uniform_scale {{parent.MASTER.sceneScale}}
+name TransformGeo_Global
+xpos 324
+ypos 2156
+addUserKnob {20 User}
+addUserKnob {7 scaleOffset R -2 2}
+addUserKnob {7 zOffset R -500 500}
+}
+Scene {
+cast_shadow false
+receive_shadow false
+name PUT
+label "LIGHTS\nHERE"
+xpos 343
+ypos 2219
+disable true
+}
+Reformat {
+inputs 0
+format {{{ReformatMASTER.format}}}
+filter Impulse
+pbb true
+name Reformat19
+xpos 467
+ypos 2335
+addUserKnob {20 User}
+}
+ScanlineRender {
+inputs 3
+filter Impulse
+motion_vectors_type distance
+name ScanlineRender2
+xpos 333
+ypos 2335
+}
+Output {
+name Output2
+xpos 340
+ypos 2469
+}
+NoOp {
+inputs 0
+name MASTER
+xpos 265
+ypos 371
+addUserKnob {20 User}
+addUserKnob {7 cardScale R 0 100}
+cardScale 1
+addUserKnob {7 textureOverscan R 0 100}
+addUserKnob {26 ""}
+addUserKnob {7 lens_inFocal R 0 10}
+lens_inFocal 1
+addUserKnob {7 sceneScale R 0 10000}
+sceneScale 1
+addUserKnob {3 tileScale}
+tileScale 8
+addUserKnob {3 pickCardToFit}
+pickCardToFit 1
+addUserKnob {20 deepTab l deep}
+addUserKnob {4 depthMethod l Method M {deep depth ""}}
+addUserKnob {26 ""}
+addUserKnob {6 premulted +STARTLINE}
+addUserKnob {26 depthInput}
+addUserKnob {7 depthOffset l offset R -1 1}
+depthOffset -0.0046
+addUserKnob {7 depthScale}
+depthScale 0.0032
+addUserKnob {26 cardInput l card}
+addUserKnob {7 cardOffset R -1 1}
+cardOffset 0.01
+addUserKnob {7 cardScale_1 l cardScale}
+cardScale_1 1
+addUserKnob {26 ""}
+addUserKnob {7 blend R 0 0.3}
+blend 0.01
+addUserKnob {20 noise}
+addUserKnob {7 alphaMult R 1 0}
+alphaMult 0.265
+addUserKnob {7 alphaGamma R -2 5}
+alphaGamma 0.3
+addUserKnob {20 defocus_2 l defocus}
+addUserKnob {7 defocus R 0 100}
+addUserKnob {7 depthOfField}
+depthOfField 0.645
+addUserKnob {7 focalPlane t "0 is the camera frameHold popsition)\n0.1 is the nearest card, 1 is the furthest card"}
+focalPlane 0.1
+addUserKnob {26 ""}
+addUserKnob {20 endGroup n -1}
+addUserKnob {20 cards}
+addUserKnob {4 card1 M {noise input1 input2 input3 input4 input5 input6 input7 ""}}
+addUserKnob {4 card2 l " | card2" t "This needs to be a larger scale than card one" -STARTLINE M {noise input1 input2 input3 input4 input5 input6 input7 "" "" "" "" ""}}
+addUserKnob {4 card2_1 l card2 -STARTLINE M {noise input1 input2 input3 input4 input5 input6 input7 "" "" "" ""}}
+addUserKnob {4 card3 -STARTLINE M {noise input1 input2 input3 input4 input5 input6 input7 ""}}
+addUserKnob {4 card4 -STARTLINE M {noise input1 input2 input3 input4 input5 input6 input7 ""}}
+addUserKnob {4 card5 M {noise input1 input2 input3 input4 input5 input6 input7}}
+card5 input4
+addUserKnob {4 card6 M {noise input1 input2 input3 input4 input5 input6 input7}}
+card6 input3
+addUserKnob {4 card7 M {noise input1 input2 input3 input4 input5 input6 input7}}
+card7 input5
+addUserKnob {4 card8 M {noise input1 input2 input3 input4 input5 input6 input7 ""}}
+card8 input2
+addUserKnob {4 card9 M {noise input1 input2 input3 input4 input5 input6 input7}}
+addUserKnob {4 card10 M {noise input1 input2 input3 input4 input5 input6 input7}}
+card10 input1
+addUserKnob {26 ""}
+addUserKnob {12 xy1}
+xy1 {{xy10/10} 0}
+addUserKnob {12 xy2}
+xy2 {{xy10} {xy10}}
+addUserKnob {12 xy3}
+xy3 {{xy10} {xy10}}
+addUserKnob {12 xy4}
+xy4 {{xy10} {xy10}}
+addUserKnob {12 xy5}
+xy5 {{xy10} {xy10}}
+addUserKnob {12 xy6}
+xy6 {{xy10*2} {xy10*2}}
+addUserKnob {12 xy7}
+xy7 {{xy10} {xy10}}
+addUserKnob {12 xy8}
+xy8 {{xy10/1.5 x158 0.02} {xy10/1.5}}
+addUserKnob {12 xy9}
+xy9 {{xy10} {xy10}}
+addUserKnob {12 xy10}
+xy10 {{curve x101 0 x158 0.02} {curve x101 0 x158 0.001}}
+addUserKnob {26 ""}
+addUserKnob {6 p01 l 1| -STARTLINE}
+addUserKnob {6 p02 l 2| -STARTLINE}
+addUserKnob {6 p03 l 3| -STARTLINE}
+addUserKnob {6 p04 l 4| -STARTLINE}
+addUserKnob {6 p05 l 5| -STARTLINE}
+p05 true
+addUserKnob {6 p06 l 6| -STARTLINE}
+p06 true
+addUserKnob {6 p07 l 7| -STARTLINE}
+p07 true
+addUserKnob {6 p08 l 8| -STARTLINE}
+p08 true
+addUserKnob {6 p09 l 9| -STARTLINE}
+addUserKnob {6 p10 l 10 -STARTLINE}
+p10 true
+addUserKnob {26 position00 -STARTLINE T "This is the camera"}
+addUserKnob {7 position01}
+position01 0.1
+addUserKnob {6 pNorm01 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+addUserKnob {7 position02}
+position02 0.2
+addUserKnob {6 pNorm02 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+addUserKnob {7 position03}
+position03 0.3
+addUserKnob {6 pNorm03 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+addUserKnob {7 position04}
+position04 0.4
+addUserKnob {6 pNorm04 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+addUserKnob {7 position05}
+position05 0.5
+addUserKnob {6 pNorm05 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+addUserKnob {7 position06}
+position06 0.6
+addUserKnob {6 pNorm06 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+addUserKnob {7 position07}
+position07 0.7
+addUserKnob {6 pNorm07 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+addUserKnob {7 position08}
+position08 0.8
+addUserKnob {6 pNorm08 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+addUserKnob {7 position09}
+position09 0.9
+addUserKnob {6 pNorm09 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+addUserKnob {7 position10}
+position10 1
+addUserKnob {6 pNorm10 l normal t "If ticked lights will cast on both sides of the card" -STARTLINE}
+addUserKnob {20 grads}
+addUserKnob {7 fade l "depth falloff"}
+fade 1
+addUserKnob {7 depthHaze}
+addUserKnob {26 ""}
+addUserKnob {7 leftBlur l "Left: Blur"}
+addUserKnob {7 leftPosition l Position -STARTLINE}
+addUserKnob {7 rightBlur l "Right Blur" t " "}
+addUserKnob {7 rightPosition l Position -STARTLINE}
+addUserKnob {7 topBlur l "Top Blur"}
+addUserKnob {7 topPosition l Position -STARTLINE}
+addUserKnob {7 BottomBlur l "Bottom Blur"}
+addUserKnob {7 bottomPosition l Position -STARTLINE}
+addUserKnob {20 cardDistortTAB l cardDistort}
+addUserKnob {6 cardDistort +STARTLINE}
+addUserKnob {7 dNoiseX R 0 20}
+dNoiseX 0.99
+addUserKnob {7 dNoiseY R 0 20}
+dNoiseY 2.65
+addUserKnob {7 dNoiseXoffset R 0 100}
+addUserKnob {7 dNoiseYoffset}
+addUserKnob {7 dNoiseVariancy}
+dNoiseVariancy 0.04
+addUserKnob {7 dNoiseLacunarity R 0 5}
+dNoiseLacunarity 1.32
+addUserKnob {7 dNoiseGain R -0.5 0.5}
+dNoiseGain -0.135
+addUserKnob {7 dNoiseSpeed R 0 10}
+dNoiseSpeed {{frame/200}}
+addUserKnob {3 dNoiseOctaves}
+dNoiseOctaves 5
+}
+push $N696cb800
+Viewer {
+frame_range 101-158
+fps 25
+name Viewer1
+selected true
+xpos 1753
+ypos 1648
+}
+end_group
