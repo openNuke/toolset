@@ -1,6 +1,6 @@
 #! /usr/local/Nuke6.2v2/Nuke6.2 -nx
 # sliceTool v2.1 http://www.nukepedia.com/gizmos/other/slicetoolv21
-# plotscanline alternative prefered.
+# removed: plotscanline alternative prefered.
 version 6.2 v2
 Group {
  tile_color 0xff9500ff
