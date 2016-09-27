@@ -1,13 +1,13 @@
 set cut_paste_input [stack 0]
-version 9.0 v1
+version 9.0 v5
 push $cut_paste_input
 Group {
  name HorizonLine
  help "Perspective tool, to calculate the position of the horizon-line and vanishing point."
  tile_color 0x566d6dff
  selected true
- xpos 65
- ypos -48
+ xpos -2324
+ ypos -2495
  addUserKnob {20 options l Options}
  addUserKnob {4 overlay l Overlay t "Choose layer operation." M {add over ""}}
  overlay over
@@ -20,7 +20,7 @@ Group {
  lineColour {1 1 1}
  addUserKnob {6 lineColour_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  addUserKnob {26 text01 l "Reset Points" T ""}
- addUserKnob {22 pyButton l GO! t "resets lines to the root format of the script" -STARTLINE T "def setPerspectivePointValues():\n    w = int (nuke.root().knob('format').value().width())\n    h = int (nuke.root().knob('format').value().height())\n    wHalf = int (w/2)\n    hHalf = int (h/2)\n\n    persp = nuke.thisNode()\n    persp\[ 'origin' ].setValue( \[wHalf, hHalf] )\n    persp\[ 'point1' ].setValue( \[0, h] )\n    persp\[ 'point2' ].setValue( \[wHalf+1, h] )\n    persp\[ 'point3' ].setValue( \[w, h] )\n    persp\[ 'point4' ].setValue( \[0, hHalf+1] )\n    persp\[ 'point5' ].setValue( \[w, hHalf+1] )\n    persp\[ 'point6' ].setValue( \[0, 0] )\n    persp\[ 'point7' ].setValue( \[wHalf+1, 0] )\n    persp\[ 'point8' ].setValue( \[w, 0] )\n    persp\[ 'rotate' ].setValue( 0 )\n\nsetPerspectivePointValues()"}
+ addUserKnob {22 pyButton l GO! t "resets lines to the root format of the script" -STARTLINE T "def setPerspectivePointValues():\n    w = int (nuke.thisNode().width())\n    h = int (nuke.thisNode().height())\n    wHalf = int (w/2)\n    hHalf = int (h/2)\n\n    persp = nuke.thisNode()\n    persp\[ 'origin' ].setValue( \[wHalf, hHalf] )\n    persp\[ 'point1' ].setValue( \[0, h] )\n    persp\[ 'point2' ].setValue( \[wHalf+1, h] )\n    persp\[ 'point3' ].setValue( \[w, h] )\n    persp\[ 'point4' ].setValue( \[0, hHalf+1] )\n    persp\[ 'point5' ].setValue( \[w, hHalf+1] )\n    persp\[ 'point6' ].setValue( \[0, 0] )\n    persp\[ 'point7' ].setValue( \[wHalf+1, 0] )\n    persp\[ 'point8' ].setValue( \[w, 0] )\n    persp\[ 'rotate' ].setValue( 0 )\n\nsetPerspectivePointValues()"}
  addUserKnob {20 horizonGrp l horizon n 1}
  horizonGrp 0
  addUserKnob {6 horizon +STARTLINE}
@@ -33,17 +33,17 @@ Group {
  lineOpacity 1
  addUserKnob {20 endGroup n -1}
  addUserKnob {12 origin l Origin}
- origin {1024 778}
+ origin {1024 576}
  addUserKnob {12 point1 l Point1}
- point1 {0 1556}
+ point1 {0 1152}
  addUserKnob {12 point2 l Point2}
- point2 {1025 1556}
+ point2 {1025 1152}
  addUserKnob {12 point3 l Point3}
- point3 {2048 1556}
+ point3 {2048 1152}
  addUserKnob {12 point4 l Point4}
- point4 {0 779}
+ point4 {0 577}
  addUserKnob {12 point5 l Point5}
- point5 {2048 779}
+ point5 {2048 577}
  addUserKnob {12 point6 l Point6}
  addUserKnob {12 point7 l Point7}
  point7 {1025 0}
@@ -53,7 +53,7 @@ Group {
  addUserKnob {26 title l +++ T " OPEN NUKE GITHUB TOOLKIT +++"}
  addUserKnob {22 documentation l "  Documentation / Feedback  " T "import webbrowser\nwebbrowser.open(/'http://www.nukepedia.com/gizmos/other/perspective-guide-110/')" +STARTLINE}
  addUserKnob {26 ""}
- addUserKnob {26 version l version: T 0.2}
+ addUserKnob {26 version l version: T 0.3}
  addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://www.nukepedia.com/gizmos/other/perspective-guide-110'> Peter Farkas - Baseblack (London) Ltd. Original Shake macro written by Adrian Banton and Matt Twyford. Special thanks to Gabor L. Toth and Howard Jones.</a>"}
  addUserKnob {26 modified l "modified: " T "1/2/2015 by <a href=\\/'www.movingimagearts.com\\/'> Moving Image Arts</a> "}
  addUserKnob {26 source l source: T "v1.0 <a href='http://www.nukepedia.com/gizmos/other/perspective-guide-110'> Nukepedia</a>"}
@@ -163,7 +163,7 @@ Group {
   addUserKnob {20 User}
   addUserKnob {7 rotateHorizon R -180 180}
  }
-set N3a5320d0 [stack 0]
+set Nd52e3560 [stack 0]
  Grade {
   channels rgba
   whitepoint 0
@@ -178,7 +178,7 @@ set N3a5320d0 [stack 0]
   xpos -810
   ypos -86
  }
-set N3a556b90 [stack 0]
+set Ndcfcfa50 [stack 0]
  Grade {
   channels {rgba.red rgba.green rgba.blue -rgba.alpha}
   whitepoint 0
@@ -798,7 +798,7 @@ set N3a556b90 [stack 0]
   xpos -590
   ypos -134
  }
-set N3e04d940 [stack 0]
+set Nd7c376e0 [stack 0]
  Grade {
   multiply {{lineColour.r i} {lineColour.g i} {lineColour.b i} {1 i}}
   white_clamp true
@@ -824,7 +824,7 @@ set N3e04d940 [stack 0]
   xpos -590
   ypos 58
  }
-set N3e07c770 [stack 0]
+set Nd7c6f1d0 [stack 0]
  Dot {
   name Dot3
   xpos -556
@@ -837,8 +837,8 @@ set N3e07c770 [stack 0]
   ypos 111
   disable true
  }
-push $N3a556b90
-push $N3e04d940
+push $Ndcfcfa50
+push $Nd7c376e0
  Merge2 {
   inputs 2
   operation max
@@ -854,13 +854,13 @@ push $N3e04d940
   xpos -370
   ypos -609
  }
-set N3e0a5040 [stack 0]
+set Nd7d1f920 [stack 0]
  Dot {
   name Dot2
   xpos -226
   ypos -606
  }
-set N3e0a9280 [stack 0]
+set Nd7d24280 [stack 0]
  Dot {
   name Dot1
   xpos -6
@@ -889,7 +889,7 @@ set N3e0a9280 [stack 0]
   xpos -40
   ypos 63
  }
-push $N3e0a9280
+push $Nd7d24280
  Merge2 {
   inputs 2
   name Merge3
@@ -909,8 +909,8 @@ push $N3e0a9280
   xpos -226
   ypos 186
  }
-push $N3e07c770
-push $N3e0a5040
+push $Nd7c6f1d0
+push $Nd7d1f920
  Merge2 {
   inputs 2
   operation plus
@@ -930,7 +930,7 @@ push $N3e0a5040
   xpos -370
   ypos 255
  }
-push $N3a5320d0
+push $Nd52e3560
  Viewer {
   show_overscan true
   input_process false
