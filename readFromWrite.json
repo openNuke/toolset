@@ -17,3 +17,17 @@
         "read From Write",
     ]
 }
+{ 
+    "type": "python",
+    "category": "Node Graph",
+    "label": "Read From Write ",
+    "file": "readFromWrite.py",
+    "call": "readFromWrite()",
+    "tooltip": "Create Read From Selected Write",
+    "originalAuthor": "Rafal Kaniewski",
+    "dateCreated": "19/02/2016",
+    "status": "stable",
+    "documentation": "http://opennuke.github.io/readFromWrite/",
+    "licence": "https://github.com/openNuke/toolset/blob/master/LICENCE",
+    "source": "http://www.nukepedia.com/python/nodegraph/pasteToSelected/ v1.1"
+}
