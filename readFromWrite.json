@@ -3,7 +3,7 @@
     "category": "Node Graph",
     "label": "Read From Write ",
     "file": "readFromWrite.py",
-    "call": "readFromWrite()",
+    "call": "readFromWrite(run)",
     "tooltip": "Create Read From Selected Write",
     "originalAuthor": "Rafal Kaniewski",
     "dateCreated": "19/02/2016",
