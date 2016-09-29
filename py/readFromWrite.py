@@ -2,7 +2,7 @@ import nuke
 from PySide import QtGui
 clipboard = QtGui.QApplication.clipboard()
 
-node = nuke.toNode('comp1')
+node = nuke.selectedNode()
 filename = node['file'].evaluate()
 
 filesplit =  filename.rsplit('.',-2)
