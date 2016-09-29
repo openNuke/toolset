@@ -1,6 +1,5 @@
 {
     "ALL TOOLS": [
-        "readFromWrite",
         "alignNodes_py",
         "bokehVignette_nk",
         "bumpNormals",
