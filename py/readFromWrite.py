@@ -1,5 +1,14 @@
 import nuke
 from PySide import QtGui
 clipboard = QtGui.QApplication.clipboard()
-clipboard.setText(( nuke.filename( nuke.toNode('comp1'), nuke.REPLACE )))
+
+node = nuke.toNode('comp1')
+filename = node['file'].evaluate()
+
+filesplit =  filename.rsplit('.',-2)
+filesplit[1] = '%0'+str(len(filesplit[1]))+'d'
+filep = '.'.join(filesplit) 
+filenameFrame =  nuke.getFileNameList(os.path.dirname(filep))[0].rsplit(' ',-1)[1]
+
+clipboard.setText(( filep+" "+filenameFrame))
 nuke.nodePaste("%clipboard%")
