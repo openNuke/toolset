@@ -6,7 +6,7 @@ from PySide import QtGui
 def run(node):
   clipboard = QtGui.QApplication.clipboard()
 
-  #node = nuke.selectedNode()
+
   filename = node['file'].evaluate()
 
   filesplit =  filename.rsplit('.',-2)
@@ -16,3 +16,5 @@ def run(node):
 
   clipboard.setText(( filep+" "+filenameFrame))
   nuke.nodePaste("%clipboard%")
+  
+  #run(nuke.selectedNode())
