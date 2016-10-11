@@ -8,9 +8,12 @@ add_layer {indirect indirect.red indirect.green indirect.blue}
 Group {
  name ShadowMantra
  selected true
- xpos 2623
- ypos -1644
+ xpos -27717
+ ypos -964
  addUserKnob {20 User l ShadowMantra}
+ addUserKnob {26 subtractive_1 l Subtractive T :}
+ addUserKnob {41 subtractive l "" -STARTLINE T Plus11.subtractive}
+ addUserKnob {26 ""}
  addUserKnob {41 in_3 l "direct shadow" T directS.in}
  addUserKnob {41 in_2 l direct T Direct.in}
  addUserKnob {41 in_1 l "indirect shadow" T IndrectS.in}
@@ -32,9 +35,7 @@ Group {
   ypos -315
   addUserKnob {20 User}
   addUserKnob {7 direct R -1 1}
-  direct 0.68
   addUserKnob {7 indirect R 1 -1}
-  indirect 0.34
  }
  Input {
   inputs 0
@@ -51,12 +52,12 @@ Group {
  Dot {
   name Dot8
   xpos 535
-  ypos 197
+  ypos 337
  }
  Invert {
   name Invert1
   xpos 427
-  ypos 191
+  ypos 331
  }
  Input {
   inputs 0
@@ -69,25 +70,51 @@ Group {
   xpos -154
   ypos -412
  }
-set N70a9f20 [stack 0]
+set N26c5f8e0 [stack 0]
  Dot {
   name Dot1
   xpos -154
-  ypos -27
+  ypos -156
  }
-set N70ae940 [stack 0]
+ Dot {
+  name Dot109
+  xpos -154
+  ypos -48
+ }
+set N2c3a0680 [stack 0]
+ Dot {
+  name Dot12
+  xpos -154
+  ypos 11
+ }
+set N3e338b70 [stack 0]
+ Dot {
+  name Dot14
+  xpos -153
+  ypos 106
+ }
+set N1f232f70 [stack 0]
  Dot {
   name Dot7
   xpos -154
-  ypos 142
+  ypos 282
  }
-set N70b33a0 [stack 0]
+set N3e09be30 [stack 0]
  Dot {
   name Dot9
   xpos -154
-  ypos 197
+  ypos 337
  }
-push $N70a9f20
+push $N3e338b70
+push $N2c3a0680
+add_layer {cgBeauty cgBeauty.red cgBeauty.green cgBeauty.blue cgBeauty.alpha}
+ Shuffle {
+  in cgBeauty
+  name Shuffle64
+  xpos 24
+  ypos -52
+ }
+push $N26c5f8e0
  Unpremult {
   channels all
   alpha -rgba.alpha
@@ -102,13 +129,13 @@ push $N70a9f20
   xpos 31
   ypos -388
  }
-set N70c4ef0 [stack 0]
+set N2afff580 [stack 0]
  Dot {
   name Dot3
   xpos 154
   ypos -388
  }
-set N70c9cc0 [stack 0]
+set N1f350530 [stack 0]
  Shuffle {
   in indirect
   out rgb
@@ -116,7 +143,7 @@ set N70c9cc0 [stack 0]
   xpos 120
   ypos -336
  }
-push $N70c4ef0
+push $N2afff580
  Shuffle {
   in indirect_shadow
   out rgb
@@ -153,13 +180,13 @@ push $N70c4ef0
   xpos 154
   ypos -143
  }
-push $N70c9cc0
+push $N1f350530
  Dot {
   name Dot4
   xpos 245
   ypos -388
  }
-set N7117fe0 [stack 0]
+set N2c680170 [stack 0]
  Dot {
   name Dot5
   xpos 340
@@ -173,7 +200,7 @@ set N7117fe0 [stack 0]
   xpos 306
   ypos -344
  }
-push $N7117fe0
+push $N2c680170
  Shuffle {
   in direct_shadow
   out rgb
@@ -212,7 +239,44 @@ push $N7117fe0
   xpos 315
   ypos -147
  }
-push $N70ae940
+ Dot {
+  name Dot10
+  xpos 349
+  ypos -104
+ }
+ Dot {
+  name Dot11
+  xpos 200
+  ypos -104
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge51
+  xpos 166
+  ypos -52
+  disable {{parent.Plus11.disable}}
+ }
+ Dot {
+  name Dot13
+  xpos 349
+  ypos -48
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Plus11
+  xpos 315
+  ypos 7
+  disable {{!subtractive}}
+  addUserKnob {20 User}
+  addUserKnob {6 subtractive t "subtractive from RGB" +STARTLINE}
+  subtractive true
+ }
+push $N1f232f70
  Copy {
   inputs 2
   from0 rgba.red
@@ -222,25 +286,25 @@ push $N70ae940
   from2 rgba.blue
   to2 rgba.blue
   name Copy1
+  selected true
   xpos 315
-  ypos -49
+  ypos 84
  }
  Premult {
   alpha {{{parent.Unpremult1.alpha}}}
   name Premult1
-  selected true
   xpos 315
-  ypos 85
+  ypos 225
   disable {{alpha==0?1:0 x1048 0}}
  }
-push $N70b33a0
+push $N3e09be30
  Dissolve {
   inputs 2
   channels rgb
   which 1
   name Dissolve1
   xpos 315
-  ypos 138
+  ypos 278
  }
  Keymix {
   inputs 3
@@ -249,12 +313,12 @@ push $N70b33a0
   name Keymix1
   label "\[value mask]"
   xpos 315
-  ypos 191
+  ypos 331
   disable {{maskChannel==0?1:0}}
  }
  Output {
   name Output1
   xpos 315
-  ypos 292
+  ypos 432
  }
 end_group
