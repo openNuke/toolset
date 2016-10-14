@@ -1,22 +1,21 @@
-# https://github.com/vfxwiki/FilterAov created: rafal kaniewski
-# v0.1b / last editor: rafal kaniewski
 set cut_paste_input [stack 0]
-version 9.0 v2
+version 9.0 v5
 push $cut_paste_input
 Group {
- name AovFilter
+ name AovFilter1
  selected true
- xpos 4517
- ypos 914
+ xpos 1719
+ ypos -4647
  cached true
  addUserKnob {20 AovFilter}
  addUserKnob {41 channels l "channel to use" T From.Achannels}
  addUserKnob {26 ""}
  addUserKnob {4 Filter M {Denoise Blur Median Soften Sharpen Matrix3x3}}
- Filter Matrix3x3
+ Filter Median
  addUserKnob {6 filterRGB l "filterRGB   |" -STARTLINE}
  filterRGB true
  addUserKnob {6 filterChannel -STARTLINE}
+ filterChannel true
  addUserKnob {26 ""}
  addUserKnob {41 maskChannel l "mask channel" -STARTLINE T Keymix4.maskChannel}
  addUserKnob {41 invertMask l invert -STARTLINE T Keymix4.invertMask}
@@ -113,13 +112,13 @@ Group {
   xpos -473
   ypos -560
  }
-set N3cbec4c0 [stack 0]
+set N15b02990 [stack 0]
  Dot {
   name Dot27
   xpos -619
   ypos -483
  }
-set N3c695d70 [stack 0]
+set N15b13b40 [stack 0]
  Dot {
   name Dot25
   xpos -743
@@ -130,8 +129,8 @@ set N3c695d70 [stack 0]
   xpos -739
   ypos -433
  }
-set N3c68a430 [stack 0]
-push $N3c68a430
+set N18bea7e0 [stack 0]
+push $N18bea7e0
 add_layer {indirect_diffuse indirect_diffuse.red indirect_diffuse.green indirect_diffuse.blue indirect_diffuse.alpha}
  Merge2 {
   inputs 2
@@ -149,7 +148,7 @@ add_layer {indirect_diffuse indirect_diffuse.red indirect_diffuse.green indirect
   xpos -773
   ypos -351
  }
-set N3d020f60 [stack 0]
+set N5d8c850 [stack 0]
  Dot {
   name Dot15
   xpos -2383
@@ -160,25 +159,25 @@ set N3d020f60 [stack 0]
   xpos -2393
   ypos -315
  }
-set N3c6d38d0 [stack 0]
+set N61f97b0 [stack 0]
  Dot {
   name Dot13
   xpos -2338
   ypos -315
  }
-set N3c6bcb40 [stack 0]
+set N14312aa0 [stack 0]
  Dot {
   name Dot14
   xpos -2228
   ypos -315
  }
-set N3c69df80 [stack 0]
+set N127f8440 [stack 0]
  Dot {
   name Dot16
   xpos -2082
   ypos -315
  }
-set N3c68ffd0 [stack 0]
+set N15ab8f40 [stack 0]
  Dot {
   name Dot17
   xpos -1939
@@ -199,7 +198,7 @@ set N3c68ffd0 [stack 0]
   xpos -1942
   ypos -140
  }
-push $N3c68ffd0
+push $N15ab8f40
  Matrix {
   matrix {
       {1 0 -1}
@@ -210,7 +209,7 @@ push $N3c68ffd0
   xpos -2116
   ypos -220
  }
-push $N3c69df80
+push $N127f8440
  Matrix {
   matrix {
       {2 0 0}
@@ -221,7 +220,7 @@ push $N3c69df80
   xpos -2262
   ypos -227
  }
-push $N3c6bcb40
+push $N14312aa0
  Matrix {
   matrix {
       {-1 -1 -1}
@@ -232,13 +231,13 @@ push $N3c6bcb40
   xpos -2372
   ypos -227
  }
-push $N3c6d38d0
+push $N61f97b0
  Dot {
   name Dot19
   xpos -2448
   ypos -315
  }
-set N3d536a10 [stack 0]
+set N1521cb60 [stack 0]
  Matrix {
   matrix {
       {-1 -1 -1}
@@ -250,13 +249,13 @@ set N3d536a10 [stack 0]
   xpos -2482
   ypos -227
  }
-push $N3d536a10
+push $N1521cb60
  Dot {
   name Dot20
   xpos -2558
   ypos -315
  }
-set N3d371a30 [stack 0]
+set N153a95d0 [stack 0]
  Matrix {
   matrix {
       {0 1 0}
@@ -268,7 +267,7 @@ set N3d371a30 [stack 0]
   xpos -2592
   ypos -227
  }
-push $N3d371a30
+push $N153a95d0
  Dot {
   name Dot21
   xpos -2682
@@ -294,7 +293,7 @@ push $N3d371a30
   xpos -2282
   ypos -5
  }
-push $N3d020f60
+push $N5d8c850
  Colorspace {
   colorspace_out CIE-Lab
   name Colorspace1
@@ -312,7 +311,7 @@ push $N3d020f60
   xpos -1550
   ypos -196
  }
-push $N3d020f60
+push $N5d8c850
  Soften {
   channels rgba
   amount 1
@@ -321,21 +320,22 @@ push $N3d020f60
   xpos -1375
   ypos -250
  }
-push $N3d020f60
+push $N5d8c850
  Median {
+  size 1
   ignore_top_line false
   name Median1
   xpos -1201
   ypos -244
  }
-push $N3d020f60
+push $N5d8c850
  Blur {
   size 3
   name Blur1
   xpos -956
   ypos -228
  }
-push $N3d020f60
+push $N5d8c850
  Denoise2 {
   "Noise Analysis" 1
   analysisRegion {1509 828 1593 910}
@@ -368,7 +368,6 @@ push $N3d020f60
   inputs 6
   which {{parent.Filter}}
   name Switch1
-  selected true
   xpos -783
   ypos -68
  }
@@ -377,14 +376,14 @@ push $N3d020f60
   xpos -749
   ypos 300
  }
-set N3d3fa240 [stack 0]
+set N18c48330 [stack 0]
  Dot {
   name Dot28
   xpos -749
   ypos 439
  }
-set N3d5f47f0 [stack 0]
-push $N3d5f47f0
+set N18c4cbe0 [stack 0]
+push $N18c4cbe0
  Merge2 {
   inputs 2
   operation max
@@ -410,10 +409,10 @@ push $N3d5f47f0
   xpos -347
   ypos 358
  }
-push $N3cbec4c0
-push $N3d3fa240
-push $N3c68a430
-push $N3c695d70
+push $N15b02990
+push $N18c48330
+push $N18bea7e0
+push $N15b13b40
  Merge2 {
   inputs 2
   operation from
@@ -459,6 +458,3 @@ push $N3c695d70
   ypos 529
  }
 end_group
-
-
-
