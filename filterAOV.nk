@@ -2,20 +2,19 @@ set cut_paste_input [stack 0]
 version 9.0 v5
 push $cut_paste_input
 Group {
- name AovFilter1
+ name AovFilter
+ label "\[value channels]"
  selected true
- xpos 1719
- ypos -4647
+ xpos 1757
+ ypos -4828
  cached true
  addUserKnob {20 AovFilter}
  addUserKnob {41 channels l "channel to use" T From.Achannels}
  addUserKnob {26 ""}
  addUserKnob {4 Filter M {Denoise Blur Median Soften Sharpen Matrix3x3}}
  Filter Median
- addUserKnob {6 filterRGB l "filterRGB   |" -STARTLINE}
- filterRGB true
- addUserKnob {6 filterChannel -STARTLINE}
- filterChannel true
+ addUserKnob {41 filterRGB l "filterRGB |" -STARTLINE T From.filterRGB}
+ addUserKnob {41 filterChannel -STARTLINE T Merge12.filterChannel}
  addUserKnob {26 ""}
  addUserKnob {41 maskChannel l "mask channel" -STARTLINE T Keymix4.maskChannel}
  addUserKnob {41 invertMask l invert -STARTLINE T Keymix4.invertMask}
@@ -103,6 +102,24 @@ Group {
 }
  Input {
   inputs 0
+  name mask
+  xpos -231
+  ypos -636
+  number 1
+ }
+ Invert {
+  name Invert1
+  xpos -385
+  ypos 238
+ }
+ Dot {
+  name Dot30
+  xpos -347
+  ypos 358
+ }
+set N9209fd0 [stack 0]
+ Input {
+  inputs 0
   name In
   xpos -357
   ypos -638
@@ -112,13 +129,13 @@ Group {
   xpos -473
   ypos -560
  }
-set N15b02990 [stack 0]
+set N18a3b5f0 [stack 0]
  Dot {
   name Dot27
   xpos -619
   ypos -483
  }
-set N15b13b40 [stack 0]
+set N7a845930 [stack 0]
  Dot {
   name Dot25
   xpos -743
@@ -129,8 +146,8 @@ set N15b13b40 [stack 0]
   xpos -739
   ypos -433
  }
-set N18bea7e0 [stack 0]
-push $N18bea7e0
+set N1d006690 [stack 0]
+push $N1d006690
 add_layer {indirect_diffuse indirect_diffuse.red indirect_diffuse.green indirect_diffuse.blue indirect_diffuse.alpha}
  Merge2 {
   inputs 2
@@ -148,7 +165,7 @@ add_layer {indirect_diffuse indirect_diffuse.red indirect_diffuse.green indirect
   xpos -773
   ypos -351
  }
-set N5d8c850 [stack 0]
+set N7dfc3b20 [stack 0]
  Dot {
   name Dot15
   xpos -2383
@@ -159,25 +176,25 @@ set N5d8c850 [stack 0]
   xpos -2393
   ypos -315
  }
-set N61f97b0 [stack 0]
+set N920cbf0 [stack 0]
  Dot {
   name Dot13
   xpos -2338
   ypos -315
  }
-set N14312aa0 [stack 0]
+set N920cfa0 [stack 0]
  Dot {
   name Dot14
   xpos -2228
   ypos -315
  }
-set N127f8440 [stack 0]
+set N1b45c790 [stack 0]
  Dot {
   name Dot16
   xpos -2082
   ypos -315
  }
-set N15ab8f40 [stack 0]
+set N8a63e4d0 [stack 0]
  Dot {
   name Dot17
   xpos -1939
@@ -198,7 +215,7 @@ set N15ab8f40 [stack 0]
   xpos -1942
   ypos -140
  }
-push $N15ab8f40
+push $N8a63e4d0
  Matrix {
   matrix {
       {1 0 -1}
@@ -209,7 +226,7 @@ push $N15ab8f40
   xpos -2116
   ypos -220
  }
-push $N127f8440
+push $N1b45c790
  Matrix {
   matrix {
       {2 0 0}
@@ -220,7 +237,7 @@ push $N127f8440
   xpos -2262
   ypos -227
  }
-push $N14312aa0
+push $N920cfa0
  Matrix {
   matrix {
       {-1 -1 -1}
@@ -231,13 +248,13 @@ push $N14312aa0
   xpos -2372
   ypos -227
  }
-push $N61f97b0
+push $N920cbf0
  Dot {
   name Dot19
   xpos -2448
   ypos -315
  }
-set N1521cb60 [stack 0]
+set N5c590d0 [stack 0]
  Matrix {
   matrix {
       {-1 -1 -1}
@@ -249,13 +266,13 @@ set N1521cb60 [stack 0]
   xpos -2482
   ypos -227
  }
-push $N1521cb60
+push $N5c590d0
  Dot {
   name Dot20
   xpos -2558
   ypos -315
  }
-set N153a95d0 [stack 0]
+set N7a794490 [stack 0]
  Matrix {
   matrix {
       {0 1 0}
@@ -267,7 +284,7 @@ set N153a95d0 [stack 0]
   xpos -2592
   ypos -227
  }
-push $N153a95d0
+push $N7a794490
  Dot {
   name Dot21
   xpos -2682
@@ -293,7 +310,7 @@ push $N153a95d0
   xpos -2282
   ypos -5
  }
-push $N5d8c850
+push $N7dfc3b20
  Colorspace {
   colorspace_out CIE-Lab
   name Colorspace1
@@ -311,7 +328,7 @@ push $N5d8c850
   xpos -1550
   ypos -196
  }
-push $N5d8c850
+push $N7dfc3b20
  Soften {
   channels rgba
   amount 1
@@ -320,22 +337,22 @@ push $N5d8c850
   xpos -1375
   ypos -250
  }
-push $N5d8c850
+push $N7dfc3b20
  Median {
   size 1
   ignore_top_line false
   name Median1
-  xpos -1201
-  ypos -244
+  xpos -1198
+  ypos -242
  }
-push $N5d8c850
+push $N7dfc3b20
  Blur {
-  size 3
+  size 1
   name Blur1
   xpos -956
   ypos -228
  }
-push $N5d8c850
+push $N7dfc3b20
  Denoise2 {
   "Noise Analysis" 1
   analysisRegion {1509 828 1593 910}
@@ -376,43 +393,22 @@ push $N5d8c850
   xpos -749
   ypos 300
  }
-set N18c48330 [stack 0]
+set N397755d0 [stack 0]
  Dot {
   name Dot28
   xpos -749
   ypos 439
  }
-set N18c4cbe0 [stack 0]
-push $N18c4cbe0
- Merge2 {
-  inputs 2
-  operation max
-  output {{{parent.From.Achannels}}}
-  name Merge12
-  xpos -679
-  ypos 429
- }
- Input {
-  inputs 0
-  name mask
-  xpos -231
-  ypos -636
-  number 1
- }
- Invert {
-  name Invert1
-  xpos -385
-  ypos 238
- }
+push $N9209fd0
+push $N18a3b5f0
  Dot {
-  name Dot30
-  xpos -347
-  ypos 358
+  name Dot1
+  xpos -473
+  ypos 269
  }
-push $N15b02990
-push $N18c48330
-push $N18bea7e0
-push $N15b13b40
+push $N397755d0
+push $N1d006690
+push $N7a845930
  Merge2 {
   inputs 2
   operation from
@@ -420,6 +416,10 @@ push $N15b13b40
   name From
   xpos -650
   ypos -432
+  disable {{!filterRGB}}
+  addUserKnob {20 User}
+  addUserKnob {6 filterRGB +STARTLINE}
+  filterRGB true
  }
  Merge2 {
   inputs 2
@@ -427,11 +427,12 @@ push $N15b13b40
   Achannels rgb
   name Merge34
   xpos -650
-  ypos 301
+  ypos 296
+  disable {{parent.From.disable}}
  }
  Dot {
   name Dot29
-  xpos -619
+  xpos -617
   ypos 363
  }
  Keymix {
@@ -440,21 +441,37 @@ push $N15b13b40
   name Keymix4
   label "\[value maskChannel]"
   xpos -507
-  ypos 349
-  disable {{!maskChannel}}
+  ypos 347
+  disable {{!maskChannel x1118 1 x1121 1}}
   addUserKnob {20 User}
  }
  Merge2 {
-  inputs 2
-  also_merge all
-  name Merge13
+  inputs 2+1
+  operation max
+  Bchannels none
+  output {{{parent.From.Achannels}}}
+  maskChannelMask {{{parent.Keymix4.maskChannel}}}
+  invert_mask true
+  name Merge12
+  selected true
   xpos -507
   ypos 429
-  disable true
+  disable {{!filterChannel}}
+  addUserKnob {20 User}
+  addUserKnob {6 filterChannel +STARTLINE}
+  filterChannel true
  }
+set N1ac6f170 [stack 0]
  Output {
   name Output1
   xpos -357
   ypos 529
+ }
+push $N1ac6f170
+ Viewer {
+  frame_range 1000-1150
+  name Viewer1
+  xpos -1200
+  ypos -216
  }
 end_group
