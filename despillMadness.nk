@@ -1,15 +1,16 @@
 #http://www.nukepedia.com/gizmos/keyer/despillmadness v3.0 Andreas Frickinger
 set cut_paste_input [stack 0]
-version 9.0 v2
+version 10.0 v4
 push $cut_paste_input
 Group {
  name DespillMadness
  note_font "Bitstream Vera Sans"
  selected true
- xpos 498
- ypos 5874
+ xpos 3207
+ ypos -186
  mapsize {0.15 0.15}
  addUserKnob {20 DespillMadness l "Despill Settings"}
+ addUserKnob {41 primary_out l primary/gamut -STARTLINE T Colorspace4.primary_out}
  addUserKnob {41 screenType l "screen type" T GizmoControl.screenType}
  addUserKnob {41 algorithm l "despill algorithm" T GizmoControl.algorithm}
  addUserKnob {41 LimitPercentage l "fine tune" T RedLimitsGreen.LimitPercentage}
@@ -28,14 +29,14 @@ Group {
  addUserKnob {6 invmsk l invert -STARTLINE}
  addUserKnob {41 which l mix T mix.which}
  addUserKnob {26 ""}
-addUserKnob {20 Info}
-addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/despillMadness_nk/\")" +STARTLINE}
-addUserKnob {26 ""}
-addUserKnob {26 version l version: T "0.1 Stable"}
-addUserKnob {26 created l created: T "19/02/2013 by Andreas Frickinger"}
-addUserKnob {26 modified l "modified: " T " "}
-addUserKnob {26 source l source: T "<a href='http://www.nukepedia.com/gizmos/keyer/despillmadness'> nukepedia v3.0</a>"}
-addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
+ addUserKnob {20 Info}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/despillMadness_nk/\")" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 version l version: T "0.2 Stable"}
+ addUserKnob {26 created l created: T "19/02/2013 by Andreas Frickinger"}
+ addUserKnob {26 modified l "modified: " T "20/04/2017 rafal kaniewski"}
+ addUserKnob {26 source l source: T "<a href='http://www.nukepedia.com/gizmos/keyer/despillmadness'> nukepedia v3.0</a>"}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
  Input {
   inputs 0
@@ -43,24 +44,30 @@ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/tool
   xpos 262
   ypos -342
  }
+ Colorspace {
+  primary_in {{parent.Colorspace4.primary_out x1001 9}}
+  name Colorspace3
+  xpos 267
+  ypos -274
+ }
  Dot {
   name Dot6
   xpos 296
   ypos -186
  }
-set N1b3fade0 [stack 0]
+set N4eb48c00 [stack 0]
  Dot {
   name Dot2
   xpos 296
   ypos -71
  }
-set N36cd2f00 [stack 0]
+set N4eb48800 [stack 0]
  Dot {
   name Dot3
   xpos 626
   ypos -71
  }
-set N36cd4b00 [stack 0]
+set N4eb48400 [stack 0]
  Expression {
   expr2 b>g*LimitPercentage?g*LimitPercentage:b
   expr3 b-g*LimitPercentage
@@ -71,7 +78,7 @@ set N36cd4b00 [stack 0]
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N36cd4b00
+push $N4eb48400
  Expression {
   expr2 b>r*LimitPercentage?r*LimitPercentage:b
   expr3 b-r*LimitPercentage
@@ -82,7 +89,7 @@ push $N36cd4b00
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N36cd4b00
+push $N4eb48400
  Expression {
   expr2 b>(g+2*r)/2*LimitPercentage?(g+2*r)/2*LimitPercentage:b
   expr3 b-(2*r+g)*LimitPercentage/2
@@ -93,7 +100,7 @@ push $N36cd4b00
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N36cd4b00
+push $N4eb48400
  Expression {
   expr2 b>(2*g+r)/2*LimitPercentage?(2*g+r)/2*LimitPercentage:b
   expr3 b-(r+2*g)*LimitPercentage/2
@@ -104,7 +111,7 @@ push $N36cd4b00
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage}}
  }
-push $N36cd4b00
+push $N4eb48400
  Expression {
   expr2 b>(g+r)/2*LimitPercentage?(g+r)/2*LimitPercentage:b
   expr3 b-(r+g)*LimitPercentage/2
@@ -127,13 +134,13 @@ push $N36cd4b00
   xpos 762
   ypos 370
  }
-push $N36cd2f00
+push $N4eb48800
  Dot {
   name Dot1
   xpos 164
   ypos -71
  }
-set N37704740 [stack 0]
+set N60b05400 [stack 0]
  Expression {
   expr1 g>b*LimitPercentage?b*LimitPercentage:g
   expr3 g-b*LimitPercentage
@@ -144,7 +151,7 @@ set N37704740 [stack 0]
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N37704740
+push $N60b05400
  Expression {
   expr1 g>r*LimitPercentage?r*LimitPercentage:g
   expr3 g-r*LimitPercentage
@@ -155,7 +162,7 @@ push $N37704740
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage 0.94
  }
-push $N37704740
+push $N60b05400
  Expression {
   expr1 g>(b+2*r)/3*LimitPercentage?(b+2*r)/3*LimitPercentage:g
   expr3 g-(r+b)*LimitPercentage/2
@@ -166,7 +173,7 @@ push $N37704740
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N37704740
+push $N60b05400
  Expression {
   expr1 g>(2*b+r)/3*LimitPercentage?(2*b+r)/3*LimitPercentage:g
   expr3 g-(r+b)*LimitPercentage/2
@@ -177,7 +184,7 @@ push $N37704740
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N37704740
+push $N60b05400
  Expression {
   expr1 g>(b+r)/2*LimitPercentage?(b+r)/2*LimitPercentage:g
   expr3 g-(r+b)*LimitPercentage/2
@@ -220,7 +227,7 @@ push $N37704740
   xpos 257
   ypos 468
  }
-set N377566c0 [stack 0]
+set N60b32000 [stack 0]
  Dot {
   name Dot9
   xpos 440
@@ -252,8 +259,8 @@ set N377566c0 [stack 0]
   xpos -696
   ypos 861
  }
-set N3649d830 [stack 0]
-push $N3649d830
+set N60963000 [stack 0]
+push $N60963000
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -268,7 +275,7 @@ push $N3649d830
   ypos 943
   disable {{parent.invmsk i}}
  }
-push $N1b3fade0
+push $N4eb48c00
  Dot {
   name Dot7
   xpos -345
@@ -293,7 +300,7 @@ push $N1b3fade0
   xpos -27
   ypos 534
  }
-set N364c9780 [stack 0]
+set N60991800 [stack 0]
  Dot {
   name Dot11
   xpos -113
@@ -304,10 +311,10 @@ set N364c9780 [stack 0]
   xpos -113
   ypos 818
  }
-set N364da1c0 [stack 0]
-push $N364c9780
-push $N364c9780
-push $N377566c0
+set N60990c00 [stack 0]
+push $N60991800
+push $N60991800
+push $N60b32000
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -318,7 +325,7 @@ push $N377566c0
   xpos 257
   ypos 534
  }
-set N364de650 [stack 0]
+set N60990800 [stack 0]
  Merge2 {
   inputs 2
   operation minus
@@ -337,7 +344,7 @@ set N364de650 [stack 0]
   xpos -27
   ypos 736
  }
-push $N364de650
+push $N60990800
  Merge2 {
   inputs 2
   operation plus
@@ -353,7 +360,7 @@ push $N364de650
   xpos 257
   ypos 943
  }
-push $N364da1c0
+push $N60990c00
  Dot {
   name Dot13
   xpos -113
@@ -366,9 +373,16 @@ push $N364da1c0
   xpos 257
   ypos 1077
  }
+ Colorspace {
+  name Colorspace4
+  label Parent
+  selected true
+  xpos 257
+  ypos 1259
+ }
  Switch {
   inputs 2
-  which {{GizmoControl.spillMatteOut i}}
+  which {{GizmoControl.spillMatteOut}}
   name SwitchSpillMap
   xpos 257
   ypos 1385
@@ -381,7 +395,6 @@ push $N364da1c0
  NoOp {
   inputs 0
   name GizmoControl
-  selected true
   xpos 875
   ypos 414
   addUserKnob {20 User}
@@ -391,3 +404,4 @@ push $N364da1c0
   addUserKnob {6 spillMatteOut l "output spill matte in alpha" +STARTLINE}
  }
 end_group
+
