@@ -6,8 +6,8 @@ Group {
  name DespillMadness
  note_font "Bitstream Vera Sans"
  selected true
- xpos 3207
- ypos -186
+ xpos 3183
+ ypos -171
  mapsize {0.15 0.15}
  addUserKnob {20 DespillMadness l "Despill Settings"}
  addUserKnob {41 primary_out l primary/gamut -STARTLINE T Colorspace4.primary_out}
@@ -19,6 +19,7 @@ Group {
  addUserKnob {26 spacer l " " T " "}
  addUserKnob {6 sourceLuma l "restore source luminance" t "Restores luminance of original image." +STARTLINE}
  sourceLuma true
+ addUserKnob {41 mix l "" -STARTLINE T RestoreLuma.mix}
  addUserKnob {41 saturation T CC_SpillMap.saturation}
  addUserKnob {41 gamma T CC_SpillMap.gamma}
  addUserKnob {41 offset T CC_SpillMap.offset}
@@ -55,19 +56,19 @@ Group {
   xpos 296
   ypos -186
  }
-set N4eb48c00 [stack 0]
+set N5e41a400 [stack 0]
  Dot {
   name Dot2
   xpos 296
   ypos -71
  }
-set N4eb48800 [stack 0]
+set N5e41a000 [stack 0]
  Dot {
   name Dot3
   xpos 626
   ypos -71
  }
-set N4eb48400 [stack 0]
+set N5e41b800 [stack 0]
  Expression {
   expr2 b>g*LimitPercentage?g*LimitPercentage:b
   expr3 b-g*LimitPercentage
@@ -78,7 +79,7 @@ set N4eb48400 [stack 0]
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N4eb48400
+push $N5e41b800
  Expression {
   expr2 b>r*LimitPercentage?r*LimitPercentage:b
   expr3 b-r*LimitPercentage
@@ -89,7 +90,7 @@ push $N4eb48400
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N4eb48400
+push $N5e41b800
  Expression {
   expr2 b>(g+2*r)/2*LimitPercentage?(g+2*r)/2*LimitPercentage:b
   expr3 b-(2*r+g)*LimitPercentage/2
@@ -100,7 +101,7 @@ push $N4eb48400
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N4eb48400
+push $N5e41b800
  Expression {
   expr2 b>(2*g+r)/2*LimitPercentage?(2*g+r)/2*LimitPercentage:b
   expr3 b-(r+2*g)*LimitPercentage/2
@@ -111,7 +112,7 @@ push $N4eb48400
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage}}
  }
-push $N4eb48400
+push $N5e41b800
  Expression {
   expr2 b>(g+r)/2*LimitPercentage?(g+r)/2*LimitPercentage:b
   expr3 b-(r+g)*LimitPercentage/2
@@ -134,13 +135,13 @@ push $N4eb48400
   xpos 762
   ypos 370
  }
-push $N4eb48800
+push $N5e41a000
  Dot {
   name Dot1
   xpos 164
   ypos -71
  }
-set N60b05400 [stack 0]
+set Ne9df7800 [stack 0]
  Expression {
   expr1 g>b*LimitPercentage?b*LimitPercentage:g
   expr3 g-b*LimitPercentage
@@ -151,7 +152,7 @@ set N60b05400 [stack 0]
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N60b05400
+push $Ne9df7800
  Expression {
   expr1 g>r*LimitPercentage?r*LimitPercentage:g
   expr3 g-r*LimitPercentage
@@ -160,9 +161,9 @@ push $N60b05400
   ypos 44
   addUserKnob {20 User}
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
-  LimitPercentage 0.94
+  LimitPercentage 1
  }
-push $N60b05400
+push $Ne9df7800
  Expression {
   expr1 g>(b+2*r)/3*LimitPercentage?(b+2*r)/3*LimitPercentage:g
   expr3 g-(r+b)*LimitPercentage/2
@@ -173,7 +174,7 @@ push $N60b05400
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N60b05400
+push $Ne9df7800
  Expression {
   expr1 g>(2*b+r)/3*LimitPercentage?(2*b+r)/3*LimitPercentage:g
   expr3 g-(r+b)*LimitPercentage/2
@@ -184,7 +185,7 @@ push $N60b05400
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N60b05400
+push $Ne9df7800
  Expression {
   expr1 g>(b+r)/2*LimitPercentage?(b+r)/2*LimitPercentage:g
   expr3 g-(r+b)*LimitPercentage/2
@@ -227,7 +228,7 @@ push $N60b05400
   xpos 257
   ypos 468
  }
-set N60b32000 [stack 0]
+set N8d2c6400 [stack 0]
  Dot {
   name Dot9
   xpos 440
@@ -259,8 +260,8 @@ set N60b32000 [stack 0]
   xpos -696
   ypos 861
  }
-set N60963000 [stack 0]
-push $N60963000
+set Neb60d400 [stack 0]
+push $Neb60d400
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -275,7 +276,7 @@ push $N60963000
   ypos 943
   disable {{parent.invmsk i}}
  }
-push $N4eb48c00
+push $N5e41a400
  Dot {
   name Dot7
   xpos -345
@@ -300,7 +301,7 @@ push $N4eb48c00
   xpos -27
   ypos 534
  }
-set N60991800 [stack 0]
+set Neb8c1c00 [stack 0]
  Dot {
   name Dot11
   xpos -113
@@ -311,10 +312,10 @@ set N60991800 [stack 0]
   xpos -113
   ypos 818
  }
-set N60990c00 [stack 0]
-push $N60991800
-push $N60991800
-push $N60b32000
+set Neb8c1000 [stack 0]
+push $Neb8c1c00
+push $Neb8c1c00
+push $N8d2c6400
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -325,7 +326,7 @@ push $N60b32000
   xpos 257
   ypos 534
  }
-set N60990800 [stack 0]
+set Neb8c0c00 [stack 0]
  Merge2 {
   inputs 2
   operation minus
@@ -344,14 +345,14 @@ set N60990800 [stack 0]
   xpos -27
   ypos 736
  }
-push $N60990800
+push $Neb8c0c00
  Merge2 {
   inputs 2
   operation plus
   name RestoreLuma
   xpos 257
   ypos 736
-  disable {{!parent.sourceLuma i}}
+  disable {{!parent.sourceLuma}}
  }
  Keymix {
   inputs 3
@@ -360,7 +361,7 @@ push $N60990800
   xpos 257
   ypos 943
  }
-push $N60990c00
+push $Neb8c1000
  Dot {
   name Dot13
   xpos -113
@@ -374,9 +375,9 @@ push $N60990c00
   ypos 1077
  }
  Colorspace {
+  primary_out AlexaV3LogC
   name Colorspace4
   label Parent
-  selected true
   xpos 257
   ypos 1259
  }
