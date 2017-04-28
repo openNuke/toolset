@@ -1,13 +1,15 @@
 #http://www.nukepedia.com/gizmos/keyer/despillmadness v3.0 Andreas Frickinger
 set cut_paste_input [stack 0]
 version 10.0 v4
+push 0
 push $cut_paste_input
 Group {
+ inputs 2
  name DespillMadness
  note_font "Bitstream Vera Sans"
  selected true
- xpos 3183
- ypos -171
+ xpos -52
+ ypos 2888
  mapsize {0.15 0.15}
  addUserKnob {20 DespillMadness l "Despill Settings"}
  addUserKnob {41 primary_out l primary/gamut -STARTLINE T Colorspace4.primary_out}
@@ -28,7 +30,7 @@ Group {
  addUserKnob {26 ""}
  addUserKnob {41 maskChannel l mask T KeymixMask.maskChannel}
  addUserKnob {6 invmsk l invert -STARTLINE}
- addUserKnob {41 which l mix T mix.which}
+ addUserKnob {41 which_1 l mix T mix_.which}
  addUserKnob {26 ""}
  addUserKnob {20 Info}
  addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/despillMadness_nk/\")" +STARTLINE}
@@ -56,19 +58,19 @@ Group {
   xpos 296
   ypos -186
  }
-set N5e41a400 [stack 0]
+set Nd2aa4000 [stack 0]
  Dot {
   name Dot2
   xpos 296
   ypos -71
  }
-set N5e41a000 [stack 0]
+set Nd2aa4400 [stack 0]
  Dot {
   name Dot3
   xpos 626
   ypos -71
  }
-set N5e41b800 [stack 0]
+set Nfba34c00 [stack 0]
  Expression {
   expr2 b>g*LimitPercentage?g*LimitPercentage:b
   expr3 b-g*LimitPercentage
@@ -79,7 +81,7 @@ set N5e41b800 [stack 0]
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N5e41b800
+push $Nfba34c00
  Expression {
   expr2 b>r*LimitPercentage?r*LimitPercentage:b
   expr3 b-r*LimitPercentage
@@ -90,7 +92,7 @@ push $N5e41b800
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N5e41b800
+push $Nfba34c00
  Expression {
   expr2 b>(g+2*r)/2*LimitPercentage?(g+2*r)/2*LimitPercentage:b
   expr3 b-(2*r+g)*LimitPercentage/2
@@ -101,7 +103,7 @@ push $N5e41b800
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $N5e41b800
+push $Nfba34c00
  Expression {
   expr2 b>(2*g+r)/2*LimitPercentage?(2*g+r)/2*LimitPercentage:b
   expr3 b-(r+2*g)*LimitPercentage/2
@@ -112,7 +114,7 @@ push $N5e41b800
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage}}
  }
-push $N5e41b800
+push $Nfba34c00
  Expression {
   expr2 b>(g+r)/2*LimitPercentage?(g+r)/2*LimitPercentage:b
   expr3 b-(r+g)*LimitPercentage/2
@@ -135,13 +137,13 @@ push $N5e41b800
   xpos 762
   ypos 370
  }
-push $N5e41a000
+push $Nd2aa4400
  Dot {
   name Dot1
   xpos 164
   ypos -71
  }
-set Ne9df7800 [stack 0]
+set Nc90a4400 [stack 0]
  Expression {
   expr1 g>b*LimitPercentage?b*LimitPercentage:g
   expr3 g-b*LimitPercentage
@@ -152,7 +154,7 @@ set Ne9df7800 [stack 0]
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $Ne9df7800
+push $Nc90a4400
  Expression {
   expr1 g>r*LimitPercentage?r*LimitPercentage:g
   expr3 g-r*LimitPercentage
@@ -163,7 +165,7 @@ push $Ne9df7800
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage 1
  }
-push $Ne9df7800
+push $Nc90a4400
  Expression {
   expr1 g>(b+2*r)/3*LimitPercentage?(b+2*r)/3*LimitPercentage:g
   expr3 g-(r+b)*LimitPercentage/2
@@ -174,7 +176,7 @@ push $Ne9df7800
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $Ne9df7800
+push $Nc90a4400
  Expression {
   expr1 g>(2*b+r)/3*LimitPercentage?(2*b+r)/3*LimitPercentage:g
   expr3 g-(r+b)*LimitPercentage/2
@@ -185,7 +187,7 @@ push $Ne9df7800
   addUserKnob {7 LimitPercentage l "fine tune" R 0.5 1.5}
   LimitPercentage {{RedLimitsGreen.LimitPercentage i}}
  }
-push $Ne9df7800
+push $Nc90a4400
  Expression {
   expr1 g>(b+r)/2*LimitPercentage?(b+r)/2*LimitPercentage:g
   expr3 g-(r+b)*LimitPercentage/2
@@ -212,6 +214,7 @@ push $Ne9df7800
   inputs 2
   which {{GizmoControl.screenType i}}
   name SwitchMain
+  selected true
   xpos 257
   ypos 366
  }
@@ -228,7 +231,7 @@ push $Ne9df7800
   xpos 257
   ypos 468
  }
-set N8d2c6400 [stack 0]
+set N28fc000 [stack 0]
  Dot {
   name Dot9
   xpos 440
@@ -260,8 +263,8 @@ set N8d2c6400 [stack 0]
   xpos -696
   ypos 861
  }
-set Neb60d400 [stack 0]
-push $Neb60d400
+set Nf5830000 [stack 0]
+push $Nf5830000
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -276,7 +279,7 @@ push $Neb60d400
   ypos 943
   disable {{parent.invmsk i}}
  }
-push $N5e41a400
+push $Nd2aa4000
  Dot {
   name Dot7
   xpos -345
@@ -301,7 +304,7 @@ push $N5e41a400
   xpos -27
   ypos 534
  }
-set Neb8c1c00 [stack 0]
+set Ne344d800 [stack 0]
  Dot {
   name Dot11
   xpos -113
@@ -312,10 +315,10 @@ set Neb8c1c00 [stack 0]
   xpos -113
   ypos 818
  }
-set Neb8c1000 [stack 0]
-push $Neb8c1c00
-push $Neb8c1c00
-push $N8d2c6400
+set N19511c00 [stack 0]
+push $Ne344d800
+push $Ne344d800
+push $N28fc000
  Copy {
   inputs 2
   from0 rgba.alpha
@@ -326,7 +329,7 @@ push $N8d2c6400
   xpos 257
   ypos 534
  }
-set Neb8c0c00 [stack 0]
+set N19511800 [stack 0]
  Merge2 {
   inputs 2
   operation minus
@@ -345,7 +348,7 @@ set Neb8c0c00 [stack 0]
   xpos -27
   ypos 736
  }
-push $Neb8c0c00
+push $N19511800
  Merge2 {
   inputs 2
   operation plus
@@ -356,12 +359,11 @@ push $Neb8c0c00
  }
  Keymix {
   inputs 3
-  maskChannel -rgba.alpha
   name KeymixMask
   xpos 257
   ypos 943
  }
-push $Neb8c1000
+push $N19511c00
  Dot {
   name Dot13
   xpos -113
@@ -370,7 +372,7 @@ push $Neb8c1000
  Dissolve {
   inputs 2
   which 1
-  name mix
+  name mix_
   xpos 257
   ypos 1077
  }
@@ -405,4 +407,5 @@ push $Neb8c1000
   addUserKnob {6 spillMatteOut l "output spill matte in alpha" +STARTLINE}
  }
 end_group
+
 
