@@ -1,0 +1,123 @@
+set cut_paste_input [stack 0]
+version 10.0 v5
+push $cut_paste_input
+NoOp {
+ name curveGenerator
+ help "Generate curves from various maths functions. i.e camera shake, light flicker etc. \nFeatures\n* 12 curve types inc. fbn\n* Mixing a seperate B curve with 11 math calcs\n* Friendly and responsive in the curve editor"
+ knobChanged "\nn=nuke.thisNode()\nk = nuke.thisKnob()\nif n\['id'].value()==\"curveGenerator\":\n  if k.name()==\"waveType\" or k.name()==\"waveType_b\" or k.name()==\"maths\":\n    for anim in n\[n\['waveType'].value()].animations():\n      expr = anim.expression()\n    n\['RESULT'].setExpression(expr)\n    for anim in n\[n\['waveType_b'].value()].animations():\n      expr_b = anim.expression()\n    n\['RESULT_B'].setExpression(expr_b)\n    if n\['maths'].value()=='mult':\n      resultExp=expr+'*'+expr_b\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='plus':\n      resultExp=expr+'+'+expr_b\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='max':\n      resultExp='max('+expr+','+expr_b+')'\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='divide':\n      resultExp=expr+'/'+expr_b\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='atan2':\n      resultExp='atan2('+expr+','+expr_b+')'\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='pow':\n      resultExp='pow('+expr+','+expr_b+')'\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='hypot':\n      resultExp='hypot('+expr+','+expr_b+')'\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='min':\n      resultExp='min('+expr+','+expr_b+')'\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='eqaul':\n      resultExp='equal('+expr+','+expr_b+')'\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='xor':\n      resultExp=expr+'(1-'+expr_b+')+'+expr_b+'(1-'+expr+')'\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='A>B':\n      resultExp=expr+'>'+expr_b\n      n\['RESULT_MIX'].setExpression( resultExp) \n    elif n\['maths'].value()=='A<B':\n      resultExp=expr+'<'+expr_b\n      n\['RESULT_MIX'].setExpression( resultExp) \n"
+ selected true
+ xpos 5097
+ ypos 2185
+ addUserKnob {20 curveGenerator l "Curve Generator" t " "}
+ addUserKnob {1 id l INVISIBLE +INVISIBLE}
+ id curveGenerator
+ addUserKnob {7 RESULT}
+ RESULT {{"((noise((frame*random(seed)+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude" x14 0}}
+ addUserKnob {4 waveType M {random noise sine triangle square Bounce sawtooth sawtooth_parabolic sawtooth_parabolic_reversed sawtooth_exponential fbn turbulence "" "" "" "" "" ""}}
+ waveType noise
+ addUserKnob {26 text l height}
+ addUserKnob {7 maxAmplitude R 0 10}
+ maxAmplitude 7
+ addUserKnob {7 minAmplitude R -1 1}
+ addUserKnob {7 globalAmplitude R 0 3}
+ globalAmplitude 1
+ addUserKnob {26 text05 l width}
+ addUserKnob {7 frequency R 0 10}
+ frequency 4
+ addUserKnob {7 timeOffset R -50 50}
+ addUserKnob {7 seed}
+ seed 0.23
+ addUserKnob {26 textLine l (fbm/turbulence)}
+ addUserKnob {7 gain t "this add a high Freq noise to the Amplitude"}
+ gain 0.535
+ addUserKnob {3 octaves}
+ octaves 10
+ addUserKnob {20 curve l "B Curve"}
+ addUserKnob {7 RESULT_MIX}
+ RESULT_MIX {{"((noise((frame*random(seed)+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude+((noise((frame*random(seed_b)+timeOffset_b)/frequency_b)+1)/2 * (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b"}}
+ addUserKnob {7 RESULT_B}
+ RESULT_B {{"((noise((frame*random(seed_b)+timeOffset_b)/frequency_b)+1)/2 * (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b" x14 0}}
+ addUserKnob {4 maths l "A/B maths" M {max min mult plus divide atan2 hypot pow equal A>B A<B "" "" "" "" "" "" "" "" ""}}
+ maths plus
+ addUserKnob {4 waveType_b l waveType M {random_b noise_b sine_b triangle_b square_b Bounce_b sawtooth_b sawtooth_parabolic_b sawtooth_parabolic_reversed_b sawtooth_exponential_b fbn_b turbulence_b "" "" "" "" "" "" "" ""}}
+ waveType_b noise_b
+ addUserKnob {26 text02 l height}
+ addUserKnob {7 maxAmplitude_b l maxAmplitude R 0 10}
+ maxAmplitude_b 5
+ addUserKnob {7 minAmplitude_b l minAmplitude R -1 1}
+ addUserKnob {7 globalAmplitude_b l globalAmplitude R 0 3}
+ globalAmplitude_b 1
+ addUserKnob {26 text01 l width}
+ addUserKnob {7 frequency_b l frequency R 0 10}
+ frequency_b 0.23
+ addUserKnob {7 timeOffset_b l timeOffset R -50 50}
+ addUserKnob {7 seed_b l seed}
+ seed_b 0.23
+ addUserKnob {26 text3 l (fbm/turbulence)}
+ addUserKnob {7 gain_b l gain t "this add a high Freq noise to the Amplitude"}
+ gain_b 0.23
+ addUserKnob {3 octaves_b l octaves}
+ octaves_b 10
+ addUserKnob {20 Info}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open('http://opennuke.github.io/CurveGenerator_nk/')" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 version l version: T 1.0}
+ addUserKnob {26 createdDate l created T 01/01/2015}
+ addUserKnob {26 created l by -STARTLINE T "Rafal Kaniewski"}
+ addUserKnob {26 sourceVersion l "source: v" T 1}
+ addUserKnob {26 source l "" -STARTLINE T "<a href=\\\"http://www.https://github.com/vfxwiki\\\">vfxwiki github</a>"}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
+ addUserKnob {26 note l "note: " T "credits David Emeny & Cameron Carson"}
+ addUserKnob {20 expressions l INVISIBLE +INVISIBLE n 1}
+ expressions 0
+ addUserKnob {7 square l INVISIBLE +INVISIBLE}
+ square {{"(int(sin(2*pi*(frame*random(seed)+timeOffset)/frequency)+1) * (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude" i}}
+ addUserKnob {7 sine l INVISIBLE +INVISIBLE}
+ sine {{"((sin(2*pi*(frame*random(seed)+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude" i}}
+ addUserKnob {7 turbulence l INVISIBLE +INVISIBLE}
+ turbulence {{(((turbulence((frame*frequency+timeOffset),seed+.001,seed+.001,octaves,5,gain)*2)*(maxAmplitude_b-minAmplitude))+minAmplitude)*globalAmplitude i x128 -617791.3}}
+ addUserKnob {7 smooth l INVISIBLE +INVISIBLE R 0 10}
+ addUserKnob {7 fbn l INVISIBLE +INVISIBLE}
+ fbn {{(((fBm((frame*frequency+timeOffset),seed+.001,seed+.001,octaves,5,gain)+0.5)*(maxAmplitude-minAmplitude))+minAmplitude)*globalAmplitude i x128 -123983.98}}
+ addUserKnob {7 random l INVISIBLE +INVISIBLE}
+ random {{"(random((frame*random(seed)+timeOffset)/frequency) *(maxAmplitude-minAmplitude) +minAmplitude)*globalAmplitude" i x127 0.8632318 0.02}}
+ addUserKnob {7 noise l INVISIBLE +INVISIBLE}
+ noise {{"((noise((frame*random(seed)+timeOffset)/frequency)+1)/2 * (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude" i}}
+ addUserKnob {7 triangle l INVISIBLE +INVISIBLE}
+ triangle {{"((asin(sin(2*pi*(frame*random(seed)+timeOffset)/frequency))/pi+0.5) * (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude" i}}
+ addUserKnob {7 Bounce l INVISIBLE +INVISIBLE}
+ Bounce {{"(abs(sin(pi*(frame*random(seed) + timeOffset)/frequency))* (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude" i}}
+ addUserKnob {7 sawtooth l INVISIBLE +INVISIBLE}
+ sawtooth {{"(((frame*random(seed)+timeOffset) % frequency)/frequency * (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude" i}}
+ addUserKnob {7 sawtooth_exponential l INVISIBLE +INVISIBLE}
+ sawtooth_exponential {{"((exp(2*pi*((frame*random(seed)+timeOffset) % frequency)/frequency)-1)/exp(2*pi) * (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude" i}}
+ addUserKnob {7 sawtooth_parabolic l INVISIBLE +INVISIBLE}
+ sawtooth_parabolic {{"(sin((4.93480220054468*(frame*random(seed)+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude" i}}
+ addUserKnob {7 sawtooth_parabolic_reversed l INVISIBLE +INVISIBLE}
+ sawtooth_parabolic_reversed {{"(cos((4.93480220054468*(frame*random(seed)+timeOffset)/(pi*frequency)) % (pi/2)) * (maxAmplitude-minAmplitude) + minAmplitude)*globalAmplitude" i}}
+ addUserKnob {7 square_b l INVISIBLE +INVISIBLE}
+ square_b {{"(int(sin(2*pi*(frame*random(seed_b)+timeOffset_b)/frequency_b)+1) * (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b" i}}
+ addUserKnob {7 sine_b l INVISIBLE +INVISIBLE}
+ sine_b {{"((sin(2*pi*(frame*random(seed_b)+timeOffset_b)/frequency_b)+1)/2 * (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b" i}}
+ addUserKnob {7 turbulence_b l INVISIBLE +INVISIBLE}
+ turbulence_b {{(((turbulence((frame*frequency_b+timeOffset_b),seed_b+.001,seed_b+.001,octaves_b,5,gain_b)*2)*(maxAmplitude_b-minAmplitude_b))+minAmplitude_b)*globalAmplitude_b i}}
+ addUserKnob {7 fbn_b l INVISIBLE +INVISIBLE}
+ fbn_b {{(((fBm((frame*frequency_b+timeOffset_b),random(seed_b)+.001,seed_b+.001,octaves_b,5,gain_b)+0.5)*(maxAmplitude_b-minAmplitude_b))+minAmplitude_b)*globalAmplitude_b i x128 -123983.98}}
+ addUserKnob {7 random_b l INVISIBLE +INVISIBLE}
+ random_b {{"(random((frame*random(seed_b)+timeOffset_b)/frequency_b) *(maxAmplitude_b-minAmplitude_b) +minAmplitude_b)*globalAmplitude_b" i x127 0.8632318 0.02}}
+ addUserKnob {7 noise_b l INVISIBLE +INVISIBLE}
+ noise_b {{"((noise((frame*random(seed_b)+timeOffset_b)/frequency_b)+1)/2 * (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b" i}}
+ addUserKnob {7 triangle_b l INVISIBLE +INVISIBLE}
+ triangle_b {{"((asin(sin(2*pi*(frame*random(seed_b)+timeOffset_b)/frequency_b))/pi+0.5) * (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b" i}}
+ addUserKnob {7 Bounce_b l INVISIBLE +INVISIBLE}
+ Bounce_b {{"(abs(sin(pi*(frame*random(seed_b) + timeOffset_b)/frequency_b))* (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b" i}}
+ addUserKnob {7 sawtooth_b l INVISIBLE +INVISIBLE}
+ sawtooth_b {{"(((frame*random(seed_b)+timeOffset_b) % frequency_b)/frequency_b * (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b" i}}
+ addUserKnob {7 sawtooth_exponential_b l INVISIBLE +INVISIBLE}
+ sawtooth_exponential_b {{"((exp(2*pi*((frame*random(seed_b)+timeOffset_b) % frequency_b)/frequency_b)-1)/exp(2*pi) * (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b" i}}
+ addUserKnob {7 sawtooth_parabolic_b l INVISIBLE +INVISIBLE}
+ sawtooth_parabolic_b {{"(sin((4.93480220054468*(frame*random(seed_b)+timeOffset_b)/(pi*frequency_b)) % (pi/2)) * (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b" i}}
+ addUserKnob {7 sawtooth_parabolic_reversed_b l INVISIBLE +INVISIBLE}
+ sawtooth_parabolic_reversed_b {{"(cos((4.93480220054468*(frame*random(seed_b)+timeOffset_b)/(pi*frequency_b)) % (pi/2)) * (maxAmplitude_b-minAmplitude_b) + minAmplitude_b)*globalAmplitude_b" i}}
+ addUserKnob {20 endGroup l INVISIBLE +INVISIBLE n -1}
+}
