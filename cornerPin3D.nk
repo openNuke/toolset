@@ -37,7 +37,7 @@ Group {
  addUserKnob {41 intersect -STARTLINE T CardMaster.intersect}
  addUserKnob {26 ""}
  addUserKnob {20 notes}
- addUserKnob {32 docs l "docs help" T "start http://lois4.lucasfilm.com/document/cornerpin3d/" +STARTLINE}
+ addUserKnob {32 docs l "docs help" T "start http://google.com/" +STARTLINE}
  addUserKnob {26 todoBETAtool l "" +STARTLINE T " THIS TOOL IS IN BETA vb0.5\n- add bake matrix output for warps and roto\n- add axis offset for card/camera psottion\n- add look at camera function\n- do c+ compiled version using card3d matrix"}
 }
  Input {
