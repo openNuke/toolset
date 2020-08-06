@@ -7,7 +7,7 @@ Group {
  label " \[value in]"
  selected true
  xpos 16994
- ypos 1789
+ ypos 1788
  addUserKnob {20 User l GradeAOV}
  addUserKnob {41 in l "Channel to use" T Shuffle.in}
  addUserKnob {41 AlsoGradeChannel l "Also Grade Channel" t "as well as grading the beauty bake the grade into the selected channel" -STARTLINE T ShuffleCopy1.AlsoGradeChannel}
@@ -149,9 +149,10 @@ push $Nb1d436f0
  Unpremult {
   alpha -rgba.alpha
   name Unpremult1
+  selected true
   xpos -680
   ypos -469
-  disable {{!alpha x9 0 x1061 1}}
+  disable {{!alpha}}
   addUserKnob {20 User}
  }
  Grade {
@@ -291,11 +292,11 @@ push $Nb19022e0
   ypos -267
  }
  Premult {
-  alpha {{{parent.Unpremult1.alpha}}}
+  alpha {{{Unpremult1.alpha}}}
   name Premult4
   xpos -487
   ypos -142
-  disable {{parent.Unpremult1.disable x9 0}}
+  disable {{Unpremult1.disable}}
  }
  Blend {
   inputs 2
@@ -318,7 +319,6 @@ push $Nb19022e0
   red2 blue
   out2 {{{Shuffle.in}}}
   name ShuffleCopy1
-  selected true
   xpos -318
   ypos 35
   disable {{!AlsoGradeChannel}}
