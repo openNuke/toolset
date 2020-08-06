@@ -15,7 +15,7 @@ Group {
  addUserKnob {41 mute -STARTLINE T Switch3.mute}
  addUserKnob {41 contact -STARTLINE T Switch3.contact}
  addUserKnob {26 spacetxt l "                                                                                         " -STARTLINE T " "}
- addUserKnob {22 NodeExpCopy l "Node Expression Copy" -STARTLINE T "knobsList = \[\"blackpoint\", \"whitepoint\", \"black\", \"white\", \"multiply\", \"add\", \"gamma\", \"reverse\", \"black_clamp\", \"white_clamp\", \"enable_mix_luminance\", \"mix_luminance\", \"value\", \"grey\", \"saturation\",\n \"enable_mix_luminance_1\", \"mix_luminance_1\", \"alpha\", \"mixBlend\"]\n\nn = nuke.thisNode()\nn\['selected'].setValue(True)\nwith nuke.root():\n nuke.nodeCopy(\"%clipboard%\")\n nuke.nodePaste(\"%clipboard%\")\n new_node = nuke.selectedNode()\n\n for j in new_node.knobs():\n\n  if j in  knobsList:\n   if isinstance(new_node.knob(j), nuke.Array_Knob):\n    print \"yes\"\n    new_node\[j].setExpression( n.name() + '.' + j + '.' + \"singleValue()\" )\n   new_node\[j].setExpression( n.name() + '.' + j )\n\n"}
+ addUserKnob {22 NodeExpCopy l "Node Expression Copy" -STARTLINE T "knobsList = \[\"blackpoint\", \"whitepoint\", \"black\", \"white\", \"multiply\", \"add\", \"gamma\", \"reverse\", \"black_clamp\", \"white_clamp\", \"enable_mix_luminance\", \"mix_luminance\", \"value\", \"grey\", \"saturation\",\n \"enable_mix_luminance_1\", \"mix_luminance_1\", \"alpha\", \"mixBlend\"]\n\nn = nuke.thisNode()\nn\['selected'].setValue(True)\nwith nuke.root():\n nuke.nodeCopy(\"%clipboard%\")\n nuke.nodePaste(\"%clipboard%\")\n new_node = nuke.selectedNode()\n\n for j in new_node.knobs():\n\n  if j in  knobsList:\n   if isinstance(new_node.knob(j), nuke.Array_Knob):\n     new_node\[j].setSingleValue(False)\n   new_node\[j].setExpression( n.name() + '.' + j )\n\n\n"}
  addUserKnob {26 ""}
  addUserKnob {41 blackpoint T Grade27.blackpoint}
  addUserKnob {41 whitepoint T Grade27.whitepoint}
@@ -102,7 +102,7 @@ set Ne0da8440 [stack 0]
   ypos -567
  }
  Shuffle {
-  in rgb
+  in none
   in2 alpha
   alpha red2
   name Shuffle
@@ -156,11 +156,7 @@ push $Ne0dc1970
  }
  Grade {
   channels all
-  blackpoint {0 0 0 0}
-  black {0.001 0.58 0.58 0.58}
-  black_panelDropped true
   black_clamp false
-  enable_mix_luminance false
   name Grade27
   xpos -680
   ypos -380
@@ -186,7 +182,6 @@ push $Ne0dc1970
   addUserKnob {7 grey}
   grey 0.18
   addUserKnob {18 value R -1 1}
-  value {0 0 0}
   addUserKnob {6 value_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {6 value_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {6 value_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
@@ -323,6 +318,7 @@ push $Ne0dd9530
   disable {{!AlsoGradeChannel}}
   addUserKnob {20 User}
   addUserKnob {6 AlsoGradeChannel l "Also Grade Channel" +STARTLINE}
+  AlsoGradeChannel true
  }
 set Ne0e9c810 [stack 0]
  Keymix {
