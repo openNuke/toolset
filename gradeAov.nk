@@ -6,8 +6,8 @@ Group {
  help "Colour correct the CG beauty using the secondary(aov) passes.with a subtractive process.\nto be used when:\n * the CG is good and only a few passes need adjusting\n * the secondaries don't add up to the beauty\n * rgb saturation (luminance mix on)\n * rgb contrast (with pivot)\n * matting with external mask input or main channel input or both with an operation.\n The order of correction is: Grade Node>Contrast Node>Saturation."
  label " \[value in]"
  selected true
- xpos 16992
- ypos 1859
+ xpos 16994
+ ypos 1789
  addUserKnob {20 User l GradeAOV}
  addUserKnob {41 in l "Channel to use" T Shuffle.in}
  addUserKnob {41 AlsoGradeChannel l "Also Grade Channel" t "as well as grading the beauty bake the grade into the selected channel" -STARTLINE T ShuffleCopy1.AlsoGradeChannel}
@@ -46,7 +46,7 @@ Group {
  addUserKnob {20 Info}
  addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/gradeAov_nkV/\")" +STARTLINE}
  addUserKnob {26 ""}
- addUserKnob {26 version l version: T v1.1}
+ addUserKnob {26 version l version: T v1.2}
  addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
  addUserKnob {26 modified l "modified: " T "01/10/2016 :update to fix back clamp by Rafal_Kan\n2017/12/19 :v1: forked, renamed, premult per channel, colourspaceShift\n2018/01/01: added copyExpNode and solo/mute"}
  addUserKnob {26 source l source: T "<a href='https://github.com/vfxwiki/gradeAOV/'> Github.com</a>"}
@@ -58,7 +58,7 @@ Group {
   xpos -220
   ypos -721
  }
-set Ne11dfbb0 [stack 0]
+set Nb1d08ae0 [stack 0]
  Dot {
   name Dot8
   xpos -995
@@ -69,7 +69,7 @@ set Ne11dfbb0 [stack 0]
   xpos -995
   ypos 105
  }
-set Ne11e8bf0 [stack 0]
+set Nb1d119a0 [stack 0]
  Dot {
   name Dot9
   xpos -995
@@ -83,19 +83,19 @@ set Ne11e8bf0 [stack 0]
   xpos -632
   ypos 213
  }
-push $Ne11dfbb0
+push $Nb1d08ae0
  Dot {
   name Dot1
   xpos -186
   ypos -633
  }
-set Ne11fcc80 [stack 0]
+set Nb1d25a30 [stack 0]
  Dot {
   name Dot27
   xpos -457
   ypos -567
  }
-set Ne0da8440 [stack 0]
+set Nb1d2a260 [stack 0]
  Dot {
   name Dot26
   xpos -646
@@ -114,8 +114,8 @@ set Ne0da8440 [stack 0]
   xpos -680
   ypos -507
  }
-set Ne0dc1970 [stack 0]
-push $Ne0da8440
+set Nb1d436f0 [stack 0]
+push $Nb1d2a260
  Merge2 {
   inputs 2
   operation from
@@ -134,7 +134,7 @@ push $Ne0da8440
   xpos -457
   ypos -422
  }
-set Ne0dd9530 [stack 0]
+set Nb19022e0 [stack 0]
  Dot {
   name Dot12
   xpos -922
@@ -145,7 +145,7 @@ set Ne0dd9530 [stack 0]
   xpos -922
   ypos 172
  }
-push $Ne0dc1970
+push $Nb1d436f0
  Unpremult {
   alpha -rgba.alpha
   name Unpremult1
@@ -170,6 +170,8 @@ push $Ne0dc1970
   addUserKnob {6 exposure_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {6 exposure_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
  }
  Expression {
   expr0 "pow(r/grey, value+1)*grey"
@@ -182,6 +184,7 @@ push $Ne0dc1970
   addUserKnob {7 grey}
   grey 0.18
   addUserKnob {18 value R -1 1}
+  value {0 0 0}
   addUserKnob {6 value_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {6 value_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {6 value_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
@@ -189,6 +192,8 @@ push $Ne0dc1970
   addUserKnob {6 value_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {6 value_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {6 value_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
  }
  ColorCorrect {
   channels all
@@ -197,7 +202,7 @@ push $Ne0dc1970
   xpos -680
   ypos -273
  }
-set Ne0e12d10 [stack 0]
+set Nb193cb70 [stack 0]
  Dot {
   name Dot4
   xpos -833
@@ -226,13 +231,13 @@ set Ne0e12d10 [stack 0]
   xpos 99
   ypos 105
  }
-push $Ne11e8bf0
+push $Nb1d119a0
  Dot {
   name Dot11
   xpos -435
   ypos 105
  }
-set Ne0e42260 [stack 0]
+set Nb196c0c0 [stack 0]
  Switch {
   inputs 2
   which {{"\[exists parent.input1]"}}
@@ -246,14 +251,14 @@ set Ne0e42260 [stack 0]
   xpos -177
   ypos 127
  }
-push $Ne0e42260
-push $Ne0e12d10
+push $Nb196c0c0
+push $Nb193cb70
  Dot {
   name Dot6
   xpos -646
   ypos 39
  }
-push $Ne11fcc80
+push $Nb1d25a30
  Dot {
   name Dot2
   xpos -186
@@ -264,13 +269,13 @@ push $Ne11fcc80
   xpos -284
   ypos -321
  }
-push $Ne0e12d10
-push $Ne0dd9530
+push $Nb193cb70
+push $Nb19022e0
  Clamp {
   channels rgb
   minimum_enable {{parent.Grade27.black_clamp}}
   maximum 1e+14
-  maximum_enable {{parent.Grade27.white_clamp x1039 0}}
+  maximum_enable {{parent.Grade27.white_clamp}}
   name Clamp1
   xpos -491
   ypos -374
@@ -313,6 +318,7 @@ push $Ne0dd9530
   red2 blue
   out2 {{{Shuffle.in}}}
   name ShuffleCopy1
+  selected true
   xpos -318
   ypos 35
   disable {{!AlsoGradeChannel}}
@@ -320,7 +326,7 @@ push $Ne0dd9530
   addUserKnob {6 AlsoGradeChannel l "Also Grade Channel" +STARTLINE}
   AlsoGradeChannel true
  }
-set Ne0e9c810 [stack 0]
+set Nb19c6670 [stack 0]
  Keymix {
   inputs 3
   channels rgb
@@ -348,7 +354,7 @@ set Ne0e9c810 [stack 0]
   xpos -318
   ypos 385
  }
-push $Ne0e9c810
+push $Nb19c6670
  Viewer {
   frame_range 1001-1001
   fps 25
