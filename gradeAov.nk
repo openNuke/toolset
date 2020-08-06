@@ -7,7 +7,7 @@ Group {
  label " \[value in]"
  selected true
  xpos 16992
- ypos 1845
+ ypos 1859
  addUserKnob {20 User l GradeAOV}
  addUserKnob {41 in l "Channel to use" T Shuffle.in}
  addUserKnob {41 AlsoGradeChannel l "Also Grade Channel" t "as well as grading the beauty bake the grade into the selected channel" -STARTLINE T ShuffleCopy1.AlsoGradeChannel}
@@ -15,7 +15,7 @@ Group {
  addUserKnob {41 mute -STARTLINE T Switch3.mute}
  addUserKnob {41 contact -STARTLINE T Switch3.contact}
  addUserKnob {26 spacetxt l "                                                                                         " -STARTLINE T " "}
- addUserKnob {22 NodeExpCopy l "Node Expression Copy" -STARTLINE T "knobsList = \[\"blackpoint\", \"whitepoint\", \"black\", \"white\", \"multiply\", \"add\", \"gamma\", \"reverse\", \"black_clamp\", \"white_clamp\", \"enable_mix_luminance\", \"mix_luminance\", \"value\", \"grey\", \"saturation\",\n \"enable_mix_luminance_1\", \"mix_luminance_1\", \"alpha\", \"mixBlend\"]\n\nn = nuke.thisNode()\nn\['selected'].setValue(True)\nwith nuke.root():\n nuke.nodeCopy(\"%clipboard%\")\n nuke.nodePaste(\"%clipboard%\")\n new_node = nuke.selectedNode()\n\n for j in new_node.knobs():\n\n  if j in  knobsList:\n   if isinstance(new_node.knob(j), nuke.Array_Knob):\n     new_node\[j].setSingleValue(False)\n   new_node\[j].setExpression( n.name() + '.' + j )\n\n\n"}
+ addUserKnob {22 NodeExpCopy l "Node Expression Copy" -STARTLINE T "knobsList = \[\"blackpoint\", \"whitepoint\", \"black\", \"white\", \"multiply\", \"add\", \"gamma\", \"reverse\", \"black_clamp\", \"white_clamp\", \"enable_mix_luminance\", \"mix_luminance\", \"value\", \"grey\", \"saturation\",\n \"enable_mix_luminance_1\", \"mix_luminance_1\", \"alpha\", \"mixBlend\"]\nnukescripts.clear_selection_recursive()\nn = nuke.thisNode()\nn\['selected'].setValue(True)\nwith nuke.root():\n nuke.nodeCopy(\"%clipboard%\")\n nuke.nodePaste(\"%clipboard%\")\n new_node = nuke.selectedNode()\n\n for j in new_node.knobs():\n\n  if j in  knobsList:\n   if isinstance(new_node.knob(j), nuke.Array_Knob):\n     new_node\[j].setSingleValue(False)\n   new_node\[j].setExpression( n.name() + '.' + j )\n\n\n"}
  addUserKnob {26 ""}
  addUserKnob {41 blackpoint T Grade27.blackpoint}
  addUserKnob {41 whitepoint T Grade27.whitepoint}
