@@ -1,0 +1,1498 @@
+set cut_paste_input [stack 0]
+version 11.3 v3
+Camera2 {
+ inputs 0
+ focal 12.1
+ focal_point 0.8
+ fstop 3
+ name Camera1
+ selected true
+ xpos 2
+ ypos -14
+}
+Dot {
+ name Dot102
+ tile_color 0x949494ff
+ note_font_size 22
+ note_font_color 0xffffffff
+ selected true
+ xpos 26
+ ypos 163
+ addUserKnob {20 tmpTab}
+ addUserKnob {1 tmpKeepInput}
+ tmpKeepInput Camera1
+}
+Reformat {
+ inputs 0
+ format "256 256 0 0 256 256 1 256sq"
+ name Reformat7
+ selected true
+ xpos -119
+ ypos -1
+}
+set N647aa050 [stack 0]
+Noise {
+ type turbulence
+ size 9.3
+ octaves 8
+ lacunarity 1.215
+ gain 0.586
+ gamma 0.33
+ center {960 540}
+ name Noise1
+ selected true
+ xpos -74
+ ypos 73
+}
+push $N647aa050
+Flare {
+ position {128 128}
+ radius {92.46 116.27 124.21}
+ inner_color 0.395
+ name Flare1
+ selected true
+ xpos -164
+ ypos 69
+}
+Merge2 {
+ inputs 2
+ operation min
+ mix 0.61
+ name Min
+ selected true
+ xpos -119
+ ypos 115
+}
+push $cut_paste_input
+add_layer {other other.Zdepth other.defocusAmount other.depth_unfiltered other.noiseLevel other.reflGloss other.reflectionglossiness other.zDepthFiltered other.zdepth other.zdepthf}
+Shuffle {
+ in2 {other.Zdepth other.defocusAmount other.depth_unfiltered other.noiseLevel}
+ black green2
+ out2 depth
+ name Shuffle28
+ label "\[value in]"
+ selected true
+ xpos -278
+ ypos 48
+}
+Unpremult {
+ channels depth
+ name Unpremult4
+ selected true
+ xpos -278
+ ypos 84
+}
+Dot {
+ name Dot106
+ tile_color 0x949494ff
+ note_font_size 22
+ note_font_color 0xffffffff
+ selected true
+ xpos -244
+ ypos 186
+ addUserKnob {20 tmpTab}
+ addUserKnob {1 tmpKeepInput}
+ tmpKeepInput Unpremult4
+}
+Group {
+ inputs 3
+ name ZDefocusOptik
+ help "<b>OpticalZDefocus</b> is a physically accurate ZDefocus, which controls circle of confusion (coc) size based on lens geometry using the depth of field equation. \n\nSet your lens and film-back characteristics, your focus distance, and adjust the size of your bokeh with the aperture size, just like a real lens."
+ tile_color 0xff802bff
+ selected true
+ xpos -119
+ ypos 221
+ mapsize {0.0708035004 1}
+ addUserKnob {20 OpticalZDefocus l ZDefocusOptik}
+ addUserKnob {1 nodeClass l INVISIBLE +INVISIBLE}
+ nodeClass ZDefocusOptik
+ addUserKnob {26 ""}
+ addUserKnob {41 channels T _ZDEFOCUS_.channels}
+ addUserKnob {41 useGPUIfAvailable l "Use GPU" -STARTLINE T _ZDEFOCUS_.useGPUIfAvailable}
+ addUserKnob {26 l l intersect T " "}
+ addUserKnob {41 intersectFormat l "" -STARTLINE T _MergeFormat_.intersectFormat}
+ addUserKnob {41 format l "" -STARTLINE T _Reformat_.format}
+ addUserKnob {26 ""}
+ addUserKnob {41 from0 l "Depth channel" -STARTLINE T _CHOOSE_CHANNELS_.from0}
+ addUserKnob {41 math l "  depth math" -STARTLINE T Expression2.math}
+ addUserKnob {41 outputSW l output T CONTROL.outputSW}
+ addUserKnob {4 depth_unit l "  unit" t "Set the unit of your zdepth." -STARTLINE M {mm cm dm m inch ft "" ""}}
+ depth_unit dm
+ addUserKnob {26 txt_2 l "<b>lens geometry" t "Set the focus parameters here. These are overriden if there is a camera node connected to the 'Cam' input."}
+ addUserKnob {22 mode_py l "  Toggle Camera (INPUT ON)  " -STARTLINE T "from __future__ import with_statement\n\ndef set_mode():\n\n\tg=nuke.thisGroup()\n\tg.begin()\n\tn= nuke.toNode('CONTROL')\n\tz= nuke.toNode('Generate_Direct_Z')\n\tif g\[\"mode_py\"].label() =='  Toggle Camera (LOCAL ON)  ':\n\t\tinNode = g.input(2)\n\t\tif inNode == None:\n\t\t\tnuke.message('Please connect camera node..')\n\t\telse:\n\t\t\tg.end()\n\t\t\ttopnode_name = nuke.tcl(\"full_name \[topnode %s]\" % inNode.name())\n\t\t\ttopnode = nuke.toNode(topnode_name)\n\t\t\tg.begin()\n\t\t\tnuke.tprint(topnode.name())\n\t\t\tif 'Camera2' not in topnode.Class():\n\t\t\t\tnuke.message('Please connect camera node.')\n\t\t\t\treturn\n\t\t\telse:\n\t\t\t\t \n\t\t\t\t focalLengthKnob = n\['focalLengthKnob'].getValue()\n\t\t\t\t focalPlaneKnob = n\['focalPlaneKnob'].getValue()\n\t\t\t\t fStopKnob = n\['fStopKnob'].getValue()\n\t\t\t\t hApertureKnob = n\['hApertureKnob'].getValue()\n\n\t\t\t\t n\[\"focalLengthOld\"].fromScript(z\[\"focalLength\"].toScript())\n\t\t\t\t n\[\"fStopOld\"].fromScript(z\[\"fStop\"].toScript())\n\t\t\t\t n\[\"hApertureOld\"].fromScript(z\[\"hAperture\"].toScript())\n\t\t\t\t n\[\"focalPlaneOld\"].fromScript(z\[\"focalPlane\"].toScript())   \n\t\t\t\t  \n\t\t\t\t z\[\"focalLength\"].setExpression('\[value t \[topnode this.parent.input2].'+focalLengthKnob+']')\n\t\t\t\t z\[\"fStop\"].setExpression('\[value t \[topnode this.parent.input2].'+fStopKnob+']')\n\t\t\t\t z\[\"hAperture\"].setExpression('\[value t \[topnode this.parent.input2].'+hApertureKnob+']')\n\t\t\t\t z\[\"focalPlane\"].setExpression('\[value t \[topnode this.parent.input2].'+focalPlaneKnob+']')\n\n\t\t\t\t g\[\"mode_py\"].setLabel('  Toggle Camera (INPUT ON)  ')\n\telse:\n\n\n\t\t\t\t\t z\[\"focalLength\"].clearAnimated()\n\t\t\t\t\t z\[\"fStop\"].clearAnimated()\n\t\t\t\t\t z\[\"hAperture\"].clearAnimated()\n\t\t\t\t\t z\[\"focalPlane\"].clearAnimated()\n\t\t\t\t\t \n\t\t\t\t\t z\[\"focalLength\"].fromScript(n\[\"focalLengthOld\"].toScript())\n\t\t\t\t\t z\[\"fStop\"].fromScript(n\[\"fStopOld\"].toScript())\n\t\t\t\t\t z\[\"hAperture\"].fromScript(n\[\"hApertureOld\"].toScript())\n\t\t\t\t\t z\[\"focalPlane\"].fromScript(n\[\"focalPlaneOld\"].toScript())  \n\t\t\t\t\t g\[\"mode_py\"].setLabel('  Toggle Camera (LOCAL ON)  ')\n\tg.end()\n\t\t\t\n\t\t\t\nif __name__ == \"__main__\":\n    set_mode()"}
+ addUserKnob {41 focalPlane l "focus distance" T Generate_Direct_Z.focalPlane}
+ addUserKnob {41 fStop l focalLength-stop T Generate_Direct_Z.fStop}
+ addUserKnob {20 advanced n 1}
+ addUserKnob {41 focalLength l "focal length" T Generate_Direct_Z.focalLength}
+ addUserKnob {41 hAperture T Generate_Direct_Z.hAperture}
+ addUserKnob {26 txt l " "}
+ addUserKnob {41 frontMultiplier T Generate_Direct_Z.frontMultiplier}
+ addUserKnob {41 backMultiplier T Generate_Direct_Z.backMultiplier}
+ addUserKnob {20 endGroup_3 l endGroup n -1}
+ addUserKnob {20 local l "local only" n 1}
+ local 0
+ addUserKnob {22 set_z l "Sample Z" t "Sets the focal distance to the Z channel value at the current focal point on the current frame." T "from __future__ import with_statement\n\nn = nuke.thisNode()\nif n\[\"mode_py\"].label() =='  Toggle Camera (LOCAL ON)  ':\n\n\tc= nuke.toNode('Generate_Direct_Z')\n\ts = c\[\"focalPlane\"]\n\tz_coord = n\['sample_z']\n\n\twith n:\n\t\tds = nuke.toNode('DepthSampler')\n\t\tzsample = ds.sample('r', z_coord.getValue(0), z_coord.getValue(1))\n\n\tif s.isAnimated():\n\t\ts.setValueAt(zsample, nuke.frame())\n\telse:\n\t\ts.setValue(zsample)\nelse:\n\tnuke.message('Err.. toggle to local mode first..')" +STARTLINE}
+ addUserKnob {12 sample_z l "    sample position: " t "Allows you to sample the Z channel at a specific 2d position." -STARTLINE}
+ sample_z {1057 328}
+ addUserKnob {22 bakeconnectedcamera l "import connected camera to local" T "from __future__ import with_statement\n\n#Author: Nathan Rusch\n#Updated: January 27, 2013\n\nimport nuke\n\n\ndef bakeExpressions(nodes=None, start=None, end=None, views=None):\n\n    if nodes is None:\n        nodes = nuke.selectedNodes()\n    if not nodes:\n        nuke.message('No nodes to bake')\n        return\n\n    scriptRange = nuke.root().frameRange()\n    if start is None:\n        start = scriptRange.first()\n    if end is None:\n        end = scriptRange.last()\n\n    if views is None:\n        views = nuke.views()\n    elif not views:\n        nuke.message('No views to bake')\n        return\n    elif not set(views).issubset(nuke.views()):\n        nuke.message('Not all views in %s exist in script' % views)\n        return\n    for node in nodes:\n        for knob in node.knobs().itervalues():\n            if isinstance(knob, nuke.Array_Knob):\n                for view in views:\n                    # There's currently no way to ask a knob if it has an\n                    # expression at a given view, so we have to check the\n                    # AnimationCurve objects for that. However, we can still\n                    # use knob.isAnimated() to partially optimize this.\n                    if knob.isAnimated(view=view):\n                        aSize = 1 if knob.singleValue(view) else knob.arraySize()\n                        for index in range(aSize):\n                            anim = knob.animation(index, view=view)\n                            if anim is None or anim.noExpression():\n                                continue\n                            for f in range(start, end + 1):\n                                #knob.setValueAt(anim.evaluate(f), f, index)\n                                anim.setKey(f, anim.evaluate(f))\n                            knob.setExpression('curve', channel=index, view=view)\n                            # Even if the expression would have evaluated to a\n                            # constant (flat) curve, we can't tell until after\n                            # it has been baked and the expression is gone.\n                            if anim.constant():\n                                knob.clearAnimated(index, view=view)\ndef get_cameraConnected():\n\tg=nuke.thisGroup()\n\tif g\[\"mode_py\"].label() =='  Toggle Camera (LOCAL ON)  ':\n\t\tif nuke.ask('This will overright your local values'): \n\t\t\tg\['mode_py'].execute()\n\t\t\tg\[\"mode_py\"].setLabel('  Toggle Camera (LOCAL ON)  ')\n\t\t\tg.begin()\n\t\t\tn= nuke.toNode('CONTROL')\n\t\t\tz= nuke.toNode('Generate_Direct_Z')\n\t\t\tif nuke.ask('do you want to bake an animation over script global frame range?'):\n\t\t\t\tbakeExpressions(\[z])\n\t\t\telse:\n\t\t\t\t\t z\[\"focalLength\"].clearAnimated()\n\t\t\t\t\t z\[\"fStop\"].clearAnimated()\n\t\t\t\t\t z\[\"hAperture\"].clearAnimated()\n\t\t\t\t\t z\[\"focalPlane\"].clearAnimated()\n\t\t\tg.end()\n\telse:\n\t\tnuke.message('Err.. toggle to local mode first..')\nif __name__ == \"__main__\":\n    get_cameraConnected()" +STARTLINE}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {26 txt_5 l "<b>quality control"}
+ addUserKnob {20 txt_g l settings n 1}
+ txt_g 0
+ addUserKnob {41 maxCoc T Generate_Direct_Z.maxCoc}
+ addUserKnob {41 minimum l minCoc T _Clamp_.minimum}
+ addUserKnob {41 autoLayerSpacing l "automatic layer spacing" T _ZDEFOCUS_.autoLayerSpacing}
+ addUserKnob {41 layerCurve l "layer curve" T _ZDEFOCUS_.layerCurve}
+ addUserKnob {41 layers l "depth layers" T _ZDEFOCUS_.layers}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 Filter}
+ addUserKnob {26 txt_8 l <b>kernal}
+ addUserKnob {41 filter_type_1 l "filter type" T _ZDEFOCUS_.filter_type}
+ addUserKnob {7 aspect_ratio R 0 2}
+ aspect_ratio 1
+ addUserKnob {7 filter_shape}
+ filter_shape 1
+ addUserKnob {3 blades}
+ blades 7
+ addUserKnob {7 roundness}
+ roundness 0.22
+ addUserKnob {26 txt_10 l "<b>filter image" t "If 'use input channels' is used the colour of the convolve will grade the defocuced areas. Warning: this is buggy when the input is not connected."}
+ addUserKnob {41 filter_channel l "filter channel" T _ZDEFOCUS_.filter_channel}
+ addUserKnob {41 use_input_channels l "use input channels" t "This uses a colour convolve, so the bokeh can be coloured. This is slow and has a bug that if the filter input is unpluged it can crash nuke." -STARTLINE T _ZDEFOCUS_.use_input_channels}
+ addUserKnob {26 txt_9 l <b>highlights}
+ addUserKnob {26 txt22 l gamma T " "}
+ addUserKnob {41 gammaCorrection l " " -STARTLINE T _GammaDefocus_.gammaCorrection}
+ addUserKnob {41 gamma l "" -STARTLINE T _GammaDefocus_.gamma}
+ addUserKnob {26 txt22_1 l " "}
+ addUserKnob {26 txt35 l bloom T " "}
+ addUserKnob {41 bloom l " " -STARTLINE T _ZDEFOCUS_.bloom}
+ addUserKnob {41 bloom_gain l "" -STARTLINE T _ZDEFOCUS_.bloom_gain}
+ addUserKnob {41 bloom_threshold l "bloom threshold" T _ZDEFOCUS_.bloom_threshold}
+ addUserKnob {26 txt_4 l "<b>bokeh distortion "}
+ addUserKnob {26 txt_6 l "Use Bokeh Distortion" t "- this will soften the edges of the image nicley" T " "}
+ addUserKnob {41 useBokehDistortion l "" -STARTLINE T CONTROL.useBokehDistortion}
+ addUserKnob {26 txt6 l "override lens" T " "}
+ addUserKnob {41 overrideLensBokehDistort l "" -STARTLINE T CONTROL.overrideLensBokehDistort}
+ addUserKnob {41 lensBokehDistort l "" -STARTLINE T CONTROL.lensBokehDistort}
+ addUserKnob {26 txt222 l mm -STARTLINE T " "}
+ addUserKnob {26 txt01 l "protect in-focus" T " "}
+ addUserKnob {41 protectInFocus l "" -STARTLINE T _BokehDistortOut_.protectInFocus}
+ addUserKnob {20 Info}
+ addUserKnob {26 docs l docs: T "<a href=\"http://vfxwiki.org\">WIKI Documnetation</a>"}
+ addUserKnob {26 forked l forked: T "17/05/31 Jedediah Smith <a href=\\\"https://gist.github.com/jedypod/50a3b68f9b5bbe487e1a\\\">jedypod Github</a>"}
+ addUserKnob {26 modified l modified: T "v2.6(beta) 17/08/08 Rafal Kan (bbox options)\nv2.8(beta) 17/08/22 Rafal Kan (new ui/mode for camera selection; pgbokeh match)\nv2.9(beta) 17/089/01 Rafal Kan (fixed camera not updating expression node, added crop)\nv3.1(beta) 17-09-04 use python link to grab topnode values\nv3.2(beta) 17-09-05 added front/back multipliers / fixed clash with DMP node\nv3.3(beta) 17-09-12 fixed sample Z expression that broke on last update\nv3.4(beta) 17-09-14 added inFocusMultiplier, changed bokeh distortion to stmap to preserve sharpness\nv3.5(beta) working for ALL CHANNELS \nv3.6.3(beta) 17-10-03 BBOX optimization \nv3.7,2(beta)    17-10-24 rebuild using new method more eficient\nv3.8,0 (beta)  20-9-9 resurected tool"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0xaaaaaa00
+  label DEPTH
+  note_font_size 72
+  xpos 3652
+  ypos 933
+  bdwidth 593
+  bdheight 3137
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x388e8e00
+  label Filter
+  note_font_size 42
+  xpos 5770
+  ypos 1317
+  bdwidth 363
+  bdheight 1010
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0x8e4b37ff
+  label bloom
+  note_font_size 42
+  xpos 5149
+  ypos 2911
+  bdwidth 142
+  bdheight 124
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  tile_color 0x8e4b37ff
+  label bloom
+  note_font_size 42
+  xpos 5157
+  ypos 995
+  bdwidth 127
+  bdheight 92
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode9
+  tile_color 0x388e8e00
+  label CONTROLS
+  note_font_size 42
+  xpos 4291
+  ypos 1734
+  bdwidth 228
+  bdheight 227
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x2a6b6bff
+  label "match filters to pgBokeh"
+  note_font_size 42
+  xpos 5779
+  ypos 2069
+  bdwidth 154
+  bdheight 203
+  z_order 1
+ }
+ Input {
+  inputs 0
+  name Input
+  label "\[value number]"
+  xpos 5179
+  ypos 323
+ }
+ Dot {
+  name Dot31
+  tile_color 0x949494ff
+  note_font_size 22
+  note_font_color 0xffffffff
+  xpos 5213
+  ypos 488
+ }
+set N84e1f30 [stack 0]
+ Dot {
+  name Dot21
+  xpos 5213
+  ypos 941
+ }
+set N8489ac0 [stack 0]
+ Gamma {
+  channels rgb
+  value {{1/gamma}}
+  name _GammaDefocus_
+  xpos 5179
+  ypos 1038
+  disable {{!gammaCorrection x1041 1}}
+  addUserKnob {20 User}
+  addUserKnob {7 gamma R -1 3}
+  gamma 1.1
+  addUserKnob {6 gammaCorrection +STARTLINE}
+ }
+set N200a2110 [stack 0]
+push $N200a2110
+ Copy {
+  inputs 2
+  from0 depth.Z
+  to0 depth.Z
+  bbox B
+  name _CHOOSE_CHANNELS_
+  xpos 5179
+  ypos 1210
+ }
+set N201358c0 [stack 0]
+ Dot {
+  name Dot19
+  xpos 4178
+  ypos 1181
+ }
+set N84bc4b0 [stack 0]
+ Dot {
+  name Dot14
+  xpos 4038
+  ypos 1134
+ }
+ Shuffle {
+  in depth
+  in2 alpha
+  green black
+  blue black
+  alpha red2
+  name Shuffle4
+  xpos 4004
+  ypos 1152
+ }
+ Expression {
+  expr0 r==0?0:1/r
+  channel1 none
+  channel2 none
+  channel3 {none none none -rgba.alpha}
+  name Expression2
+  xpos 4004
+  ypos 1186
+  disable {{math x1011 1 x1037 1}}
+  addUserKnob {20 User}
+  addUserKnob {4 math M {"1/z (nuke, rMan)" "far=-1 (arnold, maya)" "" "" ""}}
+  math "far=-1 (arnold, maya)"
+ }
+set N201071f0 [stack 0]
+ Shuffle {
+  in depth
+  name Shuffle3
+  xpos 3894
+  ypos 1186
+  disable true
+ }
+ NoOp {
+  name DepthSampler
+  xpos 3894
+  ypos 1212
+  addUserKnob {20 User}
+  addUserKnob {7 sval R 0 1000}
+ }
+ Shuffle {
+  inputs 0
+  name Shuffle5
+  label "\[value in]"
+  xpos 5293
+  ypos 1169
+ }
+ Input {
+  inputs 0
+  name cam
+  label "\[value number]"
+  xpos 5554
+  ypos 630
+  number 2
+ }
+ Scene {
+  name _Scene_
+  xpos 5442
+  ypos 721
+  addUserKnob {20 User}
+ }
+push $N201071f0
+ Expression {
+  temp_name0 zdepth
+  temp_expr0 "(r==0?0:r)   * this.unitMultiplier< this.min_zdepth ? this.min_zdepth : (r==0?0:r)  * this.unitMultiplier"
+  temp_name1 focus_dist
+  temp_expr1 "focalPlane * this.unitMultiplier"
+  temp_name2 coc_px
+  temp_expr2 "fabs((fabs(focus_dist - zdepth) * pow(focalLength,2) / (fStop * zdepth * (focus_dist - focalLength))) / hAperture * input.width / 2)"
+  temp_name3 cocInfocus
+  temp_expr3 "((1/focus_dist -1/ zdepth) * pow(focalLength,2) / (fStop * 1 / zdepth * (1/focus_dist - focalLength)))*-1"
+  channel0 {rgba.red -rgba.green -rgba.blue -rgba.alpha}
+  expr0 r>0?(min(maxCoc*400,(coc_px*0.94))):0
+  channel1 {-rgba.red rgba.green -rgba.blue -rgba.alpha}
+  expr1 cocInfocus
+  channel2 {-rgba.red -rgba.green rgba.blue -rgba.alpha}
+  expr2 "clamp((fabs(fabs((clamp(cocInfocus*-1) ) ) / hAperture) * input.width / 2) ) * frontMultiplier"
+  channel3 {-rgba.red -rgba.green -rgba.blue rgba.alpha}
+  expr3 "clamp((fabs(fabs((clamp(cocInfocus) )  ) / hAperture  ) * input.width / 2) ) * backMultiplier"
+  name Generate_Direct_Z
+  xpos 4004
+  ypos 1212
+  addUserKnob {20 Optical l "Optical Characteristics"}
+  addUserKnob {7 focalLength l "focal length" R 0 500}
+  focalLength {{"\[value t \[topnode this.parent.input2].focal]"}}
+  addUserKnob {7 fStop l focalLength-stop R 0 44}
+  fStop {{"\[value t \[topnode this.parent.input2].fstop]"}}
+  addUserKnob {7 hAperture R 0 50}
+  hAperture {{"\[value t \[topnode this.parent.input2].haperture]"}}
+  addUserKnob {7 focalPlane l "focus distance" R 0 1000}
+  focalPlane {{"\[value t \[topnode this.parent.input2].focal_point]"}}
+  addUserKnob {26 ""}
+  addUserKnob {7 frontMultiplier R 0 5}
+  frontMultiplier 1
+  addUserKnob {7 backMultiplier R 0 5}
+  backMultiplier 1
+  addUserKnob {26 ""}
+  addUserKnob {7 min_zdepth}
+  min_zdepth 0.2
+  addUserKnob {7 maxCoc R 10 200}
+  maxCoc 50
+  addUserKnob {7 unitMultiplier R 0 10000}
+  unitMultiplier 100
+ }
+set N4005d940 [stack 0]
+ Expression {
+  channel0 {rgba.red -rgba.green -rgba.blue rgba.alpha}
+  expr0 (a*r)+(b*r)
+  channel1 none
+  channel2 none
+  name Expression
+  label "front_back multiplier"
+  xpos 4005
+  ypos 1247
+ }
+ Dot {
+  name Dot3
+  note_font_size 42
+  note_font_color 0x7f7f7f01
+  xpos 4039
+  ypos 1320
+ }
+set N491dc0b0 [stack 0]
+ Dot {
+  name Dot10
+  xpos 3897
+  ypos 1320
+ }
+ Shuffle {
+  green red
+  blue red
+  alpha red
+  name Shuffle9
+  xpos 3863
+  ypos 1361
+ }
+ Dot {
+  name Dot2
+  note_font_size 42
+  note_font_color 0x7f7f7f01
+  xpos 3897
+  ypos 3723
+ }
+ Dot {
+  name Dot28
+  xpos 3897
+  ypos 3993
+ }
+ Dot {
+  name Dot37
+  xpos 5120
+  ypos 3993
+ }
+ Input {
+  inputs 0
+  name InputFilter
+  label "\[value number]"
+  xpos 5780
+  ypos 619
+  number 1
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  format "256 256 0 0 256 256 1 256sq"
+  name Constant1
+  xpos 6000
+  ypos 1349
+  postage_stamp false
+ }
+ Dot {
+  name Dot1
+  label " Default Filter Input"
+  note_font_size 24
+  note_font_color 0xff000000
+  xpos 6034
+  ypos 1437
+ }
+ Reformat {
+  type "to box"
+  box_width 256
+  box_height 256
+  box_fixed true
+  name Reformat1
+  xpos 6000
+  ypos 1468
+ }
+ Flare {
+  position {{width/2} {height/2}}
+  radius {73.5 88.78 91.25}
+  name Flare3
+  xpos 6000
+  ypos 1561
+ }
+ Switch {
+  inputs 2
+  which {{"\[exists parent.input1]"}}
+  name Switch3
+  xpos 5780
+  ypos 1561
+ }
+ Remove {
+  operation keep
+  channels {{{parent._ZDEFOCUS_.channels}}}
+  name Remove4
+  xpos 5780
+  ypos 1902
+ }
+ Reformat {
+  type scale
+  scale {{parent.aspect_ratio} 1}
+  resize distort
+  black_outside true
+  name _aspect_ratio_2
+  xpos 5780
+  ypos 1966
+ }
+ Reformat {
+  type "to box"
+  box_width 256
+  box_height 256
+  box_fixed true
+  black_outside true
+  name Reformat2
+  xpos 5780
+  ypos 1999
+ }
+ Dot {
+  name Dot6
+  label " "
+  note_font_size 24
+  note_font_color 0xff000000
+  xpos 5814
+  ypos 2103
+ }
+set N200e3b60 [stack 0]
+ Dot {
+  name Dot33
+  xpos 5672
+  ypos 2103
+ }
+ Dot {
+  name Dot36
+  xpos 5665
+  ypos 3965
+ }
+ Dot {
+  name Dot11
+  xpos 5135
+  ypos 3965
+ }
+push $N84e1f30
+ Dot {
+  name Dot22
+  xpos 4358
+  ypos 488
+ }
+ Dot {
+  name Dot24
+  xpos 4358
+  ypos 1074
+ }
+set N20df4a40 [stack 0]
+ Dot {
+  name Dot7
+  note_font_size 42
+  note_font_color 0x7f7f7f01
+  xpos 3665
+  ypos 1074
+ }
+ Dot {
+  name Dot20
+  xpos 3665
+  ypos 3761
+ }
+ Dot {
+  name Dot12
+  xpos 3665
+  ypos 3878
+ }
+push $N4005d940
+ Dot {
+  name Dot17
+  xpos 3772
+  ypos 1254
+ }
+ Expression {
+  expr0 (b*r)
+  channel1 {-rgba.red -rgba.green rgba.blue none}
+  expr1 (a*r)
+  channel2 {-rgba.red rgba.green -rgba.blue none}
+  expr2 clamp(abs((g*-1)))*-1+1
+  name Expression4
+  xpos 3738
+  ypos 1325
+ }
+ Dot {
+  name Dot18
+  xpos 3772
+  ypos 1430
+ }
+set N4044a950 [stack 0]
+ Shuffle {
+  red alpha
+  green alpha
+  blue alpha
+  alpha green
+  name Shuffle1
+  xpos 3804
+  ypos 1426
+ }
+ Dot {
+  name Dot13
+  xpos 3870
+  ypos 3108
+ }
+ Dot {
+  name Dot26
+  xpos 5370
+  ypos 3108
+ }
+push $N8489ac0
+ Dot {
+  name Dot25
+  xpos 5456
+  ypos 941
+ }
+ Dot {
+  name Dot9
+  xpos 5456
+  ypos 3187
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 5336
+  ypos 3177
+ }
+push 0
+push $N200e3b60
+ Mirror2 {
+  flip true
+  name Mirror2_2
+  xpos 5780
+  ypos 2144
+ }
+ Transform {
+  scale 1.07
+  center {{width/2} {height/2}}
+  invert_matrix true
+  name Transform1
+  xpos 5780
+  ypos 2178
+ }
+ Grade {
+  gamma 1.2
+  white_clamp true
+  name Grade1
+  xpos 5780
+  ypos 2204
+ }
+ Reformat {
+  type scale
+  scale 1.04
+  black_outside true
+  name Reformat3
+  xpos 5780
+  ypos 2230
+ }
+push $N84bc4b0
+ Dot {
+  name Dot27
+  xpos 4136
+  ypos 1407
+ }
+push $N491dc0b0
+ Shuffle {
+  in rgb
+  green black
+  blue black
+  alpha black
+  name Shuffle6
+  xpos 4005
+  ypos 1356
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy3
+  xpos 4005
+  ypos 1434
+ }
+ Expression {
+  channel0 alpha
+  expr0 r>0?a>0?1:0:0
+  channel1 none
+  channel2 none
+  name Expression1
+  xpos 4005
+  ypos 1472
+ }
+ Premult {
+  name Premult2
+  xpos 4005
+  ypos 1524
+ }
+ Group {
+  name edgeExtendBlur
+  tile_color 0xe0671fff
+  xpos 4005
+  ypos 1558
+  addUserKnob {20 User}
+  addUserKnob {26 dilation}
+  addUserKnob {41 size T Blur17.size}
+  addUserKnob {41 filter T Blur17.filter}
+  addUserKnob {41 quality l "" -STARTLINE T Blur17.quality}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos -520
+   ypos -1162
+  }
+  Dot {
+   name Dot29
+   xpos -487
+   ypos -1063
+  }
+  Expression {
+   expr3 a?a:0
+   name Expression1
+   label "alpha fix"
+   xpos -520
+   ypos -1024
+  }
+set N6c2cb210 [stack 0]
+  Dot {
+   name Dot26
+   xpos 327
+   ypos -583
+  }
+set N6c190200 [stack 0]
+push $N6c2cb210
+  Dot {
+   name Dot2
+   xpos -486
+   ypos -559
+  }
+  Blur {
+   size {{parent.parent.Generate_Direct_Z.maxCoc-1}}
+   quality 8
+   name Blur17
+   xpos -520
+   ypos -425
+  }
+  Dot {
+   name Dot5
+   xpos -487
+   ypos -368
+  }
+set N6c30bbf0 [stack 0]
+  Shuffle {
+   red alpha
+   green alpha
+   blue alpha
+   name Shuffle10
+   label "\[value in]"
+   xpos -664
+   ypos -329
+  }
+  Unpremult {
+   name Unpremult5
+   xpos -664
+   ypos -275
+  }
+push $N6c30bbf0
+  Unpremult {
+   name Unpremult4
+   xpos -520
+   ypos -322
+  }
+  ShuffleCopy {
+   inputs 2
+   alpha red
+   name ShuffleCopy3
+   label "\[value in] to \[value out]"
+   xpos -520
+   ypos -232
+  }
+  Dot {
+   name Dot7
+   xpos -487
+   ypos -32
+  }
+  Dot {
+   name Dot12
+   xpos -487
+   ypos 473
+  }
+  Dot {
+   name Dot13
+   xpos -201
+   ypos 473
+  }
+set N40479600 [stack 0]
+  Merge2 {
+   inputs 2
+   operation max
+   name Merge3
+   xpos -234
+   ypos 758
+  }
+  Dot {
+   name Dot19
+   xpos -201
+   ypos 1097
+  }
+push $N6c190200
+  Dot {
+   name Dot1
+   xpos 149
+   ypos 895
+  }
+push $N40479600
+  Merge2 {
+   inputs 2
+   name Merge1
+   selected true
+   xpos 102
+   ypos 998
+  }
+  ShuffleCopy {
+   inputs 2
+   name ShuffleCopy5
+   label "\[value in] to \[value out]"
+   xpos 198
+   ypos 1376
+  }
+  Output {
+   name Output1
+   xpos 198
+   ypos 1526
+  }
+ end_group
+ Clamp {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  minimum 0.2
+  minimum_enable false
+  maximum {{Generate_Direct_Z.maxCoc}}
+  MinClampTo 20
+  name _Clamp_
+  xpos 4005
+  ypos 1591
+  addUserKnob {20 User}
+  addUserKnob {7 edgeSoftness l "edgeSoftness (zDefocusOnly)" R 0 2}
+  edgeSoftness 0.475
+ }
+ Multiply {
+  channels rgb
+  value 0.5
+  name Multiply3
+  label "to stop crashing (this is linked to the Zdefocus)"
+  xpos 4005
+  ypos 1624
+  disable true
+ }
+ Dot {
+  name Dot23
+  xpos 5028
+  ypos 1634
+ }
+push $N201358c0
+ Remove {
+  operation keep
+  channels {{{parent._ZDEFOCUS_.channels}}}
+  name Remove3
+  xpos 5179
+  ypos 1250
+ }
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 depth.Z
+  bbox B
+  name _Copy_ZDepth_
+  xpos 5179
+  ypos 1624
+ }
+ Group {
+  name _BokehDistortIn_
+  tile_color 0xff00ff
+  label "\[value invertDistortion]"
+  selected true
+  xpos 5179
+  ypos 1934
+  disable {{!parent.CONTROL.useBokehDistortion}}
+  addUserKnob {20 User l BokehDistort}
+  addUserKnob {41 invertDistortion l mode T _ControlLensDist_.invertDistortion}
+  addUserKnob {26 txt l " " -STARTLINE T "(use distort before defocus, distort after defocus)"}
+  addUserKnob {26 text4 l protectInFocus T " "}
+  addUserKnob {41 protectInFocus l "" -STARTLINE T _ControlLensDist_.protectInFocus}
+  addUserKnob {26 text6 l " " -STARTLINE T "(this does nothing in undistort - requires infocus alpha mask )"}
+  addUserKnob {26 ""}
+  addUserKnob {26 txt3 l diableInUi T " "}
+  addUserKnob {41 diableInUi l "(but still renders on farm)" -STARTLINE T _ControlLensDist_.diableInUi}
+  addUserKnob {26 ""}
+  addUserKnob {26 txt2 l useLocalFocal T " "}
+  addUserKnob {41 useLocalFocal_1 l useLocalFocal -STARTLINE T _ControlLensDist_.useLocalFocal}
+  addUserKnob {41 localFocal_1 l "" -STARTLINE T _ControlLensDist_.localFocal}
+ }
+  Input {
+   inputs 0
+   name protect
+   label "\[value number]"
+   xpos 574
+   ypos -985
+   number 2
+  }
+  Dot {
+   name Dot2
+   xpos 608
+   ypos -596
+  }
+  Dot {
+   name Dot1
+   xpos 953
+   ypos -514
+  }
+set N28135b90 [stack 0]
+  Dot {
+   name Dot4
+   xpos 953
+   ypos -459
+  }
+push $N28135b90
+  Input {
+   inputs 0
+   name Input
+   label "\[value number]"
+   xpos 1004
+   ypos -1085
+  }
+  Dot {
+   name Dot6
+   xpos 1038
+   ypos -1015
+  }
+  Dot {
+   name Dot99
+   xpos 1037
+   ypos -969
+  }
+set N853cef0 [stack 0]
+  Dot {
+   name Dot3
+   xpos 1408
+   ypos -969
+  }
+set N8541a70 [stack 0]
+  LensDistortion {
+   serializeKnob ""
+   serialiseKnob "22 serialization::archive 14 0 0 0 0 0 0 0 0 0 0 0 0"
+   outputType Displacement
+   lensType Anamorphic
+   distortion1 {{parent._ControlLensDist_.distortion1}}
+   distortion2 {{parent._ControlLensDist_.distortion2}}
+   cardScale {0.8201987147 0.8201987147 1}
+   a 6.04928573e-06
+   b 0.04236757755
+   c 0.2842821479
+   name LensDistortion1
+   xpos 1432
+   ypos -908
+  }
+push $N8541a70
+  LensDistortion {
+   serializeKnob ""
+   serialiseKnob "22 serialization::archive 14 0 0 0 0 0 0 0 0 0 0 0 0"
+   outputType Displacement
+   lensType Anamorphic
+   distortion1 {{parent._ControlLensDist_.distortion1}}
+   distortion2 {{parent._ControlLensDist_.distortion2}}
+   invertDistortion true
+   cardScale {1.428571582 1.428571582 1}
+   a -0.3599427938
+   b -0.03535666317
+   c -0.03460489213
+   name LensDistortion2
+   xpos 1309
+   ypos -906
+  }
+  Switch {
+   inputs 2
+   which {{!_ControlLensDist_.invertDistortion}}
+   name Switch4
+   xpos 1377
+   ypos -872
+  }
+set N8581fa0 [stack 0]
+push $N853cef0
+  STMap {
+   inputs 2
+   channels depth
+   uv forward
+   filter Impulse
+   name STMap2
+   xpos 1088
+   ypos -745
+  }
+push $N8581fa0
+push $N853cef0
+  STMap {
+   inputs 2
+   uv forward
+   name STMap1
+   selected true
+   xpos 1003
+   ypos -816
+  }
+set N8395a70 [stack 0]
+  Copy {
+   inputs 2
+   from0 depth.Z
+   to0 depth.Z
+   bbox B
+   name Copy6
+   xpos 1063
+   ypos -674
+   disable {{!parent._ControlLensDist_.useImpulseForDepth}}
+  }
+push $N8395a70
+  Switch {
+   inputs 2
+   which {{parent._ControlLensDist_.useImpulseForDepth}}
+   name Switch5
+   xpos 1003
+   ypos -596
+  }
+  Keymix {
+   inputs 3
+   channels rgb
+   bbox B
+   name Keymix1
+   xpos 1003
+   ypos -469
+   disable {{_ControlLensDist_.invertDistortion?_ControlLensDist_.protectInFocus?0:1:1 x1001 1}}
+   addUserKnob {20 User}
+  }
+  Remove {
+   channels motion
+   name Remove1
+   xpos 1003
+   ypos -345
+  }
+  Output {
+   name Output1
+   xpos 1003
+   ypos -281
+  }
+  Input {
+   inputs 0
+   name Cam
+   label "\[value number]"
+   xpos 1313
+   ypos -1181
+   number 1
+  }
+  Scene {
+   name _Scene_
+   xpos 1330
+   ypos -1115
+   addUserKnob {20 User}
+  }
+  NoOp {
+   inputs 0
+   name _ControlLensDist_
+   xpos 1666
+   ypos -687
+   addUserKnob {20 User l BokehDistort}
+   addUserKnob {6 protectInFocus +STARTLINE}
+   addUserKnob {6 useImpulseForDepth +STARTLINE}
+   useImpulseForDepth {{!invertDistortion}}
+   addUserKnob {4 invertDistortion l mode M {Distort Undistort ""}}
+   addUserKnob {6 diableInUi l "Disable in UI" +STARTLINE}
+   addUserKnob {7 focal}
+   addUserKnob {6 disable +STARTLINE}
+   disable {{"\[exists input0]==1?\[exists input1]==1?\$gui==0?0:diableInUi==1?1:0:1:1"}}
+   addUserKnob {7 distortion1 R -0.3 0.2}
+   distortion1 {{"(focal<=18) ? -0.2 : ((focal<=21) ? -0.175 : ((focal<=25) ? -0.15 :( (focal<=27)? -0.125 : ( (focal<=35) ? -0.1 : ( (focal<=40) ? -0.075 : (  (focal<=50) ? -0.05 : -0.025       )      )     )     )) )" x1001 -0.15}}
+   addUserKnob {7 distortion2 R -0.1 0.1}
+   distortion2 {{distortion1/2}}
+   addUserKnob {26 ""}
+   addUserKnob {6 useLocalFocal +STARTLINE}
+   useLocalFocal true
+   addUserKnob {3 localFocal l "" -STARTLINE}
+   localFocal {{parent.parent.CONTROL.focalDistort}}
+  }
+ end_group
+ ZDefocus2 {
+  inputs 2
+  channels rgba
+  math direct
+  output {{CONTROL.outputSW x1037 1 x1041 0 x1061 1}}
+  focal_point {1 1}
+  size {{1 x1037 2}}
+  max_size {{parent.Generate_Direct_Z.maxCoc}}
+  filter_type image
+  legacy_resize_mode false
+  show_legacy_resize_mode false
+  filter_channel rgba.red
+  clamp_image_filter true
+  aspect {{parent.aspect_ratio}}
+  blades {{parent.blades}}
+  roundness {{parent.roundness}}
+  inner_feather 0.28
+  catadioptric_size 0.375
+  bloom true
+  bloom_threshold 0.415
+  bloom_gain 1.5
+  name _ZDEFOCUS_
+  xpos 5179
+  ypos 2332
+ }
+ Remove {
+  operation keep
+  channels {{{parent._ZDEFOCUS_.channels}}}
+  name Remove5
+  xpos 5179
+  ypos 2493
+ }
+ Gamma {
+  channels rgb
+  value {{1/parent._GammaDefocus_.value}}
+  name Gamma2
+  xpos 5177
+  ypos 2989
+  disable {{parent._GammaDefocus_.disable x1041 1}}
+ }
+ Group {
+  inputs 3
+  name _BokehDistortOut_
+  tile_color 0xff00ff
+  label "\[value invertDistortion]"
+  xpos 5177
+  ypos 3250
+  disable {{!parent.CONTROL.useBokehDistortion}}
+  addUserKnob {20 User l BokehDistort}
+  addUserKnob {41 invertDistortion l mode T _ControlLensDist_.invertDistortion}
+  addUserKnob {26 txt l " " -STARTLINE T "(use distort before defocus, distort after defocus)"}
+  addUserKnob {26 text4 l protectInFocus T " "}
+  addUserKnob {41 protectInFocus l "" -STARTLINE T _ControlLensDist_.protectInFocus}
+  addUserKnob {26 text6 l " " -STARTLINE T "(this does nothing in undistort - requires infocus alpha mask )"}
+  addUserKnob {26 ""}
+  addUserKnob {26 txt3 l diableInUi T " "}
+  addUserKnob {41 diableInUi l "(but still renders on farm)" -STARTLINE T _ControlLensDist_.diableInUi}
+  addUserKnob {26 ""}
+  addUserKnob {26 txt2 l useLocalFocal T " "}
+  addUserKnob {41 useLocalFocal_1 l useLocalFocal -STARTLINE T _ControlLensDist_.useLocalFocal}
+  addUserKnob {41 localFocal_1 l "" -STARTLINE T _ControlLensDist_.localFocal}
+ }
+  Input {
+   inputs 0
+   name protect
+   label "\[value number]"
+   xpos 574
+   ypos -985
+   number 2
+  }
+  Dot {
+   name Dot2
+   xpos 608
+   ypos -596
+  }
+  Dot {
+   name Dot1
+   xpos 953
+   ypos -514
+  }
+set N9bbbd950 [stack 0]
+  Dot {
+   name Dot4
+   xpos 953
+   ypos -459
+  }
+push $N9bbbd950
+  Input {
+   inputs 0
+   name Input
+   label "\[value number]"
+   xpos 1004
+   ypos -1085
+  }
+  Dot {
+   name Dot6
+   xpos 1038
+   ypos -1015
+  }
+  Dot {
+   name Dot99
+   xpos 1037
+   ypos -969
+  }
+set N9b9d0780 [stack 0]
+  Dot {
+   name Dot3
+   xpos 1408
+   ypos -969
+  }
+set N9b9d5300 [stack 0]
+  LensDistortion {
+   serializeKnob ""
+   serialiseKnob "22 serialization::archive 14 0 0 0 0 0 0 0 0 0 0 0 0"
+   outputType Displacement
+   lensType Anamorphic
+   distortion1 {{parent._ControlLensDist_.distortion1}}
+   distortion2 {{parent._ControlLensDist_.distortion2}}
+   cardScale {0.8201987147 0.8201987147 1}
+   a -0.01108055003
+   b 0.1183706746
+   c 0.1463674456
+   name LensDistortion1
+   xpos 1432
+   ypos -908
+  }
+push $N9b9d5300
+  LensDistortion {
+   serializeKnob ""
+   serialiseKnob "22 serialization::archive 14 0 0 0 0 0 0 0 0 0 0 0 0"
+   outputType Displacement
+   lensType Anamorphic
+   distortion1 {{parent._ControlLensDist_.distortion1}}
+   distortion2 {{parent._ControlLensDist_.distortion2}}
+   invertDistortion true
+   cardScale {1.25 1.25 1}
+   a -0.1147363186
+   b 0.0709245801
+   c -0.2823893428
+   name LensDistortion2
+   xpos 1309
+   ypos -915
+  }
+  Switch {
+   inputs 2
+   which {{!_ControlLensDist_.invertDistortion}}
+   name Switch4
+   xpos 1377
+   ypos -862
+  }
+set N9ba11a40 [stack 0]
+push $N9b9d0780
+  STMap {
+   inputs 2
+   channels depth
+   uv forward
+   filter Impulse
+   name STMap2
+   xpos 1088
+   ypos -745
+  }
+push $N9ba11a40
+push $N9b9d0780
+  STMap {
+   inputs 2
+   uv forward
+   name STMap1
+   selected true
+   xpos 1003
+   ypos -816
+  }
+set N9ba24a00 [stack 0]
+  Copy {
+   inputs 2
+   from0 depth.Z
+   to0 depth.Z
+   bbox B
+   name Copy6
+   xpos 1063
+   ypos -674
+   disable {{!parent._ControlLensDist_.useImpulseForDepth}}
+  }
+push $N9ba24a00
+  Switch {
+   inputs 2
+   which {{parent._ControlLensDist_.useImpulseForDepth}}
+   name Switch5
+   xpos 1003
+   ypos -596
+  }
+  Keymix {
+   inputs 3
+   channels rgb
+   bbox B
+   name Keymix1
+   xpos 1003
+   ypos -469
+   disable {{_ControlLensDist_.invertDistortion?_ControlLensDist_.protectInFocus?0:1:1 x1001 1}}
+   addUserKnob {20 User}
+  }
+  Remove {
+   channels motion
+   name Remove1
+   xpos 1003
+   ypos -345
+  }
+  Output {
+   name Output1
+   xpos 1003
+   ypos -281
+  }
+  Input {
+   inputs 0
+   name Cam
+   label "\[value number]"
+   xpos 1313
+   ypos -1181
+   number 1
+  }
+  Scene {
+   name _Scene_
+   xpos 1330
+   ypos -1115
+   addUserKnob {20 User}
+  }
+  NoOp {
+   inputs 0
+   name _ControlLensDist_
+   xpos 1662
+   ypos -687
+   addUserKnob {20 User l BokehDistort}
+   addUserKnob {6 protectInFocus +STARTLINE}
+   protectInFocus true
+   addUserKnob {6 useImpulseForDepth +STARTLINE}
+   useImpulseForDepth {{!invertDistortion}}
+   addUserKnob {4 invertDistortion l mode M {Distort Undistort ""}}
+   invertDistortion Undistort
+   addUserKnob {6 diableInUi l "Disable in UI" +STARTLINE}
+   addUserKnob {7 focal}
+   addUserKnob {6 disable +STARTLINE}
+   disable {{"\[exists input0]==1?\[exists input1]==1?\$gui==0?0:diableInUi==1?1:0:1:1"}}
+   addUserKnob {7 distortion1 R -0.3 0.2}
+   distortion1 {{"(focal<=18) ? -0.2 : ((focal<=21) ? -0.175 : ((focal<=25) ? -0.15 :( (focal<=27)? -0.125 : ( (focal<=35) ? -0.1 : ( (focal<=40) ? -0.075 : (  (focal<=50) ? -0.05 : -0.025       )      )     )     )) )" x1001 -0.15}}
+   addUserKnob {7 distortion2 R -0.1 0.1}
+   distortion2 {{distortion1/2}}
+   addUserKnob {26 ""}
+   addUserKnob {6 useLocalFocal +STARTLINE}
+   useLocalFocal true
+   addUserKnob {3 localFocal l "" -STARTLINE}
+   localFocal {{parent.parent.CONTROL.focalDistort}}
+  }
+ end_group
+ Dot {
+  name Dot16
+  xpos 5211
+  ypos 3471
+ }
+set N9ba74d90 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle2
+  xpos 5012
+  ypos 3467
+ }
+ Reformat {
+  format "2048 1425 0 0 2048 1425 1 "
+  name _Reformat_
+  xpos 5012
+  ypos 3528
+ }
+ AdjBBox {
+  numpixels 20
+  name AdjBBox3
+  xpos 5012
+  ypos 3554
+ }
+push $N9ba74d90
+ Merge2 {
+  inputs 2
+  operation max
+  bbox intersection
+  metainput All
+  rangeinput All
+  name _MergeFormat_
+  xpos 5177
+  ypos 3554
+  disable {{!intersectFormat x1061 1}}
+  addUserKnob {20 User}
+  addUserKnob {6 intersectFormat +STARTLINE}
+  intersectFormat true
+ }
+ BlackOutside {
+  name BlackOutside1
+  xpos 5177
+  ypos 3578
+  disable {{parent._MergeFormat_.disable}}
+ }
+ Copy {
+  inputs 2
+  from0 depth.Z
+  to0 depth.Z
+  name Copy1
+  xpos 5179
+  ypos 3868
+  disable {{"\[string first \"depth.Z\" \[channels \[input this 1]]]==-1"}}
+ }
+ Dot {
+  name Dot39
+  xpos 5213
+  ypos 3940
+ }
+set N9b4c0320 [stack 0]
+ Dot {
+  name Dot5
+  xpos 5246
+  ypos 3964
+ }
+push $N4044a950
+ Dot {
+  name Dot4
+  xpos 3772
+  ypos 4025
+ }
+ Dot {
+  name Dot38
+  xpos 5098
+  ypos 4025
+ }
+push $N9b4c0320
+ Dot {
+  name Dot29
+  xpos 5179
+  ypos 3963
+ }
+ Switch {
+  inputs 5
+  which {{CONTROL.outputSW}}
+  name _SWITCH_
+  xpos 5180
+  ypos 4021
+ }
+ Output {
+  name Output1
+  xpos 5213
+  ypos 4242
+ }
+push $N20df4a40
+ Dot {
+  name Dot30
+  xpos 4335
+  ypos 1814
+ }
+ NoOp {
+  name CONTROL
+  xpos 4301
+  ypos 1929
+  addUserKnob {20 User}
+  addUserKnob {26 ""}
+  addUserKnob {7 focalLengthOld}
+  focalLengthOld 53
+  addUserKnob {7 fStopOld}
+  fStopOld 31.7
+  addUserKnob {7 hApertureOld}
+  hApertureOld 10.8
+  addUserKnob {7 focalPlaneOld}
+  focalPlaneOld 0.8
+  addUserKnob {1 focalPlaneKnob}
+  focalPlaneKnob focal_point
+  addUserKnob {1 focalLengthKnob}
+  focalLengthKnob focal
+  addUserKnob {1 fStopKnob}
+  fStopKnob fstop
+  addUserKnob {1 hApertureKnob}
+  hApertureKnob haperture
+  addUserKnob {26 ""}
+  addUserKnob {4 outputSW M {result "focal plane setup" "layer setup" "filter shape setup" coc}}
+  addUserKnob {26 ""}
+  addUserKnob {6 useBokehDistortion +STARTLINE}
+  useBokehDistortion true
+  addUserKnob {6 overrideLensBokehDistort +STARTLINE}
+  overrideLensBokehDistort true
+  addUserKnob {4 lensBokehDistort M {18 21 25 27 35 40 50 70}}
+  lensBokehDistort 25
+  addUserKnob {7 focalDistort}
+  focalDistort {{"overrideLensBokehDistort?\[value lensBokehDistort]:Generate_Direct_Z.focalLength"}}
+ }
+end_group
