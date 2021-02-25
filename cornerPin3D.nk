@@ -1,15 +1,15 @@
 #http://www.vfxwiki.org vb0.1 mrafs
 #licence: https://github.com/vfxwiki/nukeArtistToolkit
 set cut_paste_input [stack 0]
-version 7.0 v8
+version 12.2 v3
 push $cut_paste_input
 Group {
  name CornerPin3d
  knobChanged "\nk = nuke.thisKnob()\nif k.name() == \"method\":\n n=nuke.thisNode()\n nuke.tprint(int(k.getValue()))\n if int(k.getValue())==0:\n  n\['frameHold'].setEnabled(False) \n else:\n  n\['frameHold'].setEnabled(True) \n"
  label "\[value method]\n"
  selected true
- xpos 3738
- ypos 2903
+ xpos 1133
+ ypos 35
  addUserKnob {20 User l CornerPin3d}
  addUserKnob {22 resetCallbacksOFF l INVISIBLE +INVISIBLE T "tnode=nuke.thisNode()\ntnode.begin()\nnuke.toNode('Reconcile3D_1').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_1').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_1').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_2').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_2').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_2').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_3').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_3').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_3').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_4').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_4').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_4').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_1P').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_1P').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_1P').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_2P').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_2P').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_2P').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_3P').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_3P').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_3P').knob('autolabel').setValue(' ')\n\nnuke.toNode('Reconcile3D_4P').knob('knobChanged').setValue(' ')\nnuke.toNode('Reconcile3D_4P').knob('updateUI').setValue(' ')\nnuke.toNode('Reconcile3D_4P').knob('autolabel').setValue(' ')\n\n\ntnode.end()" +STARTLINE}
  addUserKnob {41 method t "-matchmove:This is the same as a Card3d node or a scanline render in 'render camera' projection mode.\n\n-matchmove(ref frame): As the CameraPlane tool or a scanline render  in 'render camera' projection mode with a project3D node. The render camera and the projection camera are same while the  projection camera is held on the ref. frame.\n\n-stabilize:This is the same mode as a scanline render node in 'uv' projection mode.\n\n-stabilize(ref frame):As the CameraPlane tool or a  scanline render node in 'render camera' projection mode, but the render camera is held on the ref. frame.\n\n-project(projCam Input):This is the same mode as a scanline render node in 'render camera' projection mode with a project3D node. Note: if the projection camera and the render camera are the same expect that the projection camera is set to hold a ref. frame this method is the same as 'matchmove(ref frame)'" T CardMaster.method}
@@ -51,7 +51,7 @@ Group {
   xpos 361
   ypos -120
  }
-set N119ed550 [stack 0]
+set Nfdc77900 [stack 0]
  Dot {
   name Dot5
   xpos -1003
@@ -62,13 +62,13 @@ set N119ed550 [stack 0]
   xpos -1200
   ypos 773
  }
-push $N119ed550
+push $Nfdc77900
  Dot {
   name Dot2
   xpos 351
   ypos 226
  }
-set N63bea00 [stack 0]
+set Nfdc76400 [stack 0]
  Group {
   name CornerPin3DGP
   xpos 317
@@ -215,8 +215,6 @@ set N63bea00 [stack 0]
  }
  Axis2 {
   inputs 0
-  fbx_take_name {{0} ""}
-  fbx_node_name {{0} ""}
   translate {{parent.CardMaster.translate--(CardMaster.scaleTotal/2)} {parent.CardMaster.translate-(CardMaster.scaleTotal/2)*CardMaster.aspect} {parent.CardMaster.translate}}
   rotate {{parent.CardMaster.rotate x1 0} {parent.CardMaster.rotate x1 -1.999999985} {parent.CardMaster.rotate x1 -39.99245148}}
   pivot {{-(CardMaster.scaleTotal/2)} {(CardMaster.scaleTotal/2)*CardMaster.aspect} 0}
@@ -231,7 +229,7 @@ set N63bea00 [stack 0]
   ypos 161
   addUserKnob {20 User}
  }
-set N2887d4b0 [stack 0]
+set Nfdc0eb00 [stack 0]
  Camera2 {
   inputs 0
   translate {{"\[value CardMaster.cameraSelect].translate"} {"\[value CardMaster.cameraSelect].translate"} {"\[value CardMaster.cameraSelect].translate"}}
@@ -255,14 +253,14 @@ set N2887d4b0 [stack 0]
   xpos -104
   ypos 26
  }
-set N27a8de10 [stack 0]
-push $N63bea00
+set Nfdc0d600 [stack 0]
+push $Nfdc76400
  Dot {
   name Dot1
   xpos 308
   ypos 306
  }
-set N27b7da50 [stack 0]
+set Nfdc0cf00 [stack 0]
  Reconcile3D {
   inputs 3
   calc_output {{CardMaster.live}}
@@ -276,8 +274,6 @@ set N27b7da50 [stack 0]
  }
  Axis2 {
   inputs 0
-  fbx_take_name {{0} ""}
-  fbx_node_name {{0} ""}
   translate {{parent.CardMaster.translate--(-CardMaster.scaleTotal/2)} {parent.CardMaster.translate-(CardMaster.scaleTotal/2)*CardMaster.aspect} {parent.CardMaster.translate}}
   rotate {{parent.CardMaster.rotate x1 0} {parent.CardMaster.rotate x1 -1.999999985} {parent.CardMaster.rotate x1 -39.99245148}}
   pivot {{(CardMaster.scaleTotal/2)} {(CardMaster.scaleTotal/2)*CardMaster.aspect} 0}
@@ -291,9 +287,9 @@ set N27b7da50 [stack 0]
   xpos -173
   ypos 155
  }
-set N1c7025b0 [stack 0]
-push $N27a8de10
-push $N27b7da50
+set Nfdc0c100 [stack 0]
+push $Nfdc0d600
+push $Nfdc0cf00
  Reconcile3D {
   inputs 3
   calc_output {{CardMaster.live}}
@@ -306,8 +302,6 @@ push $N27b7da50
  }
  Axis2 {
   inputs 0
-  fbx_take_name {{0} ""}
-  fbx_node_name {{0} ""}
   translate {{parent.CardMaster.translate-(CardMaster.scaleTotal/2)} {parent.CardMaster.translate+(CardMaster.scaleTotal/2)*CardMaster.aspect} {parent.CardMaster.translate}}
   rotate {{parent.CardMaster.rotate x1 0} {parent.CardMaster.rotate x1 -1.999999985} {parent.CardMaster.rotate x1 -39.99245148}}
   pivot {{(CardMaster.scaleTotal/2)} {-(CardMaster.scaleTotal/2)*CardMaster.aspect} 0}
@@ -322,9 +316,9 @@ push $N27b7da50
   ypos 156
   addUserKnob {20 User}
  }
-set N28bc3bc0 [stack 0]
-push $N27a8de10
-push $N27b7da50
+set Nb298f200 [stack 0]
+push $Nfdc0d600
+push $Nfdc0cf00
  Reconcile3D {
   inputs 3
   calc_output {{CardMaster.live}}
@@ -337,7 +331,7 @@ push $N27b7da50
   xpos -112
   ypos 341
  }
-push $N28bc3bc0
+push $Nb298f200
  Camera2 {
   inputs 0
   translate {{"\[value CardMaster.pCameraSelect].translate"} {"\[value CardMaster.pCameraSelect].translate"} {"\[value CardMaster.pCameraSelect].translate"}}
@@ -361,14 +355,14 @@ push $N28bc3bc0
   xpos -573
   ypos 3
  }
-set N28c1d900 [stack 0]
-push $N27b7da50
+set Nb298d600 [stack 0]
+push $Nfdc0cf00
  Dot {
   name Dot3
   xpos -488
   ypos 210
  }
-set N209adf00 [stack 0]
+set Nb298cf00 [stack 0]
  Reconcile3D {
   inputs 3
   calc_output {{CardMaster.live}}
@@ -381,9 +375,9 @@ set N209adf00 [stack 0]
   xpos -601
   ypos 334
  }
-push $N1c7025b0
-push $N28c1d900
-push $N209adf00
+push $Nfdc0c100
+push $Nb298d600
+push $Nb298cf00
  Reconcile3D {
   inputs 3
   calc_output {{CardMaster.live}}
@@ -397,9 +391,9 @@ push $N209adf00
   xpos -708
   ypos 333
  }
-push $N2887d4b0
-push $N28c1d900
-push $N209adf00
+push $Nfdc0eb00
+push $Nb298d600
+push $Nb298cf00
  Reconcile3D {
   inputs 3
   calc_output {{CardMaster.live}}
@@ -412,19 +406,7 @@ push $N209adf00
   xpos -825
   ypos 336
  }
- ViewerProcess_None {
-  inputs 0
-  name ViewerProcess_None1
-  xpos 400
-  ypos -10
- }
- ViewerProcess_None {
-  inputs 0
-  name ViewerProcess_None2
-  xpos 950
-  ypos -10
- }
-push $N63bea00
+push $Nfdc76400
  CornerPin2D {
   to1 {0 0}
   to2 {{width} 0}
@@ -442,8 +424,6 @@ push $N63bea00
  }
  Axis2 {
   inputs 0
-  fbx_take_name {{0} ""}
-  fbx_node_name {{0} ""}
   translate {{parent.CardMaster.translate-(-CardMaster.scaleTotal/2)} {parent.CardMaster.translate+(CardMaster.scaleTotal/2)*CardMaster.aspect} {parent.CardMaster.translate}}
   rotate {{parent.CardMaster.rotate x1 0} {parent.CardMaster.rotate x1 -1.999999985} {parent.CardMaster.rotate x1 -39.99245148}}
   pivot {{-(CardMaster.scaleTotal/2)} {-(CardMaster.scaleTotal/2)*CardMaster.aspect} 0}
@@ -458,9 +438,9 @@ push $N63bea00
   ypos 154
   addUserKnob {20 User}
  }
-set N20a06780 [stack 0]
-push $N27a8de10
-push $N27b7da50
+set Nb292f900 [stack 0]
+push $Nfdc0d600
+push $Nfdc0cf00
  Reconcile3D {
   inputs 3
   calc_output {{CardMaster.live}}
@@ -470,16 +450,9 @@ push $N27b7da50
   xpos -3
   ypos 343
  }
- Viewer {
-  viewerProcess None
-  input_process false
-  name Viewer1
-  xpos 38
-  ypos 643
- }
-push $N20a06780
-push $N28c1d900
-push $N209adf00
+push $Nb292f900
+push $Nb298d600
+push $Nb298cf00
  Reconcile3D {
   inputs 3
   calc_output {{CardMaster.live}}
@@ -492,9 +465,9 @@ push $N209adf00
   xpos -492
   ypos 337
  }
-push $N63bea00
+push $Nfdc76400
  Card2 {
-  display textured+lines
+  display textured+wireframe
   rows 1
   columns 1
   translate {{"\[value CardMaster.cardSelect].translate" x376 -0.461604} {"\[value CardMaster.cardSelect].translate" x376 4e-08} {"\[value CardMaster.cardSelect].translate" x376 -0.0803376}}
@@ -516,7 +489,6 @@ push $N63bea00
 1 {0.5 0.5 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {1 1 0} }
   name CardMaster
   knobChanged "\nk = nuke.thisKnob()\nif k.name() == \"method\":\n n=nuke.thisNode()\n if int(k.getValue())==1 or int(k.getValue())==3:\n  n\['frameHold'].setEnabled(True) \n  n\['setThisFrame'].setEnabled(True)\n else:\n  n\['frameHold'].setEnabled(False) \n  n\['setThisFrame'].setEnabled(False)\n if int(k.getValue())==4:\n  n\['pCameraSelect'].setEnabled(True) \n else:\n  n\['pCameraSelect'].setEnabled(False) \n  n\n"
-  selected true
   xpos 113
   ypos 242
   disable {{CardMaster.cardSelect==0|CardMaster.cameraSelect==0?1:0}}
@@ -539,6 +511,7 @@ push $N63bea00
   addUserKnob {68 cardSelect M {select}}
   addUserKnob {68 cameraSelect M {select}}
   addUserKnob {22 refresh T "g=nuke.thisGroup()\ng.end()\nallNodes=nuke.allNodes()\nnodes=\[\"select\"]\nfor n in allNodes:\n    if n.Class()=='Card2' or n.Class()=='Card':\n\tnodes=nodes+\[n.name()]\ng\['cardSelect'].setValues(nodes)\nnodes=\[\"select\"]\nfor n in allNodes:\n    if n.Class()=='Camera2' or n.Class()=='Camera':\n\tnodes=nodes+\[n.name()]\ng\['cameraSelect'].setValues(nodes)\ng\['pCameraSelect'].setValues(nodes)" +STARTLINE}
-  addUserKnob {68 pCameraSelect +DISABLED M {select ""}}
+  addUserKnob {68 pCameraSelect +DISABLED M {select}}
  }
 end_group
+
