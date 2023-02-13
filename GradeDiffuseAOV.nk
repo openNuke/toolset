@@ -1,0 +1,495 @@
+set cut_paste_input [stack 0]
+version 11.3 v3
+push $cut_paste_input
+add_layer {albedo albedo.red albedo.green albedo.blue}
+Group {
+ name GradeDiffuseAOV
+ help "Colour correct the CG beauty using the secondary(aov) passes.with a subtractive process.\nto be used when:\n * the CG is good and only a few passes need adjusting\n * the secondaries don't add up to the beauty\n * rgb saturation (luminance mix on)\n * rgb contrast (with pivot)\n * matting with external mask input or main channel input or both with an operation.\n The order of correction is: Grade Node>Contrast Node>Saturation."
+ tile_color 0x8aa7dbff
+ label "mode:\[value mode]\n \[value in]"
+ selected true
+ xpos 162
+ ypos -156
+ addUserKnob {20 User l GradeDiffuseAOV}
+ addUserKnob {41 mode t "Note: if you need to grade the light without the diffuse,o nly using multiply (i.e, exposures, white point or gain) and  then just use a GradeAOV as there is no difference.\n\nNote: if you dont know what AOV's contain only light diffuse contribution ask your lighter.\n\nA) You can only grade 'diffuse without light' if the 'diffuse light' AOV dropdown\n1) contains all the diffuse/GI contribution for the whole beauty  \n2) is not containing non diffuse lights i.e. reflection, refraction, lightselects etc.\n(i.e. in Vray this is often GI or in Arnold style AOV's it's all the indirect & direct diffuse AOV's added together)\n\nB) You can only grade 'light without diffuse ' if the light  is not containing non diffuse lights i.e. reflection, refraction, lightselects etc." T Grade145654.mode}
+ addUserKnob {41 in l "diffuse light AOV" T Shuffle43567.in}
+ addUserKnob {41 premultIn l premult -STARTLINE T Premult145654.premultIn}
+ addUserKnob {41 in_1 l "albedo/diffuse " T ShuffleDiffuse.in}
+ addUserKnob {41 AlsoGradeChannel l "Also Grade Channel" t "as well as grading the beauty bake the grade into the selected light and albedo channel" -STARTLINE T ShuffleCopy8325465.AlsoGradeChannel}
+ addUserKnob {41 solo l soloAlbedo T Switch363457745.solo}
+ addUserKnob {41 mute l soloLight -STARTLINE T Switch363457745.mute}
+ addUserKnob {41 contact -STARTLINE T Switch363457745.contact}
+ addUserKnob {26 spacetxt l "                                                                                         " -STARTLINE T " "}
+ addUserKnob {22 NodeExpCopy l "Node Exp Copy" -STARTLINE T "knobsList = \[\"blackpoint\", \"whitepoint\", \"black\", \"white\", \"multiply\", \"add\", \"gamma\", \"reverse\", \"black_clamp\", \"white_clamp\", \"enable_mix_luminance\", \"mix_luminance\", \"value\", \"grey\", \"saturation\",\n \"enable_mix_luminance_1\", \"mix_luminance_1\", \"alpha\", \"mixBlend\"]\nnukescripts.clear_selection_recursive()\nn = nuke.thisNode()\nn\['selected'].setValue(True)\nwith nuke.root():\n nuke.nodeCopy(\"%clipboard%\")\n nuke.nodePaste(\"%clipboard%\")\n new_node = nuke.selectedNode()\n\n for j in new_node.knobs():\n\n  if j in  knobsList:\n   if isinstance(new_node.knob(j), nuke.Array_Knob):\n     new_node\[j].setSingleValue(False)\n   new_node\[j].setExpression( n.name() + '.' + j )\n\n\n"}
+ addUserKnob {26 ""}
+ addUserKnob {41 blackpoint T Grade145654.blackpoint}
+ addUserKnob {41 whitepoint T Grade145654.whitepoint}
+ addUserKnob {41 black l lift T Grade145654.black}
+ addUserKnob {41 white l gain T Grade145654.white}
+ addUserKnob {41 multiply T Grade145654.multiply}
+ addUserKnob {41 add l offset T Grade145654.add}
+ addUserKnob {41 gamma T Grade145654.gamma}
+ addUserKnob {41 reverse T Grade145654.reverse}
+ addUserKnob {41 black_clamp l "black clamp" -STARTLINE T Grade145654.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" -STARTLINE T Grade145654.white_clamp}
+ addUserKnob {26 text2 l "mix luminance" T " "}
+ addUserKnob {41 enable_mix_luminance l "" -STARTLINE T Grade145654.enable_mix_luminance}
+ addUserKnob {41 mix_luminance l "" -STARTLINE T Grade145654.mix_luminance}
+ addUserKnob {26 "" l "  "}
+ addUserKnob {41 value l Contrast t " This is a gamma where the center point is the point bellow (0.18 is mid tone gray) rather than 0.5" T contrast7367.value}
+ addUserKnob {41 grey T contrast7367.grey}
+ addUserKnob {41 saturation_1 l saturation T Saturation2735466.saturation}
+ addUserKnob {41 mode_1 l "luma math" -STARTLINE T Saturation2735466.mode}
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannel l "mask channel" t "if the mask input is unplugged then the input channel can be used" T Keymix37356.maskChannel}
+ addUserKnob {41 invertMask l invert -STARTLINE T Keymix37356.invertMask}
+ addUserKnob {26 ""}
+ addUserKnob {41 alpha l "(un)premult by" T Unpremult13535.alpha}
+ addUserKnob {41 mixBlend l mix T Blend1674357.mixBlend}
+ addUserKnob {20 Info}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/\")" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 version l version: T "v: b0.3"}
+ addUserKnob {26 created l created: T "1/07/20  by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
+ addUserKnob {26 modified l "modified: " T "v0.1 1/07/20 rafsKan init.\nv0.2 09/01/23 rafsKan removed Vray options & added mode\nv0.3 ported all the feature of gradeAOV "}
+ addUserKnob {26 source l source: T "<a href='https://github.com/vfxwiki/'> Github.com</a>"}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
+}
+ Input {
+  inputs 0
+  name Input
+  xpos -220
+  ypos -1253
+ }
+set Na57a2a10 [stack 0]
+ Dot {
+  name Dot1
+  xpos -186
+  ypos -1099
+ }
+set Na57a78d0 [stack 0]
+ Dot {
+  name Dot27
+  xpos -457
+  ypos -1099
+ }
+set Na57ac400 [stack 0]
+ Dot {
+  name Dot26
+  xpos -646
+  ypos -1099
+ }
+set Na57b0fb0 [stack 0]
+ Shuffle {
+  in none
+  alpha black
+  name Shuffle43567
+  xpos -680
+  ypos -1065
+  disable true
+ }
+set Na57b5b10 [stack 0]
+ Premult {
+  name Premult145654
+  xpos -680
+  ypos -1039
+  disable {{!premultIn}}
+  addUserKnob {20 User}
+  addUserKnob {6 premultIn l premult +STARTLINE}
+ }
+set Na57c60f0 [stack 0]
+push $Na57ac400
+ Merge2 {
+  inputs 2
+  operation from
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name From456546
+  xpos -491
+  ypos -1039
+ }
+ Dot {
+  name Dot15
+  tile_color 0x949494ff
+  note_font_size 22
+  note_font_color 0xffffffff
+  xpos -457
+  ypos -954
+ }
+set Na57def40 [stack 0]
+ Dot {
+  name Dot12
+  xpos -922
+  ypos -954
+ }
+ Dot {
+  name Dot14
+  xpos -922
+  ypos 135
+ }
+push $Na57a2a10
+ Dot {
+  name Dot8
+  xpos -995
+  ypos -1250
+ }
+ Dot {
+  name Dot5
+  xpos -995
+  ypos 105
+ }
+set Na57f1e10 [stack 0]
+ Dot {
+  name Dot9
+  xpos -995
+  ypos 217
+ }
+ LayerContactSheet {
+  width {{width*6}}
+  height {{height*6}}
+  showLayerNames true
+  name LayerContactSheet1
+  xpos -607
+  ypos 213
+ }
+push $Na57b0fb0
+ Shuffle {
+  in albedo
+  in2 alpha
+  alpha red2
+  name ShuffleDiffuse
+  label diffuse
+  xpos -831
+  ypos -1109
+ }
+ Dot {
+  name Dot23
+  tile_color 0x949494ff
+  note_font_size 22
+  note_font_color 0xffffffff
+  xpos -797
+  ypos -776
+ }
+set Na5816fd0 [stack 0]
+ Grade {
+  black_clamp false
+  name Grade145654
+  xpos -831
+  ypos -639
+  disable {{Grade145654.mode==1}}
+  addUserKnob {20 User}
+  addUserKnob {18 exposure R -1 1}
+  exposure {{multiply==0|white==0|multiply==0?0:log10(multiply)/log10(2)+log10(white)/log10(2)}}
+  addUserKnob {6 exposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {4 mode t "You can only 'grade diffuse' without light if the 'diffuse light' AOV dropdown\n1) contains all the diffuse/GI contribution for the whole beauty  \n2) is not containing non diffuse lights i.e. reflection, refraction etc.\n(i.e. in Vray this is often GI or in Arnold style AOV's it's all the indirect & direct diffuse AOV's added together)\n\nYou can only 'grade light' without diffuse if the light  is not containing non diffuse lights i.e. reflection, refraction etc.\n\nNote: that if only using multiply (i.e, exposures, white point or gain) and you need to grade the light without the diffuse, then a gradeAOV is the same as a GradeDiffuse" M {"grade diffuse" "grade light" "" "" "" ""}}
+  mode "grade light"
+ }
+ Expression {
+  expr0 "pow(r/grey.r, value.r+1)*grey.r"
+  expr1 "pow(g/grey.g, value.g+1)*grey.g"
+  expr2 "pow(b/grey.b, value.b+1)*grey.b"
+  channel3 {none none none -rgba.alpha}
+  name contrast7367
+  xpos -831
+  ypos -575
+  disable {{Grade145654.mode==1}}
+  addUserKnob {20 User}
+  addUserKnob {18 grey}
+  grey 0.18
+  addUserKnob {18 value R -1 1}
+ }
+ Saturation {
+  name Saturation1763683
+  xpos -831
+  ypos -513
+  disable {{Grade145654.mode==1}}
+ }
+ Dot {
+  name Dot25
+  tile_color 0x949494ff
+  note_font_size 22
+  note_font_color 0xffffffff
+  xpos -797
+  ypos -396
+ }
+set Na584f440 [stack 0]
+push $Na5816fd0
+push $Na57c60f0
+ Unpremult {
+  alpha -rgba.alpha
+  name Unpremult13535
+  xpos -680
+  ypos -1001
+  disable {{!alpha}}
+  addUserKnob {20 User}
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 div_r
+  temp_expr0 (Brgba.red)/(Argba.red+0.00001)
+  temp_name1 div_g
+  temp_expr1 (Brgba.green)/(Argba.green+0.00001)
+  temp_name2 div_b
+  temp_expr2 (Brgba.blue)/(Argba.blue+0.00001)
+  expr0 "isnan(div_r) || isinf(div_r)  ? 0 : div_r"
+  expr1 "isnan(div_g) || isinf(div_g)  ? 0 : div_g"
+  expr2 "isnan(div_b) || isinf(div_b)  ? 0 : div_b"
+  channel3 {none none none -rgba.alpha}
+  name ExpressionDivBasecolor345654
+  xpos -680
+  ypos -780
+ }
+ Clamp {
+  channels rgb
+  minimum_enable {{Grade145654.black_clamp}}
+  maximum 1e+14
+  maximum_enable {{Grade145654.white_clamp}}
+  name Clamp135345
+  xpos -680
+  ypos -696
+ }
+ Grade {
+  blackpoint {{Grade145654.blackpoint} {Grade145654.blackpoint} {Grade145654.blackpoint} {Grade145654.blackpoint}}
+  whitepoint {{Grade145654.whitepoint} {Grade145654.whitepoint} {Grade145654.whitepoint} {Grade145654.whitepoint}}
+  black {{Grade145654.black} {Grade145654.black} {Grade145654.black} {Grade145654.black}}
+  white {{Grade145654.white} {Grade145654.white} {Grade145654.white} {Grade145654.white}}
+  multiply {{Grade145654.multiply} {Grade145654.multiply} {Grade145654.multiply} {Grade145654.multiply}}
+  add {{Grade145654.add} {Grade145654.add} {Grade145654.add} {Grade145654.add}}
+  gamma {{Grade145654.gamma} {Grade145654.gamma} {Grade145654.gamma} {Grade145654.gamma}}
+  reverse {{Grade145654.reverse}}
+  black_clamp {{Grade145654.black_clamp}}
+  white_clamp {{Grade145654.white_clamp}}
+  name Grade36587
+  xpos -680
+  ypos -638
+  disable {{Grade145654.mode==0}}
+ }
+ Expression {
+  expr0 "pow(r/grey.r, value.r+1)*grey.r"
+  expr1 "pow(g/grey.g, value.g+1)*grey.g"
+  expr2 "pow(b/grey.b, value.b+1)*grey.b"
+  channel3 {none none none -rgba.alpha}
+  name contrast33676
+  xpos -680
+  ypos -573
+  disable {{Grade145654.mode==0}}
+  addUserKnob {20 User}
+  addUserKnob {18 grey}
+  grey {{contrast7367.grey} {contrast7367.grey} {contrast7367.grey}}
+  addUserKnob {18 value R -1 1}
+  value {{contrast7367.value} {contrast7367.value} {contrast7367.value}}
+ }
+ Saturation {
+  name Saturation2735466
+  xpos -678
+  ypos -511
+  disable {{Grade145654.mode==0}}
+ }
+ MergeExpression {
+  inputs 2
+  temp_name0 div_r
+  temp_expr0 Br*(Ar<=0?0:Ar+0.00001)
+  temp_name1 div_g
+  temp_expr1 Bg*(Ag<=0?0:Ag-0.00001)
+  temp_name2 div_b
+  temp_expr2 Bb*(Ab<=0?0:Ab-0.00001)
+  expr0 "isnan(div_r) || isinf(div_r)  ? 0 : div_r"
+  expr1 "isnan(div_g) || isinf(div_g)  ? 0 : div_g"
+  expr2 "isnan(div_b) || isinf(div_b)  ? 0 : div_b"
+  channel3 none
+  name MergeExp_Mult1
+  xpos -680
+  ypos -400
+ }
+set Na54a3a90 [stack 0]
+ Dot {
+  name Dot21
+  tile_color 0x949494ff
+  note_font_size 22
+  note_font_color 0xffffffff
+  xpos -646
+  ypos -263
+ }
+ Dot {
+  name Dot6
+  xpos -646
+  ypos -25
+ }
+set Na54b5df0 [stack 0]
+ Dot {
+  name Dot7
+  tile_color 0x949494ff
+  note_font_size 22
+  note_font_color 0xffffffff
+  xpos -646
+  ypos 150
+ }
+push $Na584f440
+ Dot {
+  name Dot4
+  xpos -797
+  ypos 40
+ }
+set Na54bf4f0 [stack 0]
+ Dot {
+  name Dot10
+  xpos -797
+  ypos 173
+ }
+ Input {
+  inputs 0
+  name mask
+  label mask
+  xpos 65
+  ypos -1292
+  number 1
+ }
+ Dot {
+  name Dot13
+  xpos 99
+  ypos 105
+ }
+push $Na57f1e10
+ Dot {
+  name Dot11
+  xpos -529
+  ypos 105
+ }
+set Na54d2330 [stack 0]
+ Switch {
+  inputs 2
+  which {{"\[exists parent.input1]"}}
+  name Switch147345
+  xpos -177
+  ypos 101
+  disable {{"!\[exists parent.input1]"}}
+ }
+ Invert {
+  name Invert165454
+  xpos -177
+  ypos 127
+ }
+push $Na54d2330
+push $Na54bf4f0
+push $Na54b5df0
+push $Na57a78d0
+ Dot {
+  name Dot2
+  xpos -186
+  ypos -321
+ }
+ Dot {
+  name Dot3
+  xpos -284
+  ypos -321
+ }
+push $Na54a3a90
+push $Na57def40
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels rgb
+  Bchannels rgb
+  output rgb
+  name Merge34436324
+  xpos -491
+  ypos -400
+ }
+ Premult {
+  alpha {{{Unpremult1.alpha}}}
+  name Premult435345345
+  xpos -491
+  ypos -142
+  disable {{Unpremult13535.disable}}
+ }
+ Blend {
+  inputs 2
+  channels rgb
+  weight0 {{mixBlend}}
+  weight1 {{1-weight0}}
+  name Blend1674357
+  xpos -318
+  ypos -142
+  addUserKnob {20 User}
+  addUserKnob {7 mixBlend}
+  mixBlend 1
+ }
+ ShuffleCopy {
+  inputs 2
+  in2 none
+  red red
+  green green
+  blue blue
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  out {{{Shuffle43567.in}}}
+  out2 {{{Shuffle.in}}}
+  name ShuffleCopy8325465
+  xpos -318
+  ypos -29
+  disable {{!AlsoGradeChannel}}
+  addUserKnob {20 User}
+  addUserKnob {6 AlsoGradeChannel l "Also Grade Channel" +STARTLINE}
+  AlsoGradeChannel true
+ }
+ ShuffleCopy {
+  inputs 2
+  in2 none
+  red red
+  green green
+  blue blue
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  out {{{ShuffleDiffuse.in}}}
+  out2 {{{Shuffle.in}}}
+  name ShuffleCopy1ere
+  xpos -318
+  ypos 36
+  disable {{!AlsoGradeChannel||Grade145654.mode==1}}
+  addUserKnob {20 User}
+  addUserKnob {6 AlsoGradeChannel l "Also Grade Channel" +STARTLINE}
+  AlsoGradeChannel {{ShuffleCopy8325465.AlsoGradeChannel}}
+ }
+ Keymix {
+  inputs 3
+  channels rgb
+  maskChannel -rgba.alpha
+  name Keymix37356
+  xpos -318
+  ypos 161
+  disable {{!maskChannel}}
+ }
+ Switch {
+  inputs 4
+  which {{contact?3:mute?2:solo?1:0}}
+  name Switch363457745
+  xpos -318
+  ypos 207
+  addUserKnob {20 User}
+  addUserKnob {4 output M {"rgb graded by channel" "preview channel (solo)" "preview without (mute)" "channel contact sheet" "" "" "" "" ""}}
+  output "preview channel (solo)"
+  addUserKnob {6 solo +STARTLINE}
+  addUserKnob {6 mute -STARTLINE}
+  addUserKnob {6 contact -STARTLINE}
+ }
+ Output {
+  name Output1
+  xpos -318
+  ypos 385
+ }
+push $Na57b5b10
+ Viewer {
+  frame_range 929-1393
+  colour_sample_bbox {-0.6047106981 -0.3748079836 -0.5873016119 -0.3543266654}
+  viewerProcess "sRGB (default)"
+  name Viewer1
+  xpos 6
+  ypos 341
+ }
+end_group
