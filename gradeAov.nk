@@ -7,8 +7,8 @@ Group {
  tile_color 0x8aa7dbff
  label " \[value in]"
  selected true
- xpos 358
- ypos -145
+ xpos 359
+ ypos -114
  addUserKnob {20 User l GradeAOV}
  addUserKnob {41 in l "Channel to use" T Shuffle5345.in}
  addUserKnob {41 AlsoGradeChannel l "Also Grade Channel  |" t "as well as grading the beauty bake the grade into the selected channel" -STARTLINE T ShuffleCopy1544235.AlsoGradeChannel}
@@ -60,7 +60,7 @@ Group {
   xpos -220
   ypos -721
  }
-set Nd411d660 [stack 0]
+set N5f6d9010 [stack 0]
  Dot {
   name Dot8
   xpos -995
@@ -71,7 +71,7 @@ set Nd411d660 [stack 0]
   xpos -995
   ypos 105
  }
-set Nd41264d0 [stack 0]
+set N5f555cf0 [stack 0]
  Dot {
   name Dot9
   xpos -995
@@ -85,19 +85,19 @@ set Nd41264d0 [stack 0]
   xpos -632
   ypos 213
  }
-push $Nd411d660
+push $N5f6d9010
  Dot {
   name Dot1
   xpos -186
   ypos -567
  }
-set Nb8fed100 [stack 0]
+set N5f55c5d0 [stack 0]
  Dot {
   name Dot27
   xpos -457
   ypos -567
  }
-set Nb8ff17f0 [stack 0]
+set N5e5fbe30 [stack 0]
  Dot {
   name Dot26
   xpos -646
@@ -119,8 +119,8 @@ set Nb8ff17f0 [stack 0]
   addUserKnob {20 User}
   addUserKnob {6 premultIn l premult +STARTLINE}
  }
-set Na6cf2370 [stack 0]
-push $Nb8ff17f0
+set N5e8c1b00 [stack 0]
+push $N5e5fbe30
  Merge2 {
   inputs 2
   operation from
@@ -139,7 +139,7 @@ push $Nb8ff17f0
   xpos -457
   ypos -422
  }
-set Na66f5300 [stack 0]
+set N5e8c8040 [stack 0]
  Dot {
   name Dot12
   xpos -922
@@ -150,7 +150,7 @@ set Na66f5300 [stack 0]
   xpos -922
   ypos 172
  }
-push $Na6cf2370
+push $N5e8c1b00
  Unpremult {
   alpha -rgba.alpha
   name Unpremult13535
@@ -179,11 +179,7 @@ push $Na6cf2370
   addUserKnob {20 User}
   addUserKnob {18 grey}
   grey 0.18
-  addUserKnob {6 grey_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
-  addUserKnob {6 grey_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {18 value R -1 1}
-  addUserKnob {6 value_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
-  addUserKnob {6 value_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
  }
  ColorCorrect {
   channels all
@@ -192,7 +188,7 @@ push $Na6cf2370
   xpos -680
   ypos -273
  }
-set Na67327c0 [stack 0]
+set N5f552020 [stack 0]
  Dot {
   name Dot4
   xpos -833
@@ -221,13 +217,13 @@ set Na67327c0 [stack 0]
   xpos 99
   ypos 105
  }
-push $Nd41264d0
+push $N5f555cf0
  Dot {
   name Dot11
   xpos -435
   ypos 105
  }
-set Na67634f0 [stack 0]
+set N5f7720d0 [stack 0]
  Switch {
   inputs 2
   which {{"\[exists parent.input1]"}}
@@ -241,14 +237,14 @@ set Na67634f0 [stack 0]
   xpos -177
   ypos 127
  }
-push $Na67634f0
-push $Na67327c0
+push $N5f7720d0
+push $N5f552020
  Dot {
   name Dot6
   xpos -646
   ypos -5
  }
-push $Nb8fed100
+push $N5f55c5d0
  Dot {
   name Dot2
   xpos -186
@@ -259,8 +255,8 @@ push $Nb8fed100
   xpos -284
   ypos -321
  }
-push $Na67327c0
-push $Na66f5300
+push $N5f552020
+push $N5e8c8040
  Clamp {
   channels rgb
   minimum_enable {{Grade273535.black_clamp}}
