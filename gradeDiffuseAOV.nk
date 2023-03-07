@@ -1,17 +1,16 @@
 set cut_paste_input [stack 0]
-version 11.3 v3
+version 12.2 v9
 push $cut_paste_input
-add_layer {albedo albedo.red albedo.green albedo.blue}
 Group {
  name GradeDiffuseAOV
  help "Colour correct the CG beauty using the secondary(aov) passes.with a subtractive process.\nto be used when:\n * the CG is good and only a few passes need adjusting\n * the secondaries don't add up to the beauty\n * rgb saturation (luminance mix on)\n * rgb contrast (with pivot)\n * matting with external mask input or main channel input or both with an operation.\n The order of correction is: Grade Node>Contrast Node>Saturation."
  tile_color 0x8aa7dbff
  label "mode:\[value mode]\n \[value in]"
  selected true
- xpos 162
- ypos -156
+ xpos -70
+ ypos -168
  addUserKnob {20 User l GradeDiffuseAOV}
- addUserKnob {41 mode t "Note: if you need to grade the light without the diffuse,o nly using multiply (i.e, exposures, white point or gain) and  then just use a GradeAOV as there is no difference.\n\nNote: if you dont know what AOV's contain only light diffuse contribution ask your lighter.\n\nA) You can only grade 'diffuse without light' if the 'diffuse light' AOV dropdown\n1) contains all the diffuse/GI contribution for the whole beauty  \n2) is not containing non diffuse lights i.e. reflection, refraction, lightselects etc.\n(i.e. in Vray this is often GI or in Arnold style AOV's it's all the indirect & direct diffuse AOV's added together)\n\nB) You can only grade 'light without diffuse ' if the light  is not containing non diffuse lights i.e. reflection, refraction, lightselects etc." T Grade145654.mode}
+ addUserKnob {41 mode t "Note: if you need to grade the light without the diffuse, only using multiply (i.e, exposures, white point or gain) and  then just use a GradeAOV as there is no difference.\n\nNote: if you dont know what AOV's contain only light diffuse contribution ask your lighter.\n\nA) You can only grade 'diffuse without light' if the 'diffuse light' AOV dropdown\n1) contains all the diffuse contribution for the whole beauty  \n2) is not containing non diffuse lights i.e. reflection, refraction, lightselects etc.\n(i.e. in Vray this is often GI or in Arnold style AOV's it's all the indirect & direct diffuse AOV's added together)\n\nB) You can only grade 'light without diffuse ' if the light  is not containing a non-diffuse light i.e. reflection, refraction, lightselects etc." T Grade145654.mode}
  addUserKnob {41 in l "diffuse light AOV" T Shuffle43567.in}
  addUserKnob {41 premultIn l premult -STARTLINE T Premult145654.premultIn}
  addUserKnob {41 in_1 l "albedo/diffuse " T ShuffleDiffuse.in}
@@ -49,9 +48,9 @@ Group {
  addUserKnob {20 Info}
  addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/\")" +STARTLINE}
  addUserKnob {26 ""}
- addUserKnob {26 version l version: T "v: b0.3"}
+ addUserKnob {26 version l version: T "v: b0.4"}
  addUserKnob {26 created l created: T "1/07/20  by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
- addUserKnob {26 modified l "modified: " T "v0.1 1/07/20 rafsKan init.\nv0.2 09/01/23 rafsKan removed Vray options & added mode\nv0.3 ported all the feature of gradeAOV "}
+ addUserKnob {26 modified l "modified: " T "v0.1 1/07/20 rafsKan init.\nv0.2 09/01/23 rafsKan removed Vray options & added mode\nv0.3 ported all the feature of gradeAOV \n07/04/23 fixed broken expresion links"}
  addUserKnob {26 source l source: T "<a href='https://github.com/vfxwiki/'> Github.com</a>"}
  addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
@@ -61,34 +60,33 @@ Group {
   xpos -220
   ypos -1253
  }
-set Na57a2a10 [stack 0]
+set N915f7900 [stack 0]
  Dot {
   name Dot1
   xpos -186
   ypos -1099
  }
-set Na57a78d0 [stack 0]
+set N915f5600 [stack 0]
  Dot {
   name Dot27
   xpos -457
   ypos -1099
  }
-set Na57ac400 [stack 0]
+set N915f4f00 [stack 0]
  Dot {
   name Dot26
   xpos -646
   ypos -1099
  }
-set Na57b0fb0 [stack 0]
+set N915f4800 [stack 0]
  Shuffle {
   in none
   alpha black
   name Shuffle43567
+  selected true
   xpos -680
   ypos -1065
-  disable true
  }
-set Na57b5b10 [stack 0]
  Premult {
   name Premult145654
   xpos -680
@@ -97,8 +95,8 @@ set Na57b5b10 [stack 0]
   addUserKnob {20 User}
   addUserKnob {6 premultIn l premult +STARTLINE}
  }
-set Na57c60f0 [stack 0]
-push $Na57ac400
+set N4c7f7900 [stack 0]
+push $N915f4f00
  Merge2 {
   inputs 2
   operation from
@@ -117,7 +115,7 @@ push $Na57ac400
   xpos -457
   ypos -954
  }
-set Na57def40 [stack 0]
+set N4c7f6b00 [stack 0]
  Dot {
   name Dot12
   xpos -922
@@ -128,7 +126,7 @@ set Na57def40 [stack 0]
   xpos -922
   ypos 135
  }
-push $Na57a2a10
+push $N915f7900
  Dot {
   name Dot8
   xpos -995
@@ -139,7 +137,7 @@ push $Na57a2a10
   xpos -995
   ypos 105
  }
-set Na57f1e10 [stack 0]
+set N4c7f4f00 [stack 0]
  Dot {
   name Dot9
   xpos -995
@@ -153,9 +151,9 @@ set Na57f1e10 [stack 0]
   xpos -607
   ypos 213
  }
-push $Na57b0fb0
+push $N915f4800
  Shuffle {
-  in albedo
+  in none
   in2 alpha
   alpha red2
   name ShuffleDiffuse
@@ -171,7 +169,7 @@ push $Na57b0fb0
   xpos -797
   ypos -776
  }
-set Na5816fd0 [stack 0]
+set N38d73200 [stack 0]
  Grade {
   black_clamp false
   name Grade145654
@@ -183,8 +181,8 @@ set Na5816fd0 [stack 0]
   exposure {{multiply==0|white==0|multiply==0?0:log10(multiply)/log10(2)+log10(white)/log10(2)}}
   addUserKnob {6 exposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {6 exposure_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {4 mode t "You can only 'grade diffuse' without light if the 'diffuse light' AOV dropdown\n1) contains all the diffuse/GI contribution for the whole beauty  \n2) is not containing non diffuse lights i.e. reflection, refraction etc.\n(i.e. in Vray this is often GI or in Arnold style AOV's it's all the indirect & direct diffuse AOV's added together)\n\nYou can only 'grade light' without diffuse if the light  is not containing non diffuse lights i.e. reflection, refraction etc.\n\nNote: that if only using multiply (i.e, exposures, white point or gain) and you need to grade the light without the diffuse, then a gradeAOV is the same as a GradeDiffuse" M {"grade diffuse" "grade light" "" "" "" ""}}
-  mode "grade light"
  }
  Expression {
   expr0 "pow(r/grey.r, value.r+1)*grey.r"
@@ -198,7 +196,10 @@ set Na5816fd0 [stack 0]
   addUserKnob {20 User}
   addUserKnob {18 grey}
   grey 0.18
+  addUserKnob {6 grey_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {18 value R -1 1}
+  value {0 0 0}
+  addUserKnob {6 value_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  }
  Saturation {
   name Saturation1763683
@@ -214,9 +215,9 @@ set Na5816fd0 [stack 0]
   xpos -797
   ypos -396
  }
-set Na584f440 [stack 0]
-push $Na5816fd0
-push $Na57c60f0
+set N567f4f00 [stack 0]
+push $N38d73200
+push $N4c7f7900
  Unpremult {
   alpha -rgba.alpha
   name Unpremult13535
@@ -278,8 +279,10 @@ push $Na57c60f0
   addUserKnob {20 User}
   addUserKnob {18 grey}
   grey {{contrast7367.grey} {contrast7367.grey} {contrast7367.grey}}
+  addUserKnob {6 grey_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
   addUserKnob {18 value R -1 1}
   value {{contrast7367.value} {contrast7367.value} {contrast7367.value}}
+  addUserKnob {6 value_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
  }
  Saturation {
   name Saturation2735466
@@ -303,7 +306,7 @@ push $Na57c60f0
   xpos -680
   ypos -400
  }
-set Na54a3a90 [stack 0]
+set N577bc100 [stack 0]
  Dot {
   name Dot21
   tile_color 0x949494ff
@@ -317,7 +320,7 @@ set Na54a3a90 [stack 0]
   xpos -646
   ypos -25
  }
-set Na54b5df0 [stack 0]
+set N30fef200 [stack 0]
  Dot {
   name Dot7
   tile_color 0x949494ff
@@ -326,13 +329,13 @@ set Na54b5df0 [stack 0]
   xpos -646
   ypos 150
  }
-push $Na584f440
+push $N567f4f00
  Dot {
   name Dot4
   xpos -797
   ypos 40
  }
-set Na54bf4f0 [stack 0]
+set N30fee400 [stack 0]
  Dot {
   name Dot10
   xpos -797
@@ -351,13 +354,13 @@ set Na54bf4f0 [stack 0]
   xpos 99
   ypos 105
  }
-push $Na57f1e10
+push $N4c7f4f00
  Dot {
   name Dot11
   xpos -529
   ypos 105
  }
-set Na54d2330 [stack 0]
+set N30fec800 [stack 0]
  Switch {
   inputs 2
   which {{"\[exists parent.input1]"}}
@@ -371,10 +374,10 @@ set Na54d2330 [stack 0]
   xpos -177
   ypos 127
  }
-push $Na54d2330
-push $Na54bf4f0
-push $Na54b5df0
-push $Na57a78d0
+push $N30fec800
+push $N30fee400
+push $N30fef200
+push $N915f5600
  Dot {
   name Dot2
   xpos -186
@@ -385,8 +388,8 @@ push $Na57a78d0
   xpos -284
   ypos -321
  }
-push $Na54a3a90
-push $Na57def40
+push $N577bc100
+push $N4c7f6b00
  Merge2 {
   inputs 2
   operation plus
@@ -418,36 +421,31 @@ push $Na57def40
  }
  ShuffleCopy {
   inputs 2
-  in2 none
+  in rgb
   red red
   green green
   blue blue
-  alpha alpha2
-  black red
-  white green
-  red2 blue
+  alpha black
   out {{{Shuffle43567.in}}}
-  out2 {{{Shuffle.in}}}
+  out2 rgba
   name ShuffleCopy8325465
   xpos -318
   ypos -29
-  disable {{!AlsoGradeChannel}}
+  disable {{!AlsoGradeChannel||Grade145654.mode==0}}
   addUserKnob {20 User}
   addUserKnob {6 AlsoGradeChannel l "Also Grade Channel" +STARTLINE}
   AlsoGradeChannel true
  }
  ShuffleCopy {
   inputs 2
-  in2 none
+  in rgb
+  in2 rgb
   red red
   green green
   blue blue
   alpha alpha2
-  black red
-  white green
-  red2 blue
   out {{{ShuffleDiffuse.in}}}
-  out2 {{{Shuffle.in}}}
+  out2 rgb
   name ShuffleCopy1ere
   xpos -318
   ypos 36
@@ -482,14 +480,5 @@ push $Na57def40
   name Output1
   xpos -318
   ypos 385
- }
-push $Na57b5b10
- Viewer {
-  frame_range 929-1393
-  colour_sample_bbox {-0.6047106981 -0.3748079836 -0.5873016119 -0.3543266654}
-  viewerProcess "sRGB (default)"
-  name Viewer1
-  xpos 6
-  ypos 341
  }
 end_group
