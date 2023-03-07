@@ -1,5 +1,5 @@
 set cut_paste_input [stack 0]
-version 11.3 v3
+version 12.2 v9
 push $cut_paste_input
 Group {
  name GradeAOV
@@ -7,8 +7,8 @@ Group {
  tile_color 0x8aa7dbff
  label " \[value in]"
  selected true
- xpos 359
- ypos -114
+ xpos 39
+ ypos -287
  addUserKnob {20 User l GradeAOV}
  addUserKnob {41 in l "Channel to use" T Shuffle5345.in}
  addUserKnob {41 AlsoGradeChannel l "Also Grade Channel  |" t "as well as grading the beauty bake the grade into the selected channel" -STARTLINE T ShuffleCopy1544235.AlsoGradeChannel}
@@ -48,9 +48,9 @@ Group {
  addUserKnob {20 Info}
  addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/gradeAov_nkV/\")" +STARTLINE}
  addUserKnob {26 ""}
- addUserKnob {26 version l version: T v1.3}
+ addUserKnob {26 version l version: T v1.4}
  addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
- addUserKnob {26 modified l "modified: " T "01/10/2016 :update to fix back clamp by Rafal_Kan\n2017/12/19 :v1: forked, renamed, premult per channel, colourspaceShift\n2018/01/01: added copyExpNode and solo/mute\n2022/11/1: rafsKan set premult to off by default and added tickbox"}
+ addUserKnob {26 modified l "modified: " T "01/10/2016 :update to fix back clamp by Rafal_Kan\n2017/12/19 :v1: forked, renamed, premult per channel, colourspaceShift\n2018/01/01: added copyExpNode and solo/mute\n2022/11/1: rafsKan set premult to off by default and added tickbox\n2023/03/07 - fixed some internal parent expression links"}
  addUserKnob {26 source l source: T "<a href='https://github.com/vfxwiki/gradeAOV/'> Github.com</a>"}
  addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
 }
@@ -60,7 +60,7 @@ Group {
   xpos -220
   ypos -721
  }
-set N5f6d9010 [stack 0]
+set N493ea400 [stack 0]
  Dot {
   name Dot8
   xpos -995
@@ -71,7 +71,7 @@ set N5f6d9010 [stack 0]
   xpos -995
   ypos 105
  }
-set N5f555cf0 [stack 0]
+set N493e9600 [stack 0]
  Dot {
   name Dot9
   xpos -995
@@ -85,19 +85,19 @@ set N5f555cf0 [stack 0]
   xpos -632
   ypos 213
  }
-push $N5f6d9010
+push $N493ea400
  Dot {
   name Dot1
   xpos -186
   ypos -567
  }
-set N5f55c5d0 [stack 0]
+set N493e8100 [stack 0]
  Dot {
   name Dot27
   xpos -457
   ypos -567
  }
-set N5e5fbe30 [stack 0]
+set N427f3900 [stack 0]
  Dot {
   name Dot26
   xpos -646
@@ -119,8 +119,8 @@ set N5e5fbe30 [stack 0]
   addUserKnob {20 User}
   addUserKnob {6 premultIn l premult +STARTLINE}
  }
-set N5e8c1b00 [stack 0]
-push $N5e5fbe30
+set N427f2400 [stack 0]
+push $N427f3900
  Merge2 {
   inputs 2
   operation from
@@ -139,7 +139,7 @@ push $N5e5fbe30
   xpos -457
   ypos -422
  }
-set N5e8c8040 [stack 0]
+set N427f1600 [stack 0]
  Dot {
   name Dot12
   xpos -922
@@ -150,7 +150,7 @@ set N5e8c8040 [stack 0]
   xpos -922
   ypos 172
  }
-push $N5e8c1b00
+push $N427f2400
  Unpremult {
   alpha -rgba.alpha
   name Unpremult13535
@@ -164,22 +164,57 @@ push $N5e8c1b00
   black_clamp false
   name Grade273535
   xpos -680
-  ypos -379
+  ypos -380
   addUserKnob {20 User}
   addUserKnob {18 exposure R -1 1}
   exposure {{multiply==0|white==0|multiply==0?0:log10(multiply)/log10(2)+log10(white)/log10(2)}}
+  addUserKnob {6 exposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 exposure_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
  }
  Expression {
-  expr0 "pow(r/grey.r, value.r+1)*grey.r"
-  expr1 "pow(g/grey.g, value.g+1)*grey.g"
-  expr2 "pow(b/grey.b, value.b+1)*grey.b"
+  expr0 "pow(r/grey, value+1)*grey"
+  expr1 "pow(g/grey, value+1)*grey"
+  expr2 "pow(b/grey, value+1)*grey"
   name contrast
   xpos -680
   ypos -322
   addUserKnob {20 User}
-  addUserKnob {18 grey}
+  addUserKnob {7 grey}
   grey 0.18
   addUserKnob {18 value R -1 1}
+  value {0 0 0}
+  addUserKnob {6 value_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 value_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
  }
  ColorCorrect {
   channels all
@@ -188,7 +223,7 @@ push $N5e8c1b00
   xpos -680
   ypos -273
  }
-set N5f552020 [stack 0]
+set N10be2b00 [stack 0]
  Dot {
   name Dot4
   xpos -833
@@ -217,13 +252,13 @@ set N5f552020 [stack 0]
   xpos 99
   ypos 105
  }
-push $N5f555cf0
+push $N493e9600
  Dot {
   name Dot11
   xpos -435
   ypos 105
  }
-set N5f7720d0 [stack 0]
+set N11ffb200 [stack 0]
  Switch {
   inputs 2
   which {{"\[exists parent.input1]"}}
@@ -237,14 +272,14 @@ set N5f7720d0 [stack 0]
   xpos -177
   ypos 127
  }
-push $N5f7720d0
-push $N5f552020
+push $N11ffb200
+push $N10be2b00
  Dot {
   name Dot6
   xpos -646
-  ypos -5
+  ypos 39
  }
-push $N5f55c5d0
+push $N493e8100
  Dot {
   name Dot2
   xpos -186
@@ -255,8 +290,8 @@ push $N5f55c5d0
   xpos -284
   ypos -321
  }
-push $N5f552020
-push $N5e8c8040
+push $N10be2b00
+push $N427f1600
  Clamp {
   channels rgb
   minimum_enable {{Grade273535.black_clamp}}
@@ -277,7 +312,7 @@ push $N5e8c8040
   ypos -267
  }
  Premult {
-  alpha {{{Unpremult1.alpha}}}
+  alpha {{{Unpremult13535.alpha}}}
   name Premult435345345
   xpos -487
   ypos -142
@@ -297,16 +332,17 @@ push $N5e8c8040
  }
  ShuffleCopy {
   inputs 2
-  in {{{Shuffle.in}}}
-  alpha alpha2
-  black red
-  white green
-  red2 blue
+  in rgb
+  red red
+  green green
+  blue blue
+  alpha black
   out {{{Shuffle5345.in}}}
-  out2 {{{Shuffle.in}}}
+  out2 rgba
   name ShuffleCopy1544235
+  selected true
   xpos -318
-  ypos -9
+  ypos 35
   disable {{!AlsoGradeChannel}}
   addUserKnob {20 User}
   addUserKnob {6 AlsoGradeChannel l "Also Grade Channel" +STARTLINE}
