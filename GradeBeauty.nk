@@ -1,0 +1,604 @@
+set cut_paste_input [stack 0]
+version 12.2 v9
+push $cut_paste_input
+Group {
+ name GradeBeauty1
+ knobChanged "import ast\ng=nuke.thisNode()\nn=nuke.toNode(g.name()+\"._Config_\")\nk = nuke.thisKnob()\na_dict = n\['a_dict'].value()\nb_dict = n\['b_dict'].value()\nif a_dict =='':\n a_dict  = '\{\}'\nif b_dict =='':\n b_dict  = '\{\}'\nl = list(ast.literal_eval(a_dict ).keys())\nfor x in l:\n if k.name() == x+\"_isSolo\":\n  for z in l:\n   if k.value() == False:\n    if z != x:\n     g\[z+\"_isMute\"].setValue(False)\n   if k.value() == True:\n    g\[x+\"_isMute\"].setValue(False)\n    if z != x:\n     g\[z+\"_isMute\"].setValue(True)\n     g\[z+\"_isSolo\"].setValue(False)\nl=list(ast.literal_eval(b_dict).keys())\nfor x in l:\n if k.name() == x+\"_isSolo\":\n  for z in l:\n   if k.value() == False:\n    if z != x:\n     g\[z+\"_isMute\"].setValue(False)\n   if k.value() == True:\n    g\[x+\"_isMute\"].setValue(False)\n    if z != x:\n     g\[z+\"_isMute\"].setValue(True)\n     g\[z+\"_isSolo\"].setValue(False)\nl = \[n\[\"leftoversName\"].value()]+list(ast.literal_eval(n\[\"aovList\"].value()))\nfor x in l:\n if k.name() == x+\"_isSolo\":\n  for z in l:\n   if k.value() == False:\n    if z != x:\n     g\[z+\"_isMute\"].setValue(False)\n   if k.value() == True:\n    g\[x+\"_isMute\"].setValue(False)\n    if z != x:\n     g\[z+\"_isMute\"].setValue(True)\n     g\[z+\"_isSolo\"].setValue(False)\nl = \[n\[\"LG_leftoversName\"].value()]+ast.literal_eval(n\['lightSelectList'].value())\nfor x in l:\n if k.name() == x+\"_isSolo\":\n  for z in l:\n   if k.value() == False:\n    if z != x:\n     g\[z+\"_isMute\"].setValue(False)\n   if k.value() == True:\n    g\[x+\"_isMute\"].setValue(False)\n    if z != x:\n     g\[z+\"_isMute\"].setValue(True)\n     g\[z+\"_isSolo\"].setValue(False)"
+ tile_color 0xffff
+ label "MASTER\nKARMA"
+ selected true
+ xpos -48
+ ypos -204
+ addUserKnob {20 Info}
+ addUserKnob {41 init l initilaze T _Config_.init}
+ addUserKnob {41 AovBuild T _Config_.AovBuild}
+ addUserKnob {41 BuildBeauty -STARTLINE T _Config_.BuildBeauty}
+ addUserKnob {41 lightsExposureOnly T _Config_.lightsExposureOnly}
+ addUserKnob {41 addMaskInput -STARTLINE T _Config_.addMaskInput}
+ addUserKnob {20 configStart l config n 2}
+ configStart 1
+ addUserKnob {41 shaderList T _Config_.aovList}
+ addUserKnob {41 EditShaderAOVs -STARTLINE T _Config_.EditShaderAOVs}
+ addUserKnob {41 lightSelectList T _Config_.lightSelectList}
+ addUserKnob {41 EditLightAOVs -STARTLINE T _Config_.EditLightAOVs}
+ addUserKnob {20 configEnd l config n -1}
+ addUserKnob {26 ""}
+ addUserKnob {26 txt_6 l Ver: T b0.9.1}
+ addUserKnob {26 txt_9 l Docs}
+ addUserKnob {20 beginInfo l notes n 2}
+ addUserKnob {26 VersionNotes l "" +STARTLINE T "b0.1 26/05/2015 rafKan -forking similar MPC/DNEG tools but making it subtractive and modular\nb0.2 15/10/2020 rafKan mantra renders\nb0.3 26/01/2020 rafsKani testing\nb0.4 28/01/2020 rafsKani updated diffuse maths\nb0.5 03/02/2020 rafsKani fixed gamma and saturation links\nb0.6 15/06/2020 AttilaGa and Rafskan regex & UI update\nb0.7 15/08/2021 rafsKanlots of fixes\nb0.8 10/05/2022 rafsKan regex on build\nb0.9 01/02/2023 rafsKan LGS, and rebuilt UI code, removed regEx\n"}
+ addUserKnob {26 txt_7 l todo}
+ addUserKnob {26 txt_todo_notes l todo T "## PRIORITY ##\n\n## requests ##\n* external build buttons \n** set blank state\n** initBuild\n** add extra light/shaderpass keep the same\n** define groups\n** simpleLightGroups\n** with/withoutMask\n* change '23' to none in grade module\n* as live group\n* tidy callback - place in class & optimise\n* publish to class to pipe\n\n##  roadmap: Important//not urgent ##\n\n* solo to clear all mutes and remember after\n* UI status of isComped / isGraded / issolo/mute using pySide\n* check user defined basecolour & leftover name only work on default name?\n* build regex list builders (again!) - from LPE this time\n* remove basecolor and copy into original basecolour name\n* check_isAnyGradeAon?\n* do we remove leftovers at bottom?\n* turn off diffuse calc when only a multiply for effeciency\n* collapse exposure rgb knob on AOVs\n* order of aovs nodes with colour coding\n\n\n\n\n"}
+ addUserKnob {20 begin l notes n -1}
+}
+ StickyNote {
+  inputs 0
+  name _StickyNote_
+  label "Do Not Rename any nodes with underscores either side of thier name"
+  note_font "Bitstream Vera Sans Bold"
+  note_font_size 21
+  xpos -14745
+  ypos -3592
+ }
+ Input {
+  inputs 0
+  name Input
+  xpos -14404
+  ypos -3511
+ }
+ Group {
+  name _Config_
+  tile_color 0xffff
+  selected true
+  xpos -14404
+  ypos -3339
+  addUserKnob {20 config}
+  addUserKnob {26 txt l "" +STARTLINE T "Only change the config if the naming convesions of the CG changes, and you need to rebuild the passes."}
+  addUserKnob {26 txt_3 l <b>Channels}
+  addUserKnob {1 aovList l shaderList t "This is a python list  of channels that make up the beauty when added together from shader AOV's"}
+  aovList "\['specular_indirect','refraction','diffuse_indirect','emission','sss','diffuse_direct','specular_direct']"
+  addUserKnob {1 lightSelectList t "This is a python list of channels of light select groups when added together are the beauty"}
+  lightSelectList "\['ls_lrg_sun', 'ls_lrg_sky', 'zDepth']"
+  addUserKnob {1 aovList_re t "This is the regEx to match passes that add-up to the beauty from shaders. i.e. so you dont need to type them all out by hand. Or if your studio uses a strict naming convention. i.e. Capitlization for AOV contribution passes as per the openExr spec."}
+  aovList_re "\[a-z]+/|diffuse_direct|diffuse_indirect|specular_indirect|sss_indirect|refraction|specular_direct|emission|sss|/i"
+  addUserKnob {22 MakeListShader l Run t "if you have regex to select only the contribution AOV from shaders, this saves you having to type them out. If you leave it at `.*' this button then makes a list of all of them" -STARTLINE T "n=nuke.thisNode()\nchans=n.channels()\nbuildAOVnode(n,chans).runRegex('aovList_re','aovList')"}
+  addUserKnob {1 lightSelect_re t "This is the regEx to match passes that add-up to the beauty from light selects i.e. so you dont need to type them all out by hand. Or if your studio uses a strict naming convention. i.e. \"ls_*\"" -STARTLINE}
+  lightSelect_re .*^LS_|ls_
+  addUserKnob {22 MakeListLights l Run t "if you have regex to select only the contribution AOV from light selects, this saves you having to type them out. If you leave it at `.*' this button then makes a list of all of them" -STARTLINE T "n=nuke.thisNode()\nchans=n.channels()\nbuildAOVnode(n,chans).runRegex('lightSelect_re','lightSelectList')"}
+  addUserKnob {26 txt_2 l <b>diffuse}
+  addUserKnob {1 basecolourName}
+  basecolourName albedo
+  addUserKnob {1 isDiffuseRegEx t "regex to define aov as containing diffuse"}
+  isDiffuseRegEx diffuse|albedo
+  addUserKnob {1 noAddOrGammaList l "more than diffuse" t "python list of the channels that contain both diffuse and non diffuse contributions. i.e. light groups. \nThis limits the the grading controls to multiplication only."}
+  addUserKnob {26 txt_4 l "<b>tab groups"}
+  addUserKnob {1 a_dict l "tab A dict" t "This is a python dictonary where the \n* keys will be the different groups of passes that are controlled together in the A group \n* Dictonary items will be a python list of the passes in the 'aov_list')"}
+  a_dict "\{\"direct\":\[\"diffuse_direct\",\"specular_direct\"],\"indirect\":\[\"diffuse_indirect\",\"specular_indirect\",\"sss_indirect\"]\}"
+  addUserKnob {1 b_dict l "tab B dict" t "This is a python dictonary where the \n* keys will be the different groups of passes that are controlled together in the B group \n* Dictonary items will be a python list of the passes in the 'aov_list')"}
+  b_dict "\{\"diffuse\":\[\"diffuse_direct\",\"diffuse_indirect\"],\"specular\":\[\"specular_direct\",\"specular_indirect\"]\}"
+  addUserKnob {26 txt_5 l <b>leftovers}
+  addUserKnob {1 leftoversName l shaderLeftovers}
+  leftoversName leftovers
+  addUserKnob {1 LG_leftoversName t "LightGroup_leftovers name"}
+  LG_leftoversName lgsLeftovers
+  addUserKnob {26 ""}
+  addUserKnob {22 buildUi -STARTLINE T "n = nuke.toNode('.'.join(\['root'] + nuke.thisNode().fullName().split('.')\[:-1]))\n\nchans=n.channels()\nbuildAOVnode(n,chans).buildUI(True)"}
+  addUserKnob {22 BuildNodes l "Build nodes" -STARTLINE T "n = nuke.toNode('.'.join(\['root'] + nuke.thisNode().fullName().split('.')\[:-1]))\n\nchans=n.channels()\nbuildAOVnode(n,chans).buildNodes(True)"}
+  addUserKnob {26 txt_1 l hidden +INVISIBLE}
+  addUserKnob {22 loadPython l loadPython(hidden) +INVISIBLE +STARTLINE}
+  addUserKnob {22 setKnobChanged -STARTLINE T "g=nuke.thisParent()\nn=nuke.thisGroup()\nkc = n\[\"knobChangedStr\"].value()\ng\['knobChanged'].setValue(kc)"}
+  addUserKnob {26 knobChangedStr -STARTLINE +INVISIBLE T "import ast\ng=nuke.thisNode()\nn=nuke.toNode(g.name()+\"._Config_\")\nk = nuke.thisKnob()\na_dict = n\['a_dict'].value()\nb_dict = n\['b_dict'].value()\nif a_dict =='':\n a_dict  = '\{\}'\nif b_dict =='':\n b_dict  = '\{\}'\nl = list(ast.literal_eval(a_dict ).keys())\nfor x in l:\n if k.name() == x+\"_isSolo\":\n  for z in l:\n   if k.value() == False:\n    if z != x:\n     g\[z+\"_isMute\"].setValue(False)\n   if k.value() == True:\n    g\[x+\"_isMute\"].setValue(False)\n    if z != x:\n     g\[z+\"_isMute\"].setValue(True)\n     g\[z+\"_isSolo\"].setValue(False)\nl=list(ast.literal_eval(b_dict).keys())\nfor x in l:\n if k.name() == x+\"_isSolo\":\n  for z in l:\n   if k.value() == False:\n    if z != x:\n     g\[z+\"_isMute\"].setValue(False)\n   if k.value() == True:\n    g\[x+\"_isMute\"].setValue(False)\n    if z != x:\n     g\[z+\"_isMute\"].setValue(True)\n     g\[z+\"_isSolo\"].setValue(False)\nl = \[n\[\"leftoversName\"].value()]+list(ast.literal_eval(n\[\"aovList\"].value()))\nfor x in l:\n if k.name() == x+\"_isSolo\":\n  for z in l:\n   if k.value() == False:\n    if z != x:\n     g\[z+\"_isMute\"].setValue(False)\n   if k.value() == True:\n    g\[x+\"_isMute\"].setValue(False)\n    if z != x:\n     g\[z+\"_isMute\"].setValue(True)\n     g\[z+\"_isSolo\"].setValue(False)\nl = \[n\[\"LG_leftoversName\"].value()]+ast.literal_eval(n\['lightSelectList'].value())\nfor x in l:\n if k.name() == x+\"_isSolo\":\n  for z in l:\n   if k.value() == False:\n    if z != x:\n     g\[z+\"_isMute\"].setValue(False)\n   if k.value() == True:\n    g\[x+\"_isMute\"].setValue(False)\n    if z != x:\n     g\[z+\"_isMute\"].setValue(True)\n     g\[z+\"_isSolo\"].setValue(False)"}
+  addUserKnob {52 pyCustom l py_custom +STARTLINE}
+  addUserKnob {22 clearKnobChanged -STARTLINE +INVISIBLE T "nuke.thisNode()\['knobChanged'].setValue(\"\")\nnuke.thisGroup()\['knobChanged'].setValue(\"\")\nnuke.removeKnobChanged(buildAOVnode(nuke.thisGroup(),None).knobCallback)"}
+  addUserKnob {20 info}
+  addUserKnob {26 txct l Reset T ""}
+  addUserKnob {22 init l "  initialize " t "This will delete any previous AOV builds and set the node to its initial default." -STARTLINE T "n = nuke.toNode('.'.join(\['root'] + nuke.thisNode().fullName().split('.')\[:-1]))\n\nchans=n.channels()\nbuildAOVnode(n,chans).initialize()\n\n"}
+  addUserKnob {4 AovBuild t "Select what beatuty builds are required" M {"Shaders and Lights" "Shaders Only" "Lights only" ""}}
+  AovBuild "Lights only"
+  addUserKnob {22 BuildBeauty l "  BuildBeauty " -STARTLINE T "n = nuke.toNode('.'.join(\['root'] + nuke.thisNode().fullName().split('.')\[:-1]))\nchans = n.channels()\nif nuke.thisNode()\['AovBuild'].value() == 'Shaders and Lights':\n buildAOVnode(n,chans).BuildSelectedGroups('Shaders and Lights')\nelif nuke.thisNode()\['AovBuild'].value() == 'Shaders Only':\n  buildAOVnode(n,chans).BuildSelectedGroups( 'Shaders Only')\nelif nuke.thisNode()\['AovBuild'].value() == 'Lights only':\n  buildAOVnode(n,chans).BuildSelectedGroups( 'Lights only')\n\n"}
+  addUserKnob {6 lightsExposureOnly l "lightsExposureOnly |" t "limits all light selects to multiplication only" +STARTLINE}
+  addUserKnob {6 addMaskInput t "this adds a global mask input to the UI" -STARTLINE}
+  addUserKnob {20 config_1 l config n 1}
+  addUserKnob {22 EditShaderAOVs t "Change the regex or add custom AOV's to the shader build. \nnote: if you manually edit the list by adding passes RegEx is no longer used when you build the beauty" T "n = nuke.toNode('.'.join(\['root'] + nuke.thisNode().fullName().split('.')\[:-1]))\n\nchans=n.channels()\nbuildAOVnode(n,chans).editShaders(True,'shaders')" +STARTLINE}
+  addUserKnob {22 EditLightAOVs t "Change the regex or add custom AOV's to the light select build. note: if you manually edit the list by adding passes RegEx is no longer used when you build the beauty" -STARTLINE T "n = nuke.toNode('.'.join(\['root'] + nuke.thisNode().fullName().split('.')\[:-1]))\n\nchans=n.channels()\nbuildAOVnode(n,chans).editShaders(True,'lights')"}
+  addUserKnob {22 AddGroup -STARTLINE T "n = nuke.toNode('.'.join(\['root'] + nuke.thisNode().fullName().split('.')\[:-1]))\n\nchans=n.channels()\nbuildAOVnode(n,chans).addGroups('lights')"}
+  addUserKnob {22 EditMultOnlyAOVs -STARTLINE}
+  addUserKnob {26 txt_8 l note: T "To edit full config i.e. diffuseContribution regex & albedo/leftover names \nsee '_config_' node inside group"}
+  addUserKnob {22 AddNewAOV T "n = nuke.toNode('.'.join(\['root'] + nuke.thisNode().fullName().split('.')\[:-1]))\n\nchans=n.channels()\nbuildAOVnode(n,chans).addNewAov()" +STARTLINE}
+  addUserKnob {20 endGroup_1 n -1}
+  addUserKnob {26 ""}
+  addUserKnob {26 txt_6 l Ver: T b0.9.1}
+  addUserKnob {26 txt_9 l Docs: T ""}
+  addUserKnob {20 group l notes n 1}
+  group 0
+  addUserKnob {26 VersionNotes l "" +STARTLINE T "b0.1 26/05/2015 rafKan -forking similar MPC/DNEG tools but making it subtractive and modular\nb0.2 15/10/2020 rafKan mantra renders\nb0.3 26/01/2020 rafsKani testing\nb0.4 28/01/2020 rafsKani updated diffuse maths\nb0.5 03/02/2020 rafsKani fixed gamma and saturation links\nb0.6 15/06/2020 AttilaGa and Rafskan regex & UI update\nb0.7 15/08/2021 rafsKanlots of fixes\nb0.8 10/05/2022 rafsKan regex on build\nb0.9 01/02/2023 rafsKan LGS, and rebuilt UI code, removed regEx\n"}
+  addUserKnob {26 txt_7 l todo}
+  addUserKnob {26 txt_todo_notes l "" -STARTLINE T "## PRIORITY ##\n\n## requests ##\n* external build buttons \n** set blank state\n** initBuild\n** add extra light/shaderpass keep the same\n** define groups\n** simpleLightGroups\n** with/withoutMask\n* change '23' to none in grade module\n* as live group\n* tidy callback - place in class & optimise\n* publish to class to pipe\n\n##  roadmap: Important//not urgent ##\n\n* solo to clear all mutes and remember after\n* UI status of isComped / isGraded / issolo/mute using pySide\n* check user defined basecolour & leftover name only work on default name?\n* build regex list builders (again!) - from LPE this time\n* remove basecolor and copy into original basecolour name\n* check_isAnyGradeAon?\n* do we remove leftovers at bottom?\n* turn off diffuse calc when only a multiply for effeciency\n* collapse exposure rgb knob on AOVs\n* order of aovs nodes with colour coding\n\n\n\n\n"}
+  addUserKnob {20 endGroup n -1}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos -14069
+   ypos -3350
+  }
+  Output {
+   name Output1
+   xpos -14069
+   ypos -3098
+  }
+  Group {
+   inputs 0
+   name _AOVMerge_
+   tile_color 0x445eafff
+   label "\[value in]\n"
+   xpos -13454
+   ypos -3441
+   disable {{"!(isAnyGradeOn  ||  isBaseColor || isMute || (isDiffuse & basecolor_isAnyGradeOn)) || (isLeftovers & !useLeftovers)"}}
+   addUserKnob {20 User l ShaderMix}
+   addUserKnob {41 in l channel T ShuffleCopy1.out2}
+   addUserKnob {20 config_groupStart l config n 1}
+   config_groupStart 0
+   addUserKnob {6 isDiffuse +STARTLINE}
+   addUserKnob {6 isBaseColor -STARTLINE}
+   addUserKnob {6 isLeftovers -STARTLINE}
+   addUserKnob {6 useLeftovers -STARTLINE}
+   useLeftovers {{"\[value in]_useLeftovers"}}
+   addUserKnob {20 expressions n 1}
+   expressions 0
+   addUserKnob {80 isMute +STARTLINE}
+   isMute {{"\[value in]_isAnyMute"}}
+   addUserKnob {6 isAnyGradeOn -STARTLINE}
+   isAnyGradeOn {{"\[value in]_isAnyGrade || !noComp"}}
+   addUserKnob {6 basecolor_isAnyGradeOn -STARTLINE}
+   basecolor_isAnyGradeOn {{"\[value  basecolourName]_isAnyGrade&isDiffuse"}}
+   addUserKnob {6 noComp +STARTLINE}
+   noComp {{"\[exists input1.input.UID23]"}}
+   addUserKnob {20 config_endGroup l "" +STARTLINE n -1}
+   addUserKnob {20 endGroup n -1}
+  }
+   Input {
+    inputs 0
+    name A
+    xpos -182
+    ypos -104
+    number 1
+   }
+   Multiply {
+    channels rgba
+    value 0
+    name Mute2
+    tile_color 0x464646ff
+    note_font_color 0xffff00ff
+    xpos -182
+    ypos -34
+    disable {{!parent.isMute}}
+   }
+   Dot {
+    name Dot21
+    xpos -148
+    ypos 37
+   }
+set Na0674800 [stack 0]
+   Input {
+    inputs 0
+    name B
+    xpos -673
+    ypos -111
+   }
+   Dot {
+    name Dot2
+    tile_color 0x949494ff
+    note_font_size 22
+    note_font_color 0xffffffff
+    xpos -639
+    ypos 42
+   }
+set Na064f900 [stack 0]
+add_layer {basecolor_graded basecolor_graded.red basecolor_graded.green basecolor_graded.blue}
+   Copy {
+    inputs 2
+    from0 rgba.red
+    to0 basecolor_graded.red
+    from1 rgba.green
+    to1 basecolor_graded.green
+    from2 rgba.blue
+    to2 basecolor_graded.blue
+    metainput A
+    name Copy1
+    note_font_color 0xffff00ff
+    xpos -78
+    ypos 99
+   }
+   Dot {
+    name Dot3
+    tile_color 0x949494ff
+    note_font_size 22
+    note_font_color 0xffffffff
+    xpos -44
+    ypos 446
+   }
+push $Na0674800
+push $Na064f900
+   MergeExpression {
+    inputs 2
+    temp_name0 div_r
+    temp_expr0 (((Ar/Ba)/(Bbasecolor.red/Ba)*(Bbasecolor_graded.red))*Ba)
+    temp_name1 div_g
+    temp_expr1 (((Ag/Ba)/(Bbasecolor.green/Ba)*(Bbasecolor_graded.green))*Ba)
+    temp_name2 div_b
+    temp_expr2 (((Ab/Ba)/(Bbasecolor.blue/Ba)*(Bbasecolor_graded.blue))*Ba)
+    channel0 {rgba.red -rgba.green -rgba.blue none}
+    expr0 "isnan(div_r) || isinf(div_r)  ? 0 : div_r"
+    channel1 {-rgba.red rgba.green -rgba.blue none}
+    expr1 "isnan(div_g) || isinf(div_g)  ? 0 : div_g"
+    channel2 {-rgba.red -rgba.green rgba.blue none}
+    expr2 "isnan(div_b) || isinf(div_b)  ? 0 : div_b"
+    channel3 {none none none -rgba.alpha}
+    name MergeExpression3
+    label "\[value channel]\ndiv_baseColor"
+    note_font_color 0xffff00ff
+    xpos -249
+    ypos 194
+   }
+push $Na0674800
+   Switch {
+    inputs 2
+    which {{parent.isDiffuse}}
+    name Switch4
+    label isDiffuse
+    xpos -182
+    ypos 261
+   }
+   Dot {
+    name Dot4
+    tile_color 0x949494ff
+    note_font_size 22
+    note_font_color 0xffffffff
+    xpos -148
+    ypos 319
+   }
+push $Na0674800
+push $Na064f900
+   MergeExpression {
+    inputs 2
+    temp_name0 div_r
+    temp_expr0 "(((Br/Ba)-(B\[value in].red/Ba))+((Ar/Ba)*(Bbasecolor_graded.red))*Ba)*Ba"
+    temp_name1 div_g
+    temp_expr1 "(((Bg/Ba)-(B\[value in].green/Ba))+((Ag/Ba)*(Bbasecolor_graded.green))*Ba)*Ba"
+    temp_name2 div_b
+    temp_expr2 "(((Bb/Ba)-(B\[value in].blue/Ba))+((Ab/Ba)*(Bbasecolor_graded.blue))*Ba)*Ba"
+    channel0 {rgba.red -rgba.green -rgba.blue none}
+    expr0 "isnan(div_r) || isinf(div_r)  ? 0 : div_r"
+    channel1 {-rgba.red rgba.green -rgba.blue none}
+    expr1 "isnan(div_g) || isinf(div_g)  ? 0 : div_g"
+    channel2 {-rgba.red -rgba.green rgba.blue none}
+    expr2 "isnan(div_b) || isinf(div_b)  ? 0 : div_b"
+    channel3 {none none none -rgba.alpha}
+    name MergeExpression2
+    label "\[value channel]\ndiv_baseColor"
+    note_font_color 0xffff00ff
+    xpos -546
+    ypos 153
+   }
+push $Na0674800
+push $Na064f900
+   MergeExpression {
+    inputs 2
+    temp_name0 div_r
+    temp_expr0 "(((Br/Ba)-(B\[value in].red/Ba))+Ar)*Ba"
+    temp_name1 div_g
+    temp_expr1 "(((Bg/Ba)-(B\[value in].green/Ba))+Ag)*Ba"
+    temp_name2 div_b
+    temp_expr2 "(((Bb/Ba)-(B\[value in].blue/Ba))+Ab)*Ba"
+    channel0 {rgba.red -rgba.green -rgba.blue none}
+    expr0 "isnan(div_r) || isinf(div_r)  ? 0 : div_r"
+    channel1 {-rgba.red rgba.green -rgba.blue none}
+    expr1 "isnan(div_g) || isinf(div_g)  ? 0 : div_g"
+    channel2 {-rgba.red -rgba.green rgba.blue none}
+    expr2 "isnan(div_b) || isinf(div_b)  ? 0 : div_b"
+    channel3 {none none none -rgba.alpha}
+    expr3 Ba
+    name MergeExpression1
+    label "\[value in]"
+    note_font_color 0xffff00ff
+    xpos -276
+    ypos 129
+   }
+   Switch {
+    inputs 2
+    which {{parent.isDiffuse}}
+    name Switch2
+    label isDiffuse
+    xpos -387
+    ypos 257
+   }
+   ShuffleCopy {
+    inputs 2
+    alpha alpha2
+    black red
+    white green
+    red2 blue
+    name ShuffleCopy1
+    label gradeAOVLayer
+    xpos -387
+    ypos 309
+   }
+   Dot {
+    name Dot5
+    tile_color 0x949494ff
+    note_font_size 22
+    note_font_color 0xffffffff
+    xpos -353
+    ypos 390
+   }
+push $Na064f900
+   Switch {
+    inputs 2
+    which {{"parent.isAnyGradeOn  ||  parent.basecolor_isAnyGradeOn || parent.isMute || isLeftovers"}}
+    name Switch1
+    label isGraded?
+    xpos -673
+    ypos 380
+   }
+   Switch {
+    inputs 2
+    which {{parent.isBaseColor}}
+    name Switch3
+    label isBasrcolour?
+    xpos -673
+    ypos 442
+   }
+   Output {
+    name Output1
+    xpos -673
+    ypos 509
+   }
+  end_group
+  Group {
+   inputs 0
+   name _AOVGrade_
+   tile_color 0x799ecfff
+   label "<font size = \"+2\">\[value in] </font>\n         DO NOT RENAME\n\n\n"
+   note_font_size 16
+   xpos -13511
+   ypos -3345
+   addUserKnob {20 User l AOVGrade}
+   addUserKnob {41 in l channel T Shuffle.in}
+   addUserKnob {18 exposure R 4 -4}
+   exposure {0 0 0}
+   addUserKnob {6 exposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 multiply R 0 4}
+   multiply {1 1 1}
+   addUserKnob {6 multiply_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 add l offset R -1 1}
+   add {0 0 0}
+   addUserKnob {6 add_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 gamma R 0.2 5}
+   gamma 1
+   addUserKnob {6 gamma_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {8 saturation R 0 4}
+   saturation 1
+   addUserKnob {20 configGroup l config n 1}
+   configGroup 0
+   addUserKnob {6 isBaseColor -STARTLINE}
+   addUserKnob {6 isLeftovers -STARTLINE}
+   addUserKnob {6 isDiffuse -STARTLINE}
+   addUserKnob {1 whatGroupA -STARTLINE}
+   whatGroupA 23
+   addUserKnob {1 whatGroupB -STARTLINE}
+   whatGroupB 23
+   addUserKnob {20 expressionsGroup l expressions n 1}
+   expressionsGroup 0
+   addUserKnob {26 textLine2 l GroupA}
+   addUserKnob {18 direct_exposure R -4 1}
+   direct_exposure {{"whatGroupA==23?0:isBaseColor|isLeftovers?0:parent.\[value whatGroupA]_exposure"} {"whatGroupA==23?0:isBaseColor|isLeftovers?0:parent.\[value whatGroupA]_exposure"} {"whatGroupA==23?0:isBaseColor|isLeftovers?0:parent.\[value whatGroupA]_exposure"}}
+   addUserKnob {6 direct_exposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 direct_multiply R 0 4}
+   direct_multiply {{"whatGroupA==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupA]_multiply"} {"whatGroupA==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupA]_multiply"} {"whatGroupA==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupA]_multiply"}}
+   addUserKnob {6 direct_multiply_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 direct_add R -1 1}
+   direct_add {{"whatGroupA==23?0:isBaseColor||isLeftovers?0:parent.\[value whatGroupA]_add"} {"whatGroupA==23?0:isBaseColor||isLeftovers?0:parent.\[value whatGroupA]_add"} {"whatGroupA==23?0:isBaseColor||isLeftovers?0:parent.\[value whatGroupA]_add"}}
+   addUserKnob {6 direct_add_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 direct_gamma R 0.2 5}
+   direct_gamma {{"whatGroupA==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupA]_gamma"} {"whatGroupA==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupA]_gamma"} {"whatGroupA==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupA]_gamma"}}
+   addUserKnob {6 direct_gamma_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 direct_saturation R 0 4}
+   direct_saturation {{"whatGroupA==23?1:isBaseColor||isLeftovers?0:parent.\[value whatGroupA]_saturation"}}
+   addUserKnob {6 direct_saturation_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {6 direct_isDisableCC +STARTLINE}
+   direct_isDisableCC {{"whatGroupA==23?0:parent.\[value whatGroupA]_isDisableCC"}}
+   addUserKnob {6 direct_isMute -STARTLINE}
+   direct_isMute {{"whatGroupB==23||whatGroupA==23?0:parent.\[value whatGroupB]_isSolo==1?0:parent.\[value whatGroupA]_isMute"}}
+   addUserKnob {26 lineText3 l GroupB}
+   addUserKnob {18 shader_exposure R -4 1}
+   shader_exposure {{"whatGroupB==23?0:isBaseColor||isLeftovers?0:parent.\[value whatGroupB]_exposure"} {"whatGroupB==23?0:isBaseColor||isLeftovers?0:parent.\[value whatGroupB]_exposure"} {"whatGroupB==23?0:isBaseColor||isLeftovers?0:parent.\[value whatGroupB]_exposure"}}
+   addUserKnob {6 shader_exposure_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 shader_multiply R 0 4}
+   shader_multiply {{"whatGroupB==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupB]_multiply"} {"whatGroupB==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupB]_multiply"} {"whatGroupB==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupB]_multiply"}}
+   addUserKnob {6 shader_multiply_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 shader_add R -1 1}
+   shader_add {{"whatGroupB==23?0:isBaseColor||isLeftovers?0:parent.\[value whatGroupB]_add"} {"whatGroupB==23?0:isBaseColor||isLeftovers?0:parent.\[value whatGroupB]_add"} {"whatGroupB==23?0:isBaseColor||isLeftovers?0:parent.\[value whatGroupB]_add"}}
+   addUserKnob {6 shader_add_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 shader_gamma R 0.2 5}
+   shader_gamma {{"whatGroupB==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupB]_gamma"} {"whatGroupB==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupB]_gamma"} {"whatGroupB==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupB]_gamma"}}
+   addUserKnob {6 shader_gamma_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {18 shader_saturation R 0 4}
+   shader_saturation {{"whatGroupB==23?1:isBaseColor||isLeftovers?1:parent.\[value whatGroupB]_saturation"}}
+   addUserKnob {6 shader_saturation_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+   addUserKnob {6 shader_isDisableCC +STARTLINE}
+   shader_isDisableCC {{"whatGroupB==23?0:parent.\[value whatGroupB]_isDisableCC"}}
+   addUserKnob {6 shader_isMute -STARTLINE}
+   shader_isMute {{"whatGroupB==23||whatGroupA==23?0:parent.\[value whatGroupA]_isSolo==1?0:parent.\[value whatGroupB]_isMute"}}
+   addUserKnob {26 ""}
+   addUserKnob {6 isAnyCcDisabled -STARTLINE}
+   isAnyCcDisabled {{"(isLeftovers?0:(direct_isDisableCC  || shader_isDisableCC))  || parent.\[value in]_isDisableCC"}}
+   addUserKnob {6 isAnyGradeOn l isAnyGradeOn? -STARTLINE}
+   isAnyGradeOn {{this.Grade._isGradeOn}}
+   addUserKnob {6 isAnyMuteOn -STARTLINE}
+   isAnyMuteOn {{"direct_isMute || shader_isMute  || parent.\[value in]_isMute"}}
+   addUserKnob {26 ""}
+   addUserKnob {3 UID23 -STARTLINE}
+   addUserKnob {20 endExpressionsGroup n -1}
+   addUserKnob {20 endConfigGroup n -1}
+   addUserKnob {20 info}
+   addUserKnob {26 version l ver: T b01}
+   addUserKnob {26 history l history: T "v01b 18/01/01 rafsKan Creation"}
+  }
+   Input {
+    inputs 0
+    name Input1
+    xpos 559
+    ypos 378
+   }
+   Grade {
+    white {{parent.exposure+parent.direct_exposure+parent.shader_exposure==0?1:pow(2,parent.exposure+parent.direct_exposure+parent.shader_exposure)} {parent.exposure+parent.direct_exposure+parent.shader_exposure==0?1:pow(2,parent.exposure+parent.direct_exposure+parent.shader_exposure)} {parent.exposure+parent.direct_exposure+parent.shader_exposure==0?1:pow(2,parent.exposure+parent.direct_exposure+parent.shader_exposure)} 0}
+    multiply {{parent.multiply*parent.direct_multiply*parent.shader_multiply} {parent.multiply*parent.direct_multiply*parent.shader_multiply} {parent.multiply*parent.direct_multiply*parent.shader_multiply} 0}
+    add {{parent.add+parent.direct_add+parent.shader_add} {parent.add+parent.direct_add+parent.shader_add} {parent.add+parent.direct_add+parent.shader_add} 0}
+    gamma {{parent.gamma+parent.direct_gamma+parent.shader_gamma-2} {parent.gamma+parent.direct_gamma+parent.shader_gamma-2} {parent.gamma+parent.direct_gamma+parent.shader_gamma-2} 0}
+    black_clamp false
+    name Grade
+    tile_color 0xff
+    note_font_color 0xffff00ff
+    xpos 559
+    ypos 442
+    disable {{parent.isAnyCcDisabled}}
+    addUserKnob {20 User}
+    addUserKnob {6 _isGradeOn l isGradeOn +STARTLINE}
+    _isGradeOn {{"!(white.r==1 && white.g==1 && white.b==1 &&\nmultiply.r==1 && multiply.g==1 && multiply.b==1 &&\nadd.r==0 && add.g==0 && add.b==0 &&\ngamma.r==1 && gamma.g==1 && gamma.b==1 &&\nSaturation.saturation==1 )"}}
+   }
+   Saturation {
+    saturation {{parent.saturation+parent.direct_saturation+parent.shader_saturation-2}}
+    name Saturation
+    tile_color 0xff
+    note_font_color 0xffff00ff
+    xpos 559
+    ypos 495
+    disable {{parent.isAnyCcDisabled}}
+   }
+   ModifyMetaData {
+    metadata {
+     {set AOV/isGradeOn "\[value isAnyGradeOn]"}
+     {set AOV/isMuteOn "\[value isAnyMute]"}
+    }
+    name ModifyMetaData1
+    xpos 559
+    ypos 539
+    disable true
+   }
+   Output {
+    name Output1
+    xpos 559
+    ypos 592
+   }
+   Shuffle {
+    inputs 0
+    in none
+    in2 rgba
+    alpha alpha2
+    name Shuffle
+    label "\[value in]"
+    xpos 701
+    ypos 409
+   }
+  end_group
+  Group {
+   inputs 0
+   name _AOVPass_
+   label "\[value in]"
+   note_font_size 16
+   xpos -13491
+   ypos -3208
+   addUserKnob {20 AOVpass}
+   addUserKnob {41 in l channel T Shuffle_1.in}
+   addUserKnob {41 isDiffuse T Switch1.isDiffuse}
+  }
+   Input {
+    inputs 0
+    name Input1
+    xpos -654
+    ypos -169
+   }
+   Shuffle {
+    in none
+    in2 rgba
+    alpha alpha2
+    name Shuffle_1
+    label "\[value in]"
+    xpos -654
+    ypos -129
+   }
+set Na05f8100 [stack 0]
+   Expression {
+    temp_name0 div_r
+    temp_expr0 (rgba.red/a)/(basecolor.red/a)
+    temp_name1 div_g
+    temp_expr1 (rgba.green/a)/(basecolor.green/a)
+    temp_name2 div_b
+    temp_expr2 (rgba.blue/a)/(basecolor.blue/a)
+    temp_name3 div_a
+    temp_expr3 rgba.alpha/a
+    expr0 "isnan(div_r) || isinf(div_r)  ? 0 : div_r"
+    expr1 "isnan(div_g) || isinf(div_g)  ? 0 : div_g"
+    expr2 "isnan(div_b) || isinf(div_b)  ? 0 : div_b"
+    expr3 "isnan(div_a) || isinf(div_a)  ? 0 : div_a"
+    name ExpressionDivBasecolor
+    tile_color 0x3f3f3fff
+    label "\n"
+    note_font_color 0xffff00ff
+    xpos -579
+    ypos -55
+   }
+push $Na05f8100
+   Expression {
+    temp_name0 div_r
+    temp_expr0 rgba.red/a
+    temp_name1 div_g
+    temp_expr1 rgba.green/a
+    temp_name2 div_b
+    temp_expr2 rgba.blue/a
+    temp_name3 div_a
+    temp_expr3 rgba.alpha/a
+    expr0 "isnan(div_r) || isinf(div_r)  ? 0 : div_r"
+    expr1 "isnan(div_g) || isinf(div_g)  ? 0 : div_g"
+    expr2 "isnan(div_b) || isinf(div_b)  ? 0 : div_b"
+    expr3 "isnan(div_a) || isinf(div_a)  ? 0 : div_a"
+    name Expression
+    tile_color 0x3f3f3fff
+    note_font_color 0xffff00ff
+    xpos -718
+    ypos -55
+   }
+   Switch {
+    inputs 2
+    which {{isDiffuse x1001 0}}
+    name Switch1
+    xpos -654
+    ypos 2
+    addUserKnob {20 User}
+    addUserKnob {6 isDiffuse +STARTLINE}
+   }
+   Output {
+    name Output1
+    xpos -654
+    ypos 102
+   }
+  end_group
+ end_group
+ Output {
+  name _Output_
+  tile_color 0x445eafff
+  note_font_color 0xffff00ff
+  xpos -14420
+  ypos 811
+ }
+end_group
+push $cut_paste_input
+NoOp {
+ name GradeBeautyCode
+ selected true
+ xpos -127
+ ypos -254
+ addUserKnob {20 User}
+ addUserKnob {22 runMe l "  RUN ME  " T "##############################\n### AOV BEAUTY ###############\n##############################\n\nimport re\nimport ast\n\nclass buildAOVnode:\n    def __init__(self, node, channels):\n        print(\"_____CLASS_buildAOVnode\")\n        self.node = node\n        self.chan =list(set(\[c.split('.')\[0] for c in channels]))\n        self.listPreview =\[]\n        self.listPreview_re=''\n\n    def fixPanelDroppedBug(self):\n        print(\"_____def_fixPanelDroppedBug\")\n        nodes = nuke.allNodes(recurseGroups=True)\n        for node in nodes:\n            for knob in node.knobs():\n                if 'panelDropped' in knob:\n                    try:\n                        node.removeKnob(node\[knob])\n                    except:\n                        pass\n\n    ##############################\n    ### AOV GROUP Build UI #######\n    ##############################\n\n    def clearCache(self):\n        print(\"_____def_clearCache\")\n        nuke.clearDiskCache()\n        nukescripts.cache_clear(\"\")\n        nuke.clearRAMCache()\n\n    def delete_knobs(self):\n        # Pass 1 knob deletion.\n        print (\"____def delete_knobs\")\n        knobs = \[k for k in self.node.knobs().values()]\n        for knob in knobs:\n            knob_name = knob.name()\n            is_tab = isinstance(knob, nuke.Tab_Knob)\n            if is_tab and knob.name() == \"User\":\n                continue  # Leave the user tab\n            try:\n                self.node.removeKnob(knob)\n            except ValueError:\n                pass\n        # Pass 2 knob deletion\n        for knob_index in sorted(range(self.node.numKnobs()), reverse=True):\n            knob = self.node.knob(knob_index)\n            knob_name = knob.name()\n            is_tab = isinstance(knob, nuke.Tab_Knob)\n            try:\n                self.node.removeKnob(knob)\n            except ValueError:\n                pass\n\n    def addKnobs(self, mode):\n        print(\"____def_addKnobs\")\n        KnobsList=\['title','DisableCC','Solo','Mute','useLeftovers','exposure','multiply','add','gamma','saturation','isAnyGrade', 'isAnyMute']\n        for knobName in KnobsList:\n            if knobName not in  \['isAnyGrade', 'isAnyMute']:  # not hidden knobs\n                if knobName == 'title':\n                    knobX = nuke.Text_Knob('tmp')\n                    knobX.setName(\"_\" + self.i)\n                    knobX.setLabel(' ')\n                    knobX.setValue(\n                        '• <b>' + self.i.capitalize() + ' •  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>')\n                    self.node.addKnob(knobX)  # add text knob\n                elif knobName == 'DisableCC' or knobName == 'Solo'or knobName == 'Mute' or knobName == 'useLeftovers': #checkboxes\n                    if mode == 'basecolor' and knobName == 'Solo':  # no solo  for basecolour\n                        pass\n                    elif mode == 'basecolor' and knobName == 'Mute':  # no solo or mute for basecolour\n                        pass\n                    else:\n                        if knobName == 'useLeftovers':  # no useLeftovers for != leftovers:\n                            if mode == 'leftovers':\n                                knobX = nuke.Boolean_Knob(self.i +'_'+ knobName, knobName)\n                                self.node.addKnob(knobX)  # add checkbox\n                        else:\n                            knobX = nuke.Boolean_Knob(self.i + '_is'+knobName, knobName) #todo remove '_is' to tidy up\n                            self.node.addKnob(knobX)  #add checkboxes\n                elif knobName == 'exposure': #double knob\n                    if mode == 'aov' or mode == 'basecolor' or mode== 'leftovers': # direct AOVs\n                        knobX = nuke.Link_Knob(self.i + '_'+knobName, knobName)\n                        knobX.setLink('this._AOVGrade_' + self.i + '_.'+knobName)\n                    else: #grouped AOV knobs\n                        knobX = nuke.Double_Knob(self.i + '_' + knobName, knobName)\n                        knobX.setRange(-5, 5)\n                        knobX.setValue(0)\n                        knobX.setSingleValue(True)\n                    self.node.addKnob(knobX) #add double knob\n                elif knobName in \['multiply','add','gamma','saturation']: # colourKnob\n                    if knobName in \['add','gamma'] and self.i in self.noAddOrGammaList or knobName in \['add','gamma'] and self.lightsExposureOnly and self.i in self.lightSelectList: # aov contains both diffuse and non-diffuse\n                        pass\n                    else:\n                        if mode == 'aov' or mode == 'basecolor' or mode== 'leftovers': # direct AOVs\n                            knobX = nuke.Link_Knob(self.i + '_'+knobName, knobName)\n                            knobX.setLink('this._AOVGrade_' + self.i + '_.'+knobName)\n                        else: #grouped AOV knobs\n                            knobX = nuke.Color_Knob(self.i + '_'+knobName, knobName)\n                            if knobName == 'multiply': # multiply does not set single value\n                                    knobX.setRange(0, 4)\n                                    knobX.setValue(1, 0)\n                                    knobX.setValue(1, 1)\n                                    knobX.setValue(1, 2)\n                            else: # collase rgb knobs\n                                if knobName == 'add':\n                                    knobX.setRange(-1, 1)\n                                if knobName == 'gamma':\n                                    knobX.setRange(0.2, 5)\n                                    knobX.setValue(1)\n                                if knobName == 'saturation':\n                                        knobX.setRange(0, 4)\n                                        knobX.setValue(1)\n                                knobX.setSingleValue(True)\n                        self.node.addKnob(knobX) # add colourKnob\n        # hidden knobs\n            else:\n                if mode == 'aov' or mode == 'basecolor' or mode == 'leftovers':  # direct AOV\n                    knobX = nuke.Boolean_Knob(self.i + '_'+knobName, knobName)\n                    self.node.addKnob(knobX)\n                    knobX.setFlag(nuke.INVISIBLE)\n                    knobX.setExpression(\"_AOVGrade_\" + self.i + \"_.\" + knobName+\"On\")\n        if mode == 'basecolor':\n            knobX = nuke.String_Knob(\"basecolourName\", \"basecolourName\")\n            self.node.addKnob(knobX)\n            knobX.setFlag(nuke.INVISIBLE)\n            knobX.setValue(self.basecolor)  #todo: expression to _Config_.basecolourName\n        # create dividing line\n        #self.node.addKnob(nuke.Text_Knob('', ''))\n\n    def addMaskUI(self):\n        print (\"____def_addMaskUI\")\n        if self.addMaskInput is True:\n            if self.firstTab is True:\n                self.node.addKnob(nuke.Text_Knob('', ''))\n                knob = nuke.Link_Knob('maskChannel', 'maskChannel')\n                knob.setLink(\"_Keymix_.maskChannel\")\n                self.node.addKnob(knob)\n                knob = nuke.Link_Knob('invertMask', 'invert')\n                knob.setLink(\"_Keymix_.invertMask\")\n                self.node.addKnob(knob)\n                knob.clearFlag(nuke.STARTLINE)\n                knob = nuke.Link_Knob('mix', 'mix')\n                knob.setLink(\"_Keymix_.mix\")\n                self.node.addKnob(knob)\n                self.firstTab = False\n\n    def createGroupA(self):\n        print(\"____def_createGroupA\")\n\n        ### CREATE AOV_group_a_list TAB ###\n        if not self.a_dict  == \{\}:\n            for self.i in self.a_dict.keys():\n                    self.addKnobs('group')\n            if self.addMaskInput:\n                self.addMaskUI()\n        else:\n            pass\n        knobs = \[k for k in self.node.knobs().values()]\n        for knob in knobs:\n            knob_name = knob.name()\n            is_tab = isinstance(knob, nuke.Tab_Knob)\n            if is_tab and knob.name() == \"User\":\n                knob.setName('TabA')\n                knob.setLabel('GroupA')\n\n    def createGroupB(self):\n        print(\"____def_createGroupB\")\n        ### CREATE AOV_Shader TAB ###\n        if not self.a_dict  == \{\}:\n            if not self.b_dict  == \{\}:\n                self.node.addKnob(nuke.Tab_Knob('TabB', 'GroupB'))\n            for self.i in self.b_dict.keys():\n                    self.addKnobs('group')\n            if self.addMaskInput:\n                self.addMaskUI()\n        else:\n            pass\n\n    def lightGroupLists(self):\n        print(\"____def_lightGroupLists\")\n        if not self.a_dict == \[]:\n            if not self.lightSelectList  == \[]:\n                ### CREATE AOVs TAB ###\n                self.node.addKnob(nuke.Tab_Knob('Lights', 'Lights'))\n                for self.i in self.lightSelectList:\n                    self.addKnobs('aov')\n                if self.addMaskInput:\n                    self.addMaskUI()\n            else:\n                pass\n\n    def createAovs(self):\n        print(\"____def_createAovs\")\n        ### CREATE AOVs TAB ###\n        if self.aovList != \[]:\n            self.node.addKnob(nuke.Tab_Knob('Shdrs', 'Shdrs'))\n            if len(self.aovList) >5: #if too many for UI\n                self.node.addKnob(nuke.Tab_Knob('AOVgroup', 'AOVs', nuke.TABBEGINCLOSEDGROUP))\n            else:\n                self.node.addKnob(nuke.Tab_Knob('AOVgroup', 'AOVs',nuke.TABBEGINGROUP))\n            for self.i in self.aovList:\n                if self.i != self.basecolor and self.i != self.leftovers:\n                    self.addKnobs('aov')\n            self.node.addKnob(nuke.Tab_Knob('AOVgroup', 'AOVgroupEnd', -1))\n            if self.addMaskInput:\n                self.addMaskUI()\n\n    def createAovExtras(self):\n        print(\"____def_AovExtras\")\n        ### CREATE AOVs TAB ###\n        self.node.addKnob(nuke.Tab_Knob('Extras', 'Extras'))\n        # create Group Begin EXTRAS\n        if self.aovList != \[]:\n            if re.search('\[a-zA-Z]', self.basecolor): # do we have a base colour?\n                ### create basecolor ###\n                self.i = self.basecolor\n                self.addKnobs('basecolor')\n        else:\n            pass\n        ### create leftovers ###\n        if self.aovList != \[]:\n            self.i = 'leftovers'\n            self.addKnobs('leftovers')\n        if self.lightSelectList  != \[]:\n            self.i = 'lgsLeftovers'\n            self.addKnobs('leftovers')\n\n    def createConfigInfoTab(self,initRun): # could this be done as a loop of found knobs on a tab?\n        print(\"____def_createConfigInfoTab\")\n\n        ### CREATE Info TAB ###\n        self.node.addKnob(nuke.Tab_Knob('Info', 'Info'))\n        # create knobs\n        knob = nuke.Link_Knob('init', 'initilaze')\n        knob.setLink(\"_Config_.init\")\n        self.node.addKnob(knob)\n        if initRun is False:\n            knob = nuke.Link_Knob('AddNewAOV', 'AddNewAOV')\n            knob.setLink(\"_Config_.AddNewAOV\")\n            knob.clearFlag(nuke.STARTLINE)\n            self.node.addKnob(knob)\n        if initRun is True:\n            knob = nuke.Link_Knob('AovBuild', 'AovBuild')\n            knob.setLink(\"_Config_.AovBuild\")\n            self.node.addKnob(knob)\n            knob = nuke.Link_Knob('BuildBeauty', 'BuildBeauty')\n            knob.setLink(\"_Config_.BuildBeauty\")\n            knob.clearFlag(nuke.STARTLINE)\n            self.node.addKnob(knob)\n            knob = nuke.Link_Knob('lightsExposureOnly', 'lightsExposureOnly')\n            knob.setLink(\"_Config_.lightsExposureOnly\")\n            self.node.addKnob(knob)\n            knob = nuke.Link_Knob('addMaskInput', 'addMaskInput')\n            knob.setLink(\"_Config_.addMaskInput\")\n            knob.clearFlag(nuke.STARTLINE)\n            self.node.addKnob(knob)\n            self.node.addKnob(nuke.Tab_Knob('configStart', 'config', nuke.TABBEGINCLOSEDGROUP))\n            knob = nuke.Link_Knob('shaderList', 'shaderList')\n            knob.setLink(\"_Config_.aovList\")\n            self.node.addKnob(knob)\n            knob = nuke.Link_Knob('EditShaderAOVs', 'EditShaderAOVs')\n            knob.setLink(\"_Config_.EditShaderAOVs\")\n            knob.clearFlag(nuke.STARTLINE)\n            self.node.addKnob(knob)\n            knob = nuke.Link_Knob('lightSelectList', 'lightSelectList')\n            knob.setLink(\"_Config_.lightSelectList\")\n            self.node.addKnob(knob)\n            knob = nuke.Link_Knob('EditLightAOVs', 'EditLightAOVs')\n            knob.setLink(\"_Config_.EditLightAOVs\")\n            knob.clearFlag(nuke.STARTLINE)\n            self.node.addKnob(knob)\n            self.node.addKnob(nuke.Tab_Knob('configEnd', 'config', nuke.TABENDGROUP))\n\n        self.node.addKnob(nuke.Text_Knob('', ''))\n        self.node.addKnob(nuke.Text_Knob('txt_6', 'Ver:', self.configNode\['txt_6'].value()))\n        self.node.addKnob(nuke.Text_Knob('txt_9', 'Docs', self.configNode\['txt_9'].value()))\n        self.node.addKnob(nuke.Tab_Knob('beginInfo', 'notes',nuke.TABBEGINCLOSEDGROUP))\n        self.node.addKnob(nuke.Text_Knob('VersionNotes', '', self.configNode\['VersionNotes'].value()))\n        self.node.addKnob(nuke.Text_Knob('txt_7', 'todo', self.configNode\['txt_7'].value()))\n        self.node.addKnob(nuke.Text_Knob('txt_todo_notes', 'todo', self.configNode\['txt_todo_notes'].value()))\n        self.node.addKnob(nuke.Tab_Knob('begin', 'notes', -1))\n\n    #####################################################\n    # CREATE NODES INSIDE GROUP\n    #####################################################\n\n    def pasteNode(self, copy, input, xPos, yPos,aov):\n        self.configNode.begin()\n        nukescripts.clear_selection_recursive()\n        nuke.toNode(copy).setSelected(True)\n        nuke.nodeCopy('%clipboard%')\n        self.configNode.end()\n        nukescripts.clear_selection_recursive()\n        n = nuke.nodePaste(\"%clipboard%\")  # pass n\n        n\['name'].setValue(copy + aov + '_')\n        n.setInput(0, input)\n        n.setXYpos(input.xpos() + xPos, input.ypos() + yPos)\n        return n\n\n    def delete_child_nodes(self):\n        keep_nodes = \['Input', \"_Config_\", \"_Output_\",'_StickyNote_']\n        delete_nodes = \[n for n in self.node.nodes() if n.name() not in keep_nodes]\n        for node in delete_nodes:\n            nuke.delete(node)\n\n    def createPlaceNodes(self):\n        print (\"NodeBuild_aov: \" + self.aovBuild)\n        ##start: place nodes in graph\n        if self.firstAOV is True:\n            self.nMerge = self.pasteNode('_AOVMerge_', self.mainSpline, -34, 2500,self.aovBuild)\n            self.firstAOV = False\n        else:\n            self.nMerge = self.pasteNode('_AOVMerge_', self.mainSpline, 0, 100,self.aovBuild)\n        self.mainSpline = self.nMerge\n        self.nPass = self.pasteNode('_AOVPass_', self.sideSpline, -34, 100,self.aovBuild)\n        self.sideSplineY = self.nPass\n        self.nGrade = self.pasteNode('_AOVGrade_', self.sideSplineY, 0, 300,self.aovBuild)\n        dot = nuke.nodes.Dot(name=\"AllHailBob\")\n        dot.setInput(0, self.nGrade)\n        dot.setXYpos(self.nGrade.xpos() + 34, self.mainSpline.ypos() + 8)\n        self.mainSpline.setInput(1, dot)\n\n    def setValuesOnNodes(self):\n        self.nMerge\['in'].setValue(self.aovBuild)\n        self.nPass\['in'].setValue(self.aovBuild)\n        self.nGrade\['in'].setValue(self.aovBuild)\n        if self.aovBuild is self.basecolor:  # todo hide ui string\n            self.nGrade\['isBaseColor'].setValue('1')\n            self.nMerge\['isBaseColor'].setValue('1')\n        if self.aovBuild is self.leftovers or self.aovBuild is self.LG_leftovers:\n            self.nGrade\['isLeftovers'].setValue('1')\n            self.nMerge\['isLeftovers'].setValue('1')\n        if self.aovBuild is not self.aovListBuild\[-1]:  # last in list so extra lonley dot not created\n            if self.aovBuild is not self.aovListBuild\[-2]:  # not last dot\n                dotName = \"rarrar_\"+self.aovBuild\n                dot = nuke.nodes.Dot(name=dotName)\n            else:\n                dot = nuke.nodes.Dot(name=\"_omegaDot_\")\n            dot.setInput(0, self.sideSpline)\n            dot.setXYpos(self.sideSpline.xpos() - 750, self.sideSpline.ypos())\n            self.sideSpline = dot\n        if self.aovBuild is self.leftovers or self.aovBuild is self.LG_leftovers:  # todo brainfart to do this on one line\n            pass\n        elif self.aovBuild is self.basecolor:\n            pass\n        else:\n            if bool(re.search(self.isDiffuseRegEx, self.aovBuild)):\n                self.nPass\['isDiffuse'].setValue('1')\n                self.nGrade\['isDiffuse'].setValue('1')\n                self.nMerge\['isDiffuse'].setValue('1')\n            for key in self.a_dict.keys():\n                if self.aovBuild in self.a_dict\[key]:\n                    self.nGrade\['whatGroupA'].setValue(key)\n            for key in self.b_dict.keys():\n                if self.aovBuild in self.b_dict\[key]:\n                    self.nGrade\['whatGroupB'].setValue(key)\n\n    def buildBottomNodes(self):\n        ###### BUILD BOTTOM NODES ~~~~~~\n        nuke.updateUI()  # memory issues\n        ## ## Bottom nodes\n        ## Expression node to copy back the graded base channel\n        # n = nuke.nodes.Expression(label=\"_baseColourGraded_\")\n        # n.setInput(0, self.mainSpline)\n        # n.setXYpos(self.mainSpline.xpos(), self.mainSpline.ypos() + 100)\n        # n\['temp_name0'].setValue('div_r')\n        # n\['temp_expr0'].setValue('basecolor_graded.red*a')\n        # n\['expr0'].setValue('isnan(div_r) || isinf(div_r)  ? 0 : div_r')\n        # n\['channel0'].setValue(self.basecolor)\n        # n\['temp_name1'].setValue('div_g')\n        # n\['temp_expr1'].setValue('basecolor_graded.green*a')\n        # n\['expr1'].setValue('isnan(div_g) || isinf(div_g)  ? 0 : div_g')\n        # n\['channel1'].setValue(self.basecolor)\n        # n\['temp_name2'].setValue('div_b')\n        # n\['temp_expr2'].setValue('basecolor_graded.blue*a')\n        # n\['expr2'].setValue('isnan(div_b) || isinf(div_b)  ? 0 : div_b')\n        # n\['channel2'].setValue(self.basecolor)\n        # n = self.pasteNode('_GradeBaseColour_', self.mainSpline, 0, 100, 'bcaseColourGrade')\n        copy = nuke.nodes.Copy(name=\"_CopyAlpha_\")\n        copy.setInput(0, self.mainSpline)\n        copy.setXYpos(self.mainSpline.xpos(), self.mainSpline.ypos() + 750)\n        copy\['from0'].setValue('rgba.alpha')\n        copy\['to0'].setValue('rgba.alpha')\n        copy\['bbox'].setValue('A side')\n        dot = nuke.nodes.Dot()\n        dot.setInput(0, self.dotSide)\n        dot.setXYpos(self.dotSide.xpos(), copy.ypos() + 15)\n        copy.setInput(1, dot)\n        n = copy\n        output = nuke.toNode(\"_Output_\")\n        if self.addMaskInput is True:\n            keymix = nuke.nodes.Keymix(name=\"_Keymix_\")\n            keymix.setXYpos(copy.xpos(), copy.ypos() + 100)\n            keymix.setInput(0, copy)\n            n = keymix\n            input = nuke.nodes.Input(name=\"mask\")\n            input.setXYpos(n.xpos() + 200, n.ypos())\n            keymix.setInput(1, dot)\n            keymix.setInput(2, input)\n            keymix\['maskChannel'].setValue('None')\n        output.setInput(0, n)\n        output.setXYpos(n.xpos(), n.ypos() + 50)\n\n    def buildNodesMain(self):\n        ####### Set lefover/basecolor inputs and channels\n        if self.lightSelectList != \[]:\n            nuke.Layer(self.LG_leftovers, \[self.LG_leftovers+'.red', self.LG_leftovers+'.green', self.LG_leftovers+'.blue'])\n        if self.aovList != \[]:\n            nuke.Layer(self.leftovers, \[self.leftovers + '.red', self.leftovers + '.green', self.leftovers + '.blue'])\n            nuke.Layer(self.basecolor, \[self.basecolor+'.red', self.basecolor+'.green', self.basecolor+'.blue'])\n\n        ####### Create Channels to build\n        self.aovListBuild = self.aovList\n        if self.aovListBuild != \[]:\n            self.aovListBuild.insert(0, self.basecolor)\n            self.aovListBuild.append(self.leftovers)\n        if self.lightSelectList != \[]:\n            self.aovListBuild = self.aovListBuild + self.lightSelectList\n            self.aovListBuild = self.aovListBuild + \[self.LG_leftovers]\n            print('To Build:'+str(self.aovListBuild))\n\n        ####### Build Dot nodes\n        n = nuke.nodes.Dot(name=\"_startDot_\")\n        n.setInput(0, self.configNode)\n        n.setXYpos(self.configNode.xpos() + 34, self.configNode.ypos() + 175)\n        nold = n\n        dot = nuke.nodes.Dot(name=\"_sideDot_\")\n        dot.setInput(0, nold)\n        dot.setXYpos(nold.xpos() + 150, nold.ypos())\n        self.dotSide = dot\n\n        ######Leftover node\n        if not self.aovList == \[]:\n            nold = n\n            n = nuke.nodes.Expression(label=\"_makeLeftover_\")\n            n.setInput(0, nold)\n            n.setXYpos(nold.xpos() , nold.ypos() + 100)\n            chanList = \[\"red\", \"green\", \"blue\"]\n            exprList = \[\"expr0\", \"expr1\", \"expr2\"]\n            for x in range(0, 3):\n                n\[\"channel\" + str(x)].setValue(self.leftovers)\n                expr = chanList\[x]\[0] + \"-(\"\n                for self.aovBuild in self.aovListBuild:\n                    if self.aovBuild is self.basecolor :\n                        pass\n                    else:\n                        expr = expr + self.aovBuild + \".\" + chanList\[x] + \"+\"\n                expr = expr\[0:-1]\n                n\[exprList\[x]].setValue(expr + \")\")\n            nold = n\n\n        ######LGS_Leftover node\n        if not self.lightSelectList == \[]:\n            nold = n\n            n = nuke.nodes.Expression(label=\"_makeLgsLeftover_\")\n            n.setInput(0, nold)\n            n.setXYpos(nold.xpos() -50, nold.ypos() + 100)\n            chanList = \[\"red\", \"green\", \"blue\"]\n            exprList = \[\"expr0\", \"expr1\", \"expr2\"]\n            for x in range(0, 3):\n                n\[\"channel\" + str(x)].setValue(self.LG_leftovers)\n                expr = chanList\[x]\[0] + \"-(\"\n                for self.aovBuild in self.lightSelectList:\n                    if self.aovBuild is self.basecolor :\n                        pass\n                    else:\n                        expr = expr + self.aovBuild + \".\" + chanList\[x] + \"+\"\n                expr = expr\[0:-1]\n                n\[exprList\[x]].setValue(expr + \")\")\n\n        #####shuffle base colour\n        nold = n\n        n = nuke.nodes.Shuffle(label=\"_ShuffleBaseColour_\")\n        n\['in'].setValue(self.basecolor)\n        n\['alpha'].setValue(0)\n        n\['out'].setValue('basecolor')\n        n.setInput(0, nold)\n        n.setXYpos(nold.xpos(), nold.ypos() + 100)\n\n        #####top dot nodes\n        nold = n\n        n = nuke.nodes.Dot(name=\"_a road less traveled_\")\n        n.setInput(0, nold)\n        n.setXYpos(nold.xpos() + 34, nold.ypos() + 175)\n        self.mainSpline = n\n        nold = n\n        n = nuke.nodes.Dot(name=\"who am i\")\n        n.setInput(0, nold)\n        n.setXYpos(nold.xpos() - 500, nold.ypos())\n        self.sideSpline = n\n\n        ###### mainBuild of aov nodes\n        self.firstAOV = True\n        for self.aovBuild in self.aovListBuild:\n            self.createPlaceNodes()\n            self.setValuesOnNodes()\n        self.buildBottomNodes()\n\n\n    ##############################\n    ### BUILD LISTS FROM REGEX ###\n    ##############################\n\n    def makeAOVLists(self,regExField,listname,preview):\n        print(\"____def_makeAOVLists\")\n        if preview == True:\n            self.aovList_re = self.listPreview_re\n        else:\n            self.aovList_re = self.configNode\[regExField].toScript()\n        r = re.compile(self.aovList_re)\n        self.aovListRet = list(filter(r.search, self.chan))\n        self.aovListRet = ('\\',\\''.join(self.aovListRet))\n        self.aovListRet = \"\[\\'\" + self.aovListRet +\"\\']\"\n        if preview == True:\n            self.listPreview = ast.literal_eval(self.aovListRet)\n        else:\n            self.configNode\[listname].setValue(self.aovListRet)\n        #self.getVars()\n    ######################################\n    # Variables used accros functions\n    ######################################\n\n    def getVars(self):\n        print(\"____def_getVars\")\n        self.configNode = nuke.toNode(\"_Config_\")\n        # todo raise error if missing?\n        self.addMaskInput = self.configNode\['addMaskInput'].value()\n        self.basecolor = self.configNode\['basecolourName'].value()\n        self.leftovers = self.configNode\['leftoversName'].value()\n        self.LG_leftovers= self.configNode\['LG_leftoversName'].value()\n        self.isDiffuseRegEx = self.configNode\['isDiffuseRegEx'].toScript()\n        self.lightsExposureOnly= self.configNode\['lightsExposureOnly'].value()\n        self.aovList_re = self.configNode\['aovList_re'].toScript()\n        self.lightSelect_re = self.configNode\['lightSelect_re'].toScript()\n        # lists and dicts\n        toBuildLst = \['aovList','lightSelectList', 'noAddOrGammaList','a_dict','b_dict']\n        step=0\n        for buildName in toBuildLst:\n            buildStr = self.configNode\[buildName].value()\n            if buildStr == '':\n                if 'List' in buildName:\n                    buildStr = '\[]'\n                if 'dict' in buildName:\n                    buildStr = '\{\}'\n            try: # todo steps messy?\n                if step == 0:\n                    self.aovList = ast.literal_eval(buildStr)\n                if step == 1:\n                    self.lightSelectList = ast.literal_eval(buildStr)\n                if step == 2:\n                    self.noAddOrGammaList = ast.literal_eval(buildStr)\n                if step == 3:\n                    self.a_dict = ast.literal_eval(buildStr)\n                if step == 4:\n                    self.b_dict= ast.literal_eval(buildStr)\n                step = step + 1\n            except: #todo how do i hide the python error popup?\n                nuke.message(\"Huston we have a problem \\r (list or dict malformed)\\r\\r\" + buildName+ '\\r\\r'+ buildStr)\n        try:\n            self.allAovs = self.aovList + self.lightSelectList\n        except Exception:\n            pass\n\n    ######################################\n    # Callbacks\n    ######################################\n\n    def knobCallback(self): #todo use this\n        import ast\n        g = nuke.thisNode()\n        n = nuke.toNode(g.name() + \"._Config_\")\n        k = nuke.thisKnob()\n        a_dict = n\['a_dict'].value()\n        b_dict = n\['b_dict'].value()\n        if a_dict == '':\n            a_dict = '\{\}'\n        if b_dict == '':\n            b_dict = '\{\}'\n        l = list(ast.literal_eval(a_dict).keys())\n        for x in l:\n            if k.name() == x + \"_isSolo\":\n                for z in l:\n                    if k.value() == False:\n                        if z != x:\n                            g\[z + \"_isMute\"].setValue(False)\n                    if k.value() == True:\n                        g\[x + \"_isMute\"].setValue(False)\n                        if z != x:\n                            g\[z + \"_isMute\"].setValue(True)\n                            g\[z + \"_isSolo\"].setValue(False)\n        l = list(ast.literal_eval(b_dict).keys())\n        for x in l:\n            if k.name() == x + \"_isSolo\":\n                for z in l:\n                    if k.value() == False:\n                        if z != x:\n                            g\[z + \"_isMute\"].setValue(False)\n                    if k.value() == True:\n                        g\[x + \"_isMute\"].setValue(False)\n                        if z != x:\n                            g\[z + \"_isMute\"].setValue(True)\n                            g\[z + \"_isSolo\"].setValue(False)\n        l = \[n\[\"leftoversName\"].value()] + list(ast.literal_eval(n\[\"aovList\"].value()))\n        for x in l:\n            if k.name() == x + \"_isSolo\":\n                for z in l:\n                    if k.value() == False:\n                        if z != x:\n                            g\[z + \"_isMute\"].setValue(False)\n                    if k.value() == True:\n                        g\[x + \"_isMute\"].setValue(False)\n                        if z != x:\n                            g\[z + \"_isMute\"].setValue(True)\n                            g\[z + \"_isSolo\"].setValue(False)\n        l = \[n\[\"LG_leftoversName\"].value()] + ast.literal_eval(n\['lightSelectList'].value())\n        for x in l:\n            if k.name() == x + \"_isSolo\":\n                for z in l:\n                    if k.value() == False:\n                        if z != x:\n                            g\[z + \"_isMute\"].setValue(False)\n                    if k.value() == True:\n                        g\[x + \"_isMute\"].setValue(False)\n                        if z != x:\n                            g\[z + \"_isMute\"].setValue(True)\n                            g\[z + \"_isSolo\"].setValue(False)\n\n######################################\n# External function calls\n######################################\n\n    def runRegex(self,regExField,listname):\n        print(\"____runRegex\")\n        self.getVars()\n        self.makeAOVLists(regExField,listname,False)\n\n    def buildUI(self,fromUI):\n        print(\"____buidUI\")\n        if fromUI == True:\n            self.getVars()\n        #nuke.removeKnobChanged(self.knobCallback, nodeClass=\"Group\")\n        self.firstTab=True\n        self.clearCache()\n        self.delete_knobs()\n        self.createGroupA()\n        self.createGroupB()\n        self.lightGroupLists()\n        self.createAovs()\n        self.createAovExtras()\n        self.createConfigInfoTab(False)\n        self.fixPanelDroppedBug()\n        #nuke.addKnobChanged(self.knobCallback, nodeClass=\"Group\")\n\n    def buildNodes(self,fromUI):\n        print(\"____buidNodes\")\n        self.clearCache()\n        if fromUI == True:\n            self.getVars()\n        self.delete_child_nodes()\n        self.node.begin()\n        self.buildNodesMain()\n        self.fixPanelDroppedBug()\n        self.node.end()\n\n    def initialize(self):\n        print(\"____initialize\")\n        self.getVars()\n        self.delete_knobs()\n        self.createConfigInfoTab(True)\n        self.delete_child_nodes()\n\n    def editShaders(self,UI,type):\n        print(\"____editShaders\")\n        self.getVars()\n        p = nuke.Panel('Edit AOVs')\n        if UI == True: # opened from UI\n            self.newAov=\[]\n            if type == 'shaders':\n                self.listPreview_re = self.aovList_re\n            else:\n                self.listPreview_re = self.lightSelect_re\n            self.makeAOVLists('listPreview_re', 'aovList', True)\n        else:\n            self.makeAOVLists('listPreview_re' , 'aovList', True)\n            self.listPreview = self.listPreview+self.newAov\n        p.addMultilineTextInput('AOVs', '\\n'.join(self.listPreview))\n        p.addSingleLineInput('Upate RegEx', self.listPreview_re)\n        p.addEnumerationPulldown('Add AOV', '\\n'.join(\['select_AOV ']+self.chan))\n        p.addButton('Cancel')\n        p.addButton('Update/View')\n        SaveBut = p.addButton('Save')\n        ret = p.show()\n        if ret ==1:\n            self.listPreview_re = p.value('Upate RegEx')\n            if p.value('Add AOV') != 'select_AOV':\n                self.newAov.append(p.value('Add AOV'))\n            self.editShaders(False,type)\n        if ret ==2:\n            self.newList = p.value('AOVs').split('\\n')\n            if type == 'shaders':\n                self.configNode\['aovList_re'].setValue(p.value('Upate RegEx'))\n                self.configNode\['aovList'].setValue(str(self.newList))\n            else:\n                self.configNode\['lightSelect_re'].setValue(p.value('Upate RegEx'))\n                self.configNode\['lightSelectList'].setValue(str(self.newList))\n    def addGroups(self,type):\n        print(\"____editGroups\")\n        self.getVars()\n        p = nuke.Panel('Add AOV groups for '+type)\n        #if UI == True: # opened from UI\n            #self.newAov=\[]\n            #if type == 'shaders':\n                #self.listPreview_re = self.aovList_re\n            #else:\n                #self.listPreview_re = self.lightSelect_re\n            #self.makeAOVLists('listPreview_re', 'aovList', True)\n        #else:\n            #self.makeAOVLists('listPreview_re' , 'aovList', True)\n            #self.listPreview = self.listPreview+self.newAov\n        allAovs=self.aovList+self.lightSelectList\n        p.addSingleLineInput('New Group Name','')\n        p.addEnumerationPulldown('Select Tab','GroupA GroupB')\n        for x in allAovs:\n            p.addBooleanCheckBox(x,False)\n        p.addButton('Cancel')\n        SaveBut = p.addButton('Save')\n        ret = p.show()\n        print(ret)\n        if ret ==11:\n            self.listPreview_re = p.value('Upate RegEx')\n            if p.value('Add AOV') != 'select_AOV':\n                self.newAov.append(p.value('Add AOV'))\n            self.editShaders(False,type)\n        if ret ==12:\n            self.newList = p.value('AOVs').split('\\n')\n            if type == 'shaders':\n                self.configNode\['aovList_re'].setValue(p.value('Upate RegEx'))\n                self.configNode\['aovList'].setValue(str(self.newList))\n            else:\n                self.configNode\['lightSelect_re'].setValue(p.value('Upate RegEx'))\n                self.configNode\['lightSelectList'].setValue(str(self.newList))\n    def addNewAov(self):\n        print(\"____addNewAov\")\n        self.getVars()\n        p = nuke.Panel('Edit AOVs')\n        p.addEnumerationPulldown('Add AOV', '\\n'.join(\['select_AOV '] + self.chan))\n        p.addEnumerationPulldown('Type', 'LightSelect Shader')\n        p.addButton('Cancel')\n        SaveBut = p.addButton('Add')\n        ret = p.show()\n        if ret == 1:\n            addAov = p.value('Add AOV')\n            type = p.value('Type')\n            stopBuild = False\n            if addAov != 'select_AOV':  # this could be neater with less line logic?\n                buildBuildType = 0\n                GroupValsList = \[] # to keep values after rebuild\n                stopGroupDataCaptute = False\n                startGroupDataCaptute = False\n                for index in range(self.node.numKnobs()):\n                    if self.node.knob(index).name() == 'Shdrs':\n                        buildBuildType = buildBuildType - 1\n                        stopGroupDataCaptute = True\n                    elif self.node.knob(index).name() == 'Lights':\n                        buildBuildType = buildBuildType + 1\n                        stopGroupDataCaptute = True\n                    if self.node.knob(index).name() == ('TabA' or 'TabB'):\n                        startGroupDataCaptute = True\n                    if stopGroupDataCaptute == False and startGroupDataCaptute ==True:\n                        if self.node.knob(index).Class() in ('Boolean_Knob','Color_Knob','Double_Knob'):\n                            GroupValsList.append(self.node.knob(index))\n                if type == 'LightSelect':\n                    if buildBuildType == -1:  # shader only\n                        stopBuild = True\n                    else:\n                        if buildBuildType != 0:\n                            self.aovList = \[]\n                        self.lightSelectList.append(addAov)\n                        self.configNode\['lightSelectList'].setValue(str(self.lightSelectList))\n                elif type == 'Shader':\n                    if buildBuildType == 1:  # light only:\n                        stopBuild = True\n                    else:\n                        if buildBuildType != 0:\n                            self.lightSelectList = \[]\n                        self.aovList.append(addAov)\n                        self.configNode\['aovList'].setValue(str(self.aovList))\n                if stopBuild == True:\n                    nuke.message('errr: unable to add a shader to a light only beautyBuild')\n                    self.addNewAov()\n                else:\n                    #### Build Nodes\n                    for x in nuke.allNodes(group=self.node):\n                        if x.name() == '_omegaDot_':\n                            self.sideSpline = x\n                        elif x.name() == '_CopyAlpha_':\n                            bottomNode = x\n                        elif x.name() == '_AOVMerge_leftovers_':\n                            self.mainSpline = x\n                        elif x.name() == '_AOVMerge_lgsLeftovers_':\n                            self.mainSpline = x\n                    self.sideSpline\['name'].setValue('rarrar_'+self.sideSpline.dependent()\[0].name())\n                    self.node.begin()\n                    newEndDot = nuke.nodes.Dot()\n                    print(newEndDot.fullName())\n                    newEndDot .setXYpos(self.sideSpline.xpos() - 750, self.sideSpline.ypos())\n                    newEndDot .setInput(0, self.sideSpline)\n                    newEndDot\['name'].setValue('_omegaDot_')\n                    self.sideSpline = newEndDot\n                    self.aovBuild = addAov\n                    self.aovListBuild  = \[addAov]\n                    self.firstAOV = False\n                    self.createPlaceNodes()\n                    self.setValuesOnNodes()\n                    bottomNode.setInput(0, self.nMerge)\n                    #### Build UI\n                    self.buildUI(False)\n                    if stopGroupDataCaptute == True:\n                        for x in GroupValsList:\n                            self.node\[x.name()].setValue(x.value())\n\n    def BuildSelectedGroups(self, choice):\n        print(\"____buidSelectedGroups\")\n        self.getVars()\n        if choice == 'Shaders Only':\n            self.lightSelectList = \[]\n            self.makeAOVLists('aovList_re', 'aovList', False)\n        elif choice == 'Lights only':\n            self.aovList = \[]\n            self.makeAOVLists('lightSelect_re', 'lightSelectList', False)\n            self.isDiffuseRegEx = ''\n        else:\n            self.makeAOVLists('lightSelect_re', 'lightSelectList', False)\n            self.makeAOVLists('aovList_re', 'aovList', False)\n        #nuke.removeKnobChanged(self.knobCallback, nodeClass=\"Group\")\n        self.buildNodes(False)\n        self.buildUI(False)\n\n\n\n\n\n\n\n\n\n\n" +STARTLINE}
+}
